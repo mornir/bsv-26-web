@@ -9,10 +9,14 @@ interface Props {
 const { article } = Astro.props
 ---
 
-<div class="card">
-  <h1>{article.content.deTitle}</h1>
-  <div>
+<div class="flex mb-12">
+  <div class="flex-1">
+    <h2 class="font-bold">Art. {article.number} {article.content.deTitle}</h2>
     <PortableText value={article.content.deLaw} />
+  </div>
+  <div class="flex-1">
+    <h2 class="font-bold">Art. {article.number} {article.content.frTitle}</h2>
+    <PortableText value={article.content.frLaw} />
   </div>
 </div>
 
