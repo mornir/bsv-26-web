@@ -1,2 +1,10 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
+
+ol ol {
+  list-style-type: lower-alpha; /* Second-level uses lower-alpha */
+}
+
+ol ol ol {
+  list-style-type: decimal; /* Third-level goes back to numbers */
+}

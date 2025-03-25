@@ -10,22 +10,12 @@ const { article } = Astro.props
 ---
 
 <div class="flex mb-12">
-  <div class="flex-1">
+  <div class="flex-1 prose">
     <h2 class="font-bold">Art. {article.number} {article.content.deTitle}</h2>
     <PortableText value={article.content.deLaw} />
   </div>
-  <div class="flex-1">
+  <div class="flex-1 prose">
     <h2 class="font-bold">Art. {article.number} {article.content.frTitle}</h2>
     <PortableText value={article.content.frLaw} />
   </div>
 </div>
-
-<style is:global>
-  ol ol {
-    list-style-type: lower-alpha; /* Second-level uses lower-alpha */
-  }
-
-  ol ol ol {
-    list-style-type: decimal; /* Third-level goes back to numbers */
-  }
-</style>
