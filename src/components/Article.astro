@@ -1,0 +1,13 @@
+---
+import type { Article } from '../utils/sanity'
+
+interface Props {
+  article: Article
+}
+
+const { article } = Astro.props
+---
+
+<div class="card">
+  <h1>{article.content.deTitle}</h1>
+</div>
