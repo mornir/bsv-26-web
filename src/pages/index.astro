@@ -7,7 +7,12 @@ const articles = await getArticles()
 ---
 
 <Layout title="Welcome to Astro.">
-  <section>
-    {articles.map((article) => <Article article={article} />)}
-  </section>
+  <div>
+    <section>
+      {articles.map((article) => <Article article={article} />)}
+    </section>
+    <section>
+      {articles.map((article) => <Article article={article} />)}
+    </section>
+  </div>
 </Layout>

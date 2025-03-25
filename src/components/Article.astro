@@ -1,5 +1,6 @@
 ---
 import type { Article } from '../utils/sanity'
+import { PortableText } from 'astro-portabletext'
 
 interface Props {
   article: Article
@@ -10,4 +11,17 @@ const { article } = Astro.props
 
 <div class="card">
   <h1>{article.content.deTitle}</h1>
+  <div>
+    <PortableText value={article.content.deLaw} />
+  </div>
 </div>
+
+<style is:global>
+  ol ol {
+    list-style-type: lower-alpha; /* Second-level uses lower-alpha */
+  }
+
+  ol ol ol {
+    list-style-type: decimal; /* Third-level goes back to numbers */
+  }
+</style>
