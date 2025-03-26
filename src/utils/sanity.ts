@@ -70,8 +70,8 @@ export type Article = {
     deLaw: BlockContent
     frLaw: BlockContent
     itLaw?: BlockContent
-    deExplanation?: BlockContent
-    frExplanation?: BlockContent
+    deExplanation: BlockContent
+    frExplanation: BlockContent
     itExplanation?: BlockContent
   }
 }
