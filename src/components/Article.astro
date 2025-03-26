@@ -8,6 +8,31 @@ interface Props {
 
 const { article } = Astro.props
 
+function countDistinctItems(blockContent) {
+  let count = 0
+  let lastWasBullet = false
+
+  for (let item of blockContent) {
+    if (item.listItem === 'bullet' || item.listItem === 'number') {
+      if (!lastWasBullet) {
+        count++
+      }
+      lastWasBullet = true
+    } else {
+      count++
+      lastWasBullet = false
+    }
+  }
+
+  return count
+}
+
+let colsExp = 0
+
+if (article.content.deExplanation?.length) {
+  colsExp = countDistinctItems(article.content.deExplanation)
+}
+
 console.log(article.content.deExplanation?.length)
 ---
 
@@ -23,11 +48,20 @@ console.log(article.content.deExplanation?.length)
       <PortableText value={article.content.frLaw} />
     </div>
   </div>
-  <div
-    class="bg-blue-100 grid grid-cols-2 mb-12 gap-x-8 grid-flow-col grid-rows-[repeat(8,auto)]"
-  >
-    <PortableText value={article.content.deExplanation} />
 
-    <PortableText value={article.content.frExplanation} />
+  <div
+    class={`bg-blue-100 grid grid-cols-2 mb-12 gap-x-8 grid-flow-col grid-rows-[repeat(${colsExp},auto)]`}
+  >
+    {
+      article.content.deExplanation && (
+        <PortableText value={article.content.deExplanation} />
+      )
+    }
+
+    {
+      article.content.frExplanation && (
+        <PortableText value={article.content.frExplanation} />
+      )
+    }
   </div>
 </article>
