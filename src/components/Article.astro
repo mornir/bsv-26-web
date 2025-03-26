@@ -9,20 +9,20 @@ interface Props {
 const { article } = Astro.props
 ---
 
-<div>
-  <!-- <h3>Artikel {article.number}</h3> -->
+<article class="prose max-w-none">
+  <h3>Artikel {article.number}</h3>
   <div class="grid grid-cols-2 mb-12 gap-x-8">
-    <div class="prose">
+    <div>
       <h2>{article.content.deTitle}</h2>
       <PortableText value={article.content.deLaw} />
-
-      <PortableText value={article.content.deExplanation} />
     </div>
-    <div class="prose max-w-2xl">
+    <div>
       <h2>{article.content.frTitle}</h2>
       <PortableText value={article.content.frLaw} />
-
-      <PortableText value={article.content.frExplanation} />
     </div>
   </div>
-</div>
+  <div class="text-blue-600 grid grid-cols-2 mb-12 gap-x-8">
+    <PortableText value={article.content.deExplanation} />
+    <PortableText value={article.content.frExplanation} />
+  </div>
+</article>
