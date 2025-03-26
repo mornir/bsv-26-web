@@ -10,21 +10,19 @@ const { article } = Astro.props
 ---
 
 <div>
-  <h3>Artikel {article.number}</h3>
-  <div class="flex mb-12 gap-x-8">
-    <div class="flex-1 prose">
+  <!-- <h3>Artikel {article.number}</h3> -->
+  <div class="grid grid-cols-2 mb-12 gap-x-8">
+    <div class="prose">
       <h2>{article.content.deTitle}</h2>
       <PortableText value={article.content.deLaw} />
-      <div class="text-blue-600">
-        <PortableText value={article.content.deExplanation} />
-      </div>
+
+      <PortableText value={article.content.deExplanation} />
     </div>
-    <div class="flex-1 prose max-w-2xl">
+    <div class="prose max-w-2xl">
       <h2>{article.content.frTitle}</h2>
       <PortableText value={article.content.frLaw} />
-      <div class="text-blue-600">
-        <PortableText value={article.content.frExplanation} />
-      </div>
+
+      <PortableText value={article.content.frExplanation} />
     </div>
   </div>
 </div>
