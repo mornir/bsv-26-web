@@ -20,7 +20,7 @@ export async function getPost(slug: string): Promise<Post> {
 
 export async function getArticles(): Promise<Article[]> {
   return await sanityClient.fetch(
-    groq`*[_type == "article"] | order(_createdAt desc)`
+    groq`*[_type == "article"] | order(number asc)`
   );
 }
 
