@@ -1,5 +1,5 @@
 ---
-import type { Article } from '../utils/sanity'
+import type { Article, BlockContent } from '../utils/sanity'
 import { PortableText } from 'astro-portabletext'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 const { article } = Astro.props
 
-function countDistinctItems(blockContent) {
+function countDistinctItems(blockContent: BlockContent) {
   let count = 0
   let lastWasBullet = false
 
@@ -32,19 +32,17 @@ let colsExp = 0
 if (article.content.deExplanation?.length) {
   colsExp = countDistinctItems(article.content.deExplanation)
 }
-
-console.log(article.content.deExplanation?.length)
 ---
 
 <article class="prose max-w-none">
   <h3>Artikel {article.number}</h3>
   <div class="grid grid-cols-2 mb-12 gap-x-8">
     <div>
-      <h2>{article.content.deTitle}</h2>
+      <h2 class="mt-0">{article.content.deTitle}</h2>
       <PortableText value={article.content.deLaw} />
     </div>
     <div>
-      <h2>{article.content.frTitle}</h2>
+      <h2 class="mt-0">{article.content.frTitle}</h2>
       <PortableText value={article.content.frLaw} />
     </div>
   </div>
