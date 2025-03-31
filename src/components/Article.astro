@@ -41,7 +41,7 @@ let cols =
   <h3>Artikel {article.number}</h3>
   <div
     class="grid mb-12 gap-x-8 grid-flow-col auto-cols-fr"
-    style={`grid-template-rows: repeat(${cols}, auto); grid-template-columns: repeat(languages.length, minmax(0, 1fr));`}
+    style={`grid-template-rows: repeat(${cols}, auto)`}
   >
     <div x-show="languages.includes('de')" class="contents">
       <ArticleContent
