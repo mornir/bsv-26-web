@@ -66,10 +66,10 @@ export type Article = {
   content: {
     deTitle: string
     frTitle: string
-    itTitle?: string
+    itTitle: string
     deLaw: BlockContent
     frLaw: BlockContent
-    itLaw?: BlockContent
+    itLaw: BlockContent
     deExplanation?: BlockContent
     frExplanation?: BlockContent
     itExplanation?: BlockContent

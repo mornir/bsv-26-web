@@ -4,19 +4,22 @@ import Layout from '../layouts/Layout.astro'
 import { getArticles } from '../utils/sanity'
 
 const articles = await getArticles()
+
+const languages = ['de', 'fr']
 ---
 
 <Layout title="BSV 2026">
-  <div>
-    <div x-data="{ colors: []}">
-      <input type="checkbox" value="red" x-model="colors" />
-      <input type="checkbox" value="orange" x-model="colors" />
-      <input type="checkbox" value="yellow" x-model="colors" />
+  <div x-data="{ languages: ['de', 'fr']}">
+    <input type="checkbox" value="de" x-model="languages" />
+    <input type="checkbox" value="fr" x-model="languages" />
+    <input type="checkbox" value="it" x-model="languages" />
 
-      Colors: <span x-text="colors"></span>
-    </div>
     <section class="mx-auto max-w-7xl">
-      {articles.map((article) => <Article article={article} />)}
+      {
+        articles.map((article) => (
+          <Article article={article} languages={languages} />
+        ))
+      }
     </section>
   </div>
 </Layout>

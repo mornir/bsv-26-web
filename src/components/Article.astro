@@ -1,14 +1,19 @@
 ---
 import type { Article, BlockContent } from '../utils/sanity'
-import { PortableText } from 'astro-portabletext'
+
+import ArticleContent from '../components/ArticleContent.astro'
 
 interface Props {
   article: Article
+  languages: string[]
 }
 
 const { article } = Astro.props
 
-function countDistinctItems(blockContent: BlockContent) {
+function countDistinctItems(blockContent: BlockContent | undefined) {
+  if (!blockContent) {
+    return 0
+  }
   let count = 0
   let lastWasBullet = false
 
@@ -27,39 +32,33 @@ function countDistinctItems(blockContent: BlockContent) {
   return count
 }
 
-let colsExp = 0
+let cols =
+  countDistinctItems(article.content.deLaw) +
+  countDistinctItems(article.content.deExplanation) +
+  1
 
-if (article.content.deExplanation?.length) {
-  colsExp = countDistinctItems(article.content.deExplanation)
-}
+console.log(cols)
 ---
 
 <article class="prose max-w-none">
+  <!--   languages: <span x-text="languages"></span> -->
   <h3>Artikel {article.number}</h3>
-  <div class="grid grid-cols-2 mb-12 gap-x-8">
-    <div>
-      <h2 class="mt-0">{article.content.deTitle}</h2>
-      <PortableText value={article.content.deLaw} />
-    </div>
-    <div>
-      <h2 class="mt-0">{article.content.frTitle}</h2>
-      <PortableText value={article.content.frLaw} />
-    </div>
-  </div>
 
-  <div
-    class={`bg-blue-100 grid grid-cols-2 mb-12 gap-x-8 grid-flow-col grid-rows-[repeat(${colsExp},auto)]`}
-  >
-    {
-      article.content.deExplanation && (
-        <PortableText value={article.content.deExplanation} />
-      )
-    }
-
-    {
-      article.content.frExplanation && (
-        <PortableText value={article.content.frExplanation} />
-      )
-    }
+  <div class="grid grid-cols-3 mb-12 gap-x-8">
+    <ArticleContent
+      title={article.content.deTitle}
+      law={article.content.deLaw}
+      exp={article.content.deExplanation}
+    />
+    <ArticleContent
+      title={article.content.frTitle}
+      law={article.content.frLaw}
+      exp={article.content.frExplanation}
+    />
+    <ArticleContent
+      title={article.content.itTitle}
+      law={article.content.itLaw}
+      exp={article.content.itExplanation}
+    />
   </div>
 </article>
