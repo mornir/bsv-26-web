@@ -17,20 +17,20 @@ const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET
 import sanity from '@sanity/astro'
 import react from '@astrojs/react'
 
+import alpinejs from '@astrojs/alpinejs';
+
 // https://astro.build/config
 export default defineConfig({
   // Hybrid+adapter is required to support embedded Sanity Studio
-  integrations: [
-    sanity({
-      projectId,
-      dataset,
-      // studioBasePath: "/admin",
-      useCdn: false,
-      // `false` if you want to ensure fresh data
-      apiVersion: '2024-12-08', // Set to date of setup to use the latest API version
-    }),
-    react(), // Required for Sanity Studio
-  ],
+  integrations: [sanity({
+    projectId,
+    dataset,
+    // studioBasePath: "/admin",
+    useCdn: false,
+    // `false` if you want to ensure fresh data
+    apiVersion: '2024-12-08', // Set to date of setup to use the latest API version
+  }), // Required for Sanity Studio
+  react(), alpinejs()],
   vite: {
     plugins: [tailwindcss()],
   },
