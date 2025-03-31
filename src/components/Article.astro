@@ -2,6 +2,7 @@
 import type { Article, BlockContent } from '../utils/sanity'
 
 import ArticleContent from '../components/ArticleContent.astro'
+import { PortableText } from 'astro-portabletext'
 
 interface Props {
   article: Article
@@ -31,39 +32,65 @@ function countDistinctItems(blockContent: BlockContent | undefined) {
   return count
 }
 
-let cols =
-  countDistinctItems(article.content.deLaw) +
-  countDistinctItems(article.content.deExplanation) +
-  1
+const colsLaw = countDistinctItems(article.content.deLaw)
+const colsExp = countDistinctItems(article.content.deExplanation)
 ---
 
 <article class="prose max-w-none">
   <h3>Artikel {article.number}</h3>
+  <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
+    <h2 x-show="languages.includes('de')" class="mt-0">
+      {article.content.deTitle}
+    </h2>
+    <h2 x-show="languages.includes('fr')" class="mt-0">
+      {article.content.frTitle}
+    </h2>
+    <h2 x-show="languages.includes('it')" class="mt-0">
+      {article.content.itTitle}
+    </h2>
+  </div>
+
   <div
-    class="grid mb-12 gap-x-8 grid-flow-col auto-cols-fr"
-    style={`grid-template-rows: repeat(${cols}, auto)`}
+    class="grid gap-x-8 grid-flow-col auto-cols-fr"
+    style={`grid-template-rows: repeat(${colsLaw}, auto)`}
   >
     <div x-show="languages.includes('de')" class="contents">
-      <ArticleContent
-        title={article.content.deTitle}
-        law={article.content.deLaw}
-        exp={article.content.deExplanation}
-      />
+      <PortableText value={article.content.deLaw} />
     </div>
-
     <div x-show="languages.includes('fr')" class="contents">
-      <ArticleContent
-        title={article.content.frTitle}
-        law={article.content.frLaw}
-        exp={article.content.frExplanation}
-      />
+      <PortableText value={article.content.frLaw} />
     </div>
     <div x-show="languages.includes('it')" class="contents">
-      <ArticleContent
-        title={article.content.itTitle}
-        law={article.content.itLaw}
-        exp={article.content.itExplanation}
-      />
+      <PortableText value={article.content.itLaw} />
     </div>
+  </div>
+
+  <div
+    class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
+    style={`grid-template-rows: repeat(${colsExp}, auto)`}
+  >
+    {
+      article.content.deExplanation && (
+        <div x-show="languages.includes('de')" class="contents">
+          <PortableText value={article.content.deExplanation} />
+        </div>
+      )
+    }
+
+    {
+      article.content.frExplanation && (
+        <div x-show="languages.includes('fr')" class="contents">
+          <PortableText value={article.content.frExplanation} />
+        </div>
+      )
+    }
+
+    {
+      article.content.itExplanation && (
+        <div x-show="languages.includes('it')" class="contents">
+          <PortableText value={article.content.itExplanation} />
+        </div>
+      )
+    }
   </div>
 </article>
