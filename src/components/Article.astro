@@ -34,6 +34,25 @@ function countDistinctItems(blockContent: BlockContent | undefined) {
 
 const colsLaw = countDistinctItems(article.content.deLaw)
 const colsExp = countDistinctItems(article.content.deExplanation)
+
+// Explicitly type the languages array
+const languages: Array<'de' | 'fr' | 'it'> = ['de', 'fr', 'it']
+
+const titles = {
+  de: article.content.deTitle,
+  fr: article.content.frTitle,
+  it: article.content.itTitle,
+}
+const laws = {
+  de: article.content.deLaw,
+  fr: article.content.frLaw,
+  it: article.content.itLaw,
+}
+const explanations = {
+  de: article.content.deExplanation,
+  fr: article.content.frExplanation,
+  it: article.content.itExplanation,
+}
 ---
 
 <article
@@ -42,30 +61,26 @@ const colsExp = countDistinctItems(article.content.deExplanation)
 >
   <h3>Artikel {article.number}</h3>
   <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
-    <h2 x-show="languages.includes('de')" class="mt-0">
-      {article.content.deTitle}
-    </h2>
-    <h2 x-show="languages.includes('fr')" class="mt-0">
-      {article.content.frTitle}
-    </h2>
-    <h2 x-show="languages.includes('it')" class="mt-0">
-      {article.content.itTitle}
-    </h2>
+    {
+      languages.map((lang) => (
+        <h2 x-show={`languages.includes('${lang}')`} class="mt-0">
+          {titles[lang]}
+        </h2>
+      ))
+    }
   </div>
 
   <div
     class="grid gap-x-8 grid-flow-col auto-cols-fr"
     style={`grid-template-rows: repeat(${colsLaw}, auto)`}
   >
-    <div x-show="languages.includes('de')" class="contents">
-      <PortableText value={article.content.deLaw} />
-    </div>
-    <div x-show="languages.includes('fr')" class="contents">
-      <PortableText value={article.content.frLaw} />
-    </div>
-    <div x-show="languages.includes('it')" class="contents">
-      <PortableText value={article.content.itLaw} />
-    </div>
+    {
+      languages.map((lang) => (
+        <div x-show={`languages.includes('${lang}')`} class="contents">
+          <PortableText value={laws[lang]} />
+        </div>
+      ))
+    }
   </div>
 
   <div
@@ -73,26 +88,13 @@ const colsExp = countDistinctItems(article.content.deExplanation)
     style={`grid-template-rows: repeat(${colsExp}, auto)`}
   >
     {
-      article.content.deExplanation && (
-        <div x-show="languages.includes('de')" class="contents">
-          <PortableText value={article.content.deExplanation} />
-        </div>
-      )
-    }
-
-    {
-      article.content.frExplanation && (
-        <div x-show="languages.includes('fr')" class="contents">
-          <PortableText value={article.content.frExplanation} />
-        </div>
-      )
-    }
-
-    {
-      article.content.itExplanation && (
-        <div x-show="languages.includes('it')" class="contents">
-          <PortableText value={article.content.itExplanation} />
-        </div>
+      languages.map(
+        (lang) =>
+          explanations[lang] && (
+            <div x-show={`languages.includes('${lang}')`} class="contents">
+              <PortableText value={explanations[lang]} />
+            </div>
+          )
       )
     }
   </div>
