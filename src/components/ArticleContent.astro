@@ -10,14 +10,12 @@ interface Props {
 const { title, exp, law } = Astro.props
 ---
 
-<div>
-  <h2 class="mt-0">{title}</h2>
-  <PortableText value={law} />
-  {exp && <PortableText value={exp} />}
+<h2 class="mt-0">{title}</h2>
+<PortableText value={law} />
+{exp && <PortableText value={exp} />}
 
-  <!--   <div
+<!--   <div
     class={`bg-blue-100 grid grid-cols-2 mb-12 gap-x-8 grid-flow-col grid-rows-[repeat(${colsExp},auto)]`}
   >
    
   </div> -->
-</div>
