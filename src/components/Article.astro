@@ -5,7 +5,6 @@ import ArticleContent from '../components/ArticleContent.astro'
 
 interface Props {
   article: Article
-  languages: string[]
 }
 
 const { article } = Astro.props
@@ -36,32 +35,36 @@ let cols =
   countDistinctItems(article.content.deLaw) +
   countDistinctItems(article.content.deExplanation) +
   1
-
-console.log(cols)
 ---
 
 <article class="prose max-w-none">
-  <!--   languages: <span x-text="languages"></span> -->
   <h3>Artikel {article.number}</h3>
-
+  <span x-text="languages.length"></span>
   <div
-    class="grid grid-cols-2 mb-12 gap-x-8 grid-flow-col"
-    style={`grid-template-rows: repeat(${cols}, auto)`}
+    class="grid mb-12 gap-x-8 grid-flow-col auto-cols-fr"
+    style={`grid-template-rows: repeat(${cols}, auto); grid-template-columns: repeat(languages.length, minmax(0, 1fr));`}
   >
-    <ArticleContent
-      title={article.content.deTitle}
-      law={article.content.deLaw}
-      exp={article.content.deExplanation}
-    />
-    <ArticleContent
-      title={article.content.frTitle}
-      law={article.content.frLaw}
-      exp={article.content.frExplanation}
-    />
-    <!--     <ArticleContent
-      title={article.content.itTitle}
-      law={article.content.itLaw}
-      exp={article.content.itExplanation}
-    /> -->
+    <div x-show="languages.includes('de')" class="contents">
+      <ArticleContent
+        title={article.content.deTitle}
+        law={article.content.deLaw}
+        exp={article.content.deExplanation}
+      />
+    </div>
+
+    <div x-show="languages.includes('fr')" class="contents">
+      <ArticleContent
+        title={article.content.frTitle}
+        law={article.content.frLaw}
+        exp={article.content.frExplanation}
+      />
+    </div>
+    <div x-show="languages.includes('it')" class="contents">
+      <ArticleContent
+        title={article.content.itTitle}
+        law={article.content.itLaw}
+        exp={article.content.itExplanation}
+      />
+    </div>
   </div>
 </article>
