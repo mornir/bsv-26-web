@@ -36,7 +36,10 @@ const colsLaw = countDistinctItems(article.content.deLaw)
 const colsExp = countDistinctItems(article.content.deExplanation)
 ---
 
-<article class="prose max-w-none">
+<article
+  class="prose"
+  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
+>
   <h3>Artikel {article.number}</h3>
   <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
     <h2 x-show="languages.includes('de')" class="mt-0">
