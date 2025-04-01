@@ -7,19 +7,41 @@ const articles = await getArticles()
 ---
 
 <Layout title="BSV 2026">
-  <div x-data="{ languages: ['de', 'fr']}">
-    <div class="flex gap-x-4 justify-end">
-      <div>
-        <input type="checkbox" value="de" x-model="languages" name="german" />
-        <label for="german">Deutsch</label>
+  <div x-data="{ languages: ['de', 'fr'], exp: 'show'}">
+    <div class="sticky top-0 bg-white p-4 flex justify-between">
+      <div class="flex gap-x-4">
+        <div>
+          <input type="radio" value="show" x-model="exp" name="show" />
+          <label for="show">Anzeigen</label>
+        </div>
+        <div>
+          <input type="radio" value="toggle" x-model="exp" name="toggle" />
+          <label for="toggle">Toggle</label>
+        </div>
+        <div>
+          <input type="radio" value="hide" x-model="exp" name="hide" />
+          <label for="hide">Ausblenden</label>
+        </div>
+        <span x-text="exp"></span>
       </div>
-      <div>
-        <input type="checkbox" value="fr" x-model="languages" name="french" />
-        <label for="french">Französisch</label>
-      </div>
-      <div>
-        <input type="checkbox" value="it" x-model="languages" name="italian" />
-        <label for="italian">Italienisch</label>
+      <div class="flex gap-x-4 justify-end">
+        <div>
+          <input type="checkbox" value="de" x-model="languages" name="german" />
+          <label for="german">Deutsch</label>
+        </div>
+        <div>
+          <input type="checkbox" value="fr" x-model="languages" name="french" />
+          <label for="french">Französisch</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            value="it"
+            x-model="languages"
+            name="italian"
+          />
+          <label for="italian">Italienisch</label>
+        </div>
       </div>
     </div>
 

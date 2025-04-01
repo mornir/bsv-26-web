@@ -58,7 +58,7 @@ const explanations = {
   class="prose"
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
 >
-  <h3>Artikel {article.number}</h3>
+  <h3>Art. {article.number}</h3>
   <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
     {
       languages.map((lang) => (
@@ -82,7 +82,11 @@ const explanations = {
     }
   </div>
 
-  <div
+  { 
+  explanations.de &&  
+   <details x-show="exp === 'toggle'">
+    <summary>Erläuterung anzeigen</summary>
+   <div
     class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
     style={`grid-template-rows: repeat(${colsExp}, auto)`}
   >
@@ -97,4 +101,25 @@ const explanations = {
       )
     }
   </div>
+  </details>
+
+  <div
+    class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
+    style={`grid-template-rows: repeat(${colsExp}, auto)`}
+    x-show="exp === 'show'"
+  >
+    {
+      languages.map(
+        (lang) =>
+          explanations[lang] && (
+            <div x-show={`languages.includes('${lang}')`} class="contents">
+              <PortableText value={explanations[lang]} />
+            </div>
+          )
+      )
+    }
+  </div>
+  }
+
+
 </article>
