@@ -8,17 +8,19 @@ const articles = await getArticles()
 
 <Layout title="BSV 2026">
   <div x-data="{ languages: ['de', 'fr']}">
-    <div>
-      <input type="checkbox" value="de" x-model="languages" name="german" />
-      <label for="german">Deutsch</label>
-    </div>
-    <div>
-      <input type="checkbox" value="fr" x-model="languages" name="french" />
-      <label for="french">Französisch</label>
-    </div>
-    <div>
-      <input type="checkbox" value="it" x-model="languages" name="italian" />
-      <label for="italian">Italienisch</label>
+    <div class="flex gap-x-4 justify-end">
+      <div>
+        <input type="checkbox" value="de" x-model="languages" name="german" />
+        <label for="german">Deutsch</label>
+      </div>
+      <div>
+        <input type="checkbox" value="fr" x-model="languages" name="french" />
+        <label for="french">Französisch</label>
+      </div>
+      <div>
+        <input type="checkbox" value="it" x-model="languages" name="italian" />
+        <label for="italian">Italienisch</label>
+      </div>
     </div>
 
     <section class="mx-auto max-w-7xl">
