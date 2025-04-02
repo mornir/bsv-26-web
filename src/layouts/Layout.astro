@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css'
+
+import SideNav from '../components/SideNav.astro'
 interface Props {
   title: string
 }
@@ -28,6 +30,7 @@ const { title } = Astro.props
   <body>
     <div class="mx-4 mb-24 mt-12">
       <!-- <header>HEADER</header> -->
+      <SideNav />
       <main>
         <slot />
       </main>

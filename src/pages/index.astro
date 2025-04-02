@@ -44,17 +44,7 @@ const articles = await getArticles()
         </div>
       </div>
     </div>
-
     <section class="mx-auto max-w-7xl">
-      <div class="top-24 sticky bg-slate-100 w-fit p-2">
-        <p>Titel 3 Nachweis</p>
-        <p>Abschnitt 1 Verfahren</p>
-      </div>
-      {articles.map((article) => <Article article={article} />)}
-      <div class="top-24 sticky bg-slate-100 w-fit p-2">
-        <p>Titel 4 Massnahmen</p>
-        <p>Abschnitt 2 Systemdefinition</p>
-      </div>
       {articles.map((article) => <Article article={article} />)}
     </section>
   </div>

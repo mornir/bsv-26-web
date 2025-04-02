@@ -7,7 +7,19 @@ import groq from "groq";
 export async function getArticles(): Promise<Article[]> {
   return await sanityClient.fetch(
     groq`*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`
-  );
+  )
+}
+
+
+export async function getNav() {
+  return await sanityClient.fetch(
+    groq`*[_type == "title"] {
+  name,
+  "chapters": *[_type=='chapter' && references(^._id)]
+  { name, 
+  "sections": *[_type=='section' && references(^._id)]{ name }},
+    }`
+  )
 }
 
 export type BlockContent = Array<{
