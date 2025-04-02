@@ -27,30 +27,29 @@ function countDistinctItems(blockContent: BlockContent | undefined) {
       lastWasBullet = false
     }
   }
-
   return count
 }
 
-const colsLaw = countDistinctItems(article.content.deLaw)
-const colsExp = countDistinctItems(article.content.deExplanation)
+const colsLaw = countDistinctItems(article.law.de)
+const colsExp = countDistinctItems(article?.exp?.de)
 
 // Explicitly type the languages array
 const languages: Array<'de' | 'fr' | 'it'> = ['de', 'fr', 'it']
 
 const titles = {
-  de: article.content.deTitle,
-  fr: article.content.frTitle,
-  it: article.content.itTitle,
+  de: article.name.de,
+  fr: article.name.fr,
+  it: article.name.it,
 }
 const laws = {
-  de: article.content.deLaw,
-  fr: article.content.frLaw,
-  it: article.content.itLaw,
+  de: article.law.de,
+  fr: article.law.fr,
+  it: article.law.it,
 }
 const explanations = {
-  de: article.content.deExplanation,
-  fr: article.content.frExplanation,
-  it: article.content.itExplanation,
+  de: article?.exp?.de,
+  fr: article?.exp?.fr,
+  it: article?.exp?.it,
 }
 ---
 
@@ -58,7 +57,13 @@ const explanations = {
   class="prose prose-stone prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2"
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
 >
-  <h3 class="mt-6">Art. {article.number}</h3>
+  <header class="mt-6 flex justify-between items-baseline">
+    <h3>Art. {article.number}</h3>
+    <h4 class="text-sm text-gray-500 font-semibold">
+      Titel 3, Kapitel 2, Abschnitt 2
+    </h4>
+  </header>
+
   <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
     {
       languages.map((lang) => (
@@ -76,7 +81,7 @@ const explanations = {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="contents">
-          <PortableText value={laws[lang]} />
+          <PortableText value={laws[lang] ?? []} />
         </div>
       ))
     }
