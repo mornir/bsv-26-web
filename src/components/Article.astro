@@ -54,13 +54,15 @@ const explanations = {
 ---
 
 <article
-  class="prose prose-stone prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2"
+  class="prose prose-stone prose-sm prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2"
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
 >
   <header class="mt-6 flex justify-between items-baseline">
     <h3>Art. {article.number}</h3>
-    <h4 class="text-sm text-gray-500 font-semibold">
-      Titel 3, Kapitel 2, Abschnitt 2
+    <h4 class="text-xs text-gray-500 font-semibold">
+      Titel {article.title?.number}, Kapitel {article.chapter?.number},
+      Abschnitt
+      {article.section?.number}
     </h4>
   </header>
 

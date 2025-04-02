@@ -6,11 +6,9 @@ import groq from "groq";
 
 export async function getArticles(): Promise<Article[]> {
   return await sanityClient.fetch(
-    groq`*[_type == "article"] | order(number asc)`
+    groq`*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`
   );
 }
-
-export declare const internalGroqTypeReferenceTo: unique symbol
 
 export type BlockContent = Array<{
   children?: Array<{
@@ -38,24 +36,9 @@ export type Article = {
   _updatedAt: string
   _rev: string
   number?: number
-  title?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'title'
-  }
-  chapter?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'chapter'
-  }
-  section?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'section'
-  }
+  title: Title,
+  chapter?: Chapter,
+  section?: Section,
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
@@ -74,7 +57,7 @@ export type Section = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  number?: number
+  number: number
   title?: {
     _ref: string
     _type: 'reference'
@@ -96,7 +79,7 @@ export type Chapter = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  number?: number
+  number: number
   title?: {
     _ref: string
     _type: 'reference'
@@ -112,7 +95,7 @@ export type Title = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  number?: number
+  number: number
   name?: LocaleString
 }
 
@@ -122,3 +105,5 @@ export type LocaleString = {
   fr?: string
   it?: string
 }
+
+export declare const internalGroqTypeReferenceTo: unique symbol
