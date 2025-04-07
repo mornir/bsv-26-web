@@ -14,11 +14,11 @@ export async function getArticles(): Promise<Article[]> {
 export async function getNav() {
   return await sanityClient.fetch(
     groq`*[_type == "title"] {
-  name,
+  name, number,
   "chapters": *[_type=='chapter' && references(^._id)]
-  { name, 
+  { name, number, 
   "sections": *[_type=='section' && references(^._id)]{ name }},
-    }`
+    } | order(number asc)`
   )
 }
 
