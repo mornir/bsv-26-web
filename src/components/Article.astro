@@ -90,7 +90,7 @@ if (article.section?.number) {
   >
     {
       languages.map((lang) => (
-        <div x-show={`languages.includes('${lang}')`} class="contents">
+        <div x-show={`languages.includes('${lang}')`} class="contents c-law">
           <PortableText value={laws[lang] ?? []} />
         </div>
       ))
