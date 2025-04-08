@@ -5,30 +5,42 @@ const nav = await getNav()
 ---
 
 <aside class="sticky top-0">
-  <nav class="px-3 py-6 bg-slate-900 text-white">
+  <nav class="px-3 py-6 bg-slate-900 text-white h-screen overflow-y-scroll">
     <ul class="space-y-2 font-medium">
       {
         nav.map((title: any) => (
           <li class="flex items-center p-2 text-gray-900 dark:text-white">
             <details>
-              <summary class="text-sm">
+              <summary class="text-base">
                 {title.number}
                 {title.name.de}
               </summary>
 
               {title.chapters.length ? (
-                <ul>
+                <ul class="mt-2">
                   {title.chapters.map((chapter: any) => (
-                    <li>
+                    <li class="mb-2">
                       <details>
-                        <summary class="text-xs">
+                        <summary class="text-sm">
                           {chapter.number}
                           {chapter.name.de}
-                          {chapter.sections.length}
                         </summary>
 
                         {chapter.sections.length ? (
-                          'SECTIONS'
+                          chapter.sections.map((section: any) => (
+                            <div>
+                              <h3 class="text-sm ms-4 mt-2 text-gray-400">
+                                {section.name.de}
+                              </h3>
+                              <ul class="text-xs ms-4 space-y-2">
+                                {title.articles.map((art: any) => (
+                                  <li>
+                                    Art.&nbsp;{art.number}&nbsp;{art.name.de}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))
                         ) : (
                           <ul class="text-xs ms-4 space-y-2 mt-2">
                             {title.articles.map((art: any) => (
