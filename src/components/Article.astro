@@ -51,6 +51,16 @@ const explanations = {
   fr: article?.exp?.fr,
   it: article?.exp?.it,
 }
+
+const references = [`Titel ${article.title.number}`]
+
+if (article.chapter?.number) {
+  references.push(`Kapitel ${article.chapter.number}`)
+}
+
+if (article.section?.number) {
+  references.push(`Abschnitt ${article.section.number}`)
+}
 ---
 
 <article
@@ -60,9 +70,7 @@ const explanations = {
   <header class="mt-6 flex justify-between items-baseline">
     <h3>Art. {article.number}</h3>
     <h4 class="text-xs text-gray-500 font-semibold">
-      Titel {article.title?.number}, Kapitel {article.chapter?.number},
-      Abschnitt
-      {article.section?.number}
+      {references.join(', ')}
     </h4>
   </header>
 
