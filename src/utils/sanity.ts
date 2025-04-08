@@ -15,10 +15,10 @@ export async function getNav() {
   return await sanityClient.fetch(
     groq`*[_type == "title"] {
   name, number,
-  "chapters": *[_type=='chapter' && references(^._id)]
-  { name, number, 
-  "sections": *[_type=='section' && references(^._id)]{ name }},
-    } | order(number asc)`
+  "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->},
+  "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }},
+  "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}
+} | order(number asc)`
   )
 }
 
