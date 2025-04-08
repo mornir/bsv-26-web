@@ -41,7 +41,7 @@ import Layout from '../layouts/Layout.astro'
 
 <script>
   document.addEventListener('alpine:init', () => {
-    Alpine.data('chatbot', () => ({
+    window.Alpine.data('chatbot', () => ({
       query: '',
       response: '',
       loading: false,
