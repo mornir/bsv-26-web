@@ -46,6 +46,8 @@ import Layout from '../layouts/Layout.astro'
       response: '',
       loading: false,
       async submitQuery() {
+        if (!this.query) return
+
         this.loading = true
         this.response = ''
 
