@@ -1,0 +1,25 @@
+---
+export interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<div class="toolbar">
+  <h1>{title}</h1>
+</div>
+
+<style>
+  .toolbar {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .toolbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+</style>

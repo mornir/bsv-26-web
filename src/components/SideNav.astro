@@ -5,11 +5,11 @@ const nav = await getNav()
 ---
 
 <aside class="sticky top-0">
-  <nav class="px-3 py-6 bg-slate-900 text-white h-screen overflow-y-scroll">
+  <nav class="px-3 py-6 bg-slate-800 text-white h-screen overflow-y-scroll">
     <ul class="space-y-2 font-medium">
       {
         nav.map((title: any) => (
-          <li class="flex items-center p-2 text-gray-900 dark:text-white">
+          <li class="flex items-center p-2">
             <details>
               <summary class="text-base">
                 {title.number}
