@@ -18,17 +18,17 @@ const { title } = Astro.props
     <meta name="generator" content={Astro.generator} />
 
     <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!--     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Inter:wght@500;700;800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet"
-    />
+    /> -->
 
     <title>{title}</title>
   </head>
   <body>
-    <div class="mx-4 mb-24 mt-12">
+    <div class="mb-24 mt-12">
       <!-- <header>HEADER</header> -->
       <div class="c-grid-wrapper">
         <div class="c-sidenav">
@@ -43,7 +43,7 @@ const { title } = Astro.props
   </body>
 </html>
 
-<style is:global>
+<style>
   .c-grid-wrapper {
     display: grid;
     grid-template-columns: 16rem 1fr;

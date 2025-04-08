@@ -8,18 +8,20 @@ const nav = await getNav()
   <nav class="px-3 py-6 bg-slate-900 text-white">
     <ul class="space-y-2 font-medium">
       {
-        nav.map((item: any) => (
+        nav.map((title: any) => (
           <li class="flex items-center p-2 text-gray-900 dark:text-white">
             <details>
               <summary class="text-sm">
-                {item.number}
-                {item.name.de}
+                {title.number}
+                {title.name.de}
               </summary>
-              <ul class="text-xs ms-4">
-                <li>Art. 1 Nachweis</li>
-                <li>Art. 2 Nachweis</li>
-                <li>Art. 3 Nachweis</li>
-                <li>Art. 4 Nachweis</li>
+
+              <ul class="text-xs ms-4 space-y-2 mt-2">
+                {title.articles.map((art: any) => (
+                  <li>
+                    Art.&nbsp;{art.number}&nbsp;{art.name.de}
+                  </li>
+                ))}
               </ul>
             </details>
           </li>
