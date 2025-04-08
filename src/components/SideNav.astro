@@ -16,13 +16,41 @@ const nav = await getNav()
                 {title.name.de}
               </summary>
 
-              <ul class="text-xs ms-4 space-y-2 mt-2">
-                {title.articles.map((art: any) => (
-                  <li>
-                    Art.&nbsp;{art.number}&nbsp;{art.name.de}
-                  </li>
-                ))}
-              </ul>
+              {title.chapters.length ? (
+                <ul>
+                  {title.chapters.map((chapter: any) => (
+                    <li>
+                      <details>
+                        <summary class="text-xs">
+                          {chapter.number}
+                          {chapter.name.de}
+                          {chapter.sections.length}
+                        </summary>
+
+                        {chapter.sections.length ? (
+                          'SECTIONS'
+                        ) : (
+                          <ul class="text-xs ms-4 space-y-2 mt-2">
+                            {title.articles.map((art: any) => (
+                              <li>
+                                Art.&nbsp;{art.number}&nbsp;{art.name.de}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </details>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul class="text-xs ms-4 space-y-2 mt-2">
+                  {title.articles.map((art: any) => (
+                    <li>
+                      Art.&nbsp;{art.number}&nbsp;{art.name.de}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </details>
           </li>
         ))
