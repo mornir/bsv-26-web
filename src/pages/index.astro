@@ -10,16 +10,21 @@ const mainNav = [
 ---
 
 <Layout title="BSV 2026">
-  <nav class="grid grid-cols-2 gap-8 max-w-3xl mx-auto">
-    {
-      mainNav.map((item) => (
-        <a
-          href={item.link}
-          class="bg-slate-800 text-white p-8 text-center text-xl font-semibold"
-        >
-          {item.text}
-        </a>
-      ))
-    }
-  </nav>
+  <div class="h-screen grid place-content-center -mt-8">
+    <h1 class="text-center text-4xl font-semibold mb-8 text-slate-800">
+      DIGITALE BSV 2026
+    </h1>
+    <nav class="grid grid-cols-2 gap-8 max-w-3xl">
+      {
+        mainNav.map((item) => (
+          <a
+            href={item.link}
+            class="bg-slate-800 text-white py-8 px-10 text-center text-xl font-semibold hover:bg-violet-800 block"
+          >
+            {item.text}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
 </Layout>
