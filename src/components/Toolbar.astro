@@ -1,0 +1,74 @@
+---
+interface Props {
+  number?: number
+}
+
+const expOptions = [
+  { text: 'anzeigen', value: 'show' },
+  { text: 'umschalten', value: 'show' },
+  { text: 'ausblenden', value: 'hide' },
+]
+
+const { number } = Astro.props
+---
+
+<div class="sticky top-0 p-4 flex justify-between bg-gray-100">
+  <div class="flex gap-x-4">
+    {!number && <span>Erläuterungen:</span>}
+    {
+      !number ? (
+        expOptions.map(({ text, value }) => (
+          <div>
+            <input
+              type="radio"
+              value={value}
+              x-model="exp"
+              name={value}
+              class="accent-violet-800"
+            />
+            <label for={value}>{text}</label>
+          </div>
+        ))
+      ) : (
+        <a
+          href={`/gesamtwerk#art-${number}`}
+          class="bg-violet-800 py-1 px-4 text-white"
+        >
+          Artikel im Gesamtwerk anzeigen
+        </a>
+      )
+    }
+  </div>
+  <div class="flex gap-x-4 justify-end">
+    <div>
+      <input
+        type="checkbox"
+        value="de"
+        x-model="languages"
+        name="german"
+        class="accent-violet-800"
+      />
+      <label for="german">Deutsch</label>
+    </div>
+    <div>
+      <input
+        type="checkbox"
+        value="fr"
+        x-model="languages"
+        name="french"
+        class="accent-violet-800"
+      />
+      <label for="french">Französisch</label>
+    </div>
+    <div>
+      <input
+        type="checkbox"
+        value="it"
+        x-model="languages"
+        name="italian"
+        class="accent-violet-800"
+      />
+      <label for="italian">Italienisch</label>
+    </div>
+  </div>
+</div>

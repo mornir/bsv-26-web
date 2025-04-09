@@ -1,0 +1,54 @@
+---
+import { getNav } from '../utils/sanity'
+import ArticlesList from '../components/ArticlesList.astro'
+const nav = await getNav()
+---
+
+<aside class="sticky top-0">
+  <nav class="px-3 py-6 bg-slate-800 text-white h-screen overflow-y-scroll">
+    <ul class="space-y-2 font-medium">
+      {
+        nav.map((title: any) => (
+          <li class="flex items-center p-2">
+            <details>
+              <summary class="text-base">
+                {title.number}
+                {title.name.de}
+              </summary>
+
+              {title.chapters.length ? (
+                <ul class="mt-2">
+                  {title.chapters.map((chapter: any) => (
+                    <li class="mb-2">
+                      <details>
+                        <summary class="text-sm">
+                          {chapter.number}
+                          {chapter.name.de}
+                        </summary>
+
+                        {chapter.sections.length ? (
+                          chapter.sections.map((section: any) => (
+                            <div>
+                              <h3 class="text-sm ms-4 mt-2 text-gray-400">
+                                {section.name.de}
+                              </h3>
+                              <ArticlesList articles={title.articles} />
+                            </div>
+                          ))
+                        ) : (
+                          <ArticlesList articles={title.articles} />
+                        )}
+                      </details>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ArticlesList articles={title.articles} />
+              )}
+            </details>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>

@@ -1,5 +1,6 @@
 ---
 import type { Article, BlockContent } from '../utils/sanity'
+
 import { PortableText } from 'astro-portabletext'
 
 interface Props {
@@ -8,7 +9,10 @@ interface Props {
 
 const { article } = Astro.props
 
-function countDistinctItems(blockContent: BlockContent) {
+function countDistinctItems(blockContent: BlockContent | undefined) {
+  if (!blockContent) {
+    return 0
+  }
   let count = 0
   let lastWasBullet = false
 
@@ -23,43 +27,115 @@ function countDistinctItems(blockContent: BlockContent) {
       lastWasBullet = false
     }
   }
-
   return count
 }
 
-let colsExp = 0
+const colsLaw = countDistinctItems(article.law.de)
+const colsExp = countDistinctItems(article?.exp?.de)
 
-if (article.content.deExplanation?.length) {
-  colsExp = countDistinctItems(article.content.deExplanation)
+// Explicitly type the languages array
+const languages: Array<'de' | 'fr' | 'it'> = ['de', 'fr', 'it']
+
+const titles = {
+  de: article.name.de,
+  fr: article.name.fr,
+  it: article.name.it,
+}
+const laws = {
+  de: article.law.de,
+  fr: article.law.fr,
+  it: article.law.it,
+}
+const explanations = {
+  de: article?.exp?.de,
+  fr: article?.exp?.fr,
+  it: article?.exp?.it,
+}
+
+const references = [`Titel ${article.title.number}`]
+
+if (article.chapter?.number) {
+  references.push(`Kapitel ${article.chapter.number}`)
+}
+
+if (article.section?.number) {
+  references.push(`Abschnitt ${article.section.number}`)
 }
 ---
 
-<article class="prose max-w-none">
-  <h3>Artikel {article.number}</h3>
-  <div class="grid grid-cols-2 mb-12 gap-x-8">
-    <div>
-      <h2 class="mt-0">{article.content.deTitle}</h2>
-      <PortableText value={article.content.deLaw} />
-    </div>
-    <div>
-      <h2 class="mt-0">{article.content.frTitle}</h2>
-      <PortableText value={article.content.frLaw} />
-    </div>
+<article
+  class="prose prose-stone prose-sm prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
+  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
+  id={`art-${article.number}`}
+>
+  <header class="mt-6 flex justify-between items-baseline">
+    <h3>Art. {article.number}</h3>
+    <h4 class="text-xs text-gray-500 font-semibold">
+      {references.join(', ')}
+    </h4>
+  </header>
+
+  <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
+    {
+      languages.map((lang) => (
+        <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2 text-lg">
+          {titles[lang]}
+        </h2>
+      ))
+    }
   </div>
 
   <div
-    class={`bg-blue-100 grid grid-cols-2 mb-12 gap-x-8 grid-flow-col grid-rows-[repeat(${colsExp},auto)]`}
+    class="grid gap-x-8 grid-flow-col auto-cols-fr"
+    style={`grid-template-rows: repeat(${colsLaw}, auto)`}
   >
     {
-      article.content.deExplanation && (
-        <PortableText value={article.content.deExplanation} />
-      )
-    }
-
-    {
-      article.content.frExplanation && (
-        <PortableText value={article.content.frExplanation} />
-      )
+      languages.map((lang) => (
+        <div x-show={`languages.includes('${lang}')`} class="contents c-law">
+          <PortableText value={laws[lang] ?? []} />
+        </div>
+      ))
     }
   </div>
+
+  {
+    explanations.de && (
+      <details x-show="exp === 'toggle'">
+        <summary class="cursor-pointer">Erläuterung anzeigen</summary>
+        <div
+          class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
+          style={`grid-template-rows: repeat(${colsExp}, auto)`}
+          lang="de"
+        >
+          {languages.map(
+            (lang) =>
+              explanations[lang] && (
+                <div x-show={`languages.includes('${lang}')`} class="contents">
+                  <PortableText value={explanations[lang]} />
+                </div>
+              )
+          )}
+        </div>
+      </details>
+    )
+  }
+
+  {
+    explanations.de && (
+      <div
+        class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
+        style={`grid-template-rows: repeat(${colsExp}, auto)`}
+        x-show="exp === 'show'"
+      >
+        {languages.map(
+          (lang) =>
+            explanations[lang] && (
+              <div x-show={`languages.includes('${lang}')`} class="contents">
+                <PortableText value={explanations[lang]} />
+              </div>
+            )
+        )}
+      </div>
+    )
+  }
 </article>
