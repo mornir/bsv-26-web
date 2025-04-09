@@ -20,7 +20,7 @@ const article = await getArticle(parseInt(number))
 
 <Layout title={'Artikel ' + article.number}>
   <div x-data="$store.toolbar">
-    <Toolbar />
+    <Toolbar number={article.number} />
     <div class="mx-auto max-w-7xl"><Article article={article} /></div>
   </div>
 </Layout>

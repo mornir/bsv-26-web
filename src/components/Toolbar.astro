@@ -1,36 +1,43 @@
+---
+interface Props {
+  number?: number
+}
+
+const expOptions = [
+  { text: 'anzeigen', value: 'show' },
+  { text: 'umschalten', value: 'show' },
+  { text: 'ausblenden', value: 'hide' },
+]
+
+const { number } = Astro.props
+---
+
 <div class="sticky top-0 p-4 flex justify-between bg-gray-100">
   <div class="flex gap-x-4">
-    <span>Erläuterungen:</span>
-    <div>
-      <input
-        type="radio"
-        value="show"
-        x-model="exp"
-        name="show"
-        class="accent-violet-800"
-      />
-      <label for="show">anzeigen</label>
-    </div>
-    <div>
-      <input
-        type="radio"
-        value="toggle"
-        x-model="exp"
-        name="toggle"
-        class="accent-violet-800"
-      />
-      <label for="toggle">umschalten</label>
-    </div>
-    <div>
-      <input
-        type="radio"
-        value="hide"
-        x-model="exp"
-        name="hide"
-        class="accent-violet-800"
-      />
-      <label for="hide">ausblenden</label>
-    </div>
+    {!number && <span>Erläuterungen:</span>}
+    {
+      !number ? (
+        expOptions.map(({ text, value }) => (
+          <div>
+            <input
+              type="radio"
+              value={value}
+              x-model="exp"
+              name={value}
+              class="accent-violet-800"
+            />
+            <label for={value}>{text}</label>
+          </div>
+        ))
+      ) : (
+        <a
+          href={`/gesamtwerk#art-${number}`}
+          class="bg-violet-800 py-2 px-4 text-white"
+        >
+          Artikel im Gesamtwerk anzeigen
+        </a>
+      )
+    }
   </div>
   <div class="flex gap-x-4 justify-end">
     <div>
