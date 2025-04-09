@@ -51,7 +51,7 @@ import Layout from '../layouts/Layout.astro'
         this.loading = true
         this.response = ''
 
-        const res = await fetch('http://localhost:3000/chat', {
+        const res = await fetch('/.netlify/functions/chatbot', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: this.query }),
