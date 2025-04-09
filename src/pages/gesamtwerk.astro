@@ -8,8 +8,10 @@ const articles = await getArticles()
 ---
 
 <Layout title="Gesamtwerk">
-  <Toolbar />
-  <section class="mx-auto max-w-7xl">
-    {articles.map((article) => <Article article={article} />)}
-  </section>
+  <div x-data="{ languages: ['de'], exp: 'show'}">
+    <Toolbar />
+    <section class="mx-auto max-w-7xl">
+      {articles.map((article) => <Article article={article} />)}
+    </section>
+  </div>
 </Layout>
