@@ -1,5 +1,6 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
+import Toolbar from '../../components/Toolbar.astro'
 import Article from '../../components/Article.astro'
 import Layout from '../../layouts/Layout.astro'
 import { getArticle, getArticles } from '../../utils/sanity'
@@ -18,5 +19,8 @@ const article = await getArticle(parseInt(number))
 ---
 
 <Layout title={'Artikel ' + article.number}>
-  <Article article={article} />
+  <div x-data="$store.toolbar">
+    <Toolbar />
+    <div class="mx-auto max-w-7xl"><Article article={article} /></div>
+  </div>
 </Layout>
