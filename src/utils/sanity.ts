@@ -10,6 +10,14 @@ export async function getArticles(): Promise<Article[]> {
   )
 }
 
+export async function getArticle(number: number): Promise<Article> {
+  return await sanityClient.fetch(
+    groq`*[_type == "article" && number == $number]{name, number} | order(number asc) [0]`, {
+    number,
+  }
+  )
+}
+
 
 export async function getNav() {
   return await sanityClient.fetch(
@@ -47,7 +55,7 @@ export type Article = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  number?: number
+  number: number
   title: Title,
   chapter?: Chapter,
   section?: Section,
