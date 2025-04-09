@@ -1,11 +1,7 @@
 import type { Context } from "@netlify/functions";
-/* import { chatWithSanity } from './utils/sanityChatbot'; */
 import { createClient } from '@sanity/client'
-const toMarkdown = require('@sanity/block-content-to-markdown')
 import OpenAI from 'openai';
-
-const userQuery = "Ab welcher Gebäudehöhe kann das präskriptive Nachweisverfahren nicht mehr angewendet werden?"
-
+import { toHTML } from '@portabletext/to-html'
 
 export default async (req: Request, context: Context) => {
 
@@ -72,8 +68,8 @@ export default async (req: Request, context: Context) => {
   const cleanDocuments = documents.map((document: any) => {
     return {
       titel: document.name.de,
-      gesetzestext: toMarkdown(document.law.de),
-      erläuterung: toMarkdown(document.exp.de)
+      gesetzestext: toHTML(document.law.de),
+      erläuterung: toHTML(document.exp.de)
     }
   })
 
