@@ -12,7 +12,7 @@ export default defineConfig({
       useCdn: false,
       apiVersion: '2024-12-08',
     }),
-    alpinejs(),
+    alpinejs({ entrypoint: '/src/utils/alpine' }),
   ],
   vite: {
     plugins: [tailwindcss()],
