@@ -1,6 +1,6 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
-import { PortableText } from 'astro-portabletext'
+import Article from '../../components/Article.astro'
 import Layout from '../../layouts/Layout.astro'
 import { getArticle, getArticles } from '../../utils/sanity'
 
@@ -14,14 +14,9 @@ export async function getStaticPaths() {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { number } = Astro.params as Params
 
-// if (!number) return Astro.redirect('/404')
-
-console.log(typeof number)
-
 const article = await getArticle(parseInt(number))
-console.log(article)
 ---
 
-<Layout title="Article">
-  <div>Good dog, {article.number}!</div>
+<Layout title={'Artikel ' + article.number}>
+  <Article article={article} />
 </Layout>
