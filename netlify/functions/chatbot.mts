@@ -1,4 +1,5 @@
 import type { Context } from "@netlify/functions";
+import { createClient } from '@sanity/client'
 
 /* import { chatWithSanity } from './utils/sanityChatbot'; */
 
