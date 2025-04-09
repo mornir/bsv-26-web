@@ -1,6 +1,6 @@
 ---
 import { getNav } from '../utils/sanity'
-
+import ArticlesList from '../components/ArticlesList.astro'
 const nav = await getNav()
 ---
 
@@ -32,36 +32,18 @@ const nav = await getNav()
                               <h3 class="text-sm ms-4 mt-2 text-gray-400">
                                 {section.name.de}
                               </h3>
-                              <ul class="text-xs ms-4 space-y-2">
-                                {title.articles.map((art: any) => (
-                                  <li>
-                                    Art.&nbsp;{art.number}&nbsp;{art.name.de}
-                                  </li>
-                                ))}
-                              </ul>
+                              <ArticlesList articles={title.articles} />
                             </div>
                           ))
                         ) : (
-                          <ul class="text-xs ms-4 space-y-2 mt-2">
-                            {title.articles.map((art: any) => (
-                              <li>
-                                Art.&nbsp;{art.number}&nbsp;{art.name.de}
-                              </li>
-                            ))}
-                          </ul>
+                          <ArticlesList articles={title.articles} />
                         )}
                       </details>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <ul class="text-xs ms-4 space-y-2 mt-2">
-                  {title.articles.map((art: any) => (
-                    <li>
-                      Art.&nbsp;{art.number}&nbsp;{art.name.de}
-                    </li>
-                  ))}
-                </ul>
+                <ArticlesList articles={title.articles} />
               )}
             </details>
           </li>
