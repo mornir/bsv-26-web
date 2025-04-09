@@ -3,6 +3,12 @@ import type { PortableTextBlock } from "@portabletext/types";
 import type { ImageAsset, Slug } from "@sanity/types";
 import groq from "groq";
 
+export async function getArticlesLinks(): Promise<Article[]> {
+  return await sanityClient.fetch(
+    groq`*[_type == "article"]{name, number} | order(number asc)`
+  )
+}
+
 
 export async function getArticles(): Promise<Article[]> {
   return await sanityClient.fetch(
