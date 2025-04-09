@@ -18,7 +18,7 @@ export async function getArticles(): Promise<Article[]> {
 
 export async function getArticle(number: number): Promise<Article> {
   return await sanityClient.fetch(
-    groq`*[_type == "article" && number == $number] | order(number asc) [0]`, {
+    groq`*[_type == "article" && number == $number]{..., title->, chapter->, section->} | order(number asc) [0]`, {
     number,
   }
   )
