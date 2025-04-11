@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+@theme {
+  --color-primary: oklch(27.9% 0.041 260.031);
+  --color-accent: oklch(43.8% 0.218 303.724);
+}
+
 @counter-style superscript-numbers {
   system: numeric;
   symbols: '⁰' '¹' '²' '³' '⁴' '⁵' '⁶' '⁷' '⁸' '⁹';

@@ -12,7 +12,7 @@ const expOptions = [
 const { number } = Astro.props
 ---
 
-<div class="sticky top-0 p-4 flex justify-between bg-gray-100">
+<div class="sticky top-0 p-4 flex justify-between bg-gray-100 items-center">
   <div class="flex gap-x-4">
     {!number && <span>Erläuterungen:</span>}
     {
@@ -24,7 +24,7 @@ const { number } = Astro.props
               value={value}
               x-model="exp"
               name={value}
-              class="accent-violet-800"
+              class="accent-accent"
             />
             <label for={value}>{text}</label>
           </div>
@@ -32,7 +32,7 @@ const { number } = Astro.props
       ) : (
         <a
           href={`/gesamtwerk#art-${number}`}
-          class="bg-violet-800 py-1 px-4 text-white"
+          class="bg-primary hover:bg-accent duration-700 ease-out py-2 px-4 text-white"
         >
           Artikel im Gesamtwerk anzeigen
         </a>
@@ -40,6 +40,7 @@ const { number } = Astro.props
     }
   </div>
   <div class="flex gap-x-4 justify-end">
+    <span>Sprachvergleich:</span>
     <div>
       <input
         type="checkbox"
