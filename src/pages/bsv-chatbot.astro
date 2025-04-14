@@ -74,8 +74,12 @@ import Layout from '../layouts/Layout.astro'
 
           if (!res.ok) {
             const errorData = await res.json()
-            this.error = errorData.error || 'Ein Fehler ist aufgetreten.'
-            console.error(this.error)
+            if (res.status === 404) {
+              this.response = 'Keine passenden Informationen gefunden.'
+            } else {
+              this.error = errorData.error || 'Ein Fehler ist aufgetreten.'
+              console.error(this.error)
+            }
             return
           }
 

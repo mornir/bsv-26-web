@@ -78,7 +78,7 @@ export default async (req: Request, context: Context) => {
 
     if (!records || !records.length) {
       return new Response(
-        JSON.stringify({ error: 'No matching records found' }),
+        JSON.stringify({ error: 'Ich konnte keine Ergbenisse finden.' }),
         {
           status: 404,
           headers: { 'Content-Type': 'application/json' },
@@ -92,7 +92,7 @@ export default async (req: Request, context: Context) => {
 
     if (!relevantRecords.length) {
       return new Response(
-        JSON.stringify({ error: 'No relevant matching records found' }),
+        JSON.stringify({ error: 'Ich konnte keine relevante Ergbenisse finden.' }),
         {
           status: 404,
           headers: { 'Content-Type': 'application/json' },
