@@ -88,12 +88,18 @@ const questions = [
         this.error = ''
         this.question = ''
 
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 10000) // 10-second timeout
+
         try {
           const res = await fetch('/.netlify/functions/chatbot', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({prompt: this.query}),
+            signal: controller.signal,
           })
+
+          clearTimeout(timeoutId)
 
           if (!res.ok) {
             const errorData = await res.json()
@@ -111,10 +117,15 @@ const questions = [
           this.question = this.query
           this.query = '' // Reset query on success
         } catch (err) {
-          console.error(err)
-          this.error =
-            'Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'
+          if (err.name === 'AbortError') {
+            this.error = 'Die Anfrage hat zu lange gedauert. Bitte versuchen Sie es erneut.'
+          } else {
+            console.error(err)
+            this.error =
+              'Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'
+          }
         } finally {
+          clearTimeout(timeoutId)
           this.loading = false
         }
       },
