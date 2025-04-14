@@ -116,7 +116,7 @@ const questions = [
           this.response = data.reply || 'Sorry, ich konnte keine Antwort finden.'
           this.question = this.query
           this.query = '' // Reset query on success
-        } catch (err) {
+        } catch (err: any) {
           if (err.name === 'AbortError') {
             this.error = 'Die Anfrage hat zu lange gedauert. Bitte versuchen Sie es erneut.'
           } else {
