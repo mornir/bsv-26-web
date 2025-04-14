@@ -3,10 +3,7 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="Chatbot">
-  <div
-    class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg mt-10"
-    x-data="chatbot"
-  >
+  <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg mt-10" x-data="chatbot">
     <h1 class="text-2xl font-bold text-center mb-4">BSV Chatbot</h1>
 
     <div class="mb-4">
@@ -36,6 +33,11 @@ import Layout from '../layouts/Layout.astro'
       <h2 class="text-xl font-semibold">Antwort:</h2>
       <p class="text-gray-800 mt-2" x-text="response"></p>
     </div>
+
+    <div class="mt-6 text-red-600" x-show="error">
+      <h2 class="text-xl font-semibold">Fehler:</h2>
+      <p class="mt-2" x-text="error"></p>
+    </div>
   </div>
 </Layout>
 
@@ -44,22 +46,42 @@ import Layout from '../layouts/Layout.astro'
     window.Alpine.data('chatbot', () => ({
       query: '',
       response: '',
+      error: '',
       loading: false,
       async submitQuery() {
-        if (!this.query) return
+        if (!this.query) {
+          this.error = 'Bitte geben Sie eine Frage ein.'
+          return
+        }
 
         this.loading = true
         this.response = ''
+        this.error = ''
 
-        const res = await fetch('/.netlify/functions/chatbot', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: this.query }),
-        })
+        try {
+          const res = await fetch('/.netlify/functions/chatbot', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({prompt: this.query}),
+          })
 
-        const data = await res.json()
-        this.response = data.reply || data.error
-        this.loading = false
+          if (!res.ok) {
+            const errorData = await res.json()
+            this.error = errorData.error || 'Ein Fehler ist aufgetreten.'
+            console.error(this.error)
+            this.loading = false
+            return
+          }
+
+          const data = await res.json()
+          this.response = data.reply || 'Sorry, ich konnte keine Antwort finden.'
+        } catch (err) {
+          console.error(err)
+          this.error =
+            'Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'
+        } finally {
+          this.loading = false
+        }
       },
     }))
   })
