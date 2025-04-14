@@ -86,11 +86,13 @@ export default async (req: Request, context: Context) => {
       );
     }
 
-    const relevantRecords = records.filter(rec => rec.score > 0.78)
+    console.log(records)
+
+    const relevantRecords = records.filter(rec => rec.score > 0.75)
 
     if (!relevantRecords.length) {
       return new Response(
-        JSON.stringify({ error: 'No matching records found' }),
+        JSON.stringify({ error: 'No relevant matching records found' }),
         {
           status: 404,
           headers: { 'Content-Type': 'application/json' },
