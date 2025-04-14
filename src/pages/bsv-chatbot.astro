@@ -30,6 +30,10 @@ import Layout from '../layouts/Layout.astro'
     </button>
 
     <div class="mt-6" x-show="response">
+      <h2 class="text-xl font-semibold" x-text="query"></h2>
+    </div>
+
+    <div class="mt-2" x-show="response">
       <h2 class="text-xl font-semibold">Antwort:</h2>
       <p class="text-gray-800 mt-2" x-text="response"></p>
     </div>
@@ -69,12 +73,12 @@ import Layout from '../layouts/Layout.astro'
             const errorData = await res.json()
             this.error = errorData.error || 'Ein Fehler ist aufgetreten.'
             console.error(this.error)
-            this.loading = false
             return
           }
 
           const data = await res.json()
           this.response = data.reply || 'Sorry, ich konnte keine Antwort finden.'
+          this.query = '' // Reset query on success
         } catch (err) {
           console.error(err)
           this.error =
