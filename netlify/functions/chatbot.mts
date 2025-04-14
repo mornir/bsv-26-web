@@ -3,6 +3,18 @@ import { createClient } from '@sanity/client'
 import OpenAI from 'openai';
 import { toHTML } from '@portabletext/to-html'
 
+export type Records = Record[]
+
+export interface Record {
+  score: number
+  value: RecordValue
+}
+
+export interface RecordValue {
+  documentId: string
+  type: string
+}
+
 export default async (req: Request, context: Context) => {
   try {
     const { prompt } = await req.json();
@@ -62,9 +74,21 @@ export default async (req: Request, context: Context) => {
       );
     }
 
-    const records = await response.json();
+    const records: Records = await response.json();
 
     if (!records || !records.length) {
+      return new Response(
+        JSON.stringify({ error: 'No matching records found' }),
+        {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    const relevantRecords = records.filter(rec => rec.score > 0.78)
+
+    if (!relevantRecords.length) {
       return new Response(
         JSON.stringify({ error: 'No matching records found' }),
         {
