@@ -29,13 +29,14 @@ import Layout from '../layouts/Layout.astro'
       <span x-show="loading">Einen Augenlick...</span>
     </button>
 
-    <div class="mt-6" x-show="response">
-      <h2 class="text-xl font-semibold" x-text="query"></h2>
+    <div class="mt-6" x-show="question">
+      <h2 class="text-xl font-semibold sr-only">Frage:</h2>
+      <p class="text-sm text-gray-600" x-text="question"></p>
     </div>
 
     <div class="mt-2" x-show="response">
-      <h2 class="text-xl font-semibold">Antwort:</h2>
-      <p class="text-gray-800 mt-2" x-text="response"></p>
+      <h2 class="text-xl font-semibold sr-only">Antwort:</h2>
+      <p class="text-gray-800 mt-2 whitespace-pre-line" x-text="response"></p>
     </div>
 
     <div class="mt-6 text-red-600" x-show="error">
@@ -52,6 +53,7 @@ import Layout from '../layouts/Layout.astro'
       response: '',
       error: '',
       loading: false,
+      question: '',
       async submitQuery() {
         if (!this.query) {
           this.error = 'Bitte geben Sie eine Frage ein.'
@@ -61,6 +63,7 @@ import Layout from '../layouts/Layout.astro'
         this.loading = true
         this.response = ''
         this.error = ''
+        this.question = ''
 
         try {
           const res = await fetch('/.netlify/functions/chatbot', {
@@ -78,6 +81,7 @@ import Layout from '../layouts/Layout.astro'
 
           const data = await res.json()
           this.response = data.reply || 'Sorry, ich konnte keine Antwort finden.'
+          this.question = this.query
           this.query = '' // Reset query on success
         } catch (err) {
           console.error(err)
