@@ -88,7 +88,7 @@ export default async (req: Request, context: Context) => {
 
     console.log(records)
 
-    const relevantRecords = records.filter(rec => rec.score > 0.75)
+    const relevantRecords = records.filter(rec => rec.score > 0.76)
 
     if (!relevantRecords.length) {
       return new Response(
