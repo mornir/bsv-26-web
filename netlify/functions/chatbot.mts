@@ -124,7 +124,7 @@ export default async (req: Request, context: Context) => {
 
     const reply = await openAIClient.responses.create({
       model: 'gpt-4o',
-      instructions: `Du bist ein hilfreicher Assistent, der auf der Grundlage dieser Dokumente antwortet: ${JSON.stringify(cleanDocuments)}`,
+      instructions: `Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente antwortet: ${JSON.stringify(cleanDocuments)}`,
       input: `${prompt}`,
     });
 
