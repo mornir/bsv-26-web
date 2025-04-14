@@ -1,9 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+const questions = [
+  'Für ein Gebäude mit Gesamttiefe von 15 Meter darf ich das präskriptive Nachweisverfahren anwenden?',
+  'An wen richten sich die neuen Brandschutzvorschriften?',
+  'Was sind die Grenzen des präskriptiven Nachweisverfahren?',
+  'Ab welcher Gebäudehöhe kann das präskriptive Nachweisverfahren nicht mehr angewendet werden?',
+]
 ---
 
 <Layout title="Chatbot">
-  <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg mt-10" x-data="chatbot">
+  <div class="max-w-lg mx-auto p-6 mt-10" x-data="chatbot">
     <h1 class="text-2xl font-bold text-center mb-4">BSV Chatbot</h1>
 
     <div class="mb-4">
@@ -11,6 +18,7 @@ import Layout from '../layouts/Layout.astro'
         >Ihre Frage zu den BSV 2026</label
       >
       <textarea
+        autocomplete="off"
         id="query"
         x-model="query"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -40,6 +48,21 @@ import Layout from '../layouts/Layout.astro'
     <div class="mt-6 text-red-600" x-show="error">
       <h2 class="text-xl font-semibold">Fehler:</h2>
       <p class="mt-2" x-text="error"></p>
+    </div>
+  </div>
+
+  <div class="max-w-lg mx-auto prose">
+    <div>
+      <h3>Hinweise</h3>
+      <p>
+        Das Chatbot kann nur Fragen über <a href="/inhaltsverzeichnis/">veröffenltiche Artikel</a> beantworten.
+      </p>
+    </div>
+    <div>
+      <h3>Beispielfragen</h3>
+      <ul>
+        {questions.map((question) => <li>{question}</li>)}
+      </ul>
     </div>
   </div>
 </Layout>
