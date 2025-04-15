@@ -116,15 +116,17 @@ export default async (req: Request, context: Context) => {
 
     const cleanDocuments = documents.map((document: any) => {
       return {
+        artikelnummer: document.number,
         titel: document.name.de,
         gesetzestext: toHTML(document.law.de),
         erläuterung: toHTML(document.exp.de),
+        quelle: `https://terminofeu-bsv.netlify.app/artikel/${document.number}`
       };
     });
 
     const reply = await openAIClient.responses.create({
       model: 'gpt-4o',
-      instructions: `Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente antwortet: ${JSON.stringify(cleanDocuments)}`,
+      instructions: `Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente antwortet: ${JSON.stringify(cleanDocuments)}. Bitte verlink die verwendete Quelle.`,
       input: `${prompt}`,
     });
 
