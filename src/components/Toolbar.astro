@@ -19,7 +19,14 @@ const {number} = Astro.props
       !number ? (
         expOptions.map(({text, value}) => (
           <div>
-            <input type="radio" value={value} x-model="exp" name={value} class="accent-accent" />
+            <input
+              type="radio"
+              value={value}
+              x-model="exp"
+              name={text}
+              class="accent-accent"
+              id={value}
+            />
             <label for={value}>{text}</label>
           </div>
         ))
