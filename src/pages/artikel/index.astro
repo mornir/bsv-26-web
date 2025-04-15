@@ -1,23 +1,37 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import { getArticlesLinks } from '../../utils/sanity'
+import {getArticlesLinks} from '../../utils/sanity'
 
 const articles = await getArticlesLinks()
+
+const titles: String[] = []
 ---
 
 <Layout title="Inhaltsverzeichnis">
-  <div class="max-w-xl mx-auto mt-4">
-    <h2 class="text-xl font-semibold mb-4">Inhaltsverzeichnis</h2>
-    <ul>
-      {
-        articles.map((art) => (
-          <li>
-            <a href={`/artikel/${art.number}`} class="hover:underline">
+  <div class="mx-auto mt-10 mb-24 prose prose-p:my-1">
+    <h1>Inhaltsverzeichnis</h1>
+    {
+      articles.map((art) => {
+        const title = `Titel ${art.title.number} ${art.title.name.de}`
+        if (!titles.includes(title)) {
+          titles.push(title)
+          return (
+            <h2>{title}</h2>
+            <p>
+              <a href={`/artikel/${art.number}`}>
+                Art. {art.number} {art.name.de}
+              </a>
+            </p>
+          )
+        } 
+        return (
+          <p>
+            <a href={`/artikel/${art.number}`}>
               Art. {art.number} {art.name.de}
             </a>
-          </li>
-        ))
-      }
-    </ul>
+          </p>
+        )
+      })
+    }
   </div>
 </Layout>

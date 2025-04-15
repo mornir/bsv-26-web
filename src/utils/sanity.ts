@@ -5,7 +5,7 @@ import groq from "groq";
 
 export async function getArticlesLinks(): Promise<Article[]> {
   return await sanityClient.fetch(
-    groq`*[_type == "article"]{name, number} | order(number asc)`
+    groq`*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`
   )
 }
 
@@ -122,12 +122,12 @@ export type Title = {
   _updatedAt: string
   _rev: string
   number: number
-  name?: LocaleString
+  name: LocaleString
 }
 
 export type LocaleString = {
   _type: 'localeString'
-  de?: string
+  de: string
   fr?: string
   it?: string
 }
