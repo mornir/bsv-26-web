@@ -12,70 +12,80 @@ const questions = [
 ---
 
 <Layout title="Chatbot">
-  <div class="max-w-lg mx-auto p-6 mt-10" x-data="chatbot">
-    <h1 class="text-2xl font-bold text-center mb-4">BSV Chatbot</h1>
-    <div class="mb-4">
-      <label for="query" class="block text-sm font-medium text-gray-700"
-        >Ihre Frage zu den BSV 2026</label
+  <div class="max-w-7xl mx-auto px-4 my-10 grid grid-cols-2 gap-x-8">
+    <section x-data="chatbot">
+      <h1 class="text-2xl font-bold text-center mb-4">BSV Chatbot</h1>
+      <div class="mb-4">
+        <label for="query" class="block text-sm font-medium text-gray-700"
+          >Ihre Frage zu den BSV 2026</label
+        >
+        <textarea
+          autocomplete="off"
+          id="query"
+          x-model="query"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          placeholder="Frage eintippen..."></textarea>
+      </div>
+
+      <button
+        type="button"
+        @click="submitQuery"
+        :disabled="loading"
+        class="w-full py-2 px-4 bg-primary hover:bg-accent transition-700 ease-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500"
       >
-      <textarea
-        autocomplete="off"
-        id="query"
-        x-model="query"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        placeholder="Frage eintippen..."></textarea>
-    </div>
+        <span x-show="!loading">BSV Chatbot fragen</span>
+        <span x-show="loading">Einen Augenlick...</span>
+      </button>
 
-    <button
-      type="button"
-      @click="submitQuery"
-      :disabled="loading"
-      class="w-full py-2 px-4 bg-primary hover:bg-accent transition-700 ease-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500"
-    >
-      <span x-show="!loading">BSV Chatbot fragen</span>
-      <span x-show="loading">Einen Augenlick...</span>
-    </button>
+      <div class="mt-6" x-show="question">
+        <h2 class="text-xl font-semibold sr-only">Frage:</h2>
+        <p class="text-sm text-gray-600" x-text="question"></p>
+      </div>
 
-    <div class="mt-6" x-show="question">
-      <h2 class="text-xl font-semibold sr-only">Frage:</h2>
-      <p class="text-sm text-gray-600" x-text="question"></p>
-    </div>
+      <div class="mt-2" x-show="response">
+        <h2 class="text-xl font-semibold sr-only">Antwort:</h2>
+        <p class="text-gray-800 mt-2 whitespace-pre-line" x-text="response"></p>
+      </div>
 
-    <div class="mt-2" x-show="response">
-      <h2 class="text-xl font-semibold sr-only">Antwort:</h2>
-      <p class="text-gray-800 mt-2 whitespace-pre-line" x-text="response"></p>
-    </div>
+      <div class="mt-6 text-red-600" x-show="error">
+        <h2 class="text-xl font-semibold">Fehler:</h2>
+        <p class="mt-2" x-text="error"></p>
+      </div>
+    </section>
 
-    <div class="mt-6 text-red-600" x-show="error">
-      <h2 class="text-xl font-semibold">Fehler:</h2>
-      <p class="mt-2" x-text="error"></p>
-    </div>
-  </div>
-
-  <div class="max-w-lg mx-auto prose">
-    <div>
-      <h3>Hinweise</h3>
-      <ul>
-        <li>
-          Das Chatbot kann nur Fragen über <a href="/inhaltsverzeichnis/">veröffentliche Artikel</a>
-          beantworten.
-        </li>
-        <li>Zurzeit sind nur Fragen auf Deutsch möglich.</li>
-        <li>Folgefragen sind noch nicht möglich.</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Beispielfragen</h3>
-      <ul>
-        {questions.map((question) => <li>{question}</li>)}
-      </ul>
-    </div>
-    <div>
-      <h3>Technische Informationen</h3>
-      <ul>
-        <li>AI model: <a href="GPT-4o" target="_blank">GPT-4o</a></li>
-      </ul>
-    </div>
+    <section class="prose">
+      <div>
+        <h3>Hinweise</h3>
+        <ul>
+          <li>
+            Das Chatbot kann nur Fragen über <a href="/artikel/">veröffentliche Artikel</a>
+            beantworten.
+          </li>
+          <li>Zurzeit sind nur Fragen auf Deutsch möglich.</li>
+          <li>Folgefragen sind noch nicht möglich.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Beispielfragen</h3>
+        <ul>
+          {questions.map((question) => <li>{question}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h3>Technische Informationen</h3>
+        <ul>
+          <li>KI-Model: <a href="GPT-4o" target="_blank">GPT-4o</a></li>
+          <li>
+            KI-Anweisung: <span class="italic">
+              Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente
+              antwortet: [relevante BSV-Artikel]. Bitte gib an, welche Artikel du verwendest hast."</span
+            >
+          </li>
+          <li>Vektordatenbank: Pinecone.io</li>
+          <li>Relevance score (0-1) threshold: 0.75</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </Layout>
 
