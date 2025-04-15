@@ -15,6 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "includes": ["**/*.ts", "**/*.tsx"],
+  "includes": ["**/*.ts", "**/*.tsx", "**/*.mts"],
   "exclude": ["node_modules", "dist", ".vercel"]
 }

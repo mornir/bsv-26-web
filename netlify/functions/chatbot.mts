@@ -40,13 +40,7 @@ export default async (req: Request, context: Context) => {
       token: process.env.SANITY_API_TOKEN,
     });
 
-    const query = `*[_id in $docIds] {_type,
-    number,
-    name {de},
-    title-> { name {de}},
-    law { de },
-    exp { de },
-    }`;
+
 
     const response = await fetch(
       `https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/vX/embeddings-index/query/${process.env.PUBLIC_SANITY_DATASET}/${process.env.SANITY_INDEX_NAME}`,
@@ -102,6 +96,14 @@ export default async (req: Request, context: Context) => {
 
     const docIds = records.map((d: any) => d.value.documentId);
 
+    const query = `*[_id in $docIds] {_type,
+    number,
+    name {de},
+    title-> { name {de}},
+    law { de },
+    exp { de },
+    }`;
+
     const documents = await sanityClient.fetch(query, { docIds });
 
     if (!documents || !documents.length) {
@@ -116,6 +118,7 @@ export default async (req: Request, context: Context) => {
 
     const cleanDocuments = documents.map((document: any) => {
       return {
+        artikelnummer: document.number,
         titel: document.name.de,
         gesetzestext: toHTML(document.law.de),
         erläuterung: toHTML(document.exp.de),
@@ -124,11 +127,12 @@ export default async (req: Request, context: Context) => {
 
     const reply = await openAIClient.responses.create({
       model: 'gpt-4o',
-      instructions: `Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente antwortet: ${JSON.stringify(cleanDocuments)}`,
+      instructions: `Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente antwortet: ${JSON.stringify(cleanDocuments)}. Bitte die verwendeten Artikel angeben.`,
       input: `${prompt}`,
     });
 
     console.log(reply.output_text);
+
 
     return new Response(JSON.stringify({ reply: reply.output_text }), {
       status: 200,
