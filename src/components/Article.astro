@@ -1,13 +1,15 @@
 ---
-import type { Article, BlockContent } from '../utils/sanity'
+import type {Article, BlockContent} from '../utils/sanity'
 
-import { PortableText } from 'astro-portabletext'
+import {PortableText} from 'astro-portabletext'
+
+import {Icon} from 'astro-icon/components'
 
 interface Props {
   article: Article
 }
 
-const { article } = Astro.props
+const {article} = Astro.props
 
 function countDistinctItems(blockContent: BlockContent | undefined) {
   if (!blockContent) {
@@ -68,7 +70,14 @@ if (article.section?.number) {
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
   id={`art-${article.number}`}
 >
-  <header class="mt-6 flex justify-between items-baseline">
+  <header class="mt-6 flex justify-between items-baseline relative">
+    <button
+      x-data={`{ link: '${Astro.site}/artikel/${article.number}/'}`}
+      @click="navigator.clipboard.writeText(link)"
+      class="absolute -left-10 top-8 cursor-pointer"
+    >
+      <Icon name="mdi:link" class="text-xl" />
+    </button>
     <h3>Art. {article.number}</h3>
     <h4 class="text-xs text-gray-500 font-semibold">
       {references.join(', ')}
