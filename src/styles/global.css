@@ -6,6 +6,10 @@
   --color-accent: oklch(43.8% 0.218 303.724);
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 @counter-style superscript-numbers {
   system: numeric;
   symbols: '⁰' '¹' '²' '³' '⁴' '⁵' '⁶' '⁷' '⁸' '⁹';

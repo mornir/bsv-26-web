@@ -4,12 +4,12 @@ interface Props {
 }
 
 const expOptions = [
-  { text: 'anzeigen', value: 'show' },
-  { text: 'umschalten', value: 'show' },
-  { text: 'ausblenden', value: 'hide' },
+  {text: 'anzeigen', value: 'show'},
+  {text: 'umschalten', value: 'toggle'},
+  {text: 'ausblenden', value: 'hide'},
 ]
 
-const { number } = Astro.props
+const {number} = Astro.props
 ---
 
 <div class="sticky top-0 p-4 flex justify-between bg-gray-100 items-center">
@@ -17,14 +17,15 @@ const { number } = Astro.props
     {!number && <span>Erläuterungen:</span>}
     {
       !number ? (
-        expOptions.map(({ text, value }) => (
+        expOptions.map(({text, value}) => (
           <div>
             <input
               type="radio"
               value={value}
               x-model="exp"
-              name={value}
+              name={text}
               class="accent-accent"
+              id={value}
             />
             <label for={value}>{text}</label>
           </div>
@@ -48,8 +49,9 @@ const { number } = Astro.props
         x-model="languages"
         name="german"
         class="accent-violet-800"
+        id="de"
       />
-      <label for="german">Deutsch</label>
+      <label for="de">Deutsch</label>
     </div>
     <div>
       <input
@@ -58,8 +60,9 @@ const { number } = Astro.props
         x-model="languages"
         name="french"
         class="accent-violet-800"
+        id="fr"
       />
-      <label for="french">Französisch</label>
+      <label for="fr">Französisch</label>
     </div>
     <div>
       <input
@@ -68,8 +71,9 @@ const { number } = Astro.props
         x-model="languages"
         name="italian"
         class="accent-violet-800"
+        id="it"
       />
-      <label for="italian">Italienisch</label>
+      <label for="it">Italienisch</label>
     </div>
   </div>
 </div>

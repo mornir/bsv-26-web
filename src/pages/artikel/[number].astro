@@ -1,26 +1,44 @@
 ---
-import type { InferGetStaticParamsType } from 'astro'
+import type {InferGetStaticParamsType} from 'astro'
 import Toolbar from '../../components/Toolbar.astro'
 import Article from '../../components/Article.astro'
 import Layout from '../../layouts/Layout.astro'
-import { getArticle, getArticles } from '../../utils/sanity'
+import {getArticle, getArticles} from '../../utils/sanity'
 
 export async function getStaticPaths() {
   const articles = await getArticles()
   return articles.map((article) => ({
-    params: { number: article.number.toString() },
+    params: {number: article.number.toString()},
   }))
 }
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
-const { number } = Astro.params as Params
+const {number} = Astro.params as Params
 
 const article = await getArticle(parseInt(number))
+
+
+const references = [{ dd: article.title.name.de, dt: `Titel ${article.title.number}`}]
+
+if (article.chapter?.number && article.chapter?.name) {
+  references.push({ dd: article.chapter.name.de, dt: `Kapitel ${article.chapter.number}`})
+}
+
+if (article.section?.number && article.section?.name) {
+  references.push({ dd: article.section.name.de, dt: `Abschnitt ${article.section.number}`})
+}
 ---
 
 <Layout title={'Artikel ' + article.number}>
-  <div x-data="$store.toolbar">
+  <div x-data="$store.toolbar" class="mx-auto max-w-7xl">
     <Toolbar number={article.number} />
-    <div class="mx-auto max-w-7xl"><Article article={article} /></div>
+    <dl class=" grid grid-cols-[100px_auto] justify-center mt-4">
+      { references.map(ref => (
+      <dt>{ref.dt}:</dt>
+      <dd class="font-semibold col-start-2">{ref.dd}</dd>))
+      }
+    </dl>
+    <div><Article article={article} /></div>
   </div>
 </Layout>
+
