@@ -72,7 +72,7 @@ if (article.section?.number) {
 >
   <header class="mt-6 flex justify-between items-baseline relative">
     <button
-      x-data={`{ link: '${Astro.site}/artikel/${article.number}/', copied: false}`}
+      x-data={`{ link: '${Astro.site}artikel/${article.number}/', copied: false}`}
       @click="navigator.clipboard.writeText(link); copied = true"
       class="absolute -left-10 top-8 cursor-pointer"
     >
