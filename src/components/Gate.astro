@@ -1,3 +1,8 @@
-<div x-data="{ show: true }" x-show="show" class="bg-white inset-0 absolute z-20">
-  <button :click="show = false">OPEN GATE!</button>
+<div
+  x-cloak
+  x-data="{ hideGate: $persist(false) }"
+  x-show="!hideGate"
+  class="bg-white inset-0 absolute z-20"
+>
+  <button @click="hideGate = true" class="bg-primary p-3">OPEN GATE!</button>
 </div>
