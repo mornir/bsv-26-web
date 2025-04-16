@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import {defineConfig} from 'astro/config'
 import sanity from '@sanity/astro'
 import alpinejs from '@astrojs/alpinejs'
+import icon from 'astro-icon'
 
 const {PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET} = loadEnv(
   import.meta.env.MODE,
@@ -18,6 +19,7 @@ const dataset = PUBLIC_SANITY_DATASET
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://bsv.terminofeu.ch',
   integrations: [
     sanity({
       projectId,
@@ -26,6 +28,7 @@ export default defineConfig({
       apiVersion: '2024-12-08',
     }),
     alpinejs({entrypoint: '/src/utils/alpine'}),
+    icon(),
   ],
   vite: {
     plugins: [tailwindcss()],
