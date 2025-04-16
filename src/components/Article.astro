@@ -72,11 +72,12 @@ if (article.section?.number) {
 >
   <header class="mt-6 flex justify-between items-baseline relative">
     <button
-      x-data={`{ link: '${Astro.site}/artikel/${article.number}/'}`}
-      @click="navigator.clipboard.writeText(link)"
+      x-data={`{ link: '${Astro.site}/artikel/${article.number}/', copied: false}`}
+      @click="navigator.clipboard.writeText(link); copied = true"
       class="absolute -left-10 top-8 cursor-pointer"
     >
-      <Icon name="mdi:link" class="text-xl" />
+      <Icon name="mdi:link" class="text-xl text-gray-500" x-show="!copied" />
+      <Icon name="mdi:check" class="text-xl text-gray-500" x-show="copied" />
     </button>
     <h3>Art. {article.number}</h3>
     <h4 class="text-xs text-gray-500 font-semibold">
