@@ -1,8 +1,24 @@
 <div
   x-cloak
-  x-data="{ hideGate: $persist(false) }"
-  x-show="!hideGate"
+  x-data="{ showGate: $persist(true), password: '', showError: false }"
+  x-show="showGate"
   class="bg-white inset-0 absolute z-20"
+  x-trap.noscroll="showGate"
 >
-  <button @click="hideGate = true" class="bg-primary p-3">OPEN GATE!</button>
+  <div class="prose mx-auto pt-12">
+    <h1>Projekt Digitale BSV 2026</h1>
+    <form @submit.prevent="password === 'digitale-bsv' ? showGate = false : showError = true">
+      <label for="password">Passwort:</label>
+      <input
+        x-model="password"
+        type="text"
+        class="border-primary border-2"
+        id="password"
+        name="password"
+      />
+      <button type="submit" class="bg-primary text-white hover:bg-accent px-2 py-1">Eingeben</button
+      >
+      <p class="text-red-600" x-show="showError">Passwort ist falsch</p>
+    </form>
+  </div>
 </div>
