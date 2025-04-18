@@ -1,4 +1,3 @@
-import type { Context } from "@netlify/functions";
 import { createClient } from '@sanity/client'
 import OpenAI from 'openai';
 import { toHTML } from '@portabletext/to-html'
@@ -22,7 +21,7 @@ const config = {
   apiVersion: '2025-02-06',
 }
 
-export default async (req: Request, context: Context) => {
+export default async (req: Request) => {
   try {
     const { prompt } = await req.json();
 
