@@ -1,23 +1,30 @@
-import { sanityClient } from "sanity:client";
+import { createClient } from '@sanity/client'
 import type { PortableTextBlock } from "@portabletext/types";
 import type { ImageAsset, Slug } from "@sanity/types";
 import groq from "groq";
 
+const client = createClient({
+  projectId: 'lc9446ox',
+  dataset: 'production',
+  useCdn: false,
+  apiVersion: '2025-02-06',
+})
+
 export async function getArticlesLinks(): Promise<Article[]> {
-  return await sanityClient.fetch(
+  return await client.fetch(
     groq`*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`
   )
 }
 
 
 export async function getArticles(): Promise<Article[]> {
-  return await sanityClient.fetch(
+  return await client.fetch(
     groq`*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`
   )
 }
 
 export async function getArticle(number: number): Promise<Article> {
-  return await sanityClient.fetch(
+  return await client.fetch(
     groq`*[_type == "article" && number == $number]{..., title->, chapter->, section->} | order(number asc) [0]`, {
     number,
   }
@@ -26,7 +33,7 @@ export async function getArticle(number: number): Promise<Article> {
 
 
 export async function getNav() {
-  return await sanityClient.fetch(
+  return await client.fetch(
     groq`*[_type == "title"] {
   name, number,
   "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->},

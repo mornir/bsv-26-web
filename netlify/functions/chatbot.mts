@@ -1,4 +1,3 @@
-import type { Context } from "@netlify/functions";
 import { createClient } from '@sanity/client'
 import OpenAI from 'openai';
 import { toHTML } from '@portabletext/to-html'
@@ -15,7 +14,14 @@ export interface RecordValue {
   type: string
 }
 
-export default async (req: Request, context: Context) => {
+const config = {
+  projectId: 'lc9446ox',
+  dataset: 'production',
+  useCdn: true,
+  apiVersion: '2025-02-06',
+}
+
+export default async (req: Request) => {
   try {
     const { prompt } = await req.json();
 
@@ -32,18 +38,10 @@ export default async (req: Request, context: Context) => {
       apiKey: process.env.OPENAI_API_KEY,
     });
 
-    const sanityClient = createClient({
-      projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
-      dataset: process.env.PUBLIC_SANITY_DATASET,
-      useCdn: true,
-      apiVersion: '2025-02-06',
-      token: process.env.SANITY_API_TOKEN,
-    });
-
-
+    const sanityClient = createClient(config);
 
     const response = await fetch(
-      `https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/vX/embeddings-index/query/${process.env.PUBLIC_SANITY_DATASET}/${process.env.SANITY_INDEX_NAME}`,
+      `https://${config.projectId}.api.sanity.io/vX/embeddings-index/query/${config.dataset}/bsv-de`,
       {
         method: 'POST',
         headers: {
