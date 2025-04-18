@@ -12,8 +12,8 @@ const questions = [
 ---
 
 <Layout title="Chatbot">
-  <div class="max-w-7xl mx-auto px-4 my-10 grid grid-cols-2 gap-x-8">
-    <section x-data="chatbot">
+  <div class="max-w-7xl mx-auto px-4 my-10 grid grid-cols-2 gap-x-8" x-data="chatbot">
+    <section>
       <h1 class="text-2xl font-bold text-center mb-4">BSV Chatbot</h1>
       <div class="mb-4">
         <label for="query" class="block text-sm font-medium text-gray-700"
@@ -68,7 +68,19 @@ const questions = [
       <div>
         <h3>Beispielfragen</h3>
         <ul>
-          {questions.map((question) => <li>{question}</li>)}
+          {
+            questions.map((question) => (
+              <li
+                x-data={`{ question: '${question}'}`}
+                class="underline cursor-pointer"
+                x-on:click="query = question; submitQuery()"
+                role="button"
+                tabindex="0"
+              >
+                {question}
+              </li>
+            ))
+          }
         </ul>
       </div>
       <!--  <div>
