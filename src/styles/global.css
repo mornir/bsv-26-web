@@ -23,13 +23,13 @@
 
 .c-law p + ol {
   list-style-type: lower-alpha;
-  padding-inline-start: revert;
+  padding-inline-start: 1.5714286em; /* For cases where article contain only 1 alinéa. TODO: find better way */
 }
 
-ol ol {
+.c-law ol ol {
   list-style-type: lower-alpha; /* Second-level uses lower-alpha */
 }
 
-ol ol ol {
+.c-law ol ol ol {
   list-style-type: decimal; /* Third-level goes back to numbers */
 }
