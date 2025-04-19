@@ -66,8 +66,8 @@ if (article.section?.number) {
 ---
 
 <article
-  class="prose prose-stone prose-sm prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
-  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
+  class="prose prose-stone prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
+  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
   id={`art-${article.number}`}
 >
   <header class="mt-6 flex justify-between items-baseline relative">
