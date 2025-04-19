@@ -16,11 +16,16 @@
   suffix: ''; /* Space after the number */
 }
 
-/* .c-law > ol {
+.c-law > ol {
   list-style: superscript-numbers;
   padding-inline-start: 0.3rem;
 }
- */
+
+.c-law p + ol {
+  list-style-type: lower-alpha;
+  padding-inline-start: revert;
+}
+
 ol ol {
   list-style-type: lower-alpha; /* Second-level uses lower-alpha */
 }
