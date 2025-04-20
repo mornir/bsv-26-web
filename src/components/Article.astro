@@ -1,6 +1,8 @@
 ---
 import type {Article, BlockContent} from '../utils/sanity'
 
+import Table from './Table.astro'
+
 import {PortableText} from 'astro-portabletext'
 
 import {Icon} from 'astro-icon/components'
@@ -63,11 +65,17 @@ if (article.chapter?.number) {
 if (article.section?.number) {
   references.push(`Abschnitt ${article.section.number}`)
 }
+
+const components = {
+  type: {
+    table: Table,
+  },
+}
 ---
 
 <article
-  class="prose prose-stone prose-sm prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
-  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none'"
+  class="prose prose-stone prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
+  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
   id={`art-${article.number}`}
 >
   <header class="mt-6 flex justify-between items-baseline relative">
@@ -102,7 +110,7 @@ if (article.section?.number) {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="contents c-law">
-          <PortableText value={laws[lang] ?? []} />
+          <PortableText value={laws[lang] ?? []} components={components} />
         </div>
       ))
     }

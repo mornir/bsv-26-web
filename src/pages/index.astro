@@ -9,7 +9,7 @@ const mainNav = [
 ]
 ---
 
-<Layout title="BSV 2026">
+<Layout title="Startseite">
   <div class="h-screen grid place-content-center -mt-8">
     <h1 class="text-center text-4xl font-semibold mb-8 text-slate-800">DIGITALE BSV 2026</h1>
     <nav class="grid md:grid-cols-2 gap-8 max-w-3xl">
@@ -17,7 +17,7 @@ const mainNav = [
         mainNav.map((item) => (
           <a
             href={item.link}
-            class="bg-primary text-white py-8 px-10 text-center text-xl font-semibold hover:bg-accent block duration-700 ease-out"
+            class="bg-primary text-white py-8 px-10 text-center text-xl font-semibold hover:bg-accent block duration-700 ease-in-out"
           >
             {item.text}
           </a>
