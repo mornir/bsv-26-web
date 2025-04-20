@@ -1,6 +1,8 @@
 ---
 import type {Article, BlockContent} from '../utils/sanity'
 
+import Table from './Table.astro'
+
 import {PortableText} from 'astro-portabletext'
 
 import {Icon} from 'astro-icon/components'
@@ -63,6 +65,12 @@ if (article.chapter?.number) {
 if (article.section?.number) {
   references.push(`Abschnitt ${article.section.number}`)
 }
+
+const components = {
+  type: {
+    table: Table,
+  },
+}
 ---
 
 <article
@@ -102,7 +110,7 @@ if (article.section?.number) {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="contents c-law">
-          <PortableText value={laws[lang] ?? []} />
+          <PortableText value={laws[lang] ?? []} components={components} />
         </div>
       ))
     }
