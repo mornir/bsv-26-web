@@ -1,16 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
-
-const mainNav = [
-  {text: 'Gesamtwerk', link: 'gesamtwerk'},
-  {text: 'Inhaltsverzeichnis', link: 'artikel'},
-  {text: 'Themen', link: 'themen'},
-  {text: 'BSV Chatbot', link: 'bsv-chatbot'},
-]
+import {mainNav} from '../components/TheHeader.astro'
 ---
 
 <Layout title="Startseite">
-  <div class="h-screen grid place-content-center -mt-8">
+  <div class="grid place-content-center mt-32">
     <h1 class="text-center text-4xl font-semibold mb-8 text-slate-800">DIGITALE BSV 2026</h1>
     <nav class="grid md:grid-cols-2 gap-8 max-w-3xl">
       {

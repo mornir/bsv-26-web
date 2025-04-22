@@ -77,12 +77,13 @@ const components = {
   class="prose prose-stone prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
   id={`art-${article.number}`}
+  x-cloak
 >
   <header class="mt-6 flex justify-between items-baseline relative">
     <button
       x-data={`{ link: '${Astro.site}artikel/${article.number}/', copied: false}`}
       @click="navigator.clipboard.writeText(link); copied = true"
-      class="absolute -left-10 top-8 cursor-pointer"
+      class="absolute -left-10 top-1/2 cursor-pointer"
     >
       <Icon name="mdi:link" class="text-xl text-gray-500" x-show="!copied" />
       <Icon name="mdi:check" class="text-xl text-gray-500" x-show="copied" />
