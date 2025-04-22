@@ -1,0 +1,28 @@
+---
+export const mainNav = [
+  {text: 'Gesamtwerk', link: 'gesamtwerk'},
+  {text: 'Inhaltsverzeichnis', link: 'artikel'},
+  {text: 'Themen', link: 'themen'},
+  {text: 'Chatbot', link: 'bsv-chatbot'},
+]
+---
+
+<header class="border-b-2 border-primary">
+  <div class="flex justify-between mx-4 py-5 items-baseline">
+    <a href="/" class="hover:underline text-2xl font-semibold">DIGITALE BSV 2026</a>
+    <nav class="flex gap-x-4 text-lg font-semibold decoration-accent decoration-4">
+      {
+        mainNav.map((item) => (
+          <a href={item.link} class="hover:underline">
+            {item.text}
+          </a>
+        ))
+      }
+      <div>
+        <a href="/de">DE</a>
+        <a href="/fr">FR</a>
+        <a href="/it">IT</a>
+      </div>
+    </nav>
+  </div>
+</header>
