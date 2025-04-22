@@ -83,7 +83,7 @@ const components = {
     <button
       x-data={`{ link: '${Astro.site}artikel/${article.number}/', copied: false}`}
       @click="navigator.clipboard.writeText(link); copied = true"
-      class="absolute -left-10 top-8 cursor-pointer"
+      class="absolute -left-10 top-1/2 cursor-pointer"
     >
       <Icon name="mdi:link" class="text-xl text-gray-500" x-show="!copied" />
       <Icon name="mdi:check" class="text-xl text-gray-500" x-show="copied" />
