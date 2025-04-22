@@ -12,7 +12,7 @@ const pathname = Astro.url.pathname
 <header class="border-b-2 border-primary">
   <div class="grid grid-cols-3 mx-4 py-5 items-baseline">
     <a href="/" class="hover:underline text-2xl font-semibold">DIGITALE BSV 2026</a>
-    <nav class="flex gap-x-5 text-lg font-semibold decoration-accent decoration-4 justify-center">
+    <nav class="flex gap-x-6 text-lg font-semibold decoration-accent decoration-4 justify-center">
       {
         mainNav.map((item) => (
           <a href={item.link} class={'hover:underline ' + (pathname === item.link && 'underline')}>
@@ -21,7 +21,7 @@ const pathname = Astro.url.pathname
         ))
       }
     </nav>
-    <div class="justify-end">
+    <div class="text-right">
       <a href="/de">DE</a>
       <a href="/fr">FR</a>
       <a href="/it">IT</a>
