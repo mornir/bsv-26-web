@@ -1,7 +1,7 @@
 import { createClient } from '@sanity/client'
 import type { PortableTextBlock } from "@portabletext/types";
 import type { ImageAsset, Slug } from "@sanity/types";
-import groq from "groq";
+import { defineQuery } from 'groq'
 
 const client = createClient({
   projectId: 'lc9446ox',
@@ -11,36 +11,34 @@ const client = createClient({
 })
 
 export async function getArticlesLinks(): Promise<Article[]> {
-  return await client.fetch(
-    groq`*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`
-  )
+  const getArticlesLinksQuery = defineQuery(`*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`)
+
+  return client.fetch(getArticlesLinksQuery)
 }
 
 
 export async function getArticles(): Promise<Article[]> {
-  return await client.fetch(
-    groq`*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`
-  )
+  const getArticlesQuery = defineQuery(`*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`)
+
+  return client.fetch(getArticlesQuery)
 }
 
 export async function getArticle(number: number): Promise<Article> {
-  return await client.fetch(
-    groq`*[_type == "article" && number == $number]{..., title->, chapter->, section->} | order(number asc) [0]`, {
-    number,
-  }
-  )
+  const getArticleQuery = defineQuery(`*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]`)
+
+  return client.fetch(getArticleQuery, { number })
 }
 
 
 export async function getNav() {
-  return await client.fetch(
-    groq`*[_type == "title"] {
+  const getNavQuery = defineQuery(`*[_type == "title"] {
   name, number,
-  "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->},
+  "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},
   "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }} | order(number asc),
   "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}
-} | order(number asc)`
-  )
+} | order(number asc)`)
+
+  return client.fetch(getNavQuery)
 }
 
 export type BlockContent = Array<{
