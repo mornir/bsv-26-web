@@ -1,7 +1,7 @@
 ---
-import type { Article } from '../../sanity.types'
+import type { GetArticleQueryResult } from '../../sanity.types'
 interface Props {
-  articles: Article[]
+  articles: GetArticleQueryResult[]
 }
 
 const { articles } = Astro.props
@@ -9,7 +9,7 @@ const { articles } = Astro.props
 
 <ul class="text-xs ms-4 space-y-2">
   {
-    articles.map((art: Article) => (
+    articles.map((art) => (
       <li>
         <a href={`#art-${art.number}`}>
           Art.&nbsp;{art.number}&nbsp;{art.name.de}

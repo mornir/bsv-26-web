@@ -468,7 +468,7 @@ export type GetArticleQueryResult = {
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
-} | null
+}
 // Variable: getNavQuery
 // Query: *[_type == "title"] {  name, number,  "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},  "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }} | order(number asc),  "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}} | order(number asc)
 export type GetNavQueryResult = Array<{
