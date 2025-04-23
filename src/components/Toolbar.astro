@@ -4,17 +4,17 @@ interface Props {
 }
 
 const expOptions = [
-  {text: 'anzeigen', value: 'show'},
-  {text: 'umschalten', value: 'toggle'},
-  {text: 'ausblenden', value: 'hide'},
+  { text: 'anzeigen', value: 'show' },
+  { text: 'umschalten', value: 'toggle' },
+  { text: 'ausblenden', value: 'hide' },
 ]
 
 const langs = [
-  {text: 'Deutsch', value: 'de'},
-  {text: 'Französisch', value: 'fr'},
-  {text: 'Italienisch', value: 'it'},
+  { text: 'Deutsch', value: 'de' },
+  { text: 'Französisch', value: 'fr' },
+  { text: 'Italienisch', value: 'it' },
 ]
-const {number} = Astro.props
+const { number } = Astro.props
 ---
 
 <div
@@ -24,7 +24,7 @@ const {number} = Astro.props
     {!number && <span>Erläuterungen:</span>}
     {
       !number ? (
-        expOptions.map(({text, value}) => (
+        expOptions.map(({ text, value }) => (
           <div>
             <input
               type="radio"
@@ -50,7 +50,7 @@ const {number} = Astro.props
   <div class="flex gap-x-4 justify-end">
     <span>Sprachvergleich:</span>
     {
-      langs.map(({text, value}) => (
+      langs.map(({ text, value }) => (
         <div>
           <input
             type="checkbox"
