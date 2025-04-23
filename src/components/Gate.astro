@@ -7,9 +7,18 @@
 >
   <div class="prose mx-auto pt-12 px-4">
     <h1>Projekt Digitale BSV 2026</h1>
-    <form @submit.prevent="password === 'digitale-bsv' ? showGate = false : showError = true">
-      <label for="password" class="block text-sm font-medium text-gray-700">Passwort:</label>
-      <input x-model="password" type="text" class="border-primary border-2 p-1" id="password" />
+    <form
+      @submit.prevent="password === 'digitale-bsv' ? showGate = false : showError = true"
+    >
+      <label for="password" class="block text-sm font-medium text-gray-700"
+        >Passwort:</label
+      >
+      <input
+        x-model="password"
+        type="text"
+        class="border-primary border-2 p-1"
+        id="password"
+      />
       <button
         type="submit"
         class="bg-primary text-white hover:bg-accent px-2 border-primary border-2 py-1"

@@ -1,9 +1,9 @@
 ---
 export const mainNav = [
-  {text: 'Gesamtwerk', link: '/gesamtwerk/'},
-  {text: 'Inhaltsverzeichnis', link: '/artikel/'},
-  {text: 'Themen', link: '/themen/'},
-  {text: 'Chatbot', link: '/chatbot/'},
+  { text: 'Gesamtwerk', link: '/gesamtwerk/' },
+  { text: 'Inhaltsverzeichnis', link: '/artikel/' },
+  { text: 'Themen', link: '/themen/' },
+  { text: 'Chatbot', link: '/chatbot/' },
 ]
 
 const pathname = Astro.url.pathname
@@ -11,20 +11,27 @@ const pathname = Astro.url.pathname
 
 <header class="border-b-2 border-primary">
   <div class="grid grid-cols-3 mx-4 py-5 items-baseline">
-    <a href="/" class="hover:underline text-2xl font-semibold">DIGITALE BSV 2026</a>
-    <nav class="flex gap-x-6 text-lg font-semibold decoration-accent decoration-4 justify-center">
+    <a href="/" class="hover:underline text-2xl font-semibold"
+      >DIGITALE BSV 2026</a
+    >
+    <nav
+      class="flex gap-x-6 text-lg font-semibold decoration-accent decoration-4 justify-center"
+    >
       {
         mainNav.map((item) => (
-          <a href={item.link} class={'hover:underline ' + (pathname === item.link && 'underline')}>
+          <a
+            href={item.link}
+            class={'hover:underline ' + (pathname === item.link && 'underline')}
+          >
             {item.text}
           </a>
         ))
       }
     </nav>
     <div class="text-right">
-      <a href="/de">DE</a>
-      <a href="/fr">FR</a>
-      <a href="/it">IT</a>
+      <a href="#">DE</a>
+      <a href="#">FR</a>
+      <a href="#">IT</a>
     </div>
   </div>
 </header>
