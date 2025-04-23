@@ -32,7 +32,12 @@ const nav = await getNav()
                               <h3 class="text-sm ms-4 mt-2 text-gray-400">
                                 {section.name.de}
                               </h3>
-                              <ArticlesList articles={title.articles} />
+                              <ArticlesList
+                                articles={title.articles.filter(
+                                  (art: any) =>
+                                    art.section.number === section.number
+                                )}
+                              />
                             </div>
                           ))
                         ) : (
