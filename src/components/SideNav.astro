@@ -16,40 +16,46 @@ const nav = await getNav()
                 {title.name.de}
               </summary>
 
-              {title.chapters.length ? (
-                <ul class="mt-2">
-                  {title.chapters.map((chapter) => (
-                    <li class="mb-2">
-                      <details>
-                        <summary class="text-sm">
-                          {chapter.number}
-                          {chapter.name.de}
-                        </summary>
-
-                        {chapter.sections.length ? (
-                          chapter.sections.map((section) => (
-                            <div>
-                              <h3 class="text-sm ms-4 mt-2 text-gray-400">
-                                {section.name.de}
-                              </h3>
-                              <ArticlesList
-                                articles={title.articles.filter(
-                                  (art: any) =>
-                                    art.section.number === section.number
-                                )}
-                              />
-                            </div>
-                          ))
-                        ) : (
-                          <ArticlesList articles={title.articles} />
-                        )}
-                      </details>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
+              <!-- Articles with no chapter nor section -->
+              {!title.chapters.length && !title.sections.length && (
                 <ArticlesList articles={title.articles} />
               )}
+
+              <!-- Articles with both chapter and section. TODO: -->
+              {!!title.chapters.length && !!title.sections.length && (
+                <ArticlesList articles={title.articles} />
+              )}
+
+              <!-- Articles with only section -->
+              {!title.chapters.length &&
+                title.sections.map((section) => (
+                  <div>
+                    <h3 class="text-sm ms-4 mt-2 text-gray-400">
+                      {section.name.de}
+                    </h3>
+                    <ArticlesList
+                      articles={title.articles.filter(
+                        (art) => art.section?.number === section.number
+                      )}
+                    />
+                  </div>
+                ))}
+
+              <!-- Articles with only chapter -->
+              {!!title.chapters.length &&
+                title.chapters.map((chapter) => (
+                  <details>
+                    <summary class="text-sm">
+                      {chapter.number}
+                      {chapter.name.de}
+                    </summary>
+                    <ArticlesList
+                      articles={title.articles.filter(
+                        (art) => art.chapter?.number === chapter.number
+                      )}
+                    />
+                  </details>
+                ))}
             </details>
           </li>
         ))

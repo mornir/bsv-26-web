@@ -1,15 +1,10 @@
 ---
-import type { GetArticleQueryResult } from '../../sanity.types'
-interface Props {
-  articles: GetArticleQueryResult[]
-}
-
 const { articles } = Astro.props
 ---
 
 <ul class="text-xs ms-4 space-y-2">
   {
-    articles.map((art) => (
+    articles.map((art: any) => (
       <li>
         <a href={`#art-${art.number}`}>
           Art.&nbsp;{art.number}&nbsp;{art.name.de}
