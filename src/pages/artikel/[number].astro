@@ -41,7 +41,7 @@ if (article.section?.number && article.section?.name) {
 <Layout title={'Artikel ' + article.number}>
   <div x-data="$store.toolbar">
     <Toolbar number={article.number} />
-    <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-7xl mb-24">
       <dl class="grid grid-cols-[100px_auto] justify-center mt-4">
         { references.map(ref => (
         <dt>{ref.dt}:</dt>
