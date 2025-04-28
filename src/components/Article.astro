@@ -70,7 +70,8 @@ if (article.section?.number) {
 
 const components = {
   type: {
-    table: Table,
+    inlineTable: Table,
+    blockTable: Table,
   },
 }
 ---
@@ -87,7 +88,11 @@ const components = {
       @click="navigator.clipboard.writeText(link); copied = true"
       class="absolute -left-10 top-1/2 cursor-pointer"
     >
-      <Icon name="mdi:link" class="text-xl text-gray-500" x-show="!copied" />
+      <Icon
+        name="mdi:link"
+        class="text-xl text-gray-500 hover:text-accent"
+        x-show="!copied"
+      />
       <Icon name="mdi:check" class="text-xl text-gray-500" x-show="copied" />
     </button>
     <h3>Art. {article.number}</h3>
@@ -126,7 +131,6 @@ const components = {
         <div
           class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
           style={`grid-template-rows: repeat(${colsExp}, auto)`}
-          lang="de"
         >
           {languages.map(
             (lang) =>
