@@ -1,5 +1,6 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
+import { Icon } from 'astro-icon/components'
 import Toolbar from '../../components/Toolbar.astro'
 import Article from '../../components/Article.astro'
 import Layout from '../../layouts/Layout.astro'
@@ -19,35 +20,33 @@ const { number } = Astro.params as Params
 const article = await getArticle(parseInt(number))
 //if (!article) return Astro.redirect('/404')
 
-const references = [
-  { dd: article.title.name.de, dt: `Titel ${article.title.number}` },
-]
+const references = [article.title.name.de]
 
 if (article.chapter?.number && article.chapter?.name) {
-  references.push({
-    dd: article.chapter.name.de,
-    dt: `Kapitel ${article.chapter.number}`,
-  })
+  references.push(article.chapter.name.de)
 }
 
 if (article.section?.number && article.section?.name) {
-  references.push({
-    dd: article.section.name.de,
-    dt: `Abschnitt ${article.section.number}`,
-  })
+  references.push(article.section.name.de)
 }
 ---
 
 <Layout title={'Artikel ' + article.number}>
   <div x-data="$store.toolbar">
     <Toolbar number={article.number} />
-    <div class="mx-auto max-w-7xl mb-24">
-      <dl class="grid grid-cols-[100px_auto] justify-center mt-4">
-        { references.map(ref => (
-        <dt>{ref.dt}:</dt>
-        <dd class="font-semibold col-start-2">{ref.dd}</dd>))
+    <div class="mx-auto max-w-7xl mb-24 mt-12">
+      <ol>
+        {
+          references.map((ref) => (
+            <li class="flex flex-col items-center">
+              <a href="#" class="font-semibold">
+                {ref}
+              </a>
+              <Icon name="mdi:chevron-down" class="text-xl text-gray-500" />
+            </li>
+          ))
         }
-      </dl>
+      </ol>
       <Article article={article} />
     </div>
   </div>
