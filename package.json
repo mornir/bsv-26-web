@@ -39,6 +39,10 @@
   "packageManager": "pnpm@10.8.1",
   "prettier": {
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "tailwindStylesheet": "./src/styles/global.css",
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   }
 }

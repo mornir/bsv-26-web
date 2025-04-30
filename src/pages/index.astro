@@ -4,16 +4,16 @@ import { mainNav } from '../components/TheHeader.astro'
 ---
 
 <Layout title="Startseite">
-  <div class="grid place-content-center mt-32">
-    <h1 class="text-center text-4xl font-semibold mb-8 text-slate-800">
+  <div class="mt-32 grid place-content-center">
+    <h1 class="mb-8 text-center text-4xl font-semibold text-slate-800">
       DIGITALE BSV 2026
     </h1>
-    <nav class="grid md:grid-cols-2 gap-8 max-w-3xl">
+    <nav class="grid max-w-3xl gap-8 md:grid-cols-2">
       {
         mainNav.map((item) => (
           <a
             href={item.link}
-            class="bg-primary text-white py-8 px-10 text-center text-xl font-semibold hover:bg-accent block duration-700 ease-in-out"
+            class="block bg-primary px-10 py-8 text-center text-xl font-semibold text-white duration-700 ease-in-out hover:bg-accent"
           >
             {item.text}
           </a>

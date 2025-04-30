@@ -77,16 +77,16 @@ const components = {
 ---
 
 <article
-  class="prose prose-stone prose-p:my-2 prose-ul:mt-0 prose-ul:mb-2 prose-ol:mt-0 prose-ol:mb-2 scroll-mt-12"
+  class="prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2"
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
   id={`art-${article.number}`}
   x-cloak
 >
-  <header class="mt-6 flex justify-between items-baseline relative">
+  <header class="relative mt-6 flex items-baseline justify-between">
     <button
       x-data={`{ link: '${Astro.site}artikel/${article.number}/', copied: false}`}
       @click="navigator.clipboard.writeText(link); copied = true"
-      class="absolute -left-10 top-1/2 cursor-pointer"
+      class="absolute top-1/2 -left-10 cursor-pointer"
     >
       <Icon
         name="mdi:link"
@@ -96,12 +96,12 @@ const components = {
       <Icon name="mdi:check" class="text-xl text-gray-500" x-show="copied" />
     </button>
     <h3>Art. {article.number}</h3>
-    <h4 class="text-xs text-gray-500 font-semibold">
+    <h4 class="text-xs font-semibold text-gray-500">
       {references.join(', ')}
     </h4>
   </header>
 
-  <div class="grid gap-x-8 grid-flow-col auto-cols-fr grid-rows-1">
+  <div class="grid auto-cols-fr grid-flow-col grid-rows-1 gap-x-8">
     {
       languages.map((lang) => (
         <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2 text-lg">
@@ -112,12 +112,12 @@ const components = {
   </div>
 
   <div
-    class="grid gap-x-8 grid-flow-col auto-cols-fr"
+    class="grid auto-cols-fr grid-flow-col gap-x-8"
     style={`grid-template-rows: repeat(${colsLaw}, auto)`}
   >
     {
       languages.map((lang) => (
-        <div x-show={`languages.includes('${lang}')`} class="contents c-law">
+        <div x-show={`languages.includes('${lang}')`} class="c-law contents">
           <PortableText value={laws[lang] ?? []} components={components} />
         </div>
       ))
@@ -129,7 +129,7 @@ const components = {
       <details x-show="exp === 'toggle'">
         <summary class="cursor-pointer">Erläuterung anzeigen</summary>
         <div
-          class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
+          class="grid auto-cols-fr grid-flow-col gap-x-8 text-blue-600"
           style={`grid-template-rows: repeat(${colsExp}, auto)`}
         >
           {languages.map(
@@ -148,7 +148,7 @@ const components = {
   {
     explanations.de && (
       <div
-        class="grid gap-x-8 grid-flow-col auto-cols-fr text-blue-600"
+        class="grid auto-cols-fr grid-flow-col gap-x-8 text-blue-600"
         style={`grid-template-rows: repeat(${colsExp}, auto)`}
         x-show="exp === 'show'"
       >

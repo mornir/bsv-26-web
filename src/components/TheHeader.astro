@@ -10,12 +10,12 @@ const pathname = Astro.url.pathname
 ---
 
 <header class="border-b-2 border-primary">
-  <div class="grid grid-cols-3 mx-4 py-5 items-baseline">
-    <a href="/" class="hover:underline text-2xl font-semibold"
+  <div class="mx-4 grid grid-cols-3 items-baseline py-5">
+    <a href="/" class="text-2xl font-semibold hover:underline"
       >DIGITALE BSV 2026</a
     >
     <nav
-      class="flex gap-x-6 text-lg font-semibold decoration-accent decoration-4 justify-center"
+      class="flex justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"
     >
       {
         mainNav.map((item) => (
