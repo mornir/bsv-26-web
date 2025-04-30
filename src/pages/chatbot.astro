@@ -9,15 +9,17 @@ const questions = [
   'Wer entscheidet über die Anwendung von Produkte?',
   'Was sind wärmetechnische Anlagen?',
 ]
+
+const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 ---
 
 <Layout title="Chatbot">
   <div
-    class="max-w-7xl mx-auto px-4 my-10 grid md:grid-cols-2 gap-x-8"
+    class="max-w-7xl mx-auto px-4 my-10 grid md:grid-cols-2 gap-x-12 prose"
     x-data="chatbot"
   >
     <section>
-      <h1 class="text-2xl font-bold text-center mb-4">BSV Chatbot</h1>
+      <h2 class="text-center">BSV Chatbot</h2>
       <div class="mb-4">
         <label for="query" class="block text-sm font-medium text-gray-700"
           >Ihre Frage zu den BSV 2026</label
@@ -29,16 +31,17 @@ const questions = [
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Frage eintippen..."></textarea>
       </div>
-
-      <button
-        type="button"
-        @click="submitQuery"
-        :disabled="loading"
-        class="w-full py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500"
-      >
-        <span x-show="!loading">BSV Chatbot fragen</span>
-        <span x-show="loading">Einen Augenlick...</span>
-      </button>
+      <div class="flex justify-center">
+        <button
+          type="button"
+          @click="submitQuery"
+          :disabled="loading"
+          class="py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500"
+        >
+          <span x-show="!loading">BSV Chatbot fragen</span>
+          <span x-show="loading">Einen Augenlick...</span>
+        </button>
+      </div>
 
       <div class="mt-6" x-show="question">
         <h2 class="text-xl font-semibold sr-only">Frage:</h2>
@@ -54,54 +57,90 @@ const questions = [
         <h2 class="text-xl font-semibold">Fehler:</h2>
         <p class="mt-2" x-text="error"></p>
       </div>
+
+      <div>
+        <div>
+          <h3>Hinweise</h3>
+          <ul>
+            <li>
+              Das Chatbot kann nur Fragen über <a href="/artikel/"
+                >veröffentliche Artikel</a
+              >
+              beantworten.
+            </li>
+            <li>Zurzeit sind nur Fragen auf Deutsch möglich.</li>
+            <li>Es gibt keine Garantie für die Richtigkeit der Antworten.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Beispielfragen</h3>
+          <ul>
+            {
+              questions.map((question) => (
+                <li
+                  x-data={`{ question: '${question}'}`}
+                  class="underline cursor-pointer"
+                  x-on:click="query = question; submitQuery()"
+                  role="button"
+                  tabindex="0"
+                >
+                  {question}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <section class="prose">
+    <section>
+      <h2 class="text-center">Bauvorhaben</h2>
+
       <div>
-        <h3>Hinweise</h3>
-        <ul>
-          <li>
-            Das Chatbot kann nur Fragen über <a href="/artikel/"
-              >veröffentliche Artikel</a
-            >
-            beantworten.
-          </li>
-          <li>Zurzeit sind nur Fragen auf Deutsch möglich.</li>
-          <li>Es gibt keine Garantie für die Richtigkeit der Antworten.</li>
-        </ul>
+        <label for="ansatz">Ansatz:</label>
+
+        <select name="ansatz" id="ansatz" class="border-2 border-primary">
+          <option value="präscriptiv">präscriptiv</option>
+          <option value="risikobasiert">risikobasiert</option>
+          <option value="leistungsbasiert">leistungsbasiert</option>
+        </select>
       </div>
+
       <div>
-        <h3>Beispielfragen</h3>
-        <ul>
+        <label for="system">System:</label>
+
+        <select name="system" id="system" class="border-2 border-primary">
+          <option value="Gebäude">Gebäude</option>
+          <option value="Gebäudeteil">Gebäudeteil</option>
+          <option value="Brandabschnitt">Brandabschnitt</option>
+          <option value="Raum">Raum</option>
+        </select>
+      </div>
+
+      <h4>Systemeigenschaften</h4>
+
+      <fieldset>
+        <legend>Nuztergruppen:</legend>
+        <div class="flex gap-x-4">
           {
-            questions.map((question) => (
-              <li
-                x-data={`{ question: '${question}'}`}
-                class="underline cursor-pointer"
-                x-on:click="query = question; submitQuery()"
-                role="button"
-                tabindex="0"
-              >
-                {question}
-              </li>
+            groups.map((group) => (
+              <div>
+                <input type="checkbox" id={group} name={group} />
+                <label for={group}>{group}</label>
+              </div>
             ))
           }
-        </ul>
+        </div>
+      </fieldset>
+
+      <div class="flex flex-col items-center">
+        <button
+          disabled
+          class="py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500 mt-4 cursor-not-allowed"
+          >Brandschutz-Massnahmen planen</button
+        >
+        <p class="mt-0 text-base">(Funktionalität noch im Aufbau)</p>
       </div>
-      <!--  <div>
-        <h3>Technische Informationen</h3>
-        <ul>
-          <li>KI-Model: <a href="GPT-4o" target="_blank">GPT-4o</a></li>
-          <li>
-            KI-Anweisung: <span class="italic">
-              Du bist ein hilfreicher Assistent, der nur auf der Grundlage dieser Dokumente
-              antwortet: [relevante BSV-Artikel]. Bitte gib an, welche Artikel du verwendest hast."</span
-            >
-          </li>
-          <li>Vektordatenbank: Pinecone.io</li>
-          <li>Relevance score threshold: 0.75 (min: 0, max: 1)</li>
-        </ul>
-      </div> -->
     </section>
   </div>
 </Layout>

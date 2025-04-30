@@ -29,6 +29,14 @@ if (article.chapter?.number && article.chapter?.name) {
 if (article.section?.number && article.section?.name) {
   references.push(article.section.name.de)
 }
+
+/*
+function textSize(index: Number) {
+  if (index === 0) return 'text-lg'
+  if (index === 1) return 'text-xl'
+  return 'text-2xl'
+}
+  */
 ---
 
 <Layout title={'Artikel ' + article.number}>
@@ -37,12 +45,17 @@ if (article.section?.number && article.section?.name) {
     <div class="mx-auto max-w-7xl mb-24 mt-12">
       <ol>
         {
-          references.map((ref) => (
-            <li class="flex flex-col items-center">
-              <a href="#" class="font-semibold">
+          references.map((ref, index) => (
+            <li class="flex flex-col items-center font-semibold">
+              <a
+                href="#"
+                class={index !== references.length - 1 ? 'text-lg' : 'text-2xl'}
+              >
                 {ref}
               </a>
-              <Icon name="mdi:chevron-down" class="text-xl text-gray-500" />
+              {index !== references.length - 1 && (
+                <Icon name="mdi:chevron-down" class="text-xl text-gray-500" />
+              )}
             </li>
           ))
         }
