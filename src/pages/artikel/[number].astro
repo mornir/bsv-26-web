@@ -30,11 +30,13 @@ if (article.section?.number && article.section?.name) {
   references.push(article.section.name.de)
 }
 
+/*
 function textSize(index: Number) {
   if (index === 0) return 'text-lg'
   if (index === 1) return 'text-xl'
   return 'text-2xl'
 }
+  */
 ---
 
 <Layout title={'Artikel ' + article.number}>
@@ -45,7 +47,10 @@ function textSize(index: Number) {
         {
           references.map((ref, index) => (
             <li class="flex flex-col items-center font-semibold">
-              <a href="#" class={textSize(index)}>
+              <a
+                href="#"
+                class={index !== references.length - 1 ? 'text-lg' : 'text-2xl'}
+              >
                 {ref}
               </a>
               {index !== references.length - 1 && (
