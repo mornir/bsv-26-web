@@ -9,6 +9,8 @@ const questions = [
   'Wer entscheidet über die Anwendung von Produkte?',
   'Was sind wärmetechnische Anlagen?',
 ]
+
+const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 ---
 
 <Layout title="Chatbot">
@@ -53,6 +55,50 @@ const questions = [
       <div class="mt-6 text-red-600" x-show="error">
         <h2 class="text-xl font-semibold">Fehler:</h2>
         <p class="mt-2" x-text="error"></p>
+      </div>
+
+      <div class="prose mt-24 border-2 border-primary p-4">
+        <div>
+          <label for="ansatz">Ansatz:</label>
+
+          <select name="ansatz" id="ansatz" class="border-2 border-primary">
+            <option value="präscriptiv">präscriptiv</option>
+            <option value="risikobasiert">risikobasiert</option>
+            <option value="leistungsbasiert">leistungsbasiert</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="system">System:</label>
+
+          <select name="system" id="system" class="border-2 border-primary">
+            <option value="Gebäude">Gebäude</option>
+            <option value="Gebäudeteil">Gebäudeteil</option>
+            <option value="Brandabschnitt">Brandabschnitt</option>
+            <option value="Raum">Raum</option>
+          </select>
+        </div>
+
+        <h4>Systemeigenschaften</h4>
+
+        <fieldset>
+          <legend>Nuztergruppen:</legend>
+          <div class="flex gap-x-4">
+            {
+              groups.map((group) => (
+                <div>
+                  <input type="checkbox" id={group} name={group} />
+                  <label for={group}>{group}</label>
+                </div>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <button
+          class="w-full py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500 mt-4"
+          >Brandschutz-Massnahmen planen</button
+        >
       </div>
     </section>
 
