@@ -19,10 +19,10 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
     x-data="chatbot"
   >
     <section>
-      <h2 class="text-center">BSV Chatbot</h2>
+      <h2 class="text-center">Fragen zu den BSV 2026</h2>
       <div class="mb-4">
         <label for="query" class="block text-sm font-medium text-gray-700"
-          >Ihre Frage zu den BSV 2026</label
+          >Ihre Frage:</label
         >
         <textarea
           autocomplete="off"
@@ -38,7 +38,7 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           :disabled="loading"
           class="py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500"
         >
-          <span x-show="!loading">BSV Chatbot fragen</span>
+          <span x-show="!loading">Chatbot fragen</span>
           <span x-show="loading">Einen Augenlick...</span>
         </button>
       </div>
@@ -63,12 +63,12 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           <h3>Hinweise</h3>
           <ul>
             <li>
-              Das Chatbot kann nur Fragen über <a href="/artikel/"
-                >veröffentliche Artikel</a
+              Der Chatbot kann nur Fragen zu <a href="/artikel/"
+                >veröffentlichen Artikeln</a
               >
               beantworten.
             </li>
-            <li>Zurzeit sind nur Fragen auf Deutsch möglich.</li>
+            <li>Derzeit sind nur Fragen auf Deutsch möglich.</li>
             <li>Es gibt keine Garantie für die Richtigkeit der Antworten.</li>
           </ul>
         </div>
@@ -137,7 +137,7 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
         <button
           disabled
           class="py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500 mt-4 cursor-not-allowed"
-          >Brandschutz-Massnahmen planen</button
+          >Massnahmen anzeigen</button
         >
         <p class="mt-0 text-base">(Funktionalität noch im Aufbau)</p>
       </div>
