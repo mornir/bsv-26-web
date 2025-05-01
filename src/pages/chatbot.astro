@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
-const questions = [
+const exampleQuestions = [
   'Für ein Gebäude mit Gesamttiefe von 15 Meter darf ich das präskriptive Nachweisverfahren anwenden?',
   'An wen richten sich die neuen Brandschutzvorschriften?',
   'Was sind die Grenzen des präskriptiven Nachweisverfahren?',
@@ -81,15 +81,15 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           <h3>Beispielfragen</h3>
           <ul>
             {
-              questions.map((question) => (
+              exampleQuestions.map((exampleQuestion) => (
                 <li
-                  x-data={`{ question: '${question}'}`}
+                  x-data={`{ exampleQuestion: '${exampleQuestion}'}`}
                   class="cursor-pointer underline"
-                  x-on:click="query = question; submitQuery()"
+                  x-on:click="query = exampleQuestion; submitQuery()"
                   role="button"
                   tabindex="0"
                 >
-                  {question}
+                  {exampleQuestion}
                 </li>
               ))
             }
@@ -198,6 +198,7 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           const data = await res.json()
           this.response =
             data.reply || 'Sorry, ich konnte keine Antwort finden.'
+
           this.question = this.query
           this.query = '' // Reset query on success
         } catch (err: any) {
