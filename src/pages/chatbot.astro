@@ -17,6 +17,7 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
   <div
     class="mx-auto my-10 prose grid max-w-7xl gap-x-12 px-4 prose-stone md:grid-cols-2"
     x-data="chatbot"
+    x-cloak
   >
     <section>
       <h2 class="text-center">Fragen zu den BSV 2026</h2>
@@ -44,19 +45,22 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
         </button>
       </div>
 
-      <div class="mt-6" x-show="question">
-        <h2 class="sr-only text-xl font-semibold">Frage:</h2>
-        <p class="text-sm text-gray-600" x-text="question"></p>
-      </div>
+      <div class="mt-8 border-2 border-primary px-4">
+        <div class="mt-6" x-show="question">
+          <h2 class="sr-only text-xl font-semibold">Frage:</h2>
+          <p class="font-semibold" x-text="question"></p>
+        </div>
 
-      <div class="mt-2" x-show="response">
-        <h2 class="sr-only text-xl font-semibold">Antwort:</h2>
-        <p class="mt-2 whitespace-pre-line text-gray-800" x-text="response"></p>
-      </div>
+        <div class="mt-2" x-show="response">
+          <h2 class="sr-only text-xl font-semibold">Antwort:</h2>
+          <p class="mt-2 whitespace-pre-line text-gray-800" x-text="response">
+          </p>
+        </div>
 
-      <div class="mt-6 text-red-600" x-show="error">
-        <h2 class="text-xl font-semibold">Fehler:</h2>
-        <p class="mt-2" x-text="error"></p>
+        <div class="mt-6 text-red-600" x-show="error">
+          <h2 class="text-xl font-semibold">Fehler:</h2>
+          <p class="mt-2" x-text="error"></p>
+        </div>
       </div>
 
       <div>
@@ -152,10 +156,10 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
   document.addEventListener('alpine:init', () => {
     window.Alpine.data('chatbot', () => ({
       query: '',
+      question: '',
       response: '',
       error: '',
       loading: false,
-      question: '',
       async submitQuery() {
         if (!this.query) {
           this.error = 'Bitte geben Sie eine Frage ein.'
