@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
-const questions = [
+const exampleQuestions = [
   'Für ein Gebäude mit Gesamttiefe von 15 Meter darf ich das präskriptive Nachweisverfahren anwenden?',
   'An wen richten sich die neuen Brandschutzvorschriften?',
   'Was sind die Grenzen des präskriptiven Nachweisverfahren?',
@@ -15,20 +15,22 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
 <Layout title="Chatbot">
   <div
-    class="max-w-7xl mx-auto px-4 my-10 grid md:grid-cols-2 gap-x-12 prose"
+    class="mx-auto my-10 prose grid max-w-7xl gap-x-12 px-4 prose-stone md:grid-cols-2"
     x-data="chatbot"
+    x-cloak
   >
     <section>
-      <h2 class="text-center">BSV Chatbot</h2>
+      <h2 class="text-center">Fragen zu den BSV 2026</h2>
       <div class="mb-4">
         <label for="query" class="block text-sm font-medium text-gray-700"
-          >Ihre Frage zu den BSV 2026</label
+          >Ihre Frage:</label
         >
         <textarea
           autocomplete="off"
+          rows="5"
           id="query"
           x-model="query"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
           placeholder="Frage eintippen..."></textarea>
       </div>
       <div class="flex justify-center">
@@ -36,26 +38,29 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           type="button"
           @click="submitQuery"
           :disabled="loading"
-          class="py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500"
+          class="transition-700 bg-primary px-4 py-2 text-white ease-in-out hover:bg-accent focus:ring-2 focus:ring-blue-400 focus:outline-none disabled:bg-gray-500"
         >
-          <span x-show="!loading">BSV Chatbot fragen</span>
+          <span x-show="!loading">Chatbot fragen</span>
           <span x-show="loading">Einen Augenlick...</span>
         </button>
       </div>
 
-      <div class="mt-6" x-show="question">
-        <h2 class="text-xl font-semibold sr-only">Frage:</h2>
-        <p class="text-sm text-gray-600" x-text="question"></p>
-      </div>
+      <div class="mt-8 border-2 border-primary px-4">
+        <div class="mt-6" x-show="question">
+          <h2 class="sr-only text-xl font-semibold">Frage:</h2>
+          <p class="font-semibold" x-text="question"></p>
+        </div>
 
-      <div class="mt-2" x-show="response">
-        <h2 class="text-xl font-semibold sr-only">Antwort:</h2>
-        <p class="text-gray-800 mt-2 whitespace-pre-line" x-text="response"></p>
-      </div>
+        <div class="mt-2" x-show="response">
+          <h2 class="sr-only text-xl font-semibold">Antwort:</h2>
+          <p class="mt-2 whitespace-pre-line text-gray-800" x-text="response">
+          </p>
+        </div>
 
-      <div class="mt-6 text-red-600" x-show="error">
-        <h2 class="text-xl font-semibold">Fehler:</h2>
-        <p class="mt-2" x-text="error"></p>
+        <div class="mt-6 text-red-600" x-show="error">
+          <h2 class="text-xl font-semibold">Fehler:</h2>
+          <p class="mt-2" x-text="error"></p>
+        </div>
       </div>
 
       <div>
@@ -63,12 +68,12 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           <h3>Hinweise</h3>
           <ul>
             <li>
-              Das Chatbot kann nur Fragen über <a href="/artikel/"
-                >veröffentliche Artikel</a
+              Der Chatbot kann nur Fragen zu <a href="/artikel/"
+                >veröffentlichen Artikeln</a
               >
               beantworten.
             </li>
-            <li>Zurzeit sind nur Fragen auf Deutsch möglich.</li>
+            <li>Derzeit sind nur Fragen auf Deutsch möglich.</li>
             <li>Es gibt keine Garantie für die Richtigkeit der Antworten.</li>
           </ul>
         </div>
@@ -76,15 +81,15 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           <h3>Beispielfragen</h3>
           <ul>
             {
-              questions.map((question) => (
+              exampleQuestions.map((exampleQuestion) => (
                 <li
-                  x-data={`{ question: '${question}'}`}
-                  class="underline cursor-pointer"
-                  x-on:click="query = question; submitQuery()"
+                  x-data={`{ exampleQuestion: '${exampleQuestion}'}`}
+                  class="cursor-pointer underline"
+                  x-on:click="query = exampleQuestion; submitQuery()"
                   role="button"
                   tabindex="0"
                 >
-                  {question}
+                  {exampleQuestion}
                 </li>
               ))
             }
@@ -94,50 +99,52 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
     </section>
 
     <section>
-      <h2 class="text-center">Bauvorhaben</h2>
+      <div class="opacity-60">
+        <h2 class="text-center">Bauvorhaben</h2>
 
-      <div>
-        <label for="ansatz">Ansatz:</label>
+        <div class="mt-12">
+          <label for="ansatz">Ansatz:</label>
 
-        <select name="ansatz" id="ansatz" class="border-2 border-primary">
-          <option value="präscriptiv">präscriptiv</option>
-          <option value="risikobasiert">risikobasiert</option>
-          <option value="leistungsbasiert">leistungsbasiert</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="system">System:</label>
-
-        <select name="system" id="system" class="border-2 border-primary">
-          <option value="Gebäude">Gebäude</option>
-          <option value="Gebäudeteil">Gebäudeteil</option>
-          <option value="Brandabschnitt">Brandabschnitt</option>
-          <option value="Raum">Raum</option>
-        </select>
-      </div>
-
-      <h4>Systemeigenschaften</h4>
-
-      <fieldset>
-        <legend>Nuztergruppen:</legend>
-        <div class="flex gap-x-4">
-          {
-            groups.map((group) => (
-              <div>
-                <input type="checkbox" id={group} name={group} />
-                <label for={group}>{group}</label>
-              </div>
-            ))
-          }
+          <select name="ansatz" id="ansatz" class="border-2 border-primary">
+            <option value="präscriptiv">präscriptiv</option>
+            <option value="risikobasiert">risikobasiert</option>
+            <option value="leistungsbasiert">leistungsbasiert</option>
+          </select>
         </div>
-      </fieldset>
+
+        <div>
+          <label for="system">System:</label>
+
+          <select name="system" id="system" class="border-2 border-primary">
+            <option value="Gebäude">Gebäude</option>
+            <option value="Gebäudeteil">Gebäudeteil</option>
+            <option value="Brandabschnitt">Brandabschnitt</option>
+            <option value="Raum">Raum</option>
+          </select>
+        </div>
+
+        <h4>Systemeigenschaften</h4>
+
+        <fieldset>
+          <legend>Nuztergruppen:</legend>
+          <div class="flex gap-x-4">
+            {
+              groups.map((group) => (
+                <div>
+                  <input type="checkbox" id={group} name={group} />
+                  <label for={group}>{group}</label>
+                </div>
+              ))
+            }
+          </div>
+        </fieldset>
+      </div>
 
       <div class="flex flex-col items-center">
         <button
           disabled
-          class="py-2 px-4 bg-primary hover:bg-accent transition-700 ease-in-out text-white focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-500 mt-4 cursor-not-allowed"
-          >Brandschutz-Massnahmen planen</button
+          class="transition-700 mt-4 cursor-not-allowed bg-primary px-4 py-2 text-white ease-in-out hover:bg-accent focus:ring-2 focus:ring-blue-400 focus:outline-none disabled:bg-gray-500"
+          >Massnahmen anzeigen</button
         >
         <p class="mt-0 text-base">(Funktionalität noch im Aufbau)</p>
       </div>
@@ -149,10 +156,10 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
   document.addEventListener('alpine:init', () => {
     window.Alpine.data('chatbot', () => ({
       query: '',
+      question: '',
       response: '',
       error: '',
       loading: false,
-      question: '',
       async submitQuery() {
         if (!this.query) {
           this.error = 'Bitte geben Sie eine Frage ein.'
@@ -191,6 +198,7 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           const data = await res.json()
           this.response =
             data.reply || 'Sorry, ich konnte keine Antwort finden.'
+
           this.question = this.query
           this.query = '' // Reset query on success
         } catch (err: any) {

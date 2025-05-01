@@ -42,7 +42,7 @@ function textSize(index: Number) {
 <Layout title={'Artikel ' + article.number}>
   <div x-data="$store.toolbar">
     <Toolbar number={article.number} />
-    <div class="mx-auto max-w-7xl mb-24 mt-12">
+    <div class="mx-auto mt-12 mb-24 max-w-7xl">
       <ol>
         {
           references.map((ref, index) => (
