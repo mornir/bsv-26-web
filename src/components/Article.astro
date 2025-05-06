@@ -105,7 +105,12 @@ const components = {
     {
       languages.map((lang) => (
         <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2 text-lg">
-          {titles[lang]}
+          <a
+            href={`/artikel/${article.number}/`}
+            class="no-underline decoration-accent hover:underline"
+          >
+            {titles[lang]}
+          </a>
         </h2>
       ))
     }
