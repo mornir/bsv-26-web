@@ -104,10 +104,10 @@ const components = {
   <div class="grid auto-cols-fr grid-flow-col grid-rows-1 gap-x-8">
     {
       languages.map((lang) => (
-        <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2 text-lg">
+        <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2">
           <a
             href={`/artikel/${article.number}/`}
-            class="no-underline decoration-accent hover:underline"
+            class="text-lg font-semibold no-underline decoration-accent hover:underline"
           >
             {titles[lang]}
           </a>
