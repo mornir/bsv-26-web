@@ -77,7 +77,7 @@ const components = {
 ---
 
 <article
-  class="prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2"
+  class="prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold"
   :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
   id={`art-${article.number}`}
   x-cloak
@@ -105,7 +105,12 @@ const components = {
     {
       languages.map((lang) => (
         <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2 text-lg">
-          {titles[lang]}
+          <a
+            href={`/artikel/${article.number}/`}
+            class="no-underline decoration-accent hover:underline"
+          >
+            {titles[lang]}
+          </a>
         </h2>
       ))
     }
