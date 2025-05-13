@@ -58,14 +58,14 @@ const explanations = {
   it: article?.exp?.it,
 }
 
-const references = [`Titel ${article.title.number}`]
+const references = [`${article.title.number}. Titel`]
 
 if (article.chapter?.number) {
-  references.push(`Kapitel ${article.chapter.number}`)
+  references.push(`${article.chapter.number}. Kapitel`)
 }
 
 if (article.section?.number) {
-  references.push(`Abschnitt ${article.section.number}`)
+  references.push(`${article.section.number}. Abschnitt`)
 }
 
 const components = {

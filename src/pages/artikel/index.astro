@@ -12,7 +12,7 @@ const titles: String[] = []
     <h1>Inhaltsverzeichnis</h1>
     {
       articles.map((art) => {
-        const title = `Titel ${art.title.number} ${art.title.name.de}`
+        const title = `${art.title.number}. Titel: ${art.title.name.de}`
         if (!titles.includes(title)) {
           titles.push(title)
           return (
