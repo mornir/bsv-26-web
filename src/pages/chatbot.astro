@@ -9,8 +9,6 @@ const exampleQuestions = [
   'Wer entscheidet über die Anwendung von Produkte?',
   'Was sind wärmetechnische Anlagen?',
 ]
-
-const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 ---
 
 <Layout title="Chatbot">
@@ -62,91 +60,38 @@ const groups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
           <p class="mt-2" x-text="error"></p>
         </div>
       </div>
-
-      <div>
-        <div>
-          <h3>Hinweise</h3>
-          <ul>
-            <li>
-              Der Chatbot kann nur Fragen zu <a href="/artikel/"
-                >veröffentlichen Artikeln</a
-              >
-              beantworten.
-            </li>
-            <li>Derzeit sind nur Fragen auf Deutsch möglich.</li>
-            <li>Es gibt keine Garantie für die Richtigkeit der Antworten.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Beispielfragen</h3>
-          <ul>
-            {
-              exampleQuestions.map((exampleQuestion) => (
-                <li
-                  x-data={`{ exampleQuestion: '${exampleQuestion}'}`}
-                  class="cursor-pointer underline"
-                  x-on:click="query = exampleQuestion; submitQuery()"
-                  role="button"
-                  tabindex="0"
-                >
-                  {exampleQuestion}
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
     </section>
-
     <section>
-      <div class="opacity-60">
-        <h2 class="text-center">Bauvorhaben</h2>
-
-        <div class="mt-12">
-          <label for="ansatz">Ansatz:</label>
-
-          <select name="ansatz" id="ansatz" class="border-2 border-primary">
-            <option value="präscriptiv">präscriptiv</option>
-            <option value="risikobasiert">risikobasiert</option>
-            <option value="leistungsbasiert">leistungsbasiert</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="system">System:</label>
-
-          <select name="system" id="system" class="border-2 border-primary">
-            <option value="Gebäude">Gebäude</option>
-            <option value="Gebäudeteil">Gebäudeteil</option>
-            <option value="Brandabschnitt">Brandabschnitt</option>
-            <option value="Raum">Raum</option>
-          </select>
-        </div>
-
-        <h4>Systemeigenschaften</h4>
-
-        <fieldset>
-          <legend>Nuztergruppen:</legend>
-          <div class="flex gap-x-4">
-            {
-              groups.map((group) => (
-                <div>
-                  <input type="checkbox" id={group} name={group} />
-                  <label for={group}>{group}</label>
-                </div>
-              ))
-            }
-          </div>
-        </fieldset>
+      <div>
+        <h3>Hinweise</h3>
+        <ul>
+          <li>
+            Der Chatbot kann nur Fragen zu <a href="/artikel/"
+              >veröffentlichen Artikeln</a
+            >
+            beantworten.
+          </li>
+          <li>Derzeit sind nur Fragen auf Deutsch möglich.</li>
+          <li>Es gibt keine Garantie für die Richtigkeit der Antworten.</li>
+        </ul>
       </div>
-
-      <div class="flex flex-col items-center">
-        <button
-          disabled
-          class="transition-700 mt-4 cursor-not-allowed bg-primary px-4 py-2 text-white ease-in-out hover:bg-accent focus:ring-2 focus:ring-blue-400 focus:outline-none disabled:bg-gray-500"
-          >Massnahmen anzeigen</button
-        >
-        <p class="mt-0 text-base">(Funktionalität noch im Aufbau)</p>
+      <div>
+        <h3>Beispielfragen</h3>
+        <ul>
+          {
+            exampleQuestions.map((exampleQuestion) => (
+              <li
+                x-data={`{ exampleQuestion: '${exampleQuestion}'}`}
+                class="cursor-pointer underline"
+                x-on:click="query = exampleQuestion; submitQuery()"
+                role="button"
+                tabindex="0"
+              >
+                {exampleQuestion}
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </section>
   </div>
