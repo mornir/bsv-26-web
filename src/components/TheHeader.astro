@@ -1,5 +1,5 @@
 ---
-export const mainNav = [
+const mainNav = [
   { text: 'Gesamtwerk', link: '/gesamtwerk/' },
   { text: 'Inhaltsverzeichnis', link: '/artikel/' },
   { text: 'Themen', link: '/themen/' },
@@ -11,7 +11,7 @@ const pathname = Astro.url.pathname
 <header class="border-b-2 border-primary">
   <div class="mx-4 grid grid-cols-3 items-baseline py-5">
     <a href="/" class="text-2xl font-semibold hover:underline"
-      >Schweizerische Brandschutzvorschriften 2026</a
+      >Digitale BSV 2026</a
     >
     <nav
       class="flex justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"

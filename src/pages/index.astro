@@ -1,24 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { mainNav } from '../components/TheHeader.astro'
 ---
 
 <Layout title="Startseite">
   <div class="mt-32 grid place-content-center">
-    <h1 class="mb-8 text-center text-4xl font-semibold text-slate-800">
-      DIGITALE BSV 2026
+    <h1 class="mb-8 text-center text-5xl font-semibold text-slate-800">
+      Digitale Schweizerische <br /> Brandschutzvorschriften 2026
     </h1>
-    <nav class="grid max-w-3xl gap-8 md:grid-cols-2">
-      {
-        mainNav.map((item) => (
-          <a
-            href={item.link}
-            class="block bg-primary px-10 py-8 text-center text-xl font-semibold text-white duration-700 ease-in-out hover:bg-accent"
-          >
-            {item.text}
-          </a>
-        ))
-      }
-    </nav>
+
+    <div>TODO: list all features</div>
   </div>
 </Layout>
