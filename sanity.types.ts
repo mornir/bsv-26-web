@@ -13,6 +13,166 @@
  */
 
 // Source: schema.json
+
+export type Feature = {
+  _id: string
+  _type: 'feature'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+  desc?: LocaleString
+}
+
+export type Tag = {
+  _id: string
+  _type: 'tag'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+}
+
+export type LocaleText = {
+  _type: 'localeText'
+  de?: string
+  fr?: string
+  it?: string
+}
+
+export type BlockContent = Array<
+  | {
+      children?: Array<
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+        | ({
+            _key: string
+          } & Table)
+      >
+      style?: 'normal'
+      listItem?: 'number' | 'bullet'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }
+  | ({
+      _key: string
+    } & Table)
+>
+
+export type Table = {
+  _type: 'table'
+  html: string
+}
+
+export type Article = {
+  _id: string
+  _type: 'article'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'title'
+  }
+  chapter?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'chapter'
+  }
+  section?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'section'
+  }
+  tag?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+  name: LocaleString
+  law: LocaleBlockContent
+  exp?: LocaleBlockContent
+}
+
+export type LocaleBlockContent = {
+  _type: 'localeBlockContent'
+  de: BlockContent
+  fr?: BlockContent
+  it?: BlockContent
+}
+
+export type Section = {
+  _id: string
+  _type: 'section'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'title'
+  }
+  chapter?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'chapter'
+  }
+  name: LocaleString
+}
+
+export type Chapter = {
+  _id: string
+  _type: 'chapter'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'title'
+  }
+  name: LocaleString
+}
+
+export type Title = {
+  _id: string
+  _type: 'title'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  name: LocaleString
+}
+
+export type LocaleString = {
+  _type: 'localeString'
+  de: string
+  fr: string
+  it: string
+}
+
 export type SanityImagePaletteSwatch = {
   _type: 'sanity.imagePaletteSwatch'
   background?: string
@@ -131,143 +291,18 @@ export type SanityAssetSourceData = {
   url?: string
 }
 
-export type BlockContent = Array<{
-  children?: Array<
-    | {
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }
-    | ({
-      _key: string
-    } & Table)
-  >
-  style?: 'normal'
-  listItem?: 'number' | 'bullet'
-  markDefs?: Array<{
-    href?: string
-    _type: 'link'
-    _key: string
-  }>
-  level?: number
-  _type: 'block'
-  _key: string
-}>
-
-export type Table = {
-  _type: 'table'
-  html: string
-}
-
-export type Article = {
-  _id: string
-  _type: 'article'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  number: number
-  title: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'title'
-  }
-  chapter?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'chapter'
-  }
-  section?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'section'
-  }
-  theme?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'theme'
-  }
-  name: LocaleString
-  law: LocaleBlockContent
-  exp?: LocaleBlockContent
-}
-
-export type LocaleBlockContent = {
-  _type: 'localeBlockContent'
-  de: BlockContent
-  fr?: BlockContent
-  it?: BlockContent
-}
-
-export type Theme = {
-  _id: string
-  _type: 'theme'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name: LocaleString
-}
-
-export type Section = {
-  _id: string
-  _type: 'section'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  number: number
-  title: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'title'
-  }
-  chapter?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'chapter'
-  }
-  name: LocaleString
-}
-
-export type Chapter = {
-  _id: string
-  _type: 'chapter'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  number: number
-  title: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'title'
-  }
-  name: LocaleString
-}
-
-export type Title = {
-  _id: string
-  _type: 'title'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  number: number
-  name: LocaleString
-}
-
-export type LocaleString = {
-  _type: 'localeString'
-  de: string
-  fr?: string
-  it?: string
-}
-
 export type AllSanitySchemaTypes =
+  | Feature
+  | Tag
+  | LocaleText
+  | BlockContent
+  | Table
+  | Article
+  | LocaleBlockContent
+  | Section
+  | Chapter
+  | Title
+  | LocaleString
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -279,17 +314,8 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | SanityAssetSourceData
-  | BlockContent
-  | Table
-  | Article
-  | LocaleBlockContent
-  | Theme
-  | Section
-  | Chapter
-  | Title
-  | LocaleString
 export declare const internalGroqTypeReferenceTo: unique symbol
-// Source: ../terminofeu-ppi-web/src/utils/sanity.ts
+// Source: ../digitale-bsv-web/src/utils/sanity.ts
 // Variable: getArticlesLinksQuery
 // Query: *[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)
 export type GetArticlesLinksQueryResult = Array<{
@@ -395,12 +421,68 @@ export type GetArticlesQueryResult = Array<{
     }
     name: LocaleString
   } | null
-  theme?: {
+  tag?: Array<{
     _ref: string
     _type: 'reference'
     _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'theme'
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
+  name: LocaleString
+  law: LocaleBlockContent
+  exp?: LocaleBlockContent
+}>
+// Variable: getFeaturesQuery
+// Query: *[_type == "feature"]
+export type GetFeaturesQueryResult = Array<{
+  _id: string
+  _type: 'feature'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+  desc?: LocaleString
+}>
+// Variable: getTitlesQuery
+// Query: *[_type == "title"]{name, number} | order(number asc)
+export type GetTitlesQueryResult = Array<{
+  name: LocaleString
+  number: number
+}>
+// Variable: getArticlesFromTitleQuery
+// Query: *[_type == "article" && title->number == $titleNumber]
+export type GetArticlesFromTitleQueryResult = Array<{
+  _id: string
+  _type: 'article'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'title'
   }
+  chapter?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'chapter'
+  }
+  section?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'section'
+  }
+  tag?: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
@@ -459,16 +541,17 @@ export type GetArticleQueryResult = {
     }
     name: LocaleString
   } | null
-  theme?: {
+  tag?: Array<{
     _ref: string
     _type: 'reference'
     _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'theme'
-  }
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'tag'
+  }>
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
-}
+} | null
 // Variable: getNavQuery
 // Query: *[_type == "title"] {  name, number,  "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},  "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }} | order(number asc),  "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}} | order(number asc)
 export type GetNavQueryResult = Array<{
@@ -533,6 +616,9 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)': GetArticlesLinksQueryResult
     '*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)': GetArticlesQueryResult
+    '*[_type == "feature"]': GetFeaturesQueryResult
+    '*[_type == "title"]{name, number} | order(number asc)': GetTitlesQueryResult
+    '*[_type == "article" && title->number == $titleNumber]': GetArticlesFromTitleQueryResult
     '*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]': GetArticleQueryResult
     '*[_type == "title"] {\n  name, number,\n  "articles":   *[_type==\'article\' && references(^._id)]{name, number, chapter->, section->},\n  "chapters": *[_type==\'chapter\' && references(^._id)]{ name, number, "sections": *[_type==\'section\' && references(^._id)]{ name }} | order(number asc),\n  "sections": *[_type==\'section\' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)': GetNavQueryResult
   }

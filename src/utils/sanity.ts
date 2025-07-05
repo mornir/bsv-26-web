@@ -38,6 +38,16 @@ export async function getTitles() {
   return client.fetch(getTitlesQuery)
 }
 
+export async function getArticlesFromTitle(titleNumber: number) {
+  console.log(typeof titleNumber)
+  const getArticlesFromTitleQuery = defineQuery(
+    `*[_type == "article" && title->number == $titleNumber]`,
+  )
+  return client.fetch(getArticlesFromTitleQuery, {
+    titleNumber,
+  })
+}
+
 export async function getArticle(number: number) {
   const getArticleQuery = defineQuery(
     `*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]`,

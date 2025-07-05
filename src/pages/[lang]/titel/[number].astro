@@ -1,0 +1,32 @@
+---
+import type { InferGetStaticParamsType } from 'astro'
+import Layout from '@/layouts/Layout.astro'
+import { getArticlesFromTitle } from '@/utils/sanity'
+
+export async function getStaticPaths() {
+  const titlesCount = Array.from({ length: 10 }, (_, i) => String(i + 1))
+
+  const deRoutes = titlesCount.map((number) => ({
+    params: { lang: 'de', number },
+  }))
+
+  const frRoutes = titlesCount.map((number) => ({
+    params: { lang: 'fr', number },
+  }))
+
+  return [...deRoutes, ...frRoutes]
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>
+const { lang, number } = Astro.params as Params & { lang: 'de' | 'fr' | 'it' }
+
+const articles = await getArticlesFromTitle(parseInt(number))
+---
+
+<Layout title="Startseite">
+  <div>
+    <ul>
+      {articles.map((article) => <li>{article.name[lang]}</li>)}
+    </ul>
+  </div>
+</Layout>

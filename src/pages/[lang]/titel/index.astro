@@ -16,7 +16,13 @@ const titles = await getTitles()
 <Layout title="Startseite">
   <div class="mt-32 grid place-content-center">
     <ul>
-      {titles.map((title: any) => <li>{title.name[lang]}</li>)}
+      {
+        titles.map((title: any) => (
+          <li>
+            <a href={`/${lang}/titel/${title.number}/`}>{title.name[lang]}</a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </Layout>
