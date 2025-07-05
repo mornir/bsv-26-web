@@ -1,5 +1,4 @@
 ---
-import type { InferGetStaticParamsType } from 'astro'
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/utils/sanity'
 
@@ -7,8 +6,7 @@ export async function getStaticPaths() {
   return [{ params: { lang: 'de' } }, { params: { lang: 'fr' } }]
 }
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>
-const { lang } = Astro.params as Params
+const lang = Astro.params.lang as 'de' | 'fr' | 'it'
 
 const titles = await getTitles()
 ---
@@ -17,7 +15,7 @@ const titles = await getTitles()
   <div class="mt-32 grid place-content-center">
     <ul>
       {
-        titles.map((title: any) => (
+        titles.map((title) => (
           <li>
             <a href={`/${lang}/titel/${title.number}/`}>{title.name[lang]}</a>
           </li>

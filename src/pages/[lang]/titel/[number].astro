@@ -1,5 +1,4 @@
 ---
-import type { InferGetStaticParamsType } from 'astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticlesFromTitle } from '@/utils/sanity'
 
@@ -17,10 +16,11 @@ export async function getStaticPaths() {
   return [...deRoutes, ...frRoutes]
 }
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>
-const { lang, number } = Astro.params as Params & { lang: 'de' | 'fr' | 'it' }
+const params = Astro.params
 
-const articles = await getArticlesFromTitle(parseInt(number))
+const lang = params.lang as 'de' | 'fr' | 'it'
+
+const articles = await getArticlesFromTitle(parseInt(params.number))
 ---
 
 <Layout title="Startseite">
