@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { getFeatures } from '../utils/sanity'
+const features = await getFeatures()
 ---
 
 <Layout title="Startseite">
@@ -8,6 +10,10 @@ import Layout from '../layouts/Layout.astro'
       Digitale Schweizerische <br /> Brandschutzvorschriften 2026
     </h1>
 
-    <div>TODO: list all features</div>
+    <div>
+      <ul>
+        {features.map((feat: any) => <li>{feat.name.de}</li>)}
+      </ul>
+    </div>
   </div>
 </Layout>

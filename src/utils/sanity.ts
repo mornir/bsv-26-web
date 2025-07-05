@@ -23,6 +23,11 @@ export async function getArticles() {
   return client.fetch(getArticlesQuery)
 }
 
+export async function getFeatures() {
+  const getFeaturesQuery = defineQuery(`*[_type == "feature"]`)
+  return client.fetch(getFeaturesQuery)
+}
+
 export async function getArticle(number: number) {
   const getArticleQuery = defineQuery(`*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]`)
 
