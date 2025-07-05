@@ -31,8 +31,10 @@ export async function getFeatures() {
   return client.fetch(getFeaturesQuery)
 }
 
-export async function getTitles(lang: string) {
-  const getTitlesQuery = defineQuery(`*[_type == "titles"]`)
+export async function getTitles() {
+  const getTitlesQuery = defineQuery(
+    `*[_type == "title"]{name, number} | order(number asc)`,
+  )
   return client.fetch(getTitlesQuery)
 }
 
