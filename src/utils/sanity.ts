@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client'
-import type { PortableTextBlock } from "@portabletext/types";
-import type { ImageAsset, Slug } from "@sanity/types";
+import type { PortableTextBlock } from '@portabletext/types'
+import type { ImageAsset, Slug } from '@sanity/types'
 import { defineQuery } from 'groq'
 
 const client = createClient({
@@ -11,14 +11,17 @@ const client = createClient({
 })
 
 export async function getArticlesLinks() {
-  const getArticlesLinksQuery = defineQuery(`*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`)
+  const getArticlesLinksQuery = defineQuery(
+    `*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`,
+  )
 
   return client.fetch(getArticlesLinksQuery)
 }
 
-
 export async function getArticles() {
-  const getArticlesQuery = defineQuery(`*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`)
+  const getArticlesQuery = defineQuery(
+    `*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`,
+  )
 
   return client.fetch(getArticlesQuery)
 }
@@ -28,12 +31,18 @@ export async function getFeatures() {
   return client.fetch(getFeaturesQuery)
 }
 
+export async function getTitles(lang: string) {
+  const getTitlesQuery = defineQuery(`*[_type == "titles"]`)
+  return client.fetch(getTitlesQuery)
+}
+
 export async function getArticle(number: number) {
-  const getArticleQuery = defineQuery(`*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]`)
+  const getArticleQuery = defineQuery(
+    `*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]`,
+  )
 
   return client.fetch(getArticleQuery, { number })
 }
-
 
 export async function getNav() {
   const getNavQuery = defineQuery(`*[_type == "title"] {

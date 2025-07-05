@@ -1,10 +1,18 @@
 export const languages = {
   de: 'Deutsch',
-  fr: 'Français',
-  it: 'italiano',
+  fr: 'français',
 }
 
 export const defaultLang = 'de'
+
+export const routes = {
+  de: {
+    titles: 'titel',
+  },
+  fr: {
+    titles: 'titres',
+  },
+}
 
 export const ui = {
   de: {

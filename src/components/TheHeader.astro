@@ -1,4 +1,6 @@
 ---
+import LanguagePicker from './LanguagePicker.astro'
+
 const mainNav = [
   { text: 'Gesamtwerk', link: '/gesamtwerk/' },
   { text: 'Inhaltsverzeichnis', link: '/artikel/' },
@@ -27,10 +29,9 @@ const pathname = Astro.url.pathname
         ))
       }
     </nav>
+
     <div class="text-right">
-      <a href="#">DE</a>
-      <a href="#">FR</a>
-      <a href="#">IT</a>
+      <LanguagePicker />
     </div>
   </div>
 </header>
