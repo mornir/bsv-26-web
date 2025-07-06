@@ -1,14 +1,10 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
 import Layout from '@/layouts/Layout.astro'
+import { staticPaths } from '@/i18n/utils'
 
-export async function getStaticPaths() {
-  return [
-    // { params: { /* required */ }, props: { /* optional */ } },
-    { params: { lang: 'de', slug: 'titel' } }, // [post] is the parameter
-    { params: { lang: 'fr', slug: 'titres' } }, // must match the file name
-    // ...
-  ]
+export function getStaticPaths() {
+  return staticPaths
 }
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
