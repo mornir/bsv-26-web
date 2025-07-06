@@ -2,12 +2,13 @@
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/utils/sanity'
 import { staticPaths } from '@/i18n/utils'
+import type { langKeys } from '@/i18n/utils'
 
 export function getStaticPaths() {
   return staticPaths
 }
 
-const lang = Astro.params.lang as 'de' | 'fr' | 'it'
+const lang = Astro.params.lang as langKeys
 
 const titles = await getTitles()
 ---

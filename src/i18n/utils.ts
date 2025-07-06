@@ -17,3 +17,5 @@ export function useTranslations(lang: keyof typeof ui) {
 export const staticPaths = Object.keys(languages).map((lang) => {
   return { params: { lang } }
 })
+
+export type langKeys = keyof typeof languages
