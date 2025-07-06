@@ -13,7 +13,7 @@ interface Props {
 
 const { article } = Astro.props
 
-// if (!article) return Astro.redirect('/404')
+if (!article) return Astro.redirect('/404')
 
 function countDistinctItems(blockContent: BlockContent | undefined) {
   if (!blockContent) {
