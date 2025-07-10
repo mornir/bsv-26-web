@@ -46,17 +46,17 @@ const { number } = Astro.props
   <div class="flex justify-end gap-x-4">
     <span>Sprachvergleich:</span>
     {
-      Object.entries(languages).map(([code, lang]) => (
+      Object.entries(languages).map(([code, label]) => (
         <div>
           <input
             type="checkbox"
             value={code}
             x-model="languages"
-            name={lang.toLowerCase()}
+            name={label.toLowerCase()}
             class="accent-violet-800"
             id={code}
           />
-          <label for={code}>{lang}</label>
+          <label for={code}>{label}</label>
         </div>
       ))
     }
