@@ -13,4 +13,8 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  // Allow access to Netlify Preview Server
+  server: {
+    allowedHosts: ['devserver-main--terminofeu-bsv.netlify.app'],
+  },
 })
