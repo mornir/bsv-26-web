@@ -1,4 +1,6 @@
 ---
+import { PortableText } from 'astro-portabletext'
+
 import type { langKeys } from '@/i18n/utils'
 
 import Layout from '@/layouts/Layout.astro'
@@ -15,18 +17,21 @@ const lang = Astro.params.lang as langKeys
 const titles = await getTitles()
 ---
 
-<Layout title="Startseite">
-  <div class="mt-32 grid place-content-center">
-    <ul>
+<Layout title="Titel">
+  <div class="mt-18 mb-32 px-24">
+    <nav class="mx-auto flex max-w-2xl flex-col gap-4">
       {
         titles.map((title) => (
-          <li>
-            <a href={`/${lang}/titel/${title.number}/`}>
-              {getLocaleTitle(title, lang)}
-            </a>
-          </li>
+          <a
+            href={`/${lang}/titel/${title.number}/`}
+            class="cursor-pointer p-4 text-white"
+            style={`background-color: ${title.color?.hex}`}
+          >
+            <h2 class="text-lg font-semibold">{getLocaleTitle(title, lang)}</h2>
+            <PortableText value={title?.desc?.de || []} />
+          </a>
         ))
       }
-    </ul>
+    </nav>
   </div>
 </Layout>
