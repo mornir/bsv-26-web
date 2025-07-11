@@ -1,8 +1,10 @@
 ---
+import type { langKeys } from '@/i18n/utils'
+
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/utils/sanity'
 import { staticPaths } from '@/i18n/utils'
-import type { langKeys } from '@/i18n/utils'
+import { getLocaleTitle } from '@/i18n/utils'
 
 export function getStaticPaths() {
   return staticPaths
@@ -19,7 +21,9 @@ const titles = await getTitles()
       {
         titles.map((title) => (
           <li>
-            <a href={`/${lang}/titel/${title.number}/`}>{title.name[lang]}</a>
+            <a href={`/${lang}/titel/${title.number}/`}>
+              {getLocaleTitle(title, lang)}
+            </a>
           </li>
         ))
       }

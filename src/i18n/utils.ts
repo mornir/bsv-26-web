@@ -1,4 +1,5 @@
 import { ui, defaultLang, languages } from './ui'
+import type { Title } from '../../sanity.types'
 
 // TODO: review this function
 export function getLangFromUrl(url: URL) {
@@ -17,5 +18,15 @@ export function useTranslations(lang: keyof typeof ui) {
 export const staticPaths = Object.keys(languages).map((lang) => {
   return { params: { lang } }
 })
+
+export function getLocaleTitle(title: Title, lang: langKeys) {
+  if (lang === 'de') {
+    return `${title.number}. Titel: ${title.name.de}`
+  }
+
+  if (lang === 'fr') {
+    return `Titre ${title.number}: ${title.name.fr}`
+  }
+}
 
 export type langKeys = keyof typeof languages

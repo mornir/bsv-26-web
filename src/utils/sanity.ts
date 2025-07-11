@@ -10,6 +10,12 @@ const client = createClient({
   apiVersion: '2025-02-06',
 })
 
+export async function getTitles() {
+  const getTitlesQuery = defineQuery(`*[_type == "title"] | order(number asc)`)
+  return client.fetch(getTitlesQuery)
+}
+
+//TODO: remove and keep only getArticles
 export async function getArticlesLinks() {
   const getArticlesLinksQuery = defineQuery(
     `*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`,
@@ -29,13 +35,6 @@ export async function getArticles() {
 export async function getFeatures() {
   const getFeaturesQuery = defineQuery(`*[_type == "feature"]`)
   return client.fetch(getFeaturesQuery)
-}
-
-export async function getTitles() {
-  const getTitlesQuery = defineQuery(
-    `*[_type == "title"]{name, number} | order(number asc)`,
-  )
-  return client.fetch(getTitlesQuery)
 }
 
 export async function getArticlesFromTitle(titleNumber: number) {

@@ -32,6 +32,25 @@ export type Tag = {
   name: LocaleString;
 };
 
+export type SimpleEditor = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal";
+  listItem?: never;
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -69,7 +88,7 @@ export type Table = {
 
 export type LocaleText = {
   _type: "localeText";
-  de?: string;
+  de: string;
   fr?: string;
   it?: string;
 };
@@ -164,6 +183,15 @@ export type Title = {
   _rev: string;
   number: number;
   name: LocaleString;
+  desc?: LocaleSimpleEditor;
+  color?: Color;
+};
+
+export type LocaleSimpleEditor = {
+  _type: "localeSimpleEditor";
+  de: SimpleEditor;
+  fr?: SimpleEditor;
+  it?: SimpleEditor;
 };
 
 export type LocaleString = {
@@ -171,6 +199,39 @@ export type LocaleString = {
   de: string;
   fr?: string;
   it?: string;
+};
+
+export type Color = {
+  _type: "color";
+  hex?: string;
+  alpha?: number;
+  hsl?: HslaColor;
+  hsv?: HsvaColor;
+  rgb?: RgbaColor;
+};
+
+export type RgbaColor = {
+  _type: "rgbaColor";
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+};
+
+export type HsvaColor = {
+  _type: "hsvaColor";
+  h?: number;
+  s?: number;
+  v?: number;
+  a?: number;
+};
+
+export type HslaColor = {
+  _type: "hslaColor";
+  h?: number;
+  s?: number;
+  l?: number;
+  a?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -291,9 +352,22 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Feature | Tag | BlockContent | Table | LocaleText | Article | LocaleBlockContent | Section | Chapter | Title | LocaleString | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Feature | Tag | SimpleEditor | BlockContent | Table | LocaleText | Article | LocaleBlockContent | Section | Chapter | Title | LocaleSimpleEditor | LocaleString | Color | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../digitale-bsv-web/src/utils/sanity.ts
+// Variable: getTitlesQuery
+// Query: *[_type == "title"] | order(number asc)
+export type GetTitlesQueryResult = Array<{
+  _id: string;
+  _type: "title";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  number: number;
+  name: LocaleString;
+  desc?: LocaleSimpleEditor;
+  color?: Color;
+}>;
 // Variable: getArticlesLinksQuery
 // Query: *[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)
 export type GetArticlesLinksQueryResult = Array<{
@@ -307,6 +381,8 @@ export type GetArticlesLinksQueryResult = Array<{
     _rev: string;
     number: number;
     name: LocaleString;
+    desc?: LocaleSimpleEditor;
+    color?: Color;
   };
   chapter: {
     _id: string;
@@ -362,6 +438,8 @@ export type GetArticlesQueryResult = Array<{
     _rev: string;
     number: number;
     name: LocaleString;
+    desc?: LocaleSimpleEditor;
+    color?: Color;
   };
   chapter: {
     _id: string;
@@ -421,12 +499,6 @@ export type GetFeaturesQueryResult = Array<{
   name: LocaleString;
   desc: LocaleString;
 }>;
-// Variable: getTitlesQuery
-// Query: *[_type == "title"]{name, number} | order(number asc)
-export type GetTitlesQueryResult = Array<{
-  name: LocaleString;
-  number: number;
-}>;
 // Variable: getArticlesFromTitleQuery
 // Query: *[_type == "article" && title->number == $titleNumber]
 export type GetArticlesFromTitleQueryResult = Array<{
@@ -482,6 +554,8 @@ export type GetArticleQueryResult = {
     _rev: string;
     number: number;
     name: LocaleString;
+    desc?: LocaleSimpleEditor;
+    color?: Color;
   };
   chapter: {
     _id: string;
@@ -592,10 +666,10 @@ export type GetNavQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_type == \"title\"] | order(number asc)": GetTitlesQueryResult;
     "*[_type == \"article\"]{name, number, title->, chapter->, section->} | order(number asc)": GetArticlesLinksQueryResult;
     "*[_type == \"article\"]{..., title->, chapter->, section->} | order(number asc)": GetArticlesQueryResult;
     "*[_type == \"feature\"]": GetFeaturesQueryResult;
-    "*[_type == \"title\"]{name, number} | order(number asc)": GetTitlesQueryResult;
     "*[_type == \"article\" && title->number == $titleNumber]": GetArticlesFromTitleQueryResult;
     "*[_type == \"article\" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]": GetArticleQueryResult;
     "*[_type == \"title\"] {\n  name, number,\n  \"articles\":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},\n  \"chapters\": *[_type=='chapter' && references(^._id)]{ name, number, \"sections\": *[_type=='section' && references(^._id)]{ name }} | order(number asc),\n  \"sections\": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)": GetNavQueryResult;
