@@ -1,8 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import {getArticlesLinks} from '../../utils/sanity'
+import {getArticles} from '../../utils/sanity'
 
-const articles = await getArticlesLinks()
+const articles = await getArticles()
 
 const titles: String[] = []
 ---

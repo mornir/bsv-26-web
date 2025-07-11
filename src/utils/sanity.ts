@@ -15,15 +15,6 @@ export async function getTitles() {
   return client.fetch(getTitlesQuery)
 }
 
-//TODO: remove and keep only getArticles
-export async function getArticlesLinks() {
-  const getArticlesLinksQuery = defineQuery(
-    `*[_type == "article"]{name, number, title->, chapter->, section->} | order(number asc)`,
-  )
-
-  return client.fetch(getArticlesLinksQuery)
-}
-
 export async function getArticles() {
   const getArticlesQuery = defineQuery(
     `*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`,
