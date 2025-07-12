@@ -1,6 +1,4 @@
 import { createClient } from '@sanity/client'
-import type { PortableTextBlock } from '@portabletext/types'
-import type { ImageAsset, Slug } from '@sanity/types'
 import { defineQuery } from 'groq'
 
 const client = createClient({
