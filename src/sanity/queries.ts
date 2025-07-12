@@ -1,22 +1,6 @@
 import { createClient } from '@sanity/client'
 import { defineQuery } from 'groq'
-
-const langs = ['de', 'fr']
-
-const expandLinks = langs
-  .map(
-    (lang) => `${lang}[]{
-  ...,
-  markDefs[]{
-    ...,
-    _type == "internalLink" => {
-      "slug": @.reference->number,
-      "type": @.reference->_type,
-    }
-  }
-}`
-  )
-  .join(', ')
+import { expandLinks } from './fragments'
 
 const client = createClient({
   projectId: 'lc9446ox',
@@ -24,6 +8,13 @@ const client = createClient({
   useCdn: false,
   apiVersion: '2025-02-06',
 })
+
+export async function getTitles() {
+  const getTitlesQuery = defineQuery(`
+  *[_type == "title"] 
+  {..., desc {${expandLinks}}} | order(number asc)`)
+  return client.fetch(getTitlesQuery)
+}
 
 export async function getArticles() {
   const getArticlesQuery = defineQuery(
@@ -39,8 +30,10 @@ export async function getFeatures() {
 }
 
 export async function getArticlesFromTitle(titleNumber: number) {
-  // prettier-ignore
-  const getArticlesFromTitleQuery = defineQuery(`*[_type == "article" && title->number == $titleNumber]`)
+  const getArticlesFromTitleQuery = defineQuery(`*[
+    _type == "article" 
+    && title->number == $titleNumber]
+    `)
   return client.fetch(getArticlesFromTitleQuery, {
     titleNumber,
   })
@@ -64,11 +57,4 @@ export async function getNav() {
 } | order(number asc)`)
 
   return client.fetch(getNavQuery)
-}
-
-export async function getTitles() {
-  const getTitlesQuery = defineQuery(`
-  *[_type == "title"] 
-  {..., desc {${expandLinks}}} | order(number asc)`)
-  return client.fetch(getTitlesQuery)
 }
