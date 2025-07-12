@@ -4,7 +4,7 @@ import InternalLink from './InternalLink.astro'
 import type { SimpleEditor } from '../../sanity/sanity.types'
 
 interface Props {
-  blocks: SimpleEditor
+  blocks: SimpleEditor | []
 }
 
 const { blocks } = Astro.props
