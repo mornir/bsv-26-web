@@ -1,5 +1,5 @@
 ---
-import { PortableText } from 'astro-portabletext'
+import SimpleEditor from '@/components/portable-text/SimpleEditor.astro'
 
 import type { langKeys } from '@/i18n/utils'
 
@@ -19,19 +19,22 @@ const titles = await getTitles()
 
 <Layout title="Titel">
   <div class="mt-18 mb-32 px-24">
-    <nav class="mx-auto flex max-w-2xl flex-col gap-4">
+    <ul class="mx-auto flex max-w-2xl flex-col gap-4">
       {
         titles.map((title) => (
-          <a
-            href={`/${lang}/titel/${title.number}/`}
-            class="cursor-pointer p-4 text-white"
+          <li
+            class="p-4 text-white"
             style={`background-color: ${title.color?.hex}`}
           >
-            <h2 class="text-lg font-semibold">{getLocaleTitle(title, lang)}</h2>
-            <PortableText value={title?.desc?.de || []} />
-          </a>
+            <h2 class="cursor-pointer text-lg font-semibold hover:underline">
+              <a href={`/${lang}/titel/${title.number}/`}>
+                {getLocaleTitle(title, lang)}
+              </a>
+            </h2>
+            <SimpleEditor blocks={title?.desc?.de || []} />
+          </li>
         ))
       }
-    </nav>
+    </ul>
   </div>
 </Layout>

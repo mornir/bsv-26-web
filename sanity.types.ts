@@ -41,11 +41,11 @@ export type SimpleEditor = Array<{
   }>
   style?: 'normal'
   listItem?: never
-  markDefs?: Array<{
-    href?: string
-    _type: 'link'
-    _key: string
-  }>
+  markDefs?: Array<
+    {
+      _key: string
+    } & InternalLink
+  >
   level?: number
   _type: 'block'
   _key: string
@@ -94,6 +94,34 @@ export type LocaleText = {
   de: string
   fr?: string
   it?: string
+}
+
+export type ExternalLink = {
+  _type: 'externalLink'
+  href: string
+}
+
+export type InternalLink = {
+  _type: 'internalLink'
+  reference:
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'article'
+      }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'title'
+      }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'chapter'
+      }
 }
 
 export type Article = {
@@ -362,6 +390,8 @@ export type AllSanitySchemaTypes =
   | BlockContent
   | Table
   | LocaleText
+  | ExternalLink
+  | InternalLink
   | Article
   | LocaleBlockContent
   | Section
@@ -386,19 +416,6 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ../digitale-bsv-web/src/utils/sanity.ts
-// Variable: getTitlesQuery
-// Query: *[_type == "title"] | order(number asc)
-export type GetTitlesQueryResult = Array<{
-  _id: string
-  _type: 'title'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  number: number
-  name: LocaleString
-  desc?: LocaleSimpleEditor
-  color: Color
-}>
 // Variable: getArticlesQuery
 // Query: *[_type == "article"]{..., title->, chapter->, section->} | order(number asc)
 export type GetArticlesQueryResult = Array<{
@@ -516,7 +533,7 @@ export type GetArticlesFromTitleQueryResult = Array<{
   exp?: LocaleBlockContent
 }>
 // Variable: getArticleQuery
-// Query: *[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]
+// Query: *[_type == "article" && number == $number]    { ..., title->, chapter ->, section ->} | order(number asc)[0]
 export type GetArticleQueryResult = {
   _id: string
   _type: 'article'
@@ -639,16 +656,31 @@ export type GetNavQueryResult = Array<{
     number: number
   }>
 }>
+// Variable: getTitlesQuery
+// Query: *[_type == "title"]   {..., desc {de}} | order(number asc)
+export type GetTitlesQueryResult = Array<{
+  _id: string
+  _type: 'title'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  name: LocaleString
+  desc: {
+    de: SimpleEditor
+  } | null
+  color: Color
+}>
 
 // Query TypeMap
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "title"] | order(number asc)': GetTitlesQueryResult
     '*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)': GetArticlesQueryResult
     '*[_type == "feature"]': GetFeaturesQueryResult
     '*[_type == "article" && title->number == $titleNumber]': GetArticlesFromTitleQueryResult
-    '*[_type == "article" && number == $number]{ ..., title->, chapter ->, section ->} | order(number asc)[0]': GetArticleQueryResult
+    '\n    *[_type == "article" && number == $number]\n    { ..., title->, chapter ->, section ->} | order(number asc)[0]\n    ': GetArticleQueryResult
     '*[_type == "title"] {\n  name, number,\n  "articles":   *[_type==\'article\' && references(^._id)]{name, number, chapter->, section->},\n  "chapters": *[_type==\'chapter\' && references(^._id)]{ name, number, "sections": *[_type==\'section\' && references(^._id)]{ name }} | order(number asc),\n  "sections": *[_type==\'section\' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)': GetNavQueryResult
+    '\n  *[_type == "title"] \n  {..., desc {de}} | order(number asc)': GetTitlesQueryResult
   }
 }

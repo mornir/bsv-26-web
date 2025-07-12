@@ -1,0 +1,19 @@
+---
+import { PortableText } from 'astro-portabletext'
+import InternalLink from './InternalLink.astro'
+import type { SimpleEditor } from '../../../sanity.types'
+
+interface Props {
+  blocks: SimpleEditor
+}
+
+const { blocks } = Astro.props
+
+const components = {
+  mark: {
+    internalLink: InternalLink,
+  },
+}
+---
+
+<PortableText value={blocks} components={components} />

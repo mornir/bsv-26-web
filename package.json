@@ -43,6 +43,7 @@
   "prettier": {
     "semi": false,
     "singleQuote": true,
+    "trailingComma": "es5",
     "tailwindStylesheet": "./src/styles/global.css",
     "plugins": [
       "prettier-plugin-tailwindcss"
