@@ -27,7 +27,6 @@ export async function getFeatures() {
 }
 
 export async function getArticlesFromTitle(titleNumber: number) {
-  console.log(typeof titleNumber)
   const getArticlesFromTitleQuery = defineQuery(
     `*[_type == "article" && title->number == $titleNumber]`,
   )
