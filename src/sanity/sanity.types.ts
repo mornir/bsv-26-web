@@ -417,7 +417,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ../digitale-bsv-web/src/sanity/queries.ts
 // Variable: getTitlesQuery
-// Query: *[_type == "title"]   {..., desc {de[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "slug": @.reference->number,      "type": @.reference->_type,    }  }},fr[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "slug": @.reference->number,      "type": @.reference->_type,    }  }}}} | order(number asc)
+// Query: *[_type == "title"]   {..., desc {de[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    }  }},fr[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    }  }}}} | order(number asc)
 export type GetTitlesQueryResult = Array<{
   _id: string
   _type: 'title'
@@ -677,7 +677,7 @@ export type GetNavQueryResult = Array<{
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "slug": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "slug": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
+    '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
     '*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)': GetArticlesQueryResult
     '*[_type == "feature"]': GetFeaturesQueryResult
     '*[\n    _type == "article" \n    && title->number == $titleNumber]\n    ': GetArticlesFromTitleQueryResult

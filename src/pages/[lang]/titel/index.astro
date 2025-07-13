@@ -26,7 +26,7 @@ const titles = await getTitles()
             class="p-4 text-white"
             style={`background-color: ${title.color?.hex}`}
           >
-            <h2 class="cursor-pointer text-lg font-semibold hover:underline">
+            <h2 class="cursor-pointer text-lg font-semibold underline">
               <a href={`/${lang}/titel/${title.number}/`}>
                 {formatHeading(title, lang)}
               </a>

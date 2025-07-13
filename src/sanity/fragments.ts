@@ -6,7 +6,7 @@ de[]{
   markDefs[]{
     ...,
     _type == "internalLink" => {
-      "slug": @.reference->number,
+      "number": @.reference->number,
       "type": @.reference->_type,
     }
   }
@@ -16,7 +16,7 @@ fr[]{
   markDefs[]{
     ...,
     _type == "internalLink" => {
-      "slug": @.reference->number,
+      "number": @.reference->number,
       "type": @.reference->_type,
     }
   }
