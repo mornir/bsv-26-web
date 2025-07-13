@@ -19,10 +19,15 @@ export const staticPaths = Object.keys(languages).map((lang) => {
   return { params: { lang } }
 })
 
-export function getLocaleTitle(
-  { name, number }: { name: LocaleString; number: number },
-  lang: langKeys
-): string {
+type heading = {
+  number: number
+  name: LocaleString
+  [key: string]: unknown
+}
+
+export function formatHeading(heading: heading, lang: langKeys): string {
+  const { name, number } = heading
+
   if (lang === 'de') {
     return `${number}. Titel: ${name.de}`
   }

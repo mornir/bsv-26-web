@@ -6,7 +6,7 @@ import type { langKeys } from '@/i18n/utils'
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/sanity/queries'
 import { staticPaths } from '@/i18n/utils'
-import { getLocaleTitle } from '@/i18n/utils'
+import { formatHeading } from '@/i18n/utils'
 
 export function getStaticPaths() {
   return staticPaths
@@ -28,10 +28,7 @@ const titles = await getTitles()
           >
             <h2 class="cursor-pointer text-lg font-semibold hover:underline">
               <a href={`/${lang}/titel/${title.number}/`}>
-                {getLocaleTitle(
-                  { name: title.name, number: title.number },
-                  lang
-                )}
+                {formatHeading(title, lang)}
               </a>
             </h2>
             <SimpleEditor blocks={title?.desc?.de ?? []} />
