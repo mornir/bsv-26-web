@@ -1,16 +1,25 @@
 ---
 import { getLangFromUrl } from '@/i18n/utils'
 import LanguagePicker from './LanguagePicker.astro'
+import NavDropDown from './NavDropDown.astro'
+
+const currentLang = getLangFromUrl(Astro.url)
+const pathname = Astro.url.pathname
+
+const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
+  (number) => ({
+    name: `${number}. Titel`,
+    path: `/${currentLang}/titel/${number}/`,
+  })
+)
 
 const mainNav = [
-  { text: 'Titel', link: 'titel' },
-  { text: 'Anhänge', link: 'anhange' },
-  { text: 'Verzechnisse', link: 'verzechnisse' },
-  { text: 'Gesamtwerk', link: 'gesamtwerk' },
+  { name: 'Titel', links: titlesLinks },
+  { name: 'Anhänge', links: [] },
+  { name: 'Verzechnisse', links: [] },
+  { name: 'Gesamtwerk', links: [] },
+  { name: 'Anfragen', links: [] },
 ]
-
-const pathname = Astro.url.pathname
-const currentLang = getLangFromUrl(Astro.url)
 ---
 
 <header class="border-b-2 border-primary">
@@ -18,19 +27,21 @@ const currentLang = getLangFromUrl(Astro.url)
     <a href="/" class="text-2xl font-semibold hover:underline"
       >Digitale BSV 2026</a
     >
+
     <nav
       class="flex justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"
     >
       {
         mainNav.map((item) => (
-          <a
+          /*  <a
             href={`/${currentLang}/${item.link}/`}
             class={
               'hover:underline ' + (pathname.includes(item.link) && 'underline')
             }
           >
             {item.text}
-          </a>
+          </a> */
+          <NavDropDown name={item.name} links={item.links} />
         ))
       }
     </nav>
