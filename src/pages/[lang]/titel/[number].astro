@@ -26,6 +26,9 @@ const articles = await getArticlesFromTitle(parseInt(params.number))
 
 <Layout title="Startseite">
   <div>
+    <h1 class="mt-4 text-center text-5xl font-semibold">
+      {`${params.number}. Titel`}
+    </h1>
     <ul>
       {articles.map((article) => <li>{article.name[lang]}</li>)}
     </ul>
