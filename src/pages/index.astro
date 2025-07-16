@@ -1,26 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { getFeatures } from '@/sanity/queries'
-const features = await getFeatures()
+import { defaultLang } from '@/i18n/ui'
 ---
 
-<Layout title="Startseite">
-  <div class="mt-32 grid place-content-center">
-    <h1 class="text-center text-5xl font-semibold text-slate-800">
-      Digitale Schweizerische <br /> Brandschutzvorschriften 2026
-    </h1>
-
-    <div class="mt-24">
-      <dl class="grid grid-cols-3 gap-x-8 gap-y-4">
-        {
-          features.map((feat) => (
-            <div class="max-w-84">
-              <dt class="inline text-xl font-bold">{feat.name.de}.</dt>
-              <dd class="inline">{feat.desc.de}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
-  </div>
-</Layout>
+<html>
+  <head>
+    <!-- Fallback meta redirect for non-JS browsers -->
+    <meta http-equiv="refresh" content={`0; URL=/${defaultLang}/`} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to the default locale...</p>
+  </body>
+</html>
