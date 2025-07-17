@@ -29,6 +29,7 @@ export async function getFeatures() {
   return client.fetch(getFeaturesQuery)
 }
 
+// TODO: also fetch detail about title
 export async function getArticlesFromTitle(titleNumber: number) {
   const getArticlesFromTitleQuery = defineQuery(`*[
     _type == "article" 
