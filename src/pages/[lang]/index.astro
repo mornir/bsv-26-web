@@ -2,10 +2,16 @@
 import Layout from '@/layouts/Layout.astro'
 import { getFeatures } from '@/sanity/queries'
 const features = await getFeatures()
-//import { staticPaths } from '@/i18n/utils'
+
+import type { langKeys } from '@/i18n/utils'
+import { useTranslations, staticLocalePaths } from '@/i18n/utils'
+
+const currentLang = Astro.currentLocale as langKeys
+
+const t = useTranslations(currentLang)
 
 export function getStaticPaths() {
-  return [{ params: { lang: 'de' } }, { params: { lang: 'fr' } }]
+  return staticLocalePaths
 }
 ---
 

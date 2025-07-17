@@ -1,14 +1,22 @@
 import { ui, defaultLang, languages } from './ui'
 import type { LocaleString } from '@/sanity/sanity.types'
 
-// TODO: currently unused
-export function useTranslations(lang: keyof typeof ui) {
+// TODO: keep if Astro.currentLocale turns out to be buggy
+/* export function getLangFromUrl(url: URL) {
+  const [, lang] = url.pathname.split('/')
+  if (lang in ui) return lang as keyof typeof ui
+  return defaultLang
+}
+ */
+
+export function useTranslations(lang: keyof typeof ui | undefined) {
+  if (!lang) lang = 'de'
   return function t(key: keyof (typeof ui)[typeof defaultLang]) {
     return ui[lang][key] || ui[defaultLang][key]
   }
 }
 
-export const staticPaths = Object.keys(languages).map((lang) => {
+export const staticLocalePaths = Object.keys(languages).map((lang) => {
   return { params: { lang } }
 })
 

@@ -4,10 +4,10 @@ import Toolbar from '@/components/Toolbar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticles } from '@/sanity/queries'
 import SideNav from '@/components/SideNav.astro'
-import { staticPaths } from '@/i18n/utils'
+import { staticLocalePaths } from '@/i18n/utils'
 
 export function getStaticPaths() {
-  return staticPaths
+  return staticLocalePaths
 }
 
 const articles = await getArticles()
