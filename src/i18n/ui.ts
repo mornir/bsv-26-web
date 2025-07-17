@@ -7,15 +7,19 @@ export const defaultLang = 'de'
 
 export const ui = {
   de: {
-    'nav.home': 'Home',
+    'nav.brand': 'BSV 2026',
+    'nav.titles': 'Titel',
+    'nav.appendices': 'Anhänge',
+    'nav.toc': 'Verzeichnisse',
     'nav.faq': 'Anfragen',
-    'nav.title': 'BSV 2026',
     'home.title': 'Schweizerische Brandschutzvorschriften 2026',
   },
   fr: {
-    'nav.home': 'Accueil',
+    'nav.brand': 'PPI 2026',
+    'nav.titles': 'Titres',
+    'nav.appendices': 'Annexes',
+    'nav.toc': 'Tables des matières',
     'nav.faq': 'Demandes',
-    'nav.title': 'PPI 2026',
     'home.title': 'Prescriptions suisses de protection incendie 2026',
   },
 } as const

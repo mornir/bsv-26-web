@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { name, links } = Astro.props
+const pathname = Astro.url.pathname
 ---
 
 <div class="flex justify-center">
@@ -77,7 +78,7 @@ const { name, links } = Astro.props
         links.map((link) => (
           <a
             href={link.path}
-            class="flex w-full items-center rounded-md px-2 py-2 text-left text-gray-800 transition-colors hover:bg-gray-50 focus-visible:bg-gray-50 lg:py-1.5"
+            class={`flex w-full items-center rounded-md px-2 py-2 text-left transition-colors hover:bg-gray-50 focus-visible:bg-gray-50 lg:py-1.5 ${pathname.includes(link.path) ? 'text-accent' : 'text-gray-800'}`}
           >
             {link.name}
           </a>

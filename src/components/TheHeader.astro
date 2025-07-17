@@ -1,9 +1,12 @@
 ---
 import LanguagePicker from './LanguagePicker.astro'
 import NavDropDown from './NavDropDown.astro'
+import type { langKeys } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/utils'
 
-const lang = Astro.currentLocale
-const pathname = Astro.url.pathname
+const lang = Astro.currentLocale as langKeys
+
+const t = useTranslations(lang)
 
 const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
   (number) => ({
@@ -13,18 +16,18 @@ const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
 )
 
 const mainNav = [
-  { name: 'Titel', links: titlesLinks },
-  { name: 'Anhänge', links: [] },
-  { name: 'Verzechnisse', links: [] },
-  { name: 'Gesamtwerk', links: [] },
-  { name: 'Anfragen', links: [] },
+  { name: t('nav.titles'), links: titlesLinks },
+  { name: t('nav.appendices'), links: [] },
+  { name: t('nav.toc'), links: [] },
+  /*   { name: t('nav.whole'), links: [] }, */
+  { name: t('nav.faq'), links: [] },
 ]
 ---
 
 <header class="border-b-2 border-primary">
   <div class="mx-4 grid grid-cols-3 items-baseline py-5">
     <a href={`/${lang}/`} class="text-2xl font-semibold hover:underline"
-      >BSV 2026</a
+      >{t('nav.brand')}</a
     >
 
     <nav
