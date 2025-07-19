@@ -18,7 +18,10 @@ const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
 const mainNav = [
   {
     name: t('nav.titles'),
-    links: [{ name: 'Übersicht', path: `/${lang}/titel/` }, ...titlesLinks],
+    links: [
+      { name: t('nav.titles.overview'), path: `/${lang}/titel/` },
+      ...titlesLinks,
+    ],
   },
   { name: t('nav.appendices'), links: [] },
   { name: t('nav.toc'), links: [] },
