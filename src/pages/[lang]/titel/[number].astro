@@ -22,12 +22,14 @@ const params = Astro.params
 const lang = params.lang as langKeys
 
 const articles = await getArticlesFromTitle(parseInt(params.number))
+
+const heading = params.number + '. Titel'
 ---
 
-<Layout title="Startseite">
+<Layout title={heading}>
   <div>
     <h1 class="mt-4 text-center text-5xl font-semibold">
-      {`${params.number}. Titel`}
+      {heading}
     </h1>
     <ul>
       {articles.map((article) => <li>{article.name[lang]}</li>)}
