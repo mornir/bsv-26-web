@@ -46,7 +46,7 @@ const pathname = Astro.url.pathname
       :aria-expanded="open"
       :aria-controls="$id('dropdown-button')"
       type="button"
-      class="relative flex items-center justify-center gap-2 px-4 py-2 whitespace-nowrap text-gray-800"
+      class="relative flex items-center justify-center gap-2 px-4 py-2 whitespace-nowrap text-gray-800 hover:text-accent"
     >
       <span>{name}</span>
 
@@ -78,7 +78,7 @@ const pathname = Astro.url.pathname
         links.map((link) => (
           <a
             href={link.path}
-            class={`flex w-full items-center rounded-md px-2 py-2 text-left transition-colors hover:bg-gray-50 focus-visible:bg-gray-50 lg:py-1.5 ${pathname.includes(link.path) ? 'text-accent' : 'text-gray-800'}`}
+            class={`flex w-full items-center rounded-md px-2 py-2 text-left transition-colors hover:bg-gray-50 focus-visible:bg-gray-50 lg:py-1.5 ${pathname === link.path ? 'text-accent' : 'text-gray-800'}`}
           >
             {link.name}
           </a>
