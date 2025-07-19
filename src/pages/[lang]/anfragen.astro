@@ -1,0 +1,20 @@
+---
+import type { InferGetStaticParamsType } from 'astro'
+import Layout from '@/layouts/Layout.astro'
+import { staticLocalePaths } from '@/i18n/utils'
+
+export function getStaticPaths() {
+  return staticLocalePaths
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>
+const { lang } = Astro.params as Params
+---
+
+<Layout title="Anfragen">
+  <div class="mt-32 grid place-content-center">
+    <h1 class="mb-8 text-center text-5xl font-semibold text-slate-800">
+      Anfragen
+    </h1>
+  </div>
+</Layout>
