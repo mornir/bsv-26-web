@@ -6,13 +6,15 @@ const features = await getFeatures()
 import type { langKeys } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/utils'
 
+import { staticLocalePaths } from '@/i18n/utils'
+
 const currentLang = Astro.currentLocale as langKeys
 
 const t = useTranslations(currentLang)
 
 export function getStaticPaths() {
   // don't use staticLocalePaths here!
-  return [{ params: { lang: 'de' } }, { params: { lang: 'fr' } }]
+  return staticLocalePaths()
 }
 ---
 

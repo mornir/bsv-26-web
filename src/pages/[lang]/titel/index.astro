@@ -9,7 +9,7 @@ import { staticLocalePaths } from '@/i18n/utils'
 import { formatHeading } from '@/i18n/utils'
 
 export function getStaticPaths() {
-  return staticLocalePaths
+  return staticLocalePaths()
 }
 
 const lang = Astro.params.lang as langKeys

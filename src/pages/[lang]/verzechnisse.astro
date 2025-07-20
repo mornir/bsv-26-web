@@ -1,10 +1,9 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
 import Layout from '@/layouts/Layout.astro'
-import { staticLocalePaths } from '@/i18n/utils'
 
 export function getStaticPaths() {
-  return staticLocalePaths
+  return [{ params: { lang: 'de' } }, { params: { lang: 'fr' } }]
 }
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>

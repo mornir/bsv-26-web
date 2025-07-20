@@ -16,9 +16,11 @@ export function useTranslations(lang: keyof typeof ui | undefined) {
   }
 }
 
-export const staticLocalePaths = Object.keys(languages).map((lang) => {
-  return { params: { lang } }
-})
+export function staticLocalePaths() {
+  return Object.keys(languages).map((lang) => {
+    return { params: { lang } }
+  })
+}
 
 type heading = {
   number: number
