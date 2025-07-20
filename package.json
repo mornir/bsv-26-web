@@ -24,6 +24,7 @@
     "astro-icon": "^1.1.5",
     "astro-portabletext": "0.11.1",
     "groq": "4.0.1",
+    "katex": "^0.16.22",
     "tailwindcss": "^4.1.6"
   },
   "devDependencies": {
