@@ -1,7 +1,10 @@
 ---
-import type { GetArticleQueryResult, BlockContent } from '../../sanity.types'
+import type {
+  GetArticleQueryResult,
+  BlockContent,
+} from '../sanity/sanity.types'
 
-import Table from './Table.astro'
+import Table from '@/components/portable-text/Table.astro'
 
 import { PortableText } from 'astro-portabletext'
 
@@ -13,7 +16,7 @@ interface Props {
 
 const { article } = Astro.props
 
-// if (!article) return Astro.redirect('/404')
+if (!article) return Astro.redirect('/404')
 
 function countDistinctItems(blockContent: BlockContent | undefined) {
   if (!blockContent) {
@@ -58,14 +61,14 @@ const explanations = {
   it: article?.exp?.it,
 }
 
-const references = [`Titel ${article.title.number}`]
+const references = [`${article.title.number}. Titel`]
 
 if (article.chapter?.number) {
-  references.push(`Kapitel ${article.chapter.number}`)
+  references.push(`${article.chapter.number}. Kapitel`)
 }
 
 if (article.section?.number) {
-  references.push(`Abschnitt ${article.section.number}`)
+  references.push(`${article.section.number}. Abschnitt`)
 }
 
 const components = {

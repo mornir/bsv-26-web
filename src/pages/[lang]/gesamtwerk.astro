@@ -1,9 +1,15 @@
 ---
-import Article from '../components/Article.astro'
-import Toolbar from '../components/Toolbar.astro'
-import Layout from '../layouts/Layout.astro'
-import { getArticles } from '../utils/sanity'
-import SideNav from '../components/SideNav.astro'
+import Article from '@/components/Article.astro'
+import Toolbar from '@/components/Toolbar.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getArticles } from '@/sanity/queries'
+import SideNav from '@/components/SideNav.astro'
+
+import { staticLocalePaths } from '@/i18n/utils'
+
+export function getStaticPaths() {
+  return staticLocalePaths()
+}
 
 const articles = await getArticles()
 ---

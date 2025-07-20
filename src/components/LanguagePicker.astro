@@ -1,0 +1,20 @@
+---
+import { languages } from '@/i18n/ui'
+
+const currentLang = Astro.currentLocale
+const restPath = Astro.url.pathname.split('/').slice(2).join('/')
+---
+
+<ul class="flex justify-end gap-2">
+  {
+    Object.entries(languages).map(([lang, label]) => (
+      <li>
+        {lang === currentLang ? (
+          <strong>{lang.toUpperCase()}</strong>
+        ) : (
+          <a href={`/${lang}/${restPath}`}>{lang.toUpperCase()}</a>
+        )}
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,42 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getFeatures } from '@/sanity/queries'
+const features = await getFeatures()
+
+import type { langKeys } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/utils'
+
+import { staticLocalePaths } from '@/i18n/utils'
+
+const currentLang = Astro.currentLocale as langKeys
+
+const t = useTranslations(currentLang)
+
+export function getStaticPaths() {
+  // don't use staticLocalePaths here!
+  return staticLocalePaths()
+}
+---
+
+<Layout title="Startseite">
+  <div class="mt-24 grid place-content-center">
+    <h1
+      class="mx-auto block max-w-2xl text-center text-5xl/16 font-semibold text-slate-800"
+    >
+      {t('home.title')}
+    </h1>
+
+    <div class="mt-20">
+      <dl class="grid grid-cols-3 gap-x-8 gap-y-12">
+        {
+          features.map((feat) => (
+            <div class="max-w-84">
+              <dt class="inline text-xl font-bold">{feat.name.de}.</dt>
+              <dd class="inline">{feat.desc.de}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</Layout>

@@ -1,24 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { mainNav } from '../components/TheHeader.astro'
+import { defaultLang } from '@/i18n/ui'
 ---
 
-<Layout title="Startseite">
-  <div class="mt-32 grid place-content-center">
-    <h1 class="mb-8 text-center text-4xl font-semibold text-slate-800">
-      DIGITALE BSV 2026
-    </h1>
-    <nav class="grid max-w-3xl gap-8 md:grid-cols-2">
-      {
-        mainNav.map((item) => (
-          <a
-            href={item.link}
-            class="block bg-primary px-10 py-8 text-center text-xl font-semibold text-white duration-700 ease-in-out hover:bg-accent"
-          >
-            {item.text}
-          </a>
-        ))
-      }
-    </nav>
-  </div>
-</Layout>
+<html>
+  <head>
+    <!-- Fallback meta redirect for non-JS browsers -->
+    <meta http-equiv="refresh" content={`0; URL=/${defaultLang}/`} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to the default locale...</p>
+  </body>
+</html>

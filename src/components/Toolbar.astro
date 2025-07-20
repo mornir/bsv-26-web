@@ -1,4 +1,5 @@
 ---
+import { languages } from '@/i18n/ui'
 interface Props {
   number?: number
 }
@@ -9,11 +10,6 @@ const expOptions = [
   { text: 'ausblenden', value: 'hide' },
 ]
 
-const langs = [
-  { text: 'Deutsch', value: 'de' },
-  { text: 'Französisch', value: 'fr' },
-  { text: 'Italienisch', value: 'it' },
-]
 const { number } = Astro.props
 ---
 
@@ -50,17 +46,17 @@ const { number } = Astro.props
   <div class="flex justify-end gap-x-4">
     <span>Sprachvergleich:</span>
     {
-      langs.map(({ text, value }) => (
+      Object.entries(languages).map(([code, label]) => (
         <div>
           <input
             type="checkbox"
-            value={value}
+            value={code}
             x-model="languages"
-            name={text.toLowerCase()}
+            name={label.toLowerCase()}
             class="accent-violet-800"
-            id={value}
+            id={code}
           />
-          <label for={value}>{text}</label>
+          <label for={code}>{label}</label>
         </div>
       ))
     }

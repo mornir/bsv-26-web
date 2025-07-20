@@ -1,37 +1,64 @@
 ---
-export const mainNav = [
-  { text: 'Gesamtwerk', link: '/gesamtwerk/' },
-  { text: 'Inhaltsverzeichnis', link: '/artikel/' },
-  { text: 'Themen', link: '/themen/' },
-  { text: 'Chatbot', link: '/chatbot/' },
-]
+import LanguagePicker from './LanguagePicker.astro'
+import NavDropDown from './NavDropDown.astro'
+import type { langKeys } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/utils'
 
 const pathname = Astro.url.pathname
+
+const lang = Astro.currentLocale as langKeys
+
+const t = useTranslations(lang)
+
+const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
+  (number) => ({
+    name: `${number}. Titel`,
+    path: `/${lang}/titel/${number}/`,
+  })
+)
+
+const mainNav = [
+  {
+    name: t('nav.titles'),
+    links: [
+      { name: t('nav.titles.overview'), path: `/${lang}/titel/` },
+      ...titlesLinks,
+    ],
+  },
+  { name: t('nav.appendices'), links: [] },
+  { name: t('nav.toc'), links: [] },
+  { name: t('nav.faq'), path: `/${lang}/anfragen/` },
+  { name: t('nav.all'), path: `/${lang}/gesamtwerk/` },
+]
 ---
 
 <header class="border-b-2 border-primary">
-  <div class="mx-4 grid grid-cols-3 items-baseline py-5">
-    <a href="/" class="text-2xl font-semibold hover:underline"
-      >DIGITALE BSV 2026</a
+  <div class="mx-4 flex items-baseline justify-between py-5">
+    <a href={`/${lang}/`} class="text-2xl font-semibold hover:underline"
+      >{t('nav.brand')}</a
     >
+
     <nav
-      class="flex justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"
+      class="flex items-center justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"
     >
       {
-        mainNav.map((item) => (
-          <a
-            href={item.link}
-            class={'hover:underline ' + (pathname === item.link && 'underline')}
-          >
-            {item.text}
-          </a>
-        ))
+        mainNav.map((item) =>
+          !item.links ? (
+            <a
+              href={item.path}
+              class={`hover:text-accent ${pathname === item.path && 'text-accent'}`}
+            >
+              {item.name}
+            </a>
+          ) : (
+            <NavDropDown name={item.name} links={item.links} />
+          )
+        )
       }
     </nav>
+
     <div class="text-right">
-      <a href="#">DE</a>
-      <a href="#">FR</a>
-      <a href="#">IT</a>
+      <LanguagePicker />
     </div>
   </div>
 </header>

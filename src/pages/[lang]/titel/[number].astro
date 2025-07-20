@@ -1,0 +1,38 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getArticlesFromTitle } from '@/sanity/queries'
+import type { langKeys } from '@/i18n/utils'
+
+export async function getStaticPaths() {
+  const titlesCount = Array.from({ length: 10 }, (_, i) => String(i + 1))
+
+  const deRoutes = titlesCount.map((number) => ({
+    params: { lang: 'de', number },
+  }))
+
+  const frRoutes = titlesCount.map((number) => ({
+    params: { lang: 'fr', number },
+  }))
+
+  return [...deRoutes, ...frRoutes]
+}
+
+const params = Astro.params
+
+const lang = params.lang as langKeys
+
+const articles = await getArticlesFromTitle(parseInt(params.number))
+
+const heading = params.number + '. Titel'
+---
+
+<Layout title={heading}>
+  <div>
+    <h1 class="mt-4 text-center text-5xl font-semibold">
+      {heading}
+    </h1>
+    <ul>
+      {articles.map((article) => <li>{article.name[lang]}</li>)}
+    </ul>
+  </div>
+</Layout>

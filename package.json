@@ -7,28 +7,28 @@
     "start": "astro dev",
     "build": "astro check && tsc --noEmit && astro build",
     "preview": "astro preview",
+    "latest": "pnpm update --interactive --latest",
     "astro": "astro"
   },
   "dependencies": {
     "@alpinejs/focus": "^3.14.9",
     "@alpinejs/persist": "^3.14.9",
-    "@astrojs/alpinejs": "^0.4.6",
+    "@astrojs/alpinejs": "^0.4.8",
     "@astrojs/check": "0.9.4",
     "@iconify-json/mdi": "^1.2.3",
     "@portabletext/to-html": "^2.0.14",
-    "@sanity/client": "^6.29.0",
-    "@tailwindcss/vite": "^4.1.4",
+    "@sanity/client": "^7.8.0",
+    "@tailwindcss/vite": "^4.1.6",
     "alpinejs": "^3.14.9",
-    "astro": "^5.7.4",
+    "astro": "^5.12.0",
     "astro-icon": "^1.1.5",
     "astro-portabletext": "0.11.1",
-    "groq": "3.85.1",
-    "openai": "^4.95.0",
-    "tailwindcss": "^4.1.4"
+    "groq": "4.0.1",
+    "tailwindcss": "^4.1.6"
   },
   "devDependencies": {
     "@portabletext/types": "2.0.13",
-    "@sanity/types": "3.85.1",
+    "@sanity/types": "4.0.1",
     "@tailwindcss/typography": "^0.5.16",
     "@types/alpinejs": "^3.13.11",
     "@types/alpinejs__focus": "^3.13.4",
@@ -36,12 +36,13 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "5.8.3",
-    "vite": "^6.3.2"
+    "vite": "^6.3.5"
   },
-  "packageManager": "pnpm@10.8.1",
+  "packageManager": "pnpm@10.12.1",
   "prettier": {
     "semi": false,
     "singleQuote": true,
+    "trailingComma": "es5",
     "tailwindStylesheet": "./src/styles/global.css",
     "plugins": [
       "prettier-plugin-tailwindcss"

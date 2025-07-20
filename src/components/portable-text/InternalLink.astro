@@ -1,0 +1,31 @@
+---
+import type { Props as $, Mark } from 'astro-portabletext/types'
+
+type Reference = { type: string; number: number }
+
+type Props = $<Mark<Reference>>
+
+const { node } = Astro.props
+
+const number = node.markDef.number
+const type = node.markDef.type
+
+let href = ''
+
+if (type === 'title') {
+  href = `/titel/${number}/`
+}
+
+// TODO: add title number URL
+if (type === 'chapter') {
+  href = `/title/chapter/${number}/`
+}
+
+if (type === 'article') {
+  href = `/title/chapter/article/${number}/`
+}
+
+href = '/'
+---
+
+<a href={href} class="underline"><slot /></a>

@@ -1,8 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import {getArticlesLinks} from '../../utils/sanity'
+import {getArticles} from '@/sanity/queries'
 
-const articles = await getArticlesLinks()
+const articles = await getArticles()
 
 const titles: String[] = []
 ---
@@ -12,13 +12,13 @@ const titles: String[] = []
     <h1>Inhaltsverzeichnis</h1>
     {
       articles.map((art) => {
-        const title = `Titel ${art.title.number} ${art.title.name.de}`
+        const title = `${art.title.number}. Titel: ${art.title.name.de}`
         if (!titles.includes(title)) {
           titles.push(title)
           return (
             <h2>{title}</h2>
             <p>
-              <a href={`/artikel/${art.number}`}>
+              <a href={`/artikel/${art.number}/`}>
                 Art. {art.number} {art.name.de}
               </a>
             </p>
@@ -26,7 +26,7 @@ const titles: String[] = []
         } 
         return (
           <p>
-            <a href={`/artikel/${art.number}`}>
+            <a href={`/artikel/${art.number}/`}>
               Art. {art.number} {art.name.de}
             </a>
           </p>
