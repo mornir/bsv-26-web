@@ -51,33 +51,77 @@ export type SimpleEditor = Array<{
   _key: string
 }>
 
-export type BlockContent = Array<{
-  children?: Array<
-    | {
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
+export type BlockContent = Array<
+  | {
+      children?: Array<
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+        | {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            _key: string
+            [internalGroqTypeReferenceTo]?: 'table'
+          }
+      >
+      style?: 'normal'
+      listItem?: 'number' | 'bullet'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
         _key: string
-      }
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        _key: string
-        [internalGroqTypeReferenceTo]?: 'table'
-      }
-  >
-  style?: 'normal'
-  listItem?: 'number' | 'bullet'
-  markDefs?: Array<{
-    href?: string
-    _type: 'link'
-    _key: string
-  }>
-  level?: number
-  _type: 'block'
-  _key: string
-}>
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }
+  | ({
+      _key: string
+    } & Latex)
+>
+
+export type Appendix = {
+  _id: string
+  _type: 'appendix'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  name: LocaleString
+  body: LocaleBlockContent
+}
+
+export type Figure = {
+  _id: string
+  _type: 'figure'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'title'
+  }
+  name: LocaleString
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+}
 
 export type Table = {
   _id: string
@@ -86,6 +130,12 @@ export type Table = {
   _updatedAt: string
   _rev: string
   name: LocaleString
+  title: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'title'
+  }
   html: LocaleText
 }
 
@@ -94,6 +144,15 @@ export type LocaleText = {
   de: string
   fr?: string
   it?: string
+}
+
+export type Faq = {
+  _id: string
+  _type: 'faq'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
 }
 
 export type ExternalLink = {
@@ -230,6 +289,11 @@ export type LocaleString = {
   de: string
   fr?: string
   it?: string
+}
+
+export type Latex = {
+  _type: 'latex'
+  body?: string
 }
 
 export type Color = {
@@ -388,8 +452,11 @@ export type AllSanitySchemaTypes =
   | Tag
   | SimpleEditor
   | BlockContent
+  | Appendix
+  | Figure
   | Table
   | LocaleText
+  | Faq
   | ExternalLink
   | InternalLink
   | Article
@@ -399,6 +466,7 @@ export type AllSanitySchemaTypes =
   | Title
   | LocaleSimpleEditor
   | LocaleString
+  | Latex
   | Color
   | RgbaColor
   | HsvaColor
@@ -427,9 +495,83 @@ export type GetTitlesQueryResult = Array<{
   number: number
   name: LocaleString
   desc: {
-    de: SimpleEditor
-    fr: SimpleEditor
-  }
+    de: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal'
+      listItem?: never
+      markDefs: Array<{
+        _key: string
+        _type: 'internalLink'
+        reference:
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'article'
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'chapter'
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'title'
+            }
+        number: number
+        type: 'article' | 'chapter' | 'title'
+      }> | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
+    fr: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal'
+      listItem?: never
+      markDefs: Array<{
+        _key: string
+        _type: 'internalLink'
+        reference:
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'article'
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'chapter'
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'title'
+            }
+        number: number
+        type: 'article' | 'chapter' | 'title'
+      }> | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  } | null
   color: Color
 }>
 // Variable: getArticlesQuery
