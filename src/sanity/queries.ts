@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client'
 import { defineQuery } from 'groq'
-import { expandLinks } from './fragments'
+import { expandLinks, expandTables } from './fragments'
 
 const client = createClient({
   projectId: 'lc9446ox',
@@ -17,9 +17,14 @@ export async function getTitles() {
 }
 
 export async function getArticles() {
-  const getArticlesQuery = defineQuery(
-    `*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)`
-  )
+  const getArticlesQuery = defineQuery(`
+  *[_type == "article"]
+  {..., 
+  title->, 
+  chapter->, 
+  section->,
+  law {${expandTables}}} 
+  | order(number asc)`)
 
   return client.fetch(getArticlesQuery)
 }

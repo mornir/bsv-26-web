@@ -24,3 +24,24 @@ fr[]{
   }
 }
 `
+
+export const expandTables = groq`
+de[]{
+  ...,
+  children[]{
+    ...,
+    _type == "table" => {
+      "html": @->html.de
+    }
+  }
+},
+fr[]{
+  ...,
+  children[]{
+    ...,
+    _type == "table" => {
+      "html": @->html.fr
+    }
+  }
+}
+`
