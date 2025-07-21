@@ -1,5 +1,5 @@
 ---
-import SimpleEditor from '@/components/portable-text/SimpleEditor.astro'
+import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 
 import type { langKeys } from '@/i18n/utils'
 
@@ -35,7 +35,7 @@ const titles = await getTitles()
               </a>
             </h2>
             <div class="mt-2">
-              <SimpleEditor blocks={title?.desc?.de ?? []} />
+              <BasicRichText blocks={title?.desc?.de ?? []} />
             </div>
           </li>
         ))

@@ -4,7 +4,7 @@ import type {
   BlockContent,
 } from '../sanity/sanity.types'
 
-import AdvancedEditor from '@/components/portable-text/AdvancedEditor.astro'
+import RichText from '@/components/portable-text/RichText.astro'
 import { Icon } from 'astro-icon/components'
 
 interface Props {
@@ -116,7 +116,7 @@ if (article.section?.number) {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="c-law contents">
-          <AdvancedEditor blocks={laws[lang] ?? []} />
+          <RichText blocks={laws[lang] ?? []} />
         </div>
       ))
     }
@@ -134,7 +134,7 @@ if (article.section?.number) {
             (lang) =>
               explanations[lang] && (
                 <div x-show={`languages.includes('${lang}')`} class="contents">
-                  <AdvancedEditor blocks={explanations[lang]} />
+                  <RichText blocks={explanations[lang]} />
                 </div>
               )
           )}
@@ -154,7 +154,7 @@ if (article.section?.number) {
           (lang) =>
             explanations[lang] && (
               <div x-show={`languages.includes('${lang}')`} class="contents">
-                <AdvancedEditor blocks={explanations[lang]} />
+                <RichText blocks={explanations[lang]} />
               </div>
             )
         )}
