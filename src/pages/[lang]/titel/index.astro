@@ -12,7 +12,7 @@ export function getStaticPaths() {
   return staticLocalePaths()
 }
 
-const lang = Astro.params.lang as langKeys
+const lang = Astro.currentLocale as langKeys
 
 const titles = await getTitles()
 ---
@@ -21,7 +21,7 @@ const titles = await getTitles()
   <div class="mt-18 mb-32 px-24">
     <ul class="mx-auto flex max-w-3xl flex-col gap-y-8">
       {
-        titles.map((title) => (
+        titles.map((title: any) => (
           <li
             class="rounded-md border-4 px-6 py-5"
             style={`border-color: ${title.color?.hex}`}
