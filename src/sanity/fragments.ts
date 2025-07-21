@@ -1,6 +1,8 @@
 // as of now iterating over languanges is not compatible with Sanity TypeGen
 //TODO: add Italian
-export const expandLinks = `
+
+import groq from 'groq'
+export const expandLinks = groq`
 de[]{
   ...,
   markDefs[]{
