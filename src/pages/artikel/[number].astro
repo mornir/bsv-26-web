@@ -8,7 +8,7 @@ import { getArticle, getArticles } from '@/sanity/queries'
 
 export async function getStaticPaths() {
   const articles = await getArticles()
-  return articles.map((article) => ({
+  return articles.map((article: any) => ({
     params: { number: article.number.toString() },
   }))
 }

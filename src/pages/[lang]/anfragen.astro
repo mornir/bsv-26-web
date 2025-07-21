@@ -1,5 +1,4 @@
 ---
-import type { InferGetStaticParamsType } from 'astro'
 import Layout from '@/layouts/Layout.astro'
 import { staticLocalePaths } from '@/i18n/utils'
 
@@ -7,8 +6,7 @@ export function getStaticPaths() {
   return staticLocalePaths()
 }
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>
-const { lang } = Astro.params as Params
+/* const lang  = Astro.currentLocale */
 ---
 
 <Layout title="Anfragen">

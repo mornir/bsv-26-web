@@ -7,7 +7,7 @@ const restPath = Astro.url.pathname.split('/').slice(2).join('/')
 
 <ul class="flex justify-end gap-2">
   {
-    Object.entries(languages).map(([lang, label]) => (
+    Object.entries(languages).map(([lang]) => (
       <li>
         {lang === currentLang ? (
           <strong>{lang.toUpperCase()}</strong>
