@@ -4,10 +4,7 @@ import type {
   BlockContent,
 } from '../sanity/sanity.types'
 
-import Table from '@/components/portable-text/Table.astro'
-
-import { PortableText } from 'astro-portabletext'
-
+import AdvancedEditor from '@/components/portable-text/AdvancedEditor.astro'
 import { Icon } from 'astro-icon/components'
 
 interface Props {
@@ -70,13 +67,6 @@ if (article.chapter?.number) {
 if (article.section?.number) {
   references.push(`${article.section.number}. Abschnitt`)
 }
-
-const components = {
-  type: {
-    inlineTable: Table,
-    blockTable: Table,
-  },
-}
 ---
 
 <article
@@ -126,7 +116,7 @@ const components = {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="c-law contents">
-          <PortableText value={laws[lang] ?? []} components={components} />
+          <AdvancedEditor blocks={laws[lang] ?? []} />
         </div>
       ))
     }
@@ -144,7 +134,7 @@ const components = {
             (lang) =>
               explanations[lang] && (
                 <div x-show={`languages.includes('${lang}')`} class="contents">
-                  <PortableText value={explanations[lang]} />
+                  <AdvancedEditor blocks={explanations[lang]} />
                 </div>
               )
           )}
@@ -164,7 +154,7 @@ const components = {
           (lang) =>
             explanations[lang] && (
               <div x-show={`languages.includes('${lang}')`} class="contents">
-                <PortableText value={explanations[lang]} />
+                <AdvancedEditor blocks={explanations[lang]} />
               </div>
             )
         )}
