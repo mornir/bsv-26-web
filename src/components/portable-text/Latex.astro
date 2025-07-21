@@ -4,7 +4,7 @@ const { node } = Astro.props
 
 /* const latexString = String.raw`Pr(B \mid V) = \frac{2}{\pi} \arctan\left( \delta \frac{e^{\alpha} V^{\beta}}{e^{21 \gamma}} \right) \left[ \frac{1}{a} \right]` */
 
-const renderedLatex = katex.renderToString(node.latex, {
+const renderedLatex = katex.renderToString(node.body, {
   throwOnError: false,
   displayMode: true,
 })
