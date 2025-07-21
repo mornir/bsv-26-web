@@ -11,7 +11,7 @@ const titles: String[] = []
   <div class="mx-auto mt-10 mb-24 prose prose-p:my-1">
     <h1>Inhaltsverzeichnis</h1>
     {
-      articles.map((art) => {
+      articles.map((art: any) => {
         const title = `${art.title.number}. Titel: ${art.title.name.de}`
         if (!titles.includes(title)) {
           titles.push(title)

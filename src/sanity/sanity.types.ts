@@ -223,8 +223,8 @@ export type Article = {
 export type LocaleBlockContent = {
   _type: 'localeBlockContent'
   de: BlockContent
-  fr?: BlockContent
-  it?: BlockContent
+  fr: BlockContent
+  it: BlockContent
 }
 
 export type Section = {
@@ -575,7 +575,7 @@ export type GetTitlesQueryResult = Array<{
   color: Color
 }>
 // Variable: getArticlesQuery
-// Query: *[_type == "article"]{..., title->, chapter->, section->} | order(number asc)
+// Query: *[_type == "article"]  {...,   title->,   chapter->,   section->,  law {de[]{  ...,  children[]{    ...,    _type == "table" => {      "html": @->html.de    }  }},fr[]{  ...,  children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  }}}}   | order(number asc)
 export type GetArticlesQueryResult = Array<{
   _id: string
   _type: 'article'
@@ -638,7 +638,76 @@ export type GetArticlesQueryResult = Array<{
     [internalGroqTypeReferenceTo]?: 'tag'
   }>
   name: LocaleString
-  law: LocaleBlockContent
+  law: {
+    de: Array<
+      | {
+          children: Array<
+            | {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                _key: string
+              }
+            | {
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }
+          > | null
+          style?: 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          _key: string
+          _type: 'latex'
+          body?: string
+          children: null
+        }
+    >
+    fr: Array<
+      | {
+          children: Array<
+            | {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                _key: string
+              }
+            | {
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }
+          > | null
+          style?: 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          _key: string
+          _type: 'latex'
+          body?: string
+          children: null
+        }
+    > | null
+  }
   exp?: LocaleBlockContent
 }>
 // Variable: getFeaturesQuery
@@ -820,7 +889,7 @@ import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
-    '*[_type == "article"]{..., title->, chapter->, section->} | order(number asc)': GetArticlesQueryResult
+    '\n  *[_type == "article"]\n  {..., \n  title->, \n  chapter->, \n  section->,\n  law {\nde[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de\n    }\n  }\n},\nfr[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  }\n}\n}} \n  | order(number asc)': GetArticlesQueryResult
     '*[_type == "feature"]': GetFeaturesQueryResult
     '*[\n    _type == "article" \n    && title->number == $titleNumber]\n    ': GetArticlesFromTitleQueryResult
     '\n    *[_type == "article" && number == $number]\n    { ..., title->, chapter ->, section ->} | order(number asc)[0]\n    ': GetArticleQueryResult
