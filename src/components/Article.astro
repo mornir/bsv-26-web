@@ -4,10 +4,7 @@ import type {
   BlockContent,
 } from '../sanity/sanity.types'
 
-import Table from '@/components/portable-text/Table.astro'
-
-import { PortableText } from 'astro-portabletext'
-
+import RichText from '@/components/portable-text/RichText.astro'
 import { Icon } from 'astro-icon/components'
 
 interface Props {
@@ -26,6 +23,10 @@ function countDistinctItems(blockContent: BlockContent | undefined) {
   let lastWasBullet = false
 
   for (let item of blockContent) {
+    if (item?.children?.some((el) => el._type === 'table')) {
+      count++
+    }
+
     if (item.listItem === 'bullet' || item.listItem === 'number') {
       if (!lastWasBullet) {
         count++
@@ -69,13 +70,6 @@ if (article.chapter?.number) {
 
 if (article.section?.number) {
   references.push(`${article.section.number}. Abschnitt`)
-}
-
-const components = {
-  type: {
-    inlineTable: Table,
-    blockTable: Table,
-  },
 }
 ---
 
@@ -126,7 +120,7 @@ const components = {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="c-law contents">
-          <PortableText value={laws[lang] ?? []} components={components} />
+          <RichText blocks={laws[lang] ?? []} />
         </div>
       ))
     }
@@ -144,7 +138,7 @@ const components = {
             (lang) =>
               explanations[lang] && (
                 <div x-show={`languages.includes('${lang}')`} class="contents">
-                  <PortableText value={explanations[lang]} />
+                  <RichText blocks={explanations[lang]} />
                 </div>
               )
           )}
@@ -164,7 +158,7 @@ const components = {
           (lang) =>
             explanations[lang] && (
               <div x-show={`languages.includes('${lang}')`} class="contents">
-                <PortableText value={explanations[lang]} />
+                <RichText blocks={explanations[lang]} />
               </div>
             )
         )}

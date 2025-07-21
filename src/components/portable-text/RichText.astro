@@ -1,0 +1,25 @@
+---
+import { PortableText } from 'astro-portabletext'
+import Table from './Table.astro'
+import InternalLink from './InternalLink.astro'
+import Latex from './Latex.astro'
+import type { BlockContent } from '../../sanity/sanity.types'
+
+interface Props {
+  blocks: BlockContent | []
+}
+
+const { blocks } = Astro.props
+
+const components = {
+  mark: {
+    internalLink: InternalLink,
+  },
+  type: {
+    latex: Latex,
+    table: Table,
+  },
+}
+---
+
+<PortableText value={blocks} components={components} />

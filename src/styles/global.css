@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import 'katex/dist/katex.min.css';
+
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -35,4 +37,8 @@
 
 .c-law tbody tr:hover {
   background-color: #f1f5f9;
+}
+
+p:empty {
+  display: none;
 }

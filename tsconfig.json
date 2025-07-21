@@ -1,6 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
+  "include": [".astro/types.d.ts", "**/*", "./src/sanity/sanity.types.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
     "baseUrl": ".", // Required for "paths" to work
