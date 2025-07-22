@@ -1,0 +1,30 @@
+<div
+  x-cloak
+  x-data="{ showGate: $persist(true), password: '', showError: false }"
+  x-show="showGate"
+  class="absolute inset-0 z-20 bg-white"
+  x-trap.noscroll="showGate"
+>
+  <div class="mx-auto prose px-4 pt-12">
+    <h1>Projekt Digitale BSV 2026</h1>
+    <form
+      @submit.prevent="password === 'digitale-bsv' ? showGate = false : showError = true"
+    >
+      <label for="password" class="block text-sm font-medium text-gray-700"
+        >Passwort:</label
+      >
+      <input
+        x-model="password"
+        type="text"
+        class="border-2 border-primary p-1"
+        id="password"
+      />
+      <button
+        type="submit"
+        class="border-2 border-primary bg-primary px-2 py-1 text-white hover:bg-accent"
+        >Eingeben</button
+      >
+      <p class="text-red-600" x-show="showError">Passwort ist falsch</p>
+    </form>
+  </div>
+</div>
