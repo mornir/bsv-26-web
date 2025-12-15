@@ -1,0 +1,13 @@
+---
+const { message = 'Tooltip' } = Astro.props
+---
+
+<button
+  x-data
+  x-tooltip
+  data-message={message}
+  type="button"
+  class="inline cursor-pointer"
+>
+  <sup>[?]</sup>
+</button>
