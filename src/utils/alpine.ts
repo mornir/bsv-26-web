@@ -2,7 +2,6 @@ import type { Alpine } from 'alpinejs'
 import focus from '@alpinejs/focus'
 import persist from '@alpinejs/persist'
 import tippy from 'tippy.js'
-import 'tippy.js/dist/tippy.css'
 
 export default (Alpine: Alpine) => {
   Alpine.plugin(focus)
