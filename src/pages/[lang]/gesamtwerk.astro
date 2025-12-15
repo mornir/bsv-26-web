@@ -4,6 +4,7 @@ import Toolbar from '@/components/Toolbar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticles } from '@/sanity/queries'
 import SideNav from '@/components/SideNav.astro'
+import TestTable from '@/components/TestTable.astro'
 
 import { staticLocalePaths } from '@/i18n/utils'
 
@@ -23,6 +24,11 @@ const articles = await getArticles()
       <Toolbar />
       <section class="mx-auto max-w-7xl">
         {articles.map((article: any) => <Article article={article} />)}
+      </section>
+      <section
+        class="mx-auto prose max-w-5xl prose-stone prose-p:my-2 prose-thead:font-semibold"
+      >
+        <TestTable />
       </section>
     </div>
   </div>

@@ -25,8 +25,20 @@ const mainNav = [
       ...titlesLinks,
     ],
   },
-  { name: t('nav.appendices'), links: [] },
-  { name: t('nav.toc'), links: [] },
+  {
+    name: t('nav.appendices'),
+    links: [
+      { name: 'Anhang 1 (inaktiv)', path: '#' },
+      { name: 'Anhang 2 (inaktiv)', path: '#' },
+    ],
+  },
+  {
+    name: t('nav.toc'),
+    links: [
+      { name: 'Beispiel 1 (inaktiv)', path: '#' },
+      { name: 'Beispiel 2 (inaktiv)', path: '#' },
+    ],
+  },
   { name: t('nav.faq'), path: `/${lang}/anfragen/` },
   { name: t('nav.all'), path: `/${lang}/gesamtwerk/` },
 ]

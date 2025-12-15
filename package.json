@@ -16,6 +16,7 @@
     "@astrojs/alpinejs": "^0.4.8",
     "@astrojs/check": "0.9.4",
     "@iconify-json/mdi": "^1.2.3",
+    "@popperjs/core": "^2.11.8",
     "@portabletext/to-html": "^2.0.14",
     "@sanity/client": "^7.8.0",
     "@tailwindcss/vite": "^4.1.6",
@@ -25,7 +26,8 @@
     "astro-portabletext": "0.11.1",
     "groq": "4.0.1",
     "katex": "^0.16.22",
-    "tailwindcss": "^4.1.6"
+    "tailwindcss": "^4.1.6",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@portabletext/types": "2.0.13",

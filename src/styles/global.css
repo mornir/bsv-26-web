@@ -6,6 +6,8 @@
 @theme {
   --color-primary: oklch(27.9% 0.041 260.031);
   --color-accent: oklch(43.8% 0.218 303.724);
+  --color-table: #dabbcb;
+  --color-table-light: #ecdde5;
 }
 
 [x-cloak] {
