@@ -22,6 +22,7 @@
     "@tailwindcss/vite": "^4.1.6",
     "alpinejs": "^3.14.9",
     "astro": "^5.12.0",
+    "astro-i18n-aut": "^0.7.3",
     "astro-icon": "^1.1.5",
     "astro-portabletext": "0.11.1",
     "groq": "4.0.1",
@@ -41,7 +42,7 @@
     "typescript": "5.8.3",
     "vite": "^6.3.5"
   },
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.26.2",
   "prettier": {
     "semi": false,
     "singleQuote": true,
