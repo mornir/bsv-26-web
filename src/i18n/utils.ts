@@ -1,4 +1,5 @@
 import messages from './messages'
+import type { GetArticleQueryResult } from '@/sanity/sanity.types'
 import type { LocaleString } from '@/sanity/sanity.types'
 
 export const defaultLocale = 'de'
@@ -6,7 +7,7 @@ export const locales = {
   de: 'de-CH',
   fr: 'fr-CH',
   /*   it: 'it-CH', */
-}
+} as const
 
 export type langKeys = keyof typeof locales
 
@@ -23,17 +24,52 @@ type heading = {
   [key: string]: unknown
 }
 
-export function formatHeading(heading: heading, lang: langKeys): string {
+export function formatTitle(heading: heading, lang: string): string {
   const { name, number } = heading
-
-  if (lang === 'de') {
-    return `${number}. Titel: ${name.de}`
-  }
 
   if (lang === 'fr') {
     return `Titre ${number}: ${name.fr}`
   }
 
-  // Optionally handle other languages or fallback
-  return `${number}: ${name[lang] ?? ''}`
+  return `${number}. Titel: ${name.de}`
+}
+
+function formatChapter(heading: heading, lang: string): string {
+  const { name, number } = heading
+
+  if (lang === 'fr') {
+    return `Chapitre ${number}: ${name.fr}`
+  }
+
+  return `${number}. Kapitel: ${name.de}`
+}
+
+function formatSection(heading: heading, lang: string): string {
+  const { name, number } = heading
+
+  if (lang === 'fr') {
+    return `Section ${number}: ${name.fr}`
+  }
+
+  return `${number}. Abschnitt: ${name.de}`
+}
+
+export function formatRef(
+  article: GetArticleQueryResult,
+  lang: string
+): string {
+  // NOT NEEDED
+  if (!article) return 'ERROR'
+
+  const reference = [formatTitle(article.title, lang)]
+
+  if (article.chapter?.number) {
+    reference.push(formatChapter(article.chapter, lang))
+  }
+
+  if (article.section?.number) {
+    reference.push(formatSection(article.section, lang))
+  }
+
+  return reference.join(', ')
 }
