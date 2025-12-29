@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+astro_tmp_pages_*

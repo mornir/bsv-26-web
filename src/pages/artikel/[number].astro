@@ -1,9 +1,9 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
 import { Icon } from 'astro-icon/components'
-import Toolbar from '../../components/Toolbar.astro'
-import Article from '../../components/Article.astro'
-import Layout from '../../layouts/Layout.astro'
+import Toolbar from '@/components/Toolbar.astro'
+import Article from '@/components/Article.astro'
+import Layout from '@/layouts/Layout.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 
 export async function getStaticPaths() {

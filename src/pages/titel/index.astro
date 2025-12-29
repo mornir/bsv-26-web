@@ -5,12 +5,7 @@ import type { langKeys } from '@/i18n/utils'
 
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/sanity/queries'
-import { staticLocalePaths } from '@/i18n/utils'
 import { formatHeading } from '@/i18n/utils'
-
-export function getStaticPaths() {
-  return staticLocalePaths()
-}
 
 const lang = Astro.currentLocale as langKeys
 

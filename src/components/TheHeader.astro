@@ -3,8 +3,7 @@ import LanguagePicker from './LanguagePicker.astro'
 import NavDropDown from './NavDropDown.astro'
 import type { langKeys } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/utils'
-
-const pathname = Astro.url.pathname
+import Link from './Link.astro'
 
 const lang = Astro.currentLocale as langKeys
 
@@ -39,8 +38,8 @@ const mainNav = [
       { name: 'Beispiel 2 (inaktiv)', path: '#' },
     ],
   },
-  { name: t('nav.faq'), path: `/${lang}/anfragen/` },
-  { name: t('nav.all'), path: `/${lang}/gesamtwerk/` },
+  { name: t('nav.faq'), path: 'anfragen' },
+  { name: t('nav.all'), path: `gesamtwerk` },
 ]
 ---
 
@@ -56,12 +55,7 @@ const mainNav = [
       {
         mainNav.map((item) =>
           !item.links ? (
-            <a
-              href={item.path}
-              class={`hover:text-accent ${pathname === item.path && 'text-accent'}`}
-            >
-              {item.name}
-            </a>
+            <Link text={item.name} slug={item.path} />
           ) : (
             <NavDropDown name={item.name} links={item.links} />
           )
