@@ -1,8 +1,9 @@
 ---
 import { languages } from '@/i18n/ui'
 
+import { getLocaleUrl } from 'astro-i18n-aut'
+
 const currentLang = Astro.currentLocale
-const restPath = Astro.url.pathname.split('/').slice(2).join('/')
 ---
 
 <ul class="flex justify-end gap-2">
@@ -12,7 +13,9 @@ const restPath = Astro.url.pathname.split('/').slice(2).join('/')
         {lang === currentLang ? (
           <strong>{lang.toUpperCase()}</strong>
         ) : (
-          <a href={`/${lang}/${restPath}`}>{lang.toUpperCase()}</a>
+          <a href={getLocaleUrl(Astro.url.pathname, lang)}>
+            {lang.toUpperCase()}
+          </a>
         )}
       </li>
     ))
