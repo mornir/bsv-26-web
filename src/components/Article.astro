@@ -11,58 +11,14 @@ interface Props {
   article: GetArticleQueryResult
 }
 
+import { locales } from '@/i18n/utils'
+
 const { article } = Astro.props
 
 if (!article) return Astro.redirect('/404')
 
-function countDistinctItems(blockContent: BlockContent | undefined) {
-  if (!blockContent) {
-    return 0
-  }
-  let count = 0
-  let lastWasBullet = false
-
-  for (let item of blockContent) {
-    // @ts-ignore
-    if (item?.children?.some((el) => el._type === 'table')) {
-      count++
-    }
-
-    // @ts-ignore
-    if (item.listItem === 'bullet' || item.listItem === 'number') {
-      if (!lastWasBullet) {
-        count++
-      }
-      lastWasBullet = true
-    } else {
-      count++
-      lastWasBullet = false
-    }
-  }
-  return count
-}
-
-const colsLaw = countDistinctItems(article.law.de)
-const colsExp = countDistinctItems(article.exp?.de)
-
 // Explicitly type the languages array
-const languages: Array<'de' | 'fr' | 'it'> = ['de', 'fr', 'it']
-
-const titles = {
-  de: article.name.de,
-  fr: article.name.fr,
-  it: article.name.it,
-}
-const laws = {
-  de: article.law.de,
-  fr: article.law.fr,
-  it: article.law.it,
-}
-const explanations = {
-  de: article?.exp?.de,
-  fr: article?.exp?.fr,
-  it: article?.exp?.it,
-}
+const languages: Array<'de' | 'fr'> = ['de', 'fr']
 
 const references = [`${article.title.number}. Titel`]
 
@@ -100,72 +56,22 @@ if (article.section?.number) {
     </h4>
   </header>
 
-  <!-- Article Title -->
-  <div class="grid auto-cols-fr grid-flow-col grid-rows-1 gap-x-8">
-    {
-      languages.map((lang) => (
-        <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2">
-          <a
-            href={`/art/${article.number}`}
-            class="text-lg font-semibold no-underline decoration-accent hover:underline"
-          >
-            {titles[lang]}
-          </a>
-        </h2>
-      ))
-    }
-  </div>
-
   <div
-    class="grid auto-cols-fr grid-flow-col gap-x-8"
-    style={`grid-template-rows: repeat(${colsLaw}, auto)`}
+    class="grid gap-x-8"
+    :class="languages.length === 1 ? 'grid-cols-1' : 'grid-cols-2'"
   >
     {
       languages.map((lang) => (
-        <div x-show={`languages.includes('${lang}')`} class="c-law contents">
-          <RichText blocks={laws[lang]} />
+        // https://www.joshwcomeau.com/css/subgrid/#reserving-space-for-the-subgrid-4 -->
+        <div
+          x-show={`languages.includes('${lang}')`}
+          class="row-span-99 grid grid-rows-subgrid"
+        >
+          <h2 class="mt-0 mb-2">{article.name[lang]}</h2>
+          <RichText blocks={article.law[lang]} />
+          <RichText blocks={article?.exp?.[lang] ?? []} />
         </div>
       ))
     }
   </div>
-
-  {
-    explanations.de && (
-      <details x-show="exp === 'toggle'">
-        <summary class="cursor-pointer">Erläuterung anzeigen</summary>
-        <div
-          class="grid auto-cols-fr grid-flow-col gap-x-8 text-blue-600"
-          style={`grid-template-rows: repeat(${colsExp}, auto)`}
-        >
-          {languages.map(
-            (lang) =>
-              explanations[lang] && (
-                <div x-show={`languages.includes('${lang}')`} class="contents">
-                  <RichText blocks={explanations[lang]} />
-                </div>
-              )
-          )}
-        </div>
-      </details>
-    )
-  }
-
-  {
-    explanations.de && (
-      <div
-        class="grid auto-cols-fr grid-flow-col gap-x-8 text-blue-600"
-        style={`grid-template-rows: repeat(${colsExp}, auto)`}
-        x-show="exp === 'show'"
-      >
-        {languages.map(
-          (lang) =>
-            explanations[lang] && (
-              <div x-show={`languages.includes('${lang}')`} class="contents">
-                <RichText blocks={explanations[lang]} />
-              </div>
-            )
-        )}
-      </div>
-    )
-  }
 </article>
