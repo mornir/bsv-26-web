@@ -4,7 +4,7 @@ import alpinejs from '@astrojs/alpinejs'
 import icon from 'astro-icon'
 import sitemap from '@astrojs/sitemap'
 import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration'
-import { defaultLocale, locales } from '@/i18n/utils.ts'
+import { defaultLocale, locales } from './src/i18n/utils'
 
 // https://astro.build/config
 export default defineConfig({
