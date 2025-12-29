@@ -83,7 +83,7 @@ if (article.section?.number) {
 >
   <header class="relative mt-6 flex items-baseline justify-between">
     <button
-      x-data={`{ link: '${Astro.site}artikel/${article.number}/', copied: false}`}
+      x-data={`{ link: '${Astro.site}art/${article.number}', copied: false}`}
       @click="navigator.clipboard.writeText(link); copied = true"
       class="absolute top-1/2 -left-10 cursor-pointer"
     >
@@ -100,12 +100,13 @@ if (article.section?.number) {
     </h4>
   </header>
 
+  <!-- Article Title -->
   <div class="grid auto-cols-fr grid-flow-col grid-rows-1 gap-x-8">
     {
       languages.map((lang) => (
         <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2">
           <a
-            href={`/artikel/${article.number}/`}
+            href={`/art/${article.number}`}
             class="text-lg font-semibold no-underline decoration-accent hover:underline"
           >
             {titles[lang]}
@@ -122,7 +123,7 @@ if (article.section?.number) {
     {
       languages.map((lang) => (
         <div x-show={`languages.includes('${lang}')`} class="c-law contents">
-          <RichText blocks={laws[lang] ?? []} />
+          <RichText blocks={laws[lang]} />
         </div>
       ))
     }
