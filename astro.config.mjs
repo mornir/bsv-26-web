@@ -2,8 +2,6 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import alpinejs from '@astrojs/alpinejs'
 import icon from 'astro-icon'
-
-import { defineConfig } from 'astro/config'
 import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration'
 import sitemap from '@astrojs/sitemap'
 
@@ -17,9 +15,9 @@ const locales = {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://bsv.terminofeu.ch',
-  trailingSlash: 'always',
+  trailingSlash: 'never',
   build: {
-    format: 'directory',
+    format: 'file',
   },
   integrations: [
     i18n({
