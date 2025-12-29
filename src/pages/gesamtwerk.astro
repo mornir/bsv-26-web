@@ -4,13 +4,6 @@ import Toolbar from '@/components/Toolbar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticles } from '@/sanity/queries'
 import SideNav from '@/components/SideNav.astro'
-import TestTable from '@/components/TestTable.astro'
-
-import { staticLocalePaths } from '@/i18n/utils'
-
-export function getStaticPaths() {
-  return staticLocalePaths()
-}
 
 const articles = await getArticles()
 ---
@@ -28,7 +21,6 @@ const articles = await getArticles()
       <section
         class="mx-auto prose max-w-5xl prose-stone prose-p:my-2 prose-thead:font-semibold"
       >
-        <TestTable />
       </section>
     </div>
   </div>
