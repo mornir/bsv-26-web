@@ -6,30 +6,17 @@ import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import RichText from '@/components/portable-text/RichText.astro'
 import { Icon } from 'astro-icon/components'
 
+import { locales, formatRef } from '@/i18n/utils'
+import type { langKeys } from '@/i18n/utils'
+
 interface Props {
   article: GetArticleQueryResult
 }
 
 const locale = getLocale(Astro.url)
-
-import { locales, formatRef } from '@/i18n/utils'
-
+const languages = Object.keys(locales) as langKeys[]
 const { article } = Astro.props
-
 if (!article) return Astro.redirect('/404')
-
-// Explicitly type the languages array
-const languages: Array<'de' | 'fr'> = ['de', 'fr']
-
-const references = [`${article.title.number}. Titel`]
-
-if (article.chapter?.number) {
-  references.push(`${article.chapter.number}. Kapitel`)
-}
-
-if (article.section?.number) {
-  references.push(`${article.section.number}. Abschnitt`)
-}
 ---
 
 <article
@@ -66,7 +53,7 @@ if (article.section?.number) {
         // https://www.joshwcomeau.com/css/subgrid/#reserving-space-for-the-subgrid-4 -->
         <div
           x-show={`languages.includes('${lang}')`}
-          class="row-span-99 grid grid-rows-subgrid"
+          class="row-span-20 grid grid-rows-subgrid"
         >
           <h2 class="mt-0 mb-2">{article.name[lang]}</h2>
           <RichText blocks={article.law[lang]} />
