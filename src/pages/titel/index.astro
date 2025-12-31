@@ -1,13 +1,11 @@
 ---
 import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 
-import type { langKeys } from '@/i18n/utils'
-
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/sanity/queries'
 import { formatTitle } from '@/i18n/utils'
 
-const lang = Astro.currentLocale as langKeys
+const lang = Astro.currentLocale as LangKeys
 
 const titles = await getTitles()
 ---

@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import { getArticlesFromTitle } from '@/sanity/queries'
-import type { langKeys } from '@/i18n/utils'
 
 export async function getStaticPaths() {
   const titlesCount = Array.from({ length: 10 }, (_, i) => String(i + 1))
@@ -19,7 +18,7 @@ export async function getStaticPaths() {
 
 const params = Astro.params
 
-const lang = params.lang as langKeys
+const lang = params.lang as LangKeys
 
 const articles = await getArticlesFromTitle(parseInt(params.number))
 

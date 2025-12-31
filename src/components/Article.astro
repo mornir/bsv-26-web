@@ -1,5 +1,5 @@
 ---
-import type { GetArticleQueryResult } from '../sanity/sanity.types'
+import type { GetArticleQueryResult } from '@/types/sanity.types'
 
 import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 
@@ -7,14 +7,13 @@ import RichText from '@/components/portable-text/RichText.astro'
 import { Icon } from 'astro-icon/components'
 
 import { locales, formatRef } from '@/i18n/utils'
-import type { langKeys } from '@/i18n/utils'
 
 interface Props {
   article: GetArticleQueryResult
 }
 
 const locale = getLocale(Astro.url)
-const languages = Object.keys(locales) as langKeys[]
+const languages = Object.keys(locales) as LangKeys[]
 const { article } = Astro.props
 if (!article) return Astro.redirect('/404')
 ---

@@ -1,6 +1,5 @@
 import messages from './messages'
-import type { GetArticleQueryResult } from '@/sanity/sanity.types'
-import type { LocaleString } from '@/sanity/sanity.types'
+import type { GetArticleQueryResult, LocaleString } from '@/types/sanity.types'
 
 export const defaultLocale = 'de'
 export const locales = {
@@ -8,8 +7,6 @@ export const locales = {
   fr: 'fr-CH',
   /*   it: 'it-CH', */
 } as const
-
-export type langKeys = keyof typeof locales
 
 export function useTranslations(lang: keyof typeof messages | undefined) {
   if (!lang) lang = defaultLocale
