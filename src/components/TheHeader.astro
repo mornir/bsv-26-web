@@ -1,28 +1,24 @@
 ---
 import LanguagePicker from './LanguagePicker.astro'
 import NavDropDown from './NavDropDown.astro'
-import type { langKeys } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/utils'
 import Link from './Link.astro'
 
-const lang = Astro.currentLocale as langKeys
+const lang = Astro.currentLocale as LangKeys
 
 const t = useTranslations(lang)
 
 const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
   (number) => ({
     name: `${number}. Titel`,
-    path: `/${lang}/titel/${number}/`,
+    path: `titel/${number}`,
   })
 )
 
 const mainNav = [
   {
     name: t('nav.titles'),
-    links: [
-      { name: t('nav.titles.overview'), path: `/${lang}/titel/` },
-      ...titlesLinks,
-    ],
+    links: [{ name: t('nav.titles.overview'), path: `titel` }, ...titlesLinks],
   },
   {
     name: t('nav.appendices'),

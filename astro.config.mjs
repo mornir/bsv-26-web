@@ -2,15 +2,9 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import alpinejs from '@astrojs/alpinejs'
 import icon from 'astro-icon'
-import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration'
 import sitemap from '@astrojs/sitemap'
-
-const defaultLocale = 'de'
-const locales = {
-  de: 'de-CH', // the `defaultLocale` value must present in `locales` keys
-  fr: 'fr-CH',
-  it: 'it-CH',
-}
+import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration'
+import { defaultLocale, locales } from './src/i18n/utils'
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,9 +30,5 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
-  },
-  // Allow access to Netlify Preview Server
-  server: {
-    allowedHosts: ['devserver-main--terminofeu-bsv.netlify.app'],
   },
 })

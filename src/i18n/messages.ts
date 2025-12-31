@@ -1,11 +1,4 @@
-export const languages = {
-  de: 'Deutsch',
-  fr: 'français',
-}
-
-export const defaultLang = 'de'
-
-export const ui = {
+export default {
   de: {
     'nav.brand': 'BSV 2026',
     'nav.titles': 'Titel',

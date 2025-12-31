@@ -1,5 +1,5 @@
 ---
-import { languages } from '@/i18n/ui'
+import { locales } from '@/i18n/utils'
 
 import { getLocaleUrl } from 'astro-i18n-aut'
 
@@ -8,7 +8,7 @@ const currentLang = Astro.currentLocale
 
 <ul class="flex justify-end gap-2">
   {
-    Object.entries(languages).map(([lang]) => (
+    Object.entries(locales).map(([lang]) => (
       <li>
         {lang === currentLang ? (
           <strong>{lang.toUpperCase()}</strong>

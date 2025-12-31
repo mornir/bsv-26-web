@@ -2,10 +2,9 @@
 import Layout from '@/layouts/Layout.astro'
 import { getFeatures } from '@/sanity/queries'
 
-import type { langKeys } from '@/i18n/utils'
 import { useTranslations } from '@/i18n/utils'
 
-const currentLang = Astro.currentLocale as langKeys
+const currentLang = Astro.currentLocale as LangKeys
 
 const features = await getFeatures()
 

@@ -1,78 +1,21 @@
 ---
-import type {
-  GetArticleQueryResult,
-  BlockContent,
-} from '../sanity/sanity.types'
+import type { GetArticleQueryResult } from '@/types/sanity.types'
+
+import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 
 import RichText from '@/components/portable-text/RichText.astro'
 import { Icon } from 'astro-icon/components'
+
+import { locales, formatRef } from '@/i18n/utils'
 
 interface Props {
   article: GetArticleQueryResult
 }
 
+const locale = getLocale(Astro.url)
+const languages = Object.keys(locales) as LangKeys[]
 const { article } = Astro.props
-
 if (!article) return Astro.redirect('/404')
-
-function countDistinctItems(blockContent: BlockContent | undefined) {
-  if (!blockContent) {
-    return 0
-  }
-  let count = 0
-  let lastWasBullet = false
-
-  for (let item of blockContent) {
-    // @ts-ignore
-    if (item?.children?.some((el) => el._type === 'table')) {
-      count++
-    }
-
-    // @ts-ignore
-    if (item.listItem === 'bullet' || item.listItem === 'number') {
-      if (!lastWasBullet) {
-        count++
-      }
-      lastWasBullet = true
-    } else {
-      count++
-      lastWasBullet = false
-    }
-  }
-  return count
-}
-
-const colsLaw = countDistinctItems(article.law.de)
-const colsExp = countDistinctItems(article.exp?.de)
-
-// Explicitly type the languages array
-const languages: Array<'de' | 'fr' | 'it'> = ['de', 'fr', 'it']
-
-const titles = {
-  de: article.name.de,
-  fr: article.name.fr,
-  it: article.name.it,
-}
-const laws = {
-  de: article.law.de,
-  fr: article.law.fr,
-  it: article.law.it,
-}
-const explanations = {
-  de: article?.exp?.de,
-  fr: article?.exp?.fr,
-  it: article?.exp?.it,
-}
-
-const references = [`${article.title.number}. Titel`]
-
-if (article.chapter?.number) {
-  references.push(`${article.chapter.number}. Kapitel`)
-}
-
-if (article.section?.number) {
-  references.push(`${article.section.number}. Abschnitt`)
-}
 ---
 
 <article
@@ -83,7 +26,7 @@ if (article.section?.number) {
 >
   <header class="relative mt-6 flex items-baseline justify-between">
     <button
-      x-data={`{ link: '${Astro.site}artikel/${article.number}/', copied: false}`}
+      x-data={`{ link: '${Astro.site}art/${article.number}', copied: false}`}
       @click="navigator.clipboard.writeText(link); copied = true"
       class="absolute top-1/2 -left-10 cursor-pointer"
     >
@@ -96,75 +39,26 @@ if (article.section?.number) {
     </button>
     <h3>Art. {article.number}</h3>
     <h4 class="text-xs font-semibold text-gray-500">
-      {references.join(', ')}
+      {formatRef(article, locale)}
     </h4>
   </header>
 
-  <div class="grid auto-cols-fr grid-flow-col grid-rows-1 gap-x-8">
-    {
-      languages.map((lang) => (
-        <h2 x-show={`languages.includes('${lang}')`} class="mt-0 mb-2">
-          <a
-            href={`/artikel/${article.number}/`}
-            class="text-lg font-semibold no-underline decoration-accent hover:underline"
-          >
-            {titles[lang]}
-          </a>
-        </h2>
-      ))
-    }
-  </div>
-
   <div
-    class="grid auto-cols-fr grid-flow-col gap-x-8"
-    style={`grid-template-rows: repeat(${colsLaw}, auto)`}
+    class="grid gap-x-8"
+    :class="languages.length === 1 ? 'grid-cols-1' : 'grid-cols-2'"
   >
     {
       languages.map((lang) => (
-        <div x-show={`languages.includes('${lang}')`} class="c-law contents">
-          <RichText blocks={laws[lang] ?? []} />
+        // https://www.joshwcomeau.com/css/subgrid/#reserving-space-for-the-subgrid-4 -->
+        <div
+          x-show={`languages.includes('${lang}')`}
+          class="row-span-20 grid grid-rows-subgrid"
+        >
+          <h2 class="mt-0 mb-2">{article.name[lang]}</h2>
+          <RichText blocks={article.law[lang]} />
+          <RichText blocks={article?.exp?.[lang] ?? []} />
         </div>
       ))
     }
   </div>
-
-  {
-    explanations.de && (
-      <details x-show="exp === 'toggle'">
-        <summary class="cursor-pointer">Erläuterung anzeigen</summary>
-        <div
-          class="grid auto-cols-fr grid-flow-col gap-x-8 text-blue-600"
-          style={`grid-template-rows: repeat(${colsExp}, auto)`}
-        >
-          {languages.map(
-            (lang) =>
-              explanations[lang] && (
-                <div x-show={`languages.includes('${lang}')`} class="contents">
-                  <RichText blocks={explanations[lang]} />
-                </div>
-              )
-          )}
-        </div>
-      </details>
-    )
-  }
-
-  {
-    explanations.de && (
-      <div
-        class="grid auto-cols-fr grid-flow-col gap-x-8 text-blue-600"
-        style={`grid-template-rows: repeat(${colsExp}, auto)`}
-        x-show="exp === 'show'"
-      >
-        {languages.map(
-          (lang) =>
-            explanations[lang] && (
-              <div x-show={`languages.includes('${lang}')`} class="contents">
-                <RichText blocks={explanations[lang]} />
-              </div>
-            )
-        )}
-      </div>
-    )
-  }
 </article>
