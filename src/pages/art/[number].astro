@@ -1,6 +1,6 @@
 ---
 import type { InferGetStaticParamsType } from 'astro'
-import { Icon } from 'astro-icon/components'
+import { ChevronDown } from '@lucide/astro'
 import Toolbar from '@/components/Toolbar.astro'
 import Article from '@/components/Article.astro'
 import Layout from '@/layouts/Layout.astro'
@@ -54,7 +54,7 @@ function textSize(index: Number) {
                 {ref}
               </a>
               {index !== references.length - 1 && (
-                <Icon name="mdi:chevron-down" class="text-xl text-gray-500" />
+                <ChevronDown class="text-gray-500" />
               )}
             </li>
           ))
