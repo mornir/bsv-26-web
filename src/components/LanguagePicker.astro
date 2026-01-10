@@ -1,16 +1,14 @@
 ---
 import { locales } from '@/i18n/utils'
-
-import { getLocaleUrl } from 'astro-i18n-aut'
-
-const currentLang = Astro.currentLocale
+import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
+const locale = getLocale(Astro.url)
 ---
 
 <ul class="flex justify-end gap-2">
   {
     Object.entries(locales).map(([lang]) => (
       <li>
-        {lang === currentLang ? (
+        {lang === locale ? (
           <strong>{lang.toUpperCase()}</strong>
         ) : (
           <a href={getLocaleUrl(Astro.url.pathname, lang)}>
