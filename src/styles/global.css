@@ -46,8 +46,10 @@ p:empty {
   display: none;
 }
 
-/* ol {
+/* Uncomment for Sprachvergleich
+ol {
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 45;
-} */
+}
+*/

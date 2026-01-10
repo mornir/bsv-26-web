@@ -36,9 +36,9 @@ if (article.section?.number && article.section?.name) {
 }
 ---
 
-<Layout title={'Artikel ' + article.number}>
+<Layout title={'Art. ' + article.number}>
   <div x-data={`{languages: ['${locale}']}`}>
-    <Toolbar number={article.number}>
+    <Toolbar>
       <a
         href={`/gesamtwerk#art-${article.number}`}
         class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
