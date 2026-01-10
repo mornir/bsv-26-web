@@ -1,10 +1,9 @@
 ---
 import { getLocale } from 'astro-i18n-aut'
+import { locales } from '@/i18n/utils'
+
 const locale = getLocale(Astro.url)
-const languages = {
-  de: 'Deutsch',
-  fr: 'Français',
-}
+
 interface Props {
   number?: number
 }
@@ -49,21 +48,21 @@ const { number } = Astro.props
     }
   </div>
   <div class="flex justify-end gap-x-4">
-    <span>Vergleichen mit:</span>
+    <span>Sprachvergleich mit:</span>
     {
-      Object.entries(languages)
+      Object.entries(locales)
         .filter(([code]) => code !== locale)
-        .map(([code, label]) => (
+        .map(([code]) => (
           <div>
             <input
               type="checkbox"
               value={code}
               x-model="languages"
-              name={label.toLowerCase()}
+              name={code}
               class="accent-violet-800"
               id={code}
             />
-            <label for={code}>{label}</label>
+            <label for={code}>{code.toUpperCase()}</label>
           </div>
         ))
     }
