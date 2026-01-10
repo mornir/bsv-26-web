@@ -9,6 +9,12 @@ import { getLocale } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
 
 const articles = await getArticles()
+
+const expOptions = [
+  { text: 'anzeigen', value: 'show' },
+  { text: 'umschalten', value: 'toggle' },
+  { text: 'ausblenden', value: 'hide' },
+]
 ---
 
 <Layout title="Gesamtwerk">
@@ -17,7 +23,26 @@ const articles = await getArticles()
       <SideNav />
     </div>
     <div class="c-main mb-24">
-      <!-- <Toolbar /> -->
+      <Toolbar>
+        <div class="flex gap-x-4">
+          <span>Erläuterungen:</span>
+          {
+            expOptions.map(({ text, value }) => (
+              <div>
+                <input
+                  type="radio"
+                  value={value}
+                  x-model="exp"
+                  name={text}
+                  class="accent-accent"
+                  id={value}
+                />
+                <label for={value}>{text}</label>
+              </div>
+            ))
+          }
+        </div>
+      </Toolbar>
       <section class="mx-auto max-w-7xl">
         {
           articles.map((article: any) => (

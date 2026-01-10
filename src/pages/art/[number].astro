@@ -7,6 +7,7 @@ import LangCompare from '@/components/LangCompare.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
+import { locales } from '@/i18n/utils'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -37,7 +38,34 @@ if (article.section?.number && article.section?.name) {
 
 <Layout title={'Artikel ' + article.number}>
   <div x-data={`{languages: ['${locale}']}`}>
-    <Toolbar number={article.number} />
+    <Toolbar number={article.number}>
+      <a
+        href={`/gesamtwerk#art-${article.number}`}
+        class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
+      >
+        Artikel im Gesamtwerk anzeigen
+      </a>
+      <div class="flex justify-end gap-x-4">
+        <span>Sprachvergleich mit:</span>
+        {
+          Object.entries(locales)
+            .filter(([code]) => code !== locale)
+            .map(([code]) => (
+              <div>
+                <input
+                  type="checkbox"
+                  value={code}
+                  x-model="languages"
+                  name={code}
+                  class="accent-violet-800"
+                  id={code}
+                />
+                <label for={code}>{code.toUpperCase()}</label>
+              </div>
+            ))
+        }
+      </div>
+    </Toolbar>
     <div class="mx-auto mt-12 mb-24 max-w-7xl">
       <ol>
         {

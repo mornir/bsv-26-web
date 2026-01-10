@@ -1,70 +1,9 @@
 ---
-import { getLocale } from 'astro-i18n-aut'
-import { locales } from '@/i18n/utils'
 
-const locale = getLocale(Astro.url)
-
-interface Props {
-  number?: number
-}
-
-const expOptions = [
-  { text: 'anzeigen', value: 'show' },
-  { text: 'umschalten', value: 'toggle' },
-  { text: 'ausblenden', value: 'hide' },
-]
-
-const { number } = Astro.props
 ---
 
 <div
   class="sticky top-0 z-10 flex items-center justify-between border-b-2 border-primary bg-slate-100 p-4"
 >
-  <div class="flex gap-x-4">
-    {!number && <span>Erläuterungen:</span>}
-    {
-      !number ? (
-        expOptions.map(({ text, value }) => (
-          <div>
-            <input
-              type="radio"
-              value={value}
-              x-model="exp"
-              name={text}
-              class="accent-accent"
-              id={value}
-            />
-            <label for={value}>{text}</label>
-          </div>
-        ))
-      ) : (
-        <a
-          href={`/gesamtwerk#art-${number}`}
-          class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
-        >
-          Artikel im Gesamtwerk anzeigen
-        </a>
-      )
-    }
-  </div>
-  <div class="flex justify-end gap-x-4">
-    <span>Sprachvergleich mit:</span>
-    {
-      Object.entries(locales)
-        .filter(([code]) => code !== locale)
-        .map(([code]) => (
-          <div>
-            <input
-              type="checkbox"
-              value={code}
-              x-model="languages"
-              name={code}
-              class="accent-violet-800"
-              id={code}
-            />
-            <label for={code}>{code.toUpperCase()}</label>
-          </div>
-        ))
-    }
-  </div>
+  <slot />
 </div>
