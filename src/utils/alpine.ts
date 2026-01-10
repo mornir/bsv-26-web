@@ -12,7 +12,6 @@ export default (Alpine: Alpine) => {
   })
 
   Alpine.store('toolbar', {
-    languages: ['de', 'fr'],
     exp: 'show',
   })
 }

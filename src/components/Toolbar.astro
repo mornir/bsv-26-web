@@ -1,4 +1,6 @@
 ---
+import { getLocale } from 'astro-i18n-aut'
+const locale = getLocale(Astro.url)
 const languages = {
   de: 'Deutsch',
   fr: 'Français',
@@ -50,7 +52,7 @@ const { number } = Astro.props
     <span>Vergleichen mit:</span>
     {
       Object.entries(languages)
-        .filter(([code]) => code !== 'de')
+        .filter(([code]) => code !== locale)
         .map(([code, label]) => (
           <div>
             <input

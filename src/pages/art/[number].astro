@@ -6,6 +6,9 @@ import Article from '@/components/Article.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
+import { getLocale } from 'astro-i18n-aut'
+
+const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
   const articles = await getArticles()
@@ -33,7 +36,7 @@ if (article.section?.number && article.section?.name) {
 ---
 
 <Layout title={'Artikel ' + article.number}>
-  <div x-data="$store.toolbar">
+  <div x-data={`{languages: ['${locale}']}`}>
     <Toolbar number={article.number} />
     <div class="mx-auto mt-12 mb-24 max-w-7xl">
       <ol>
@@ -53,10 +56,17 @@ if (article.section?.number && article.section?.name) {
           ))
         }
       </ol>
-      <Article article={article} />
-      <div x-show="languages.length > 1" x-cloak>
-        <LangCompare article={article} />
+      <div x-show="languages.length === 1">
+        <Article
+          title={article.name[locale] ?? ''}
+          number={article.number}
+          law={article.law[locale]}
+          exp={article.exp?.[locale]}
+        />
       </div>
+      <template x-if="languages.length > 1" x-cloak>
+        <LangCompare article={article} />
+      </template>
     </div>
   </div>
 </Layout>
