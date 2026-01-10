@@ -3,6 +3,7 @@ import type { InferGetStaticParamsType } from 'astro'
 import { ChevronDown } from '@lucide/astro'
 import Toolbar from '@/components/Toolbar.astro'
 import Article from '@/components/Article.astro'
+import LangCompare from '@/components/LangCompare.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 
@@ -29,14 +30,6 @@ if (article.chapter?.number && article.chapter?.name) {
 if (article.section?.number && article.section?.name) {
   references.push(article.section.name.de)
 }
-
-/*
-function textSize(index: Number) {
-  if (index === 0) return 'text-lg'
-  if (index === 1) return 'text-xl'
-  return 'text-2xl'
-}
-  */
 ---
 
 <Layout title={'Artikel ' + article.number}>
@@ -61,6 +54,9 @@ function textSize(index: Number) {
         }
       </ol>
       <Article article={article} />
+      <div x-show="languages.length > 1" x-cloak>
+        <LangCompare article={article} />
+      </div>
     </div>
   </div>
 </Layout>

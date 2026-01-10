@@ -47,21 +47,23 @@ const { number } = Astro.props
     }
   </div>
   <div class="flex justify-end gap-x-4">
-    <span>Sprachvergleich:</span>
+    <span>Vergleichen mit:</span>
     {
-      Object.entries(languages).map(([code, label]) => (
-        <div>
-          <input
-            type="checkbox"
-            value={code}
-            x-model="languages"
-            name={label.toLowerCase()}
-            class="accent-violet-800"
-            id={code}
-          />
-          <label for={code}>{label}</label>
-        </div>
-      ))
+      Object.entries(languages)
+        .filter(([code]) => code !== 'de')
+        .map(([code, label]) => (
+          <div>
+            <input
+              type="checkbox"
+              value={code}
+              x-model="languages"
+              name={label.toLowerCase()}
+              class="accent-violet-800"
+              id={code}
+            />
+            <label for={code}>{label}</label>
+          </div>
+        ))
     }
   </div>
 </div>

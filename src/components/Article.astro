@@ -17,45 +17,7 @@ if (!article) return Astro.redirect('/404')
 
 <article
   class="prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold"
-  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
   id={`art-${article.number}`}
-  x-cloak
 >
-  <header class="relative mt-6 flex items-baseline justify-between">
-    <button
-      x-data={`{ link: '${Astro.site}art/${article.number}', copied: false}`}
-      @click="navigator.clipboard.writeText(link); copied = true"
-      class="absolute top-1/2 -left-10 cursor-pointer"
-    >
-      <Link2
-        x-show="!copied"
-        size="18"
-        class="text-gray-500 hover:text-accent"
-      />
-      <Check x-show="copied" size="18" class="text-gray-500" />
-    </button>
-    <h3>Art. {article.number}</h3>
-    <h4 class="text-xs font-semibold text-gray-500">
-      {formatRef(article, locale)}
-    </h4>
-  </header>
-
-  <div
-    class="grid gap-x-8"
-    :class="languages.length === 1 ? 'grid-cols-1' : 'grid-cols-2'"
-  >
-    {
-      languages.map((lang) => (
-        // https://www.joshwcomeau.com/css/subgrid/#reserving-space-for-the-subgrid-4 -->
-        <div
-          x-show={`languages.includes('${lang}')`}
-          class="row-span-20 grid grid-rows-subgrid"
-        >
-          <h2 class="mt-0 mb-2">{article.name[lang]}</h2>
-          <RichText blocks={article.law[lang]} />
-          <RichText blocks={article?.exp?.[lang] ?? []} />
-        </div>
-      ))
-    }
-  </div>
+  <h1>Art. 60 BLABLBL</h1>
 </article>

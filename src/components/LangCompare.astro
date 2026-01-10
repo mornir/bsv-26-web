@@ -1,0 +1,67 @@
+---
+import type { GetArticleQueryResult } from '@/types/sanity.types'
+import { getLocale } from 'astro-i18n-aut'
+import RichText from '@/components/portable-text/RichText.astro'
+import { Link2, Check } from '@lucide/astro'
+import { locales, formatRef } from '@/i18n/utils'
+
+interface Props {
+  article: GetArticleQueryResult
+}
+
+const locale = getLocale(Astro.url)
+const languages = Object.keys(locales) as LangKeys[]
+const { article } = Astro.props
+if (!article) return Astro.redirect('/404')
+
+/*
+function textSize(index: Number) {
+  if (index === 0) return 'text-lg'
+  if (index === 1) return 'text-xl'
+  return 'text-2xl'
+}
+  */
+---
+
+<article
+  class="prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold"
+  :class="languages.length === 1 ? 'mx-auto' : 'max-w-none prose-sm'"
+>
+  <header class="relative mt-6 flex items-baseline justify-between">
+    <button
+      x-data={`{ link: '${Astro.site}art/${article.number}', copied: false}`}
+      @click="navigator.clipboard.writeText(link); copied = true"
+      class="absolute top-1/2 -left-10 cursor-pointer"
+    >
+      <Link2
+        x-show="!copied"
+        size="18"
+        class="text-gray-500 hover:text-accent"
+      />
+      <Check x-show="copied" size="18" class="text-gray-500" />
+    </button>
+    <h3>Art. {article.number}</h3>
+    <h4 class="text-xs font-semibold text-gray-500">
+      {formatRef(article, locale)}
+    </h4>
+  </header>
+
+  <div
+    class="grid gap-x-8"
+    :class="languages.length === 1 ? 'grid-cols-1' : 'grid-cols-2'"
+  >
+    {
+      languages.map((lang) => (
+        // https://www.joshwcomeau.com/css/subgrid/#reserving-space-for-the-subgrid-4 -->
+        <div
+          x-show={`languages.includes('${lang}')`}
+          class="row-span-20 grid grid-rows-subgrid"
+        >
+          <h2 class="mt-0 mb-2">{article.name[lang]}</h2>
+          <RichText blocks={article.law[lang]} />
+          <RichText blocks={article?.exp?.[lang] ?? []} />
+        </div>
+      ))
+    }
+  </div>
+</article>
