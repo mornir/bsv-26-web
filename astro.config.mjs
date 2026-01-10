@@ -4,6 +4,7 @@ import alpinejs from '@astrojs/alpinejs'
 import sitemap from '@astrojs/sitemap'
 import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration'
 import { defaultLocale, locales } from './src/i18n/utils'
+import pagefind from 'astro-pagefind'
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,6 +26,7 @@ export default defineConfig({
       filter: filterSitemapByDefaultLocale({ defaultLocale }),
     }),
     alpinejs({ entrypoint: '/src/utils/alpine' }),
+    pagefind(),
   ],
   vite: {
     plugins: [tailwindcss()],
