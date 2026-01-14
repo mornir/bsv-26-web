@@ -21,5 +21,7 @@ const { title, number, law, exp = [] } = Astro.props
   <h1>Art. {number} {title}</h1>
 
   <RichText blocks={law} />
-  <RichText blocks={exp} />
+  <div class="text-blue-700">
+    <RichText blocks={exp} />
+  </div>
 </article>
