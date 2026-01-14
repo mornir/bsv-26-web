@@ -1,12 +1,24 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-  "name": "Astro (Node 22 + pnpm)",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "name": "Node.js & TypeScript & pnpm",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "ghcr.io/devcontainers/features/pnpm:1": {
       "version": "10.26.2"
     }
   },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "pnpm install",
+
+  // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "settings": {
@@ -14,4 +26,6 @@
       }
     }
   }
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
