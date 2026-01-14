@@ -7,7 +7,7 @@
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    "ghcr.io/devcontainers/features/pnpm:1": {
+    "pnpm": {
       "version": "10.26.2"
     }
   },
