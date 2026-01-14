@@ -1,0 +1,17 @@
+{
+  "name": "Astro (Node 22 + pnpm)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/pnpm:1": {
+      "version": "10.26.2"
+    }
+  },
+  "postCreateCommand": "pnpm install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "npm.packageManager": "pnpm"
+      }
+    }
+  }
+}
