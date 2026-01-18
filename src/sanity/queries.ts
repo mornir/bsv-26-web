@@ -6,7 +6,7 @@ const client = createClient({
   projectId: 'lc9446ox',
   dataset: 'production',
   useCdn: false,
-  apiVersion: '2025-02-06',
+  apiVersion: '2026-01-18',
 })
 
 export async function getTitles() {
@@ -48,7 +48,7 @@ export async function getArticlesFromTitle(titleNumber: number) {
 export async function getArticle(number: number) {
   const getArticleQuery = defineQuery(`
     *[_type == "article" && number == $number]
-    { ..., title->, chapter ->, section ->} | order(number asc)[0]
+    { ..., law {${expandLinks}}, exp {${expandLinks}}, title->, chapter ->, section ->}[0]
     `)
 
   return client.fetch(getArticleQuery, { number })

@@ -10,22 +10,20 @@ const { node } = Astro.props
 const number = node.markDef.number
 const type = node.markDef.type
 
-let href = ''
+let href = '/'
 
 if (type === 'title') {
-  href = `/titel/${number}/`
+  href = `/titel/${number}`
 }
 
-// TODO: add title number URL
 if (type === 'chapter') {
-  href = `/title/chapter/${number}/`
+  href = `/title/chapter/${number}`
 }
 
 if (type === 'article') {
-  href = `/title/chapter/article/${number}/`
+  href = `/art/${number}`
+  console.log('hello')
 }
-
-href = '/'
 ---
 
 <a href={href} class="underline"><slot /></a>
