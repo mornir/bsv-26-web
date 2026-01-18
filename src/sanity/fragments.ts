@@ -1,5 +1,4 @@
-// as of now iterating over languanges is not compatible with Sanity TypeGen
-//TODO: add Italian
+// As of now, iterating over languages is not compatible with Sanity TypeGen.
 
 import groq from 'groq'
 export const expandLinks = groq`

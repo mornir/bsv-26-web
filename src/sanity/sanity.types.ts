@@ -30,15 +30,6 @@ export type LocaleString = {
   it?: string
 }
 
-export type Tag = {
-  _id: string
-  _type: 'tag'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name: LocaleString
-}
-
 export type LocaleText = {
   _type: 'localeText'
   de: string
@@ -93,6 +84,13 @@ export type MeasureTargetReference = {
   [internalGroqTypeReferenceTo]?: 'measureTarget'
 }
 
+export type FigureReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'figure'
+}
+
 export type BlockContent = Array<
   | {
       children?: Array<
@@ -107,11 +105,14 @@ export type BlockContent = Array<
       >
       style?: 'normal'
       listItem?: 'number' | 'bullet'
-      markDefs?: Array<{
-        href?: string
-        _type: 'link'
-        _key: string
-      }>
+      markDefs?: Array<
+        | ({
+            _key: string
+          } & InternalLink)
+        | ({
+            _key: string
+          } & ExternalLink)
+      >
       level?: number
       _type: 'block'
       _key: string
@@ -119,6 +120,9 @@ export type BlockContent = Array<
   | ({
       _key: string
     } & Latex)
+  | ({
+      _key: string
+    } & FigureReference)
 >
 
 export type Appendix = {
@@ -257,13 +261,6 @@ export type SectionReference = {
   [internalGroqTypeReferenceTo]?: 'section'
 }
 
-export type TagReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'tag'
-}
-
 export type Article = {
   _id: string
   _type: 'article'
@@ -274,11 +271,6 @@ export type Article = {
   title: TitleReference
   chapter?: ChapterReference
   section?: SectionReference
-  tag?: Array<
-    {
-      _key: string
-    } & TagReference
-  >
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
@@ -390,6 +382,7 @@ export type SanityImageMetadata = {
   palette?: SanityImagePalette
   lqip?: string
   blurHash?: string
+  thumbHash?: string
   hasAlpha?: boolean
   isOpaque?: boolean
 }
@@ -462,13 +455,13 @@ export type Slug = {
 export type AllSanitySchemaTypes =
   | Feature
   | LocaleString
-  | Tag
   | LocaleText
   | LocaleBlockContent
   | SimpleEditor
   | LocaleSimpleEditor
   | TableReference
   | MeasureTargetReference
+  | FigureReference
   | BlockContent
   | Appendix
   | MeasureTarget
@@ -485,7 +478,6 @@ export type AllSanitySchemaTypes =
   | ChapterReference
   | InternalLink
   | SectionReference
-  | TagReference
   | Article
   | Section
   | Chapter
@@ -506,6 +498,12 @@ export type AllSanitySchemaTypes =
   | Slug
 
 export declare const internalGroqTypeReferenceTo: unique symbol
+
+type ArrayOf<T> = Array<
+  T & {
+    _key: string
+  }
+>
 
 // Source: ..\digitale-bsv-web\src\sanity\queries.ts
 // Variable: getTitlesQuery
@@ -605,14 +603,16 @@ export type GetArticlesQueryResult = Array<{
     chapter?: ChapterReference
     name: LocaleString
   } | null
-  tag?: Array<
-    {
-      _key: string
-    } & TagReference
-  >
   name: LocaleString
   law: {
     de: Array<
+      | {
+          _key: string
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          children: null
+        }
       | {
           children: Array<
             | {
@@ -629,11 +629,14 @@ export type GetArticlesQueryResult = Array<{
           > | null
           style?: 'normal'
           listItem?: 'bullet' | 'number'
-          markDefs?: Array<{
-            href?: string
-            _type: 'link'
-            _key: string
-          }>
+          markDefs?: Array<
+            | ({
+                _key: string
+              } & ExternalLink)
+            | ({
+                _key: string
+              } & InternalLink)
+          >
           level?: number
           _type: 'block'
           _key: string
@@ -647,6 +650,13 @@ export type GetArticlesQueryResult = Array<{
     >
     fr: Array<
       | {
+          _key: string
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          children: null
+        }
+      | {
           children: Array<
             | {
                 marks?: Array<string>
@@ -662,11 +672,14 @@ export type GetArticlesQueryResult = Array<{
           > | null
           style?: 'normal'
           listItem?: 'bullet' | 'number'
-          markDefs?: Array<{
-            href?: string
-            _type: 'link'
-            _key: string
-          }>
+          markDefs?: Array<
+            | ({
+                _key: string
+              } & ExternalLink)
+            | ({
+                _key: string
+              } & InternalLink)
+          >
           level?: number
           _type: 'block'
           _key: string
@@ -708,11 +721,6 @@ export type GetArticlesFromTitleQueryResult = Array<{
   title: TitleReference
   chapter?: ChapterReference
   section?: SectionReference
-  tag?: Array<
-    {
-      _key: string
-    } & TagReference
-  >
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
@@ -760,11 +768,6 @@ export type GetArticleQueryResult = {
     chapter?: ChapterReference
     name: LocaleString
   } | null
-  tag?: Array<
-    {
-      _key: string
-    } & TagReference
-  >
   name: LocaleString
   law: LocaleBlockContent
   exp?: LocaleBlockContent
@@ -813,3 +816,16 @@ export type GetNavQueryResult = Array<{
     number: number
   }>
 }>
+
+// Query TypeMap
+import '@sanity/client'
+declare module '@sanity/client' {
+  interface SanityQueries {
+    '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
+    '\n  *[_type == "article"]\n  {..., \n  title->, \n  chapter->, \n  section->,\n  law {\nde[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de\n    }\n  }\n},\nfr[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  }\n}\n}} \n  | order(number asc)': GetArticlesQueryResult
+    '*[_type == "feature"]': GetFeaturesQueryResult
+    '*[\n    _type == "article" \n    && title->number == $titleNumber]\n    ': GetArticlesFromTitleQueryResult
+    '\n    *[_type == "article" && number == $number]\n    { ..., title->, chapter ->, section ->} | order(number asc)[0]\n    ': GetArticleQueryResult
+    '*[_type == "title"] {\n  name, number,\n  "articles":   *[_type==\'article\' && references(^._id)]{name, number, chapter->, section->},\n  "chapters": *[_type==\'chapter\' && references(^._id)]{ name, number, "sections": *[_type==\'section\' && references(^._id)]{ name }} | order(number asc),\n  "sections": *[_type==\'section\' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)': GetNavQueryResult
+  }
+}
