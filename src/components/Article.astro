@@ -1,12 +1,11 @@
 ---
-import type { BlockContent } from '@/types/sanity.types'
 import RichText from '@/components/portable-text/RichText.astro'
 
 interface Props {
   title: string
   number: number
-  law: BlockContent
-  exp?: BlockContent
+  law: any
+  exp?: any
 }
 
 const { title, number, law, exp = [] } = Astro.props
