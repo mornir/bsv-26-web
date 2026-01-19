@@ -84,13 +84,6 @@ export type MeasureTargetReference = {
   [internalGroqTypeReferenceTo]?: 'measureTarget'
 }
 
-export type FigureReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'figure'
-}
-
 export type BlockContent = Array<
   | {
       children?: Array<
@@ -120,9 +113,6 @@ export type BlockContent = Array<
   | ({
       _key: string
     } & Latex)
-  | ({
-      _key: string
-    } & FigureReference)
 >
 
 export type Appendix = {
@@ -461,7 +451,6 @@ export type AllSanitySchemaTypes =
   | LocaleSimpleEditor
   | TableReference
   | MeasureTargetReference
-  | FigureReference
   | BlockContent
   | Appendix
   | MeasureTarget
@@ -607,13 +596,6 @@ export type GetArticlesQueryResult = Array<{
   law: {
     de: Array<
       | {
-          _key: string
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-          children: null
-        }
-      | {
           children: Array<
             | {
                 marks?: Array<string>
@@ -649,13 +631,6 @@ export type GetArticlesQueryResult = Array<{
         }
     >
     fr: Array<
-      | {
-          _key: string
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-          children: null
-        }
       | {
           children: Array<
             | {
@@ -728,7 +703,7 @@ export type GetArticlesFromTitleQueryResult = Array<{
 
 // Source: ..\digitale-bsv-web\src\sanity\queries.ts
 // Variable: getArticleQuery
-// Query: *[_type == "article" && number == $number]    { ..., title->, chapter ->, section ->} | order(number asc)[0]
+// Query: *[_type == "article" && number == $number]    { ..., law {de[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    }  }},fr[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    }  }}}, exp {de[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    }  }},fr[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    }  }}}, title->, chapter ->, section ->}[0]
 export type GetArticleQueryResult = {
   _id: string
   _type: 'article'
@@ -769,8 +744,158 @@ export type GetArticleQueryResult = {
     name: LocaleString
   } | null
   name: LocaleString
-  law: LocaleBlockContent
-  exp?: LocaleBlockContent
+  law: {
+    de: Array<
+      | {
+          children?:
+            | Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+            | ArrayOf<MeasureTargetReference | TableReference>
+          style?: 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs: Array<
+            | {
+                _key: string
+                _type: 'externalLink'
+                href: string
+              }
+            | {
+                _key: string
+                _type: 'internalLink'
+                reference: ArticleReference | ChapterReference | TitleReference
+                number: number
+                type: 'article' | 'chapter' | 'title'
+              }
+          > | null
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          _key: string
+          _type: 'latex'
+          body?: string
+          markDefs: null
+        }
+    >
+    fr: Array<
+      | {
+          children?:
+            | Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+            | ArrayOf<MeasureTargetReference | TableReference>
+          style?: 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs: Array<
+            | {
+                _key: string
+                _type: 'externalLink'
+                href: string
+              }
+            | {
+                _key: string
+                _type: 'internalLink'
+                reference: ArticleReference | ChapterReference | TitleReference
+                number: number
+                type: 'article' | 'chapter' | 'title'
+              }
+          > | null
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          _key: string
+          _type: 'latex'
+          body?: string
+          markDefs: null
+        }
+    > | null
+  }
+  exp: {
+    de: Array<
+      | {
+          children?:
+            | Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+            | ArrayOf<MeasureTargetReference | TableReference>
+          style?: 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs: Array<
+            | {
+                _key: string
+                _type: 'externalLink'
+                href: string
+              }
+            | {
+                _key: string
+                _type: 'internalLink'
+                reference: ArticleReference | ChapterReference | TitleReference
+                number: number
+                type: 'article' | 'chapter' | 'title'
+              }
+          > | null
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          _key: string
+          _type: 'latex'
+          body?: string
+          markDefs: null
+        }
+    >
+    fr: Array<
+      | {
+          children?:
+            | Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+            | ArrayOf<MeasureTargetReference | TableReference>
+          style?: 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs: Array<
+            | {
+                _key: string
+                _type: 'externalLink'
+                href: string
+              }
+            | {
+                _key: string
+                _type: 'internalLink'
+                reference: ArticleReference | ChapterReference | TitleReference
+                number: number
+                type: 'article' | 'chapter' | 'title'
+              }
+          > | null
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          _key: string
+          _type: 'latex'
+          body?: string
+          markDefs: null
+        }
+    > | null
+  } | null
 } | null
 
 // Source: ..\digitale-bsv-web\src\sanity\queries.ts
@@ -825,7 +950,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "article"]\n  {..., \n  title->, \n  chapter->, \n  section->,\n  law {\nde[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de\n    }\n  }\n},\nfr[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  }\n}\n}} \n  | order(number asc)': GetArticlesQueryResult
     '*[_type == "feature"]': GetFeaturesQueryResult
     '*[\n    _type == "article" \n    && title->number == $titleNumber]\n    ': GetArticlesFromTitleQueryResult
-    '\n    *[_type == "article" && number == $number]\n    { ..., title->, chapter ->, section ->} | order(number asc)[0]\n    ': GetArticleQueryResult
+    '\n    *[_type == "article" && number == $number]\n    { ..., law {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}, exp {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}, title->, chapter ->, section ->}[0]\n    ': GetArticleQueryResult
     '*[_type == "title"] {\n  name, number,\n  "articles":   *[_type==\'article\' && references(^._id)]{name, number, chapter->, section->},\n  "chapters": *[_type==\'chapter\' && references(^._id)]{ name, number, "sections": *[_type==\'section\' && references(^._id)]{ name }} | order(number asc),\n  "sections": *[_type==\'section\' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)': GetNavQueryResult
   }
 }

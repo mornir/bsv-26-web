@@ -1,7 +1,7 @@
 // As of now, iterating over languages is not compatible with Sanity TypeGen.
+import { defineQuery } from 'groq'
 
-import groq from 'groq'
-export const expandLinks = groq`
+export const expandLinks = defineQuery(`
 de[]{
   ...,
   markDefs[]{
@@ -22,9 +22,9 @@ fr[]{
     }
   }
 }
-`
+`)
 
-export const expandTables = groq`
+export const expandTables = defineQuery(`
 de[]{
   ...,
   children[]{
@@ -43,4 +43,4 @@ fr[]{
     }
   }
 }
-`
+`)

@@ -13,7 +13,7 @@ const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
   const articles = await getArticles()
-  return articles.map((article: any) => ({
+  return articles.map((article) => ({
     params: { number: article.number.toString() },
   }))
 }
