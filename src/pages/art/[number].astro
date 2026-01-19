@@ -20,10 +20,8 @@ export async function getStaticPaths() {
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { number } = Astro.params as Params
-if (!number) return Astro.redirect('/404')
 
 const article = await getArticle(parseInt(number))
-if (!article) return Astro.redirect('/404')
 
 const references = [article.title.name.de]
 
