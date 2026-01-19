@@ -22,6 +22,7 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { number } = Astro.params as Params
 
 const article = await getArticle(parseInt(number))
+if (!article) return Astro.redirect('/404')
 
 const references = [article.title.name.de]
 
