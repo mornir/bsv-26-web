@@ -1,22 +1,12 @@
 ---
-import type { GetArticleQueryResult } from '@/types/sanity.types'
+import type { BlockContent } from '@/types/sanity.types'
 import RichText from '@/components/portable-text/RichText.astro'
-
-type Law = Pick<
-  NonNullable<NonNullable<GetArticleQueryResult>['law']>,
-  'de'
->['de']
-
-type Exp = Pick<
-  NonNullable<NonNullable<GetArticleQueryResult>['exp']>,
-  'de'
->['de']
 
 interface Props {
   title: string
   number: number
-  law: Law
-  exp?: Exp
+  law: BlockContent
+  exp?: BlockContent
 }
 
 const { title, number, law, exp = [] } = Astro.props

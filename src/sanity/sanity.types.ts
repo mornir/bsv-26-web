@@ -941,16 +941,3 @@ export type GetNavQueryResult = Array<{
     number: number
   }>
 }>
-
-// Query TypeMap
-import '@sanity/client'
-declare module '@sanity/client' {
-  interface SanityQueries {
-    '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
-    '\n  *[_type == "article"]\n  {..., \n  title->, \n  chapter->, \n  section->,\n  law {\nde[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de\n    }\n  }\n},\nfr[]{\n  ...,\n  children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  }\n}\n}} \n  | order(number asc)': GetArticlesQueryResult
-    '*[_type == "feature"]': GetFeaturesQueryResult
-    '*[\n    _type == "article" \n    && title->number == $titleNumber]\n    ': GetArticlesFromTitleQueryResult
-    '\n    *[_type == "article" && number == $number]\n    { ..., law {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}, exp {\nde[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n},\nfr[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    }\n  }\n}\n}, title->, chapter ->, section ->}[0]\n    ': GetArticleQueryResult
-    '*[_type == "title"] {\n  name, number,\n  "articles":   *[_type==\'article\' && references(^._id)]{name, number, chapter->, section->},\n  "chapters": *[_type==\'chapter\' && references(^._id)]{ name, number, "sections": *[_type==\'section\' && references(^._id)]{ name }} | order(number asc),\n  "sections": *[_type==\'section\' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)': GetNavQueryResult
-  }
-}
