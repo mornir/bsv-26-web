@@ -1,13 +1,6 @@
-import { createClient } from '@sanity/client'
 import { defineQuery } from 'groq'
 import { expandLinks, expandTables } from './fragments'
-
-const client = createClient({
-  projectId: 'lc9446ox',
-  dataset: 'production',
-  useCdn: false,
-  apiVersion: '2026-01-18',
-})
+import client from './client'
 
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
