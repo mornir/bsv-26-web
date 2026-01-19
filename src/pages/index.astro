@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import { getFeatures } from '@/sanity/queries'
+import Search from 'astro-pagefind/components/Search'
 
 import { useTranslations } from '@/i18n/utils'
 
@@ -14,12 +15,16 @@ const t = useTranslations(currentLang)
 <Layout title="Startseite">
   <div class="mt-24 grid place-content-center">
     <h1
-      class="mx-auto block max-w-2xl text-center text-5xl/16 font-semibold text-slate-800"
+      class="mx-auto mb-16 block max-w-2xl text-center text-5xl/16 font-semibold text-slate-800"
     >
       {t('home.title')}
     </h1>
-
-    <div class="mt-20">
+    <Search
+      id="search"
+      className="pagefind-ui"
+      uiOptions={{ showImages: false }}
+    />
+    <!--     <div class="mt-20">
       <dl class="grid grid-cols-3 gap-x-8 gap-y-12">
         {
           features.map((feat) => (
@@ -30,6 +35,6 @@ const t = useTranslations(currentLang)
           ))
         }
       </dl>
-    </div>
+    </div> -->
   </div>
 </Layout>

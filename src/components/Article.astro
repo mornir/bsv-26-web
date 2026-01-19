@@ -1,14 +1,11 @@
 ---
-import type { BlockContent } from '@/types/sanity.types'
 import RichText from '@/components/portable-text/RichText.astro'
-import { Link2, Check } from '@lucide/astro'
-import { locales, formatRef } from '@/i18n/utils'
 
 interface Props {
-  title: String
-  number: Number
-  law: BlockContent
-  exp?: BlockContent
+  title: string
+  number: number
+  law: any
+  exp?: any
 }
 
 const { title, number, law, exp = [] } = Astro.props
@@ -21,5 +18,7 @@ const { title, number, law, exp = [] } = Astro.props
   <h1>Art. {number} {title}</h1>
 
   <RichText blocks={law} />
-  <RichText blocks={exp} />
+  <div class="text-blue-700">
+    <RichText blocks={exp} />
+  </div>
 </article>

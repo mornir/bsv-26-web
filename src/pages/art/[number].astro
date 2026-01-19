@@ -1,10 +1,10 @@
 ---
+import PageFind from '@/layouts/PageFind.astro'
 import type { InferGetStaticParamsType } from 'astro'
 import { ChevronDown } from '@lucide/astro'
 import Toolbar from '@/components/Toolbar.astro'
 import Article from '@/components/Article.astro'
 import LangCompare from '@/components/LangCompare.astro'
-import Layout from '@/layouts/Layout.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
 import { locales } from '@/i18n/utils'
@@ -13,14 +13,13 @@ const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
   const articles = await getArticles()
-  return articles.map((article: any) => ({
+  return articles.map((article) => ({
     params: { number: article.number.toString() },
   }))
 }
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>
 const { number } = Astro.params as Params
-if (!number) return Astro.redirect('/404')
 
 const article = await getArticle(parseInt(number))
 if (!article) return Astro.redirect('/404')
@@ -36,7 +35,7 @@ if (article.section?.number && article.section?.name) {
 }
 ---
 
-<Layout title={'Art. ' + article.number}>
+<PageFind title={'Art. ' + article.number}>
   <div x-data={`{languages: ['${locale}']}`}>
     <Toolbar>
       <a
@@ -97,4 +96,4 @@ if (article.section?.number && article.section?.name) {
       </template>
     </div>
   </div>
-</Layout>
+</PageFind>

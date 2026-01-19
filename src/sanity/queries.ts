@@ -1,13 +1,6 @@
-import { createClient } from '@sanity/client'
 import { defineQuery } from 'groq'
 import { expandLinks, expandTables } from './fragments'
-
-const client = createClient({
-  projectId: 'lc9446ox',
-  dataset: 'production',
-  useCdn: false,
-  apiVersion: '2025-02-06',
-})
+import client from './client'
 
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
@@ -48,7 +41,7 @@ export async function getArticlesFromTitle(titleNumber: number) {
 export async function getArticle(number: number) {
   const getArticleQuery = defineQuery(`
     *[_type == "article" && number == $number]
-    { ..., title->, chapter ->, section ->} | order(number asc)[0]
+    { ..., law {${expandLinks}}, exp {${expandLinks}}, title->, chapter ->, section ->}[0]
     `)
 
   return client.fetch(getArticleQuery, { number })
