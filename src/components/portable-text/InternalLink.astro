@@ -1,29 +1,11 @@
 ---
 import type { Props as $, Mark } from 'astro-portabletext/types'
-
 type Reference = { type: string; number: number }
-
 type Props = $<Mark<Reference>>
 
 const { node } = Astro.props
 
 const number = node.markDef.number
-const type = node.markDef.type
-
-let href = '/'
-
-if (type === 'title') {
-  href = `/titel/${number}`
-}
-
-if (type === 'chapter') {
-  href = `/title/chapter/${number}`
-}
-
-if (type === 'article') {
-  href = `/art/${number}`
-  console.log('hello')
-}
 ---
 
-<a href={href} class="underline"><slot /></a>
+<a href={`/art/${number}`} class="underline"><slot /></a>
