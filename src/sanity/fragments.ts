@@ -10,6 +10,12 @@ Top level = custom block
 export const parsePortableText = defineQuery(`
 de[]{
   ...,
+    children[]{
+    ...,
+    _type == "table" => {
+      "html": @->html.de
+    }
+  },
   markDefs[]{
     ...,
     _type == "internalLink" => {
@@ -26,6 +32,12 @@ de[]{
 },
 fr[]{
   ...,
+    children[]{
+    ...,
+    _type == "table" => {
+      "html": @->html.fr
+    }
+  },
   markDefs[]{
     ...,
     _type == "internalLink" => {
@@ -38,28 +50,6 @@ fr[]{
         "img":  @->image.fr,
         
     },
-  }
-}
-`)
-
-// TODO: merge with above
-export const expandTables = defineQuery(`
-de[]{
-  ...,
-  children[]{
-    ...,
-    _type == "table" => {
-      "html": @->html.de
-    }
-  }
-},
-fr[]{
-  ...,
-  children[]{
-    ...,
-    _type == "table" => {
-      "html": @->html.fr
-    }
   }
 }
 `)
