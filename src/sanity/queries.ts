@@ -1,5 +1,5 @@
 import { defineQuery } from 'groq'
-import { parsePortableText } from './fragments'
+import { parsePortableText, articleProjection } from './fragments'
 import client from './client'
 
 export async function getTitles() {
@@ -12,11 +12,7 @@ export async function getTitles() {
 export async function getArticles() {
   const getArticlesQuery = defineQuery(`
   *[_type == "article"]
-  {..., 
-  title->, 
-  chapter->, 
-  section->,
-  law {${parsePortableText}}} 
+  ${articleProjection}
   | order(number asc)`)
 
   return client.fetch(getArticlesQuery)
@@ -42,7 +38,7 @@ export async function getArticle(number: number) {
   const getArticleQuery = defineQuery(`
 
     *[_type == "article" && number == $number][0]
-    { ..., law {${parsePortableText}}, exp {${parsePortableText}}, title->, chapter ->, section ->}
+    ${articleProjection}
     `)
 
   return client.fetch(getArticleQuery, { number })
