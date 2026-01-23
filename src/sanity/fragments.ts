@@ -1,46 +1,59 @@
 // As of now, iterating over languages is not compatible with Sanity TypeGen.
 import { defineQuery } from 'groq'
 
-export const expandLinks = defineQuery(`
-de[]{
-  ...,
-  markDefs[]{
-    ...,
-    _type == "internalLink" => {
-      "number": @.reference->number,
-      "type": @.reference->_type,
-    }
-  }
-},
-fr[]{
-  ...,
-  markDefs[]{
-    ...,
-    _type == "internalLink" => {
-      "number": @.reference->number,
-      "type": @.reference->_type,
-    }
-  }
-}
-`)
+/*
+Inside markDefs = marks
+Inside children = annotation
+Top level = custom block
+*/
 
-export const expandTables = defineQuery(`
+export const parsePortableText = defineQuery(`
 de[]{
   ...,
-  children[]{
+    children[]{
     ...,
     _type == "table" => {
       "html": @->html.de
     }
+  },
+  markDefs[]{
+    ...,
+    _type == "internalLink" => {
+      "number": @.reference->number,
+      "type": @.reference->_type,
+    },
+    _type == "figure" => {
+       "number": @->number,
+       "name": @->name.de,
+        "img":  @->image.de,
+        
+    },
   }
 },
 fr[]{
   ...,
-  children[]{
+    children[]{
     ...,
     _type == "table" => {
       "html": @->html.fr
     }
+  },
+  markDefs[]{
+    ...,
+    _type == "internalLink" => {
+      "number": @.reference->number,
+      "type": @.reference->_type,
+    },
+    _type == "figure" => {
+       "number": @->number,
+       "name": @->name.fr,
+        "img":  @->image.fr,
+        
+    },
   }
 }
 `)
+
+export const articleProjection = defineQuery(`
+  { ..., law {${parsePortableText}}, exp {${parsePortableText}}, title->, chapter ->, section ->}
+  `)

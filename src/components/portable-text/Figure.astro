@@ -1,48 +1,30 @@
 ---
 import { urlFor } from '@/sanity/sanityImage'
-import type { SanityImageObject } from '@sanity/image-url'
 
-interface Props {
-  image: SanityImageObject
-  alt: string
-}
+const { name, number, img } = Astro.props.node.markDef
 
-const { image, alt } = Astro.props
-
-const thumbUrl = urlFor(image)
-  .width(400)
-  .height(300)
-  .quality(40)
-  .auto('format')
-  .url()
-
-const fullUrl = urlFor(image).quality(90).auto('format').url()
+const url = urlFor(img.asset).quality(90).auto('format').url()
 ---
 
-<div x-data="{ open: false }">
-  <!-- Thumbnail -->
-  <img
-    src={thumbUrl}
-    alt={alt}
-    loading="lazy"
-    class="cursor-zoom-in"
-    @click="open = true"
-    width="400"
-    height="300"
-  />
-
-  <!-- Overlay -->
-  <div
-    x-show="open"
-    x-transition
-    @click.self="open = false"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+<span x-data>
+  <!-- Trigger -->
+  <button
+    type="button"
+    @click="$refs.dialog.showModal()"
+    class="inline-block cursor-pointer underline"
   >
-    <img
-      src={fullUrl}
-      alt={alt}
-      class="max-h-[90vh] max-w-[90vw]"
-      @click.stop
-    />
-  </div>
-</div>
+    <slot />
+  </button>
+
+  <!-- Dialog -->
+  <template x-teleport="body">
+    <dialog
+      x-ref="dialog"
+      class="m-0 h-screen max-h-none w-screen max-w-none bg-black/90 p-0"
+      @click.self="$refs.dialog.close()"
+    >
+      <h3>{name}</h3>
+      <img src={url} alt={img.alt} class="max-h-[90vh] max-w-[90vw]" />
+    </dialog>
+  </template>
+</span>
