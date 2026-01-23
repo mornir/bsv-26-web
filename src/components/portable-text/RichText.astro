@@ -4,6 +4,8 @@ import Table from './Table.astro'
 import InternalLink from './InternalLink.astro'
 import Latex from './Latex.astro'
 import Figure from './Figure.astro'
+import Superscript from './Superscript.astro'
+import Subscript from './Subscript.astro'
 
 interface Props {
   blocks: any
@@ -15,6 +17,8 @@ const components = {
   mark: {
     internalLink: InternalLink,
     figure: Figure,
+    sup: Superscript,
+    sub: Subscript,
   },
   type: {
     latex: Latex,
