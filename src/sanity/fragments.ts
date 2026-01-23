@@ -1,7 +1,13 @@
 // As of now, iterating over languages is not compatible with Sanity TypeGen.
 import { defineQuery } from 'groq'
 
-export const expandLinks = defineQuery(`
+/*
+Inside markDefs = marks
+Inside children = annotation
+Top level = custom block
+*/
+
+export const parsePortableText = defineQuery(`
 de[]{
   ...,
   markDefs[]{
@@ -9,7 +15,13 @@ de[]{
     _type == "internalLink" => {
       "number": @.reference->number,
       "type": @.reference->_type,
-    }
+    },
+    _type == "figure" => {
+       "number": @->number,
+       "name": @->name.de,
+        "img":  @->image.de,
+        
+    },
   }
 },
 fr[]{
@@ -19,11 +31,18 @@ fr[]{
     _type == "internalLink" => {
       "number": @.reference->number,
       "type": @.reference->_type,
-    }
+    },
+    _type == "figure" => {
+       "number": @->number,
+       "name": @->name.fr,
+        "img":  @->image.fr,
+        
+    },
   }
 }
 `)
 
+// TODO: merge with above
 export const expandTables = defineQuery(`
 de[]{
   ...,

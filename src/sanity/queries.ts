@@ -1,11 +1,11 @@
 import { defineQuery } from 'groq'
-import { expandLinks, expandTables } from './fragments'
+import { parsePortableText, expandTables } from './fragments'
 import client from './client'
 
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
   *[_type == "title"] 
-  {..., desc {${expandLinks}}} | order(number asc)`)
+  {..., desc {${parsePortableText}}} | order(number asc)`)
   return client.fetch(getTitlesQuery)
 }
 
@@ -40,8 +40,9 @@ export async function getArticlesFromTitle(titleNumber: number) {
 
 export async function getArticle(number: number) {
   const getArticleQuery = defineQuery(`
+
     *[_type == "article" && number == $number]
-    { ..., law {${expandLinks}}, exp {${expandLinks}}, title->, chapter ->, section ->}[0]
+    { ..., law {${parsePortableText}}, exp {${parsePortableText}}, title->, chapter ->, section ->}[0]
     `)
 
   return client.fetch(getArticleQuery, { number })

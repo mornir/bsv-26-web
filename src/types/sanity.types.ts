@@ -30,6 +30,41 @@ export type LocaleString = {
   it?: string;
 };
 
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type LocaleImage = {
+  _type: "localeImage";
+  de: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  fr?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  it?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+};
+
 export type LocaleText = {
   _type: "localeText";
   de: string;
@@ -82,6 +117,13 @@ export type MeasureTargetReference = {
   [internalGroqTypeReferenceTo]?: "measureTarget";
 };
 
+export type FigureReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "figure";
+};
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -101,7 +143,9 @@ export type BlockContent = Array<{
   _key: string;
 } | {
   _key: string;
-} & Latex>;
+} & Latex | {
+  _key: string;
+} & FigureReference>;
 
 export type Appendix = {
   _id: string;
@@ -147,13 +191,6 @@ export type TitleReference = {
   [internalGroqTypeReferenceTo]?: "title";
 };
 
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
-
 export type Figure = {
   _id: string;
   _type: "figure";
@@ -161,15 +198,9 @@ export type Figure = {
   _updatedAt: string;
   _rev: string;
   number: number;
-  title: TitleReference;
   name: LocaleString;
-  image?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
+  title: TitleReference;
+  image?: LocaleImage;
 };
 
 export type SanityImageCrop = {
@@ -430,7 +461,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = Feature | LocaleString | LocaleText | LocaleBlockContent | SimpleEditor | LocaleSimpleEditor | TableReference | MeasureTargetReference | BlockContent | Appendix | MeasureTarget | UserGroup | TitleReference | SanityImageAssetReference | Figure | SanityImageCrop | SanityImageHotspot | Table | Faq | ExternalLink | ArticleReference | InternalLink | ChapterReference | SectionReference | Article | Section | Chapter | Title | Color | Latex | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = Feature | LocaleString | SanityImageAssetReference | LocaleImage | LocaleText | LocaleBlockContent | SimpleEditor | LocaleSimpleEditor | TableReference | MeasureTargetReference | FigureReference | BlockContent | Appendix | MeasureTarget | UserGroup | TitleReference | Figure | SanityImageCrop | SanityImageHotspot | Table | Faq | ExternalLink | ArticleReference | InternalLink | ChapterReference | SectionReference | Article | Section | Chapter | Title | Color | Latex | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
@@ -539,6 +570,12 @@ export type GetArticlesQueryResult = Array<{
   name: LocaleString;
   law: {
     de: Array<{
+      _key: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      children: null;
+    } | {
       children: Array<{
         marks?: Array<string>;
         text?: string;
@@ -566,6 +603,12 @@ export type GetArticlesQueryResult = Array<{
       children: null;
     }>;
     fr: Array<{
+      _key: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      children: null;
+    } | {
       children: Array<{
         marks?: Array<string>;
         text?: string;
@@ -672,6 +715,12 @@ export type GetArticleQueryResult = {
   name: LocaleString;
   law: {
     de: Array<{
+      _key: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      markDefs: null;
+    } | {
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -701,6 +750,12 @@ export type GetArticleQueryResult = {
       markDefs: null;
     }>;
     fr: Array<{
+      _key: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      markDefs: null;
+    } | {
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -732,6 +787,12 @@ export type GetArticleQueryResult = {
   };
   exp: {
     de: Array<{
+      _key: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      markDefs: null;
+    } | {
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -761,6 +822,12 @@ export type GetArticleQueryResult = {
       markDefs: null;
     }>;
     fr: Array<{
+      _key: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      markDefs: null;
+    } | {
       children?: Array<{
         marks?: Array<string>;
         text?: string;
