@@ -18,9 +18,15 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
 
   <!-- Dialog -->
   <template x-teleport="body">
-    <dialog x-ref="dialog" @click.self="$refs.dialog.close()">
+    <dialog
+      x-ref="dialog"
+      @click.self="$refs.dialog.close()"
+      class="mx-auto animate-out fade-in fade-out zoom-in zoom-out open:animate-in"
+    >
       <figure>
-        <figcaption class="text-center">{name}</figcaption>
+        <figcaption class="text-center text-lg font-semibold">
+          {name}
+        </figcaption>
         <img src={url} alt={img.alt} class="max-h-[80vh] max-w-[80vw]" />
       </figure>
     </dialog>
