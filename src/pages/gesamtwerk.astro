@@ -1,5 +1,5 @@
 ---
-import Article from '@/components/Article.astro'
+import ArticleListItem from '@/components/ArticleListItem.astro'
 import Toolbar from '@/components/Toolbar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticles } from '@/sanity/queries'
@@ -46,7 +46,7 @@ const expOptions = [
       <section class="mx-auto max-w-7xl">
         {
           articles.map((article: any) => (
-            <Article
+            <ArticleListItem
               title={article.name[locale] ?? ''}
               number={article.number}
               law={article.law[locale]}
