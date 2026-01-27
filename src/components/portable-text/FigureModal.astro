@@ -44,28 +44,31 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
         <div
           @click.stop
           x-trap.noscroll.inert="open"
-          class="relative min-w-96 rounded-xl bg-white p-6 shadow-lg"
+          class="relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-xl bg-white shadow-lg"
         >
-          <!-- Content -->
-          <div class="flex justify-end">
+          <!-- Header -->
+          <div
+            class="sticky top-0 flex items-start justify-between border-b border-gray-200 bg-white px-6 py-4"
+          >
+            <div>
+              <div class="mb-1 font-mono text-sm text-gray-500">
+                Abbildung {number}
+              </div>
+              <h2 class="font-serif text-xl">{name}</h2>
+            </div>
+
             <button
               type="button"
               @click="open = false"
-              class="focus-visible:outline-2"
+              class="rounded-lg p-2 transition-colors hover:bg-gray-100"
             >
-              <X />
+              <X class="h-6 w-6" aria-label="Close" />
             </button>
           </div>
-          <figure>
-            <figcaption class="text-center text-lg font-semibold">
-              {name}
-            </figcaption>
-            <img
-              src={url}
-              alt={img.alt}
-              class="mt-2 max-h-[80vh] max-w-[80vw]"
-            />
-          </figure>
+          <!-- Content -->
+          <div class="p-6">
+            <img src={url} alt={img.alt} class="mx-auto max-h-[80vh]" />
+          </div>
         </div>
       </div>
     </div>
