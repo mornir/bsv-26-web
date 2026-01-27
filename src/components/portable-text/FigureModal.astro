@@ -9,14 +9,13 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
 
 <span x-data="{ open: false }">
   <!-- Trigger -->
-
   <button
     type="button"
     @click="open = true"
-    class="inline-flex cursor-pointer items-center underline"
+    class="inline-flex cursor-pointer items-center gap-1 underline"
   >
     <slot />
-    <Fullscreen class="ml-1 h-5 w-5" />
+    <Fullscreen class="h-5 w-5" />
   </button>
 
   <!-- Modal -->
@@ -65,6 +64,7 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
               <X class="h-6 w-6" aria-label="Close" />
             </button>
           </div>
+
           <!-- Content -->
           <div class="p-6">
             <img src={url} alt={img.alt} class="mx-auto max-h-[80vh]" />
