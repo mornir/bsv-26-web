@@ -1,4 +1,5 @@
 ---
+import { X, Fullscreen } from '@lucide/astro'
 import { urlFor } from '@/sanity/sanityImage'
 
 const { name, number, img } = Astro.props.node.markDef
@@ -12,9 +13,10 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
   <button
     type="button"
     @click="open = true"
-    class="inline-block cursor-pointer underline"
+    class="inline-flex cursor-pointer items-center underline"
   >
     <slot />
+    <Fullscreen class="ml-1 h-5 w-5" />
   </button>
 
   <!-- Modal -->
@@ -22,11 +24,10 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
     <div
       x-show="open"
       style="display: none"
-      x-on:keydown.escape.prevent.stop="open = false"
+      @keydown.escape.prevent.stop="open = false"
       role="dialog"
       aria-modal="true"
-      x-id="['modal-title']"
-      :aria-labelledby="$id('modal-title')"
+      aria-labelledby={name}
       class="fixed inset-0 z-10 overflow-y-auto"
     >
       <!-- Overlay -->
@@ -37,26 +38,33 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
       <div
         x-show="open"
         x-transition
-        x-on:click="open = false"
+        @click="open = false"
         class="relative flex min-h-screen items-center justify-center p-4"
       >
         <div
-          x-on:click.stop
+          @click.stop
           x-trap.noscroll.inert="open"
           class="relative min-w-96 rounded-xl bg-white p-6 shadow-lg"
         >
-          <!-- Title -->
-          <h2 class="font-medium text-gray-800" :id="$id('modal-title')">
-            Confirm
-          </h2>
-
           <!-- Content -->
-
+          <div class="flex justify-end">
+            <button
+              type="button"
+              @click="open = false"
+              class="focus-visible:outline-2"
+            >
+              <X />
+            </button>
+          </div>
           <figure>
             <figcaption class="text-center text-lg font-semibold">
               {name}
             </figcaption>
-            <img src={url} alt={img.alt} class="max-h-[80vh] max-w-[80vw]" />
+            <img
+              src={url}
+              alt={img.alt}
+              class="mt-2 max-h-[80vh] max-w-[80vw]"
+            />
           </figure>
         </div>
       </div>
