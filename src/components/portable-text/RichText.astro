@@ -3,7 +3,9 @@ import { PortableText } from 'astro-portabletext'
 import Table from './Table.astro'
 import InternalLink from './InternalLink.astro'
 import Latex from './Latex.astro'
-import Figure from './Figure.astro'
+import FigureModal from './FigureModal.astro'
+import Superscript from './Superscript.astro'
+import Subscript from './Subscript.astro'
 
 interface Props {
   blocks: any
@@ -14,7 +16,9 @@ const { blocks } = Astro.props
 const components = {
   mark: {
     internalLink: InternalLink,
-    figure: Figure,
+    figure: FigureModal,
+    sup: Superscript,
+    sub: Subscript,
   },
   type: {
     latex: Latex,

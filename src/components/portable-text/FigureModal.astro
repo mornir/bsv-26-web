@@ -1,0 +1,76 @@
+---
+import { X, Fullscreen } from '@lucide/astro'
+import { urlFor } from '@/sanity/sanityImage'
+
+const { name, number, img } = Astro.props.node.markDef
+
+const url = urlFor(img.asset).quality(90).auto('format').url()
+---
+
+<span x-data="{ open: false }">
+  <!-- Trigger -->
+  <button
+    type="button"
+    @click="open = true"
+    class="inline-flex cursor-pointer items-center gap-1 underline"
+  >
+    <slot />
+    <Fullscreen class="h-5 w-5" />
+  </button>
+
+  <!-- Modal -->
+  <template x-teleport="body">
+    <div
+      x-show="open"
+      style="display: none"
+      @keydown.escape.prevent.stop="open = false"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={name}
+      class="fixed inset-0 z-10 overflow-y-auto"
+    >
+      <!-- Overlay -->
+      <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black/25">
+      </div>
+
+      <!-- Panel -->
+      <div
+        x-show="open"
+        x-transition
+        @click="open = false"
+        class="relative flex min-h-screen items-center justify-center p-4"
+      >
+        <div
+          @click.stop
+          x-trap.noscroll.inert="open"
+          class="relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-xl bg-white shadow-lg"
+        >
+          <!-- Header -->
+          <div
+            class="sticky top-0 flex items-start justify-between border-b border-gray-200 bg-white px-6 py-4"
+          >
+            <div>
+              <div class="mb-1 font-mono text-sm text-gray-500">
+                Abbildung {number}
+              </div>
+              <h2 class="font-serif text-xl">{name}</h2>
+            </div>
+
+            <button
+              type="button"
+              @click="open = false"
+              class="rounded-lg p-2 transition-colors hover:bg-gray-100"
+            >
+              <X class="h-6 w-6" aria-label="Close" />
+            </button>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6">
+            <img src={url} alt={img.alt} class="mx-auto max-h-[80vh]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</span>

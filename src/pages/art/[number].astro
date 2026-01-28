@@ -3,7 +3,7 @@ import PageFind from '@/layouts/PageFind.astro'
 import type { InferGetStaticParamsType } from 'astro'
 import { ChevronDown } from '@lucide/astro'
 import Toolbar from '@/components/Toolbar.astro'
-import Article from '@/components/Article.astro'
+import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
@@ -84,7 +84,7 @@ if (article.section?.number && article.section?.name) {
         }
       </ol>
       <div x-show="languages.length === 1">
-        <Article
+        <ArticlePage
           title={article.name[locale] ?? ''}
           number={article.number}
           law={article.law[locale]}
