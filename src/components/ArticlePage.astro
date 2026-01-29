@@ -9,16 +9,18 @@ interface Props {
 }
 
 const { title, number, law, exp = [] } = Astro.props
+
+// mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
 ---
 
-<article
-  class="mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold"
-  id={`art-${number}`}
->
+<article id={`art-${number}`}>
   <h1>Art. {number} {title}</h1>
 
   <RichText blocks={law} />
-  <div class="text-blue-700">
-    <RichText blocks={exp} />
+  <div class="rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6">
+    <h2 class="mb-4 text-xl font-semibold text-blue-900">
+      Erläuterung zum Art. {number}
+    </h2>
+    <div class="leading-relaxed text-blue-900"><RichText blocks={exp} /></div>
   </div>
 </article>

@@ -1,18 +1,38 @@
 ---
 const {
-  node: { listItem },
-  ...attrs
+  node: { listItem, level },
+  index,
 } = Astro.props
+
+// Tip: Adding a class to fragment/slot is passed on here, on Astro.props
+// https://github.com/theisel/astro-portabletext/blob/main/examples/portabletext-slots.astro
 ---
 
 {
   listItem === 'number' ? (
-    <ol {...attrs}>
+    <ol
+      class:list={[
+        'my-4 ml-6 max-w-prose space-y-2 leading-relaxed text-slate-800',
+        {
+          'list-[superscript-numbers]': level === 1 && index !== 1,
+          'list-[lower-alpha]': level === 2 || (level === 1 && index === 1),
+          'list-decimal': level === 3,
+        },
+      ]}
+    >
       <slot />
     </ol>
   ) : (
-    <ul {...attrs}>
+    <ul class="my-4 ml-6 max-w-prose list-disc space-y-2 leading-relaxed text-slate-800">
       <slot />
     </ul>
   )
 }
+
+<style>
+  @counter-style superscript-numbers {
+    system: numeric;
+    symbols: '⁰' '¹' '²' '³' '⁴' '⁵' '⁶' '⁷' '⁸' '⁹';
+    suffix: ' '; /* Space after the number. */
+  }
+</style>

@@ -34,14 +34,14 @@ export async function getArticlesFromTitle(titleNumber: number) {
   })
 }
 
-export async function getArticle(number: number) {
+export async function getArticle(slug: string) {
   const getArticleQuery = defineQuery(`
 
-    *[_type == "article" && number == $number][0]
+    *[_type == "article" && defined(slug.current) && slug.current == $slug][0]
     ${articleProjection}
     `)
 
-  return client.fetch(getArticleQuery, { number })
+  return client.fetch(getArticleQuery, { slug })
 }
 
 export async function getNav() {
