@@ -1,13 +1,27 @@
 ---
 const {
-  node: { listItem },
+  node: { listItem, level },
   ...attrs
 } = Astro.props
+
+const index = Astro.props.index
+
+console.log(Astro.props)
 ---
 
 {
   listItem === 'number' ? (
-    <ol {...attrs}>
+    <ol
+      {...attrs}
+      class:list={[
+        'my-4 ml-6 space-y-2 text-sm leading-relaxed text-slate-800',
+        {
+          'list-[superscript-numbers]': level === 1 && index !== 1,
+          'list-[lower-alpha]': level === 2 || (level === 1 && index === 1),
+          'list-decimal': level === 3,
+        },
+      ]}
+    >
       <slot />
     </ol>
   ) : (
@@ -16,3 +30,11 @@ const {
     </ul>
   )
 }
+
+<style>
+  @counter-style superscript-numbers {
+    system: numeric;
+    symbols: '⁰' '¹' '²' '³' '⁴' '⁵' '⁶' '⁷' '⁸' '⁹';
+    suffix: ' '; /* Space after the number. Not needed here. */
+  }
+</style>
