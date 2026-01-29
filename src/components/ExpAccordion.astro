@@ -1,5 +1,11 @@
 ---
 import { ChevronDown, ChevronRight } from '@lucide/astro'
+
+interface Props {
+  number: number
+}
+
+const { number } = Astro.props
 ---
 
 <div x-data="{ expanded: false }" role="region">
@@ -14,19 +20,17 @@ import { ChevronDown, ChevronRight } from '@lucide/astro'
 
       <ChevronRight x-show="!expanded" class="h-5 w-5" />
 
-      <span>Question #1</span>
+      <span class="text-sm">Erläuterung zum Art. {number}</span>
     </button>
   </h3>
 
   <div
     x-show="expanded"
     x-collapse
-    class="rounded-r-lg border-l-4 border-blue-500 bg-blue-50 p-5"
+    class="rounded-r-lg border-l-4 border-blue-500 bg-blue-50"
   >
-    <p class="leading-relaxed text-blue-900">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. In magnam quod
-      natus deleniti architecto eaque consequuntur ex, illo neque iste
-      repellendus modi, quasi ipsa commodi saepe? Provident ipsa nulla earum.
-    </p>
+    <div class="p-5 leading-relaxed text-blue-900">
+      <slot />
+    </div>
   </div>
 </div>

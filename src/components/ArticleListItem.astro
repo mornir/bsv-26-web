@@ -16,13 +16,11 @@ const { title, number, law, exp = [] } = Astro.props
   class="mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold"
   id={`art-${number}`}
 >
-  <h2><a href={'/art/' + number}>Art. {number} {title}</a></h2>
+  <h2 class="mt-12"><a href={'/art/' + number}>Art. {number} {title}</a></h2>
 
   <RichText blocks={law} />
 
-  <ExpAccordion />
-
-  <!--   <div class="text-blue-700">
+  <ExpAccordion number={number}>
     <RichText blocks={exp} />
-  </div> -->
+  </ExpAccordion>
 </article>
