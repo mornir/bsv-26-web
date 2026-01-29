@@ -1,5 +1,6 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
+import ExpAccordion from '@/components/ExpAccordion.astro'
 
 interface Props {
   title: string
@@ -18,7 +19,10 @@ const { title, number, law, exp = [] } = Astro.props
   <h2><a href={'/art/' + number}>Art. {number} {title}</a></h2>
 
   <RichText blocks={law} />
-  <div class="text-blue-700">
+
+  <ExpAccordion />
+
+  <!--   <div class="text-blue-700">
     <RichText blocks={exp} />
-  </div>
+  </div> -->
 </article>
