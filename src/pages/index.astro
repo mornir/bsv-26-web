@@ -1,14 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { getFeatures } from '@/sanity/queries'
 import Search from 'astro-pagefind/components/Search'
-
 import { useTranslations } from '@/i18n/utils'
 
 const currentLang = Astro.currentLocale as LangKeys
-
-const features = await getFeatures()
-
 const t = useTranslations(currentLang)
 ---
 
@@ -24,17 +19,5 @@ const t = useTranslations(currentLang)
       className="pagefind-ui"
       uiOptions={{ showImages: false }}
     />
-    <!--     <div class="mt-20">
-      <dl class="grid grid-cols-3 gap-x-8 gap-y-12">
-        {
-          features.map((feat) => (
-            <div class="max-w-84">
-              <dt class="inline text-xl font-bold">{feat.name.de}.</dt>
-              <dd class="inline">{feat.desc.de}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div> -->
   </div>
 </Layout>
