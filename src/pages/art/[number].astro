@@ -14,16 +14,12 @@ const locale = getLocale(Astro.url) as LangKeys
 export async function getStaticPaths() {
   const articles = await getArticles()
   return articles.map((article) => ({
-    params: { number: article.number.toString() },
+    params: { number: article.slug.current },
   }))
 }
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>
-const { number } = Astro.params as Params
-
-const article = await getArticle(parseInt(number))
-if (!article) return Astro.redirect('/404')
-
+const { number } = Astro.params
+const article = await getArticle(number)
 const references = [article.title.name.de]
 
 if (article.chapter?.number && article.chapter?.name) {

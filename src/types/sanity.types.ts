@@ -280,9 +280,16 @@ export type Article = {
   chapter?: ChapterReference;
   section?: SectionReference;
   number: number;
+  slug: Slug;
   name: LocaleString;
   law: LocaleBlockContent;
   exp?: LocaleBlockContent;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type Section = {
@@ -455,13 +462,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
-export type AllSanitySchemaTypes = Feature | LocaleString | SanityImageAssetReference | LocaleImage | LocaleText | LocaleBlockContent | SimpleEditor | LocaleSimpleEditor | TableReference | MeasureTargetReference | FigureReference | BlockContent | Appendix | MeasureTarget | UserGroup | TitleReference | Figure | SanityImageCrop | SanityImageHotspot | Table | Faq | ExternalLink | ArticleReference | InternalLink | ChapterReference | SectionReference | Article | Section | Chapter | Title | Color | Latex | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = Feature | LocaleString | SanityImageAssetReference | LocaleImage | LocaleText | LocaleBlockContent | SimpleEditor | LocaleSimpleEditor | TableReference | MeasureTargetReference | FigureReference | BlockContent | Appendix | MeasureTarget | UserGroup | TitleReference | Figure | SanityImageCrop | SanityImageHotspot | Table | Faq | ExternalLink | ArticleReference | InternalLink | ChapterReference | SectionReference | Article | Slug | Section | Chapter | Title | Color | Latex | RgbaColor | HsvaColor | HslaColor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
@@ -567,6 +568,7 @@ export type GetArticlesQueryResult = Array<{
     name: LocaleString;
   } | null;
   number: number;
+  slug: Slug;
   name: LocaleString;
   law: {
     de: Array<{
@@ -756,6 +758,7 @@ export type GetArticlesFromTitleQueryResult = Array<{
   chapter?: ChapterReference;
   section?: SectionReference;
   number: number;
+  slug: Slug;
   name: LocaleString;
   law: LocaleBlockContent;
   exp?: LocaleBlockContent;
@@ -803,6 +806,7 @@ export type GetArticleQueryResult = {
     name: LocaleString;
   } | null;
   number: number;
+  slug: Slug;
   name: LocaleString;
   law: {
     de: Array<{
