@@ -14,13 +14,39 @@ const { title, number, law, exp = [] } = Astro.props
 ---
 
 <article id={`art-${number}`}>
-  <h1>Art. {number} {title}</h1>
+  <header class="mx-auto mt-8 mb-6 max-w-3xl">
+    <dl class="mb-3 font-mono text-xs text-gray-500">
+      <div>
+        <dt>Titel 1</dt>
+        <dd>Geltungsbereich</dd>
+      </div>
+      <div>
+        <dt>Kapitel 1</dt>
+        <dd>Allgemeine Bestimmungen</dd>
+      </div>
+      <div>
+        <dt>Abschnitt 1</dt>
+        <dd>Geltungsbereich</dd>
+      </div>
+    </dl>
+    <div class="mb-2 font-mono text-slate-600">
+      Artikel {number}
+    </div>
+    <h1 class="font-serif text-3xl leading-tight">
+      {title}
+    </h1>
+  </header>
 
   <RichText blocks={law} />
-  <div class="rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6">
+
+  <div
+    class="mx-auto mt-8 max-w-3xl rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6"
+  >
     <h2 class="mb-4 text-xl font-semibold text-blue-900">
       Erläuterung zum Art. {number}
     </h2>
-    <div class="leading-relaxed text-blue-900"><RichText blocks={exp} /></div>
+    <div class="leading-relaxed text-blue-900">
+      <RichText blocks={exp} />
+    </div>
   </div>
 </article>

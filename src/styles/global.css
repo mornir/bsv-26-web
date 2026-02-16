@@ -17,6 +17,10 @@ p:empty {
   display: none;
 }
 
+table {
+  width: 100%;
+}
+
 /* Uncomment for Sprachvergleich
 ol {
   display: grid;

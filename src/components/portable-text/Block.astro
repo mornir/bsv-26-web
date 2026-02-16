@@ -1,0 +1,12 @@
+---
+import type { BlockProps } from 'astro-portabletext/types'
+import { Block as DefaultBlock } from 'astro-portabletext/components'
+
+type Props = BlockProps
+
+const props = Astro.props
+---
+
+<!-- Use class:list because class triggers a TypeScript error -->
+<DefaultBlock {...props} class:list={'mx-auto max-w-3xl'}><slot /></DefaultBlock
+>
