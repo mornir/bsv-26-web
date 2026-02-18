@@ -12,7 +12,7 @@ const {
   listItem === 'number' ? (
     <ol
       class:list={[
-        'mx-auto my-4 max-w-3xl list-inside space-y-2 leading-relaxed marker:text-slate-500',
+        'my-4 list-inside space-y-2 marker:text-slate-500',
         {
           'list-[superscript-numbers]': level === 1 && index !== 1,
           'list-[lower-alpha]': level === 2 || (level === 1 && index === 1),
@@ -23,7 +23,7 @@ const {
       <slot />
     </ol>
   ) : (
-    <ul class="mx-auto my-4 max-w-3xl list-inside list-disc space-y-2 leading-relaxed">
+    <ul class="my-4 list-inside list-disc space-y-2 marker:text-slate-500">
       <slot />
     </ul>
   )
