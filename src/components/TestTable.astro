@@ -263,13 +263,11 @@ import Tooltip from './Tooltip.astro'
 </table>
 
 <style>
-  table {
-    width: 100%;
-  }
-
   .full-bleed {
-    --bleed-padding: 5rem;
-    width: calc(100vw - (var(--bleed-padding) * 2));
-    margin-left: calc(50% - 50vw + var(--bleed-padding));
+    --width: 80rem;
+    width: min(100vw, var(--width));
+    max-width: var(--width);
+    margin-left: calc(50% - 50vw);
+    transform: translateX(calc((100vw - min(100vw, var(--width))) / 2));
   }
 </style>
