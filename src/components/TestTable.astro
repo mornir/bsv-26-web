@@ -2,7 +2,7 @@
 import Tooltip from './Tooltip.astro'
 ---
 
-<table class="c-law">
+<table class="law-table full-bleed">
   <thead>
     <tr>
       <td rowspan="2" class="bg-table align-top">
@@ -261,3 +261,15 @@ import Tooltip from './Tooltip.astro'
     </tr>
   </tbody>
 </table>
+
+<style>
+  table {
+    width: 100%;
+  }
+
+  .full-bleed {
+    --bleed-padding: 5rem;
+    width: calc(100vw - (var(--bleed-padding) * 2));
+    margin-left: calc(50% - 50vw + var(--bleed-padding));
+  }
+</style>

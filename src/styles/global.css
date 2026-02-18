@@ -9,16 +9,42 @@
   --color-table-light: #ecdde5;
 }
 
+@layer components {
+  .law-table {
+    @apply w-full border-collapse text-sm leading-relaxed;
+  }
+
+  .law-table thead {
+    @apply border-b border-slate-400;
+  }
+
+  .law-table th {
+    @apply px-3 py-2 text-left align-top font-semibold;
+  }
+
+  .law-table td {
+    @apply px-3 py-2 align-top;
+  }
+
+  .law-table tbody tr {
+    @apply border-b border-slate-200;
+  }
+
+  .law-table tbody tr:nth-child(even) {
+    @apply bg-slate-50;
+  }
+
+  .law-table thead th {
+    @apply sticky top-0 z-10 bg-table;
+  }
+}
+
 [x-cloak] {
   display: none !important;
 }
 
 p:empty {
   display: none;
-}
-
-table {
-  width: 100%;
 }
 
 /* Uncomment for Sprachvergleich
