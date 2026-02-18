@@ -9,6 +9,34 @@
   --color-table-light: #ecdde5;
 }
 
+@layer components {
+  .law-table {
+    @apply mt-6 border-collapse border border-slate-300 bg-white leading-snug transition-colors duration-150;
+  }
+
+  .law-table th,
+  .law-table td {
+    @apply border border-slate-300 px-3 py-2 align-top;
+  }
+
+  .law-table thead th {
+    @apply bg-slate-100 font-semibold text-slate-800;
+  }
+
+  .law-table tbody tr:nth-child(even) {
+    @apply bg-slate-50;
+  }
+
+  .law-table tbody tr:hover {
+    @apply bg-slate-100;
+  }
+
+  /* Apply bold to first cell of the row */
+  .law-table tbody tr:hover td:first-child {
+    @apply font-medium;
+  }
+}
+
 [x-cloak] {
   display: none !important;
 }
