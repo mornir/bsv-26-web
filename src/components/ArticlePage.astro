@@ -8,7 +8,7 @@ interface Props {
   exp?: any
 }
 
-const { title, number, law, exp = [] } = Astro.props
+const { title, number, law, exp = null } = Astro.props
 
 // mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
 ---
@@ -38,16 +38,20 @@ const { title, number, law, exp = [] } = Astro.props
     {title}
   </h1>
 
+  <!-- Vorschriftentext -->
   <RichText blocks={law} />
 
-  <div
-    class="mt-8 w-fit rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6"
-  >
-    <h2 class="mb-4 text-xl font-semibold text-blue-900">
-      Erläuterung zum Art. {number}
-    </h2>
-    <div class="text-blue-900">
-      <RichText blocks={exp} />
-    </div>
-  </div>
+  <!-- Erläuterung -->
+  {
+    exp && (
+      <div class="mt-8 w-fit rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6">
+        <h2 class="mb-4 text-xl font-semibold text-blue-900">
+          Erläuterung zum Art. {number}
+        </h2>
+        <div class="text-blue-900">
+          <RichText blocks={exp} />
+        </div>
+      </div>
+    )
+  }
 </article>
