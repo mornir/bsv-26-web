@@ -2,37 +2,30 @@
 import LanguagePicker from './LanguagePicker.astro'
 import NavDropDown from './NavDropDown.astro'
 import { useTranslations } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
 import Link from './Link.astro'
 
-const lang = Astro.currentLocale as LangKeys
+const locale = getLocale(Astro.url) as LangKeys
 
-const t = useTranslations(lang)
-
-const titlesLinks = Array.from({ length: 10 }, (_, i) => String(i + 1)).map(
-  (number) => ({
-    name: `${number}. Titel`,
-    path: `titel/${number}`,
-  })
-)
+const t = useTranslations(locale)
 
 const mainNav = [
   {
     name: t('nav.titles'),
-    links: [{ name: t('nav.titles.overview'), path: `titel` }, ...titlesLinks],
+    path: 't',
+  },
+  {
+    name: t('nav.articles'),
+    path: 'art',
   },
   {
     name: t('nav.appendices'),
-    links: [
-      { name: 'Anhang 1 (inaktiv)', path: '#' },
-      { name: 'Anhang 2 (inaktiv)', path: '#' },
-    ],
+    path: 'a',
   },
+
   {
     name: t('nav.toc'),
-    links: [
-      { name: 'Beispiel 1 (inaktiv)', path: '#' },
-      { name: 'Beispiel 2 (inaktiv)', path: '#' },
-    ],
+    path: 'toc',
   },
   { name: t('nav.faq'), path: 'anfragen' },
   { name: t('nav.all'), path: `gesamtwerk` },
@@ -48,15 +41,7 @@ const mainNav = [
     <nav
       class="flex items-center justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"
     >
-      {
-        mainNav.map((item) =>
-          !item.links ? (
-            <Link text={item.name} slug={item.path} />
-          ) : (
-            <NavDropDown name={item.name} links={item.links} />
-          )
-        )
-      }
+      {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
     </nav>
 
     <div class="text-right">
