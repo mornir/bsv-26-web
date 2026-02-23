@@ -32,19 +32,20 @@ const mainNav = [
 ]
 ---
 
-<header class="border-b-2 border-primary">
-  <div class="mx-4 flex items-baseline justify-between py-5">
-    <a href={`/`} class="text-2xl font-semibold hover:underline"
-      >{t('nav.brand')}</a
+<header class="border-b border-slate-200 bg-white shadow-sm">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+    <a
+      href={`/`}
+      class="text-xl font-bold tracking-tight text-slate-900 transition-colors duration-200 hover:text-primary"
     >
+      {t('nav.brand')}
+    </a>
 
-    <nav
-      class="flex items-center justify-center gap-x-6 text-lg font-semibold decoration-accent decoration-4"
-    >
+    <nav class="flex items-center justify-center gap-x-8">
       {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
     </nav>
 
-    <div class="text-right">
+    <div class="flex items-center">
       <LanguagePicker />
     </div>
   </div>
