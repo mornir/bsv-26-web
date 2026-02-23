@@ -1,21 +1,16 @@
 ---
 import { locales } from '@/i18n/utils'
 import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
-const locale = getLocale(Astro.url)
+import NavDropDown from './NavDropDown.astro'
+import { useTranslations } from '@/i18n/utils'
+const locale = getLocale(Astro.url) as LangKeys
+const t = useTranslations(locale)
 ---
 
-<ul class="flex justify-end gap-2">
-  {
-    Object.entries(locales).map(([lang]) => (
-      <li>
-        {lang === locale ? (
-          <strong>{lang.toUpperCase()}</strong>
-        ) : (
-          <a href={getLocaleUrl(Astro.url.pathname, lang)}>
-            {lang.toUpperCase()}
-          </a>
-        )}
-      </li>
-    ))
-  }
-</ul>
+<NavDropDown
+  name={t('lang')}
+  links={Object.entries(locales).map(([lang]) => ({
+    name: t('lang'),
+    path: lang,
+  }))}
+/>

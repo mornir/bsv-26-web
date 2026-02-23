@@ -9,6 +9,7 @@ export default {
     'nav.faq': 'Anfragen',
     'nav.all': 'Gesamtwerk',
     'home.title': 'Schweizerische Brandschutzvorschriften 2026',
+    lang: 'Deutsch',
   },
   fr: {
     'nav.brand': 'PPI 2026',
@@ -20,5 +21,6 @@ export default {
     'nav.faq': 'Demandes',
     'nav.all': 'Ouvrage complet',
     'home.title': 'Prescriptions suisses de protection incendie 2026',
+    lang: 'français',
   },
 } as const
