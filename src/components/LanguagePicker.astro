@@ -14,4 +14,6 @@ const links = Object.entries(locales)
   .filter((link) => link.path !== locale)
 ---
 
-<NavDropDown name={langs[locale]} links={links} />
+<div class="flex items-center">
+  <NavDropDown name={langs[locale]} links={links} />
+</div>
