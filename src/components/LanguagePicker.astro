@@ -1,16 +1,17 @@
 ---
 import { locales } from '@/i18n/utils'
-import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
+import { getLocale } from 'astro-i18n-aut'
 import NavDropDown from './NavDropDown.astro'
-import { useTranslations } from '@/i18n/utils'
 const locale = getLocale(Astro.url) as LangKeys
-const t = useTranslations(locale)
+
+const langs = { de: 'Deutsch', fr: 'Français' }
+
+const links = Object.entries(locales)
+  .map(([lang]) => ({
+    name: langs[lang as LangKeys],
+    path: lang,
+  }))
+  .filter((link) => link.path !== locale)
 ---
 
-<NavDropDown
-  name={t('lang')}
-  links={Object.entries(locales).map(([lang]) => ({
-    name: t('lang'),
-    path: lang,
-  }))}
-/>
+<NavDropDown name={langs[locale]} links={links} />
