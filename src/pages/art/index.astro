@@ -1,37 +1,183 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import {getArticles} from '@/sanity/queries'
+import { getIndex } from '@/sanity/queries'
+import { formatTitle } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
 
-const articles = await getArticles()
+const locale = getLocale(Astro.url) as LangKeys
 
-const titles: String[] = []
+const { titles, chapters, sections, articles } = await getIndex()
+
+/**
+ * Build hierarchical tree
+ */
+function buildToc() {
+  return titles.map((title) => {
+    const titleChapters = chapters.filter((c) => c.titleNum === title.number)
+
+    const titleSections = sections.filter(
+      (s) => s.titleNum === title.number && !s.chapterNum
+    )
+
+    const titleArticles = articles.filter(
+      (a) => a.titleNum === title.number && !a.chapterNum && !a.sectionNum
+    )
+
+    return {
+      ...title,
+      chapters: titleChapters.map((chapter) => {
+        const chapterSections = sections.filter(
+          (s) => s.titleNum === title.number && s.chapterNum === chapter.number
+        )
+
+        const chapterArticles = articles.filter(
+          (a) =>
+            a.titleNum === title.number &&
+            a.chapterNum === chapter.number &&
+            !a.sectionNum
+        )
+
+        return {
+          ...chapter,
+          sections: chapterSections.map((section) => {
+            const sectionArticles = articles.filter(
+              (a) =>
+                a.titleNum === title.number &&
+                a.chapterNum === chapter.number &&
+                a.sectionNum === section.number
+            )
+
+            return {
+              ...section,
+              articles: sectionArticles,
+            }
+          }),
+          articles: chapterArticles,
+        }
+      }),
+      sections: titleSections.map((section) => {
+        const sectionArticles = articles.filter(
+          (a) =>
+            a.titleNum === title.number &&
+            !a.chapterNum &&
+            a.sectionNum === section.number
+        )
+
+        return {
+          ...section,
+          articles: sectionArticles,
+        }
+      }),
+      articles: titleArticles,
+    }
+  })
+}
+
+const toc = buildToc()
 ---
 
 <Layout title="Inhaltsverzeichnis">
-  <div class="mx-auto mt-10 mb-24">
-    <h1>Inhaltsverzeichnis</h1>
+  <nav class="mx-auto max-w-4xl space-y-10 text-base leading-relaxed">
+    <h1
+      class="mt-12 mb-8 pb-2 text-2xl font-bold tracking-tight text-slate-900"
+    >
+      Inhaltsverzeichnis
+    </h1>
     {
-      articles.map((art) => {
-        const title = `${art.title.number}. Titel: ${art.title.name.de}`
-        if (!titles.includes(title)) {
-          titles.push(title)
-          return (
-            <h2>{title}</h2>
-            <p>
-              <a href={`/artikel/${art.number}/`}>
-                Art. {art.number} {art.name.de}
-              </a>
-            </p>
-          )
-        } 
-        return (
-          <p>
-            <a href={`/artikel/${art.number}/`}>
-              Art. {art.number} {art.name.de}
-            </a>
-          </p>
-        )
-      })
+      toc.map((title) => (
+        <div class="mb-8">
+          <h2 class="mb-2 text-xl font-semibold text-slate-900">
+            {formatTitle(title, locale)}
+          </h2>
+
+          <div class="mt-3 ml-2 space-y-6">
+            {/* Articles directly under title */}
+            {title.articles.length > 0 && (
+              <ul class="space-y-1">
+                {title.articles.map((article) => (
+                  <li>
+                    <a
+                      href={`/a/${article.slug.current}`}
+                      class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
+                    >
+                      Art. {article.number} {article.name?.de}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* Sections directly under title */}
+            {title.sections.map((section) => (
+              <div class="pl-6">
+                <h3 class="mb-1 font-medium text-slate-800">
+                  Abschnitt {section.number} — {section.name?.de}
+                </h3>
+
+                <ul class="mt-1 space-y-1 pl-2">
+                  {section.articles.map((article) => (
+                    <li>
+                      <a
+                        href={`/a/${article.slug.current}`}
+                        class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
+                      >
+                        Art. {article.number} {article.name?.de}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            {/* Chapters */}
+            {title.chapters.map((chapter) => (
+              <div class="space-y-3 pl-6">
+                <h3 class="mb-1 font-medium text-slate-800">
+                  Kapitel {chapter.number} — {chapter.name?.de}
+                </h3>
+
+                {/* Articles directly under chapter */}
+                {chapter.articles.length > 0 && (
+                  <ul class="space-y-1 pl-2">
+                    {chapter.articles.map((article) => (
+                      <li>
+                        <a
+                          href={`/a/${article.slug.current}`}
+                          class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
+                        >
+                          Art. {article.number} {article.name?.de}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Sections inside chapter */}
+                {chapter.sections.map((section) => (
+                  <div class="pl-6">
+                    <h4 class="mb-1 text-slate-700">
+                      Abschnitt {section.number} — {section.name?.de}
+                    </h4>
+
+                    <ul class="mt-1 space-y-1 pl-2">
+                      {section.articles.map((article) => (
+                        <li>
+                          <a
+                            href={`/a/${article.slug.current}`}
+                            class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
+                          >
+                            Art. {article.number} {article.name?.de}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
     }
-  </div>
+  </nav>
 </Layout>

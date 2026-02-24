@@ -8,13 +8,13 @@ interface Props {
   exp?: any
 }
 
-const { title, number, law, exp = [] } = Astro.props
+const { title, number, law, exp = null } = Astro.props
 
 // mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
 ---
 
-<article id={`art-${number}`}>
-  <header class="mx-auto mt-8 mb-6 max-w-3xl">
+<article id={`art-${number}`} class="mx-auto mt-18 mb-24 max-w-3xl">
+  <header>
     <!--     <dl class="mb-3 font-mono text-xs text-gray-500">
       <div>
         <dt>Titel 1</dt>
@@ -29,25 +29,29 @@ const { title, number, law, exp = [] } = Astro.props
         <dd>Geltungsbereich</dd>
       </div>
     </dl> -->
-
-    <div class="mb-2 font-mono text-slate-600">
-      Artikel {number}
-    </div>
-    <h1 class="font-serif text-3xl leading-tight">
-      {title}
-    </h1>
   </header>
 
+  <div class="mb-2 font-mono text-slate-600">
+    Artikel {number}
+  </div>
+  <h1 class="font-serif text-3xl leading-tight">
+    {title}
+  </h1>
+
+  <!-- Vorschriftentext -->
   <RichText blocks={law} />
 
-  <div
-    class="mx-auto mt-8 max-w-3xl rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6"
-  >
-    <h2 class="mb-4 text-xl font-semibold text-blue-900">
-      Erläuterung zum Art. {number}
-    </h2>
-    <div class="leading-relaxed text-blue-900">
-      <RichText blocks={exp} />
-    </div>
-  </div>
+  <!-- Erläuterung -->
+  {
+    exp && (
+      <div class="mt-8 w-fit rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6">
+        <h2 class="mb-4 text-xl font-semibold text-blue-900">
+          Erläuterung zum Art. {number}
+        </h2>
+        <div class="text-blue-900">
+          <RichText blocks={exp} />
+        </div>
+      </div>
+    )
+  }
 </article>

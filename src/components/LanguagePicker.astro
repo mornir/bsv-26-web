@@ -1,21 +1,19 @@
 ---
 import { locales } from '@/i18n/utils'
-import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
-const locale = getLocale(Astro.url)
+import { getLocale } from 'astro-i18n-aut'
+import NavDropDown from './NavDropDown.astro'
+const locale = getLocale(Astro.url) as LangKeys
+
+const langs = { de: 'Deutsch', fr: 'Français' }
+
+const links = Object.entries(locales)
+  .map(([lang]) => ({
+    name: langs[lang as LangKeys],
+    path: lang,
+  }))
+  .filter((link) => link.path !== locale)
 ---
 
-<ul class="flex justify-end gap-2">
-  {
-    Object.entries(locales).map(([lang]) => (
-      <li>
-        {lang === locale ? (
-          <strong>{lang.toUpperCase()}</strong>
-        ) : (
-          <a href={getLocaleUrl(Astro.url.pathname, lang)}>
-            {lang.toUpperCase()}
-          </a>
-        )}
-      </li>
-    ))
-  }
-</ul>
+<div class="flex items-center">
+  <NavDropDown name={langs[locale]} links={links} select={true} />
+</div>

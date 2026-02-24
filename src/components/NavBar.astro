@@ -1,0 +1,63 @@
+---
+import LanguagePicker from './LanguagePicker.astro'
+import NavDropDown from './NavDropDown.astro'
+import { useTranslations } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
+import Link from './Link.astro'
+
+const locale = getLocale(Astro.url) as LangKeys
+
+const t = useTranslations(locale)
+
+const mainNav = [
+  {
+    name: t('nav.titles'),
+    path: 't',
+  },
+  {
+    name: t('nav.articles'),
+    path: 'art',
+  },
+  {
+    name: t('nav.appendices'),
+    path: 'a',
+  },
+  { name: t('nav.faq'), path: 'anfragen' },
+
+  {
+    name: 'mehr',
+    links: [
+      { name: t('nav.toc'), path: 'toc' },
+      { name: t('nav.all'), path: `gesamtwerk` },
+      { name: 'Installieren', path: `pwa` },
+    ],
+  },
+]
+---
+
+<header class="border-b border-slate-200">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+    <a
+      href={`/`}
+      class="text-xl font-bold tracking-tight text-slate-900 transition-colors duration-200 hover:text-primary"
+    >
+      {t('nav.brand')}
+    </a>
+
+    <nav class="flex items-center justify-center gap-x-8">
+      {
+        mainNav.map((item) =>
+          !item.links ? (
+            <Link text={item.name} slug={item.path} />
+          ) : (
+            <NavDropDown name={item.name} links={item.links} />
+          )
+        )
+      }
+    </nav>
+
+    <div class="flex items-center">
+      <LanguagePicker />
+    </div>
+  </div>
+</header>
