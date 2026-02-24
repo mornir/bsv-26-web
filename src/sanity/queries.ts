@@ -54,3 +54,14 @@ export async function getNav() {
 
   return client.fetch(getNavQuery)
 }
+
+export async function getIndex() {
+  const getIndexQuery = defineQuery(`{
+  "articles": *[_type == "article"]{name, number, slug, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": chapter->number} | order(number asc),
+  "titles": *[_type == "title"] | order(number asc),
+  "chapters": *[_type == "chapter"]{name, number, "titleNum": title->number} | order(number asc),
+  "sections": *[_type == "section"]{name, number, "titleNum": title->number, "chapterNum": chapter->number} | order(number asc),
+}`)
+
+  return client.fetch(getIndexQuery)
+}
