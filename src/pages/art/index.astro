@@ -1,6 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import { getIndex } from '@/sanity/queries'
+import { formatTitle } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
+
+const locale = getLocale(Astro.url) as LangKeys
 
 const { titles, chapters, sections, articles } = await getIndex()
 
@@ -83,7 +87,7 @@ const toc = buildToc()
       toc.map((title) => (
         <div class="mb-8">
           <h2 class="mb-2 text-xl font-semibold text-slate-900">
-            Titel {title.number} — {title.name?.de}
+            {formatTitle(title, locale)}
           </h2>
 
           <div class="mt-3 ml-2 space-y-6">
