@@ -8,9 +8,10 @@ type Links = {
 interface Props {
   name: string
   links: Links[]
+  select?: Boolean
 }
 
-const { name, links } = Astro.props
+const { name, links, select = false } = Astro.props
 const pathname = Astro.url.pathname
 ---
 
@@ -47,9 +48,15 @@ const pathname = Astro.url.pathname
       :aria-expanded="open"
       :aria-controls="$id('dropdown-button')"
       type="button"
-      class="relative inline-flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-800 transition-colors duration-150 hover:bg-slate-100 hover:text-slate-900"
+      class:list={[
+        'relative inline-flex cursor-pointer items-center gap-2 rounded-md border-slate-200 font-medium text-slate-800 transition-colors duration-150 hover:text-slate-900',
+        {
+          'border bg-slate-50 px-3 py-1.5 hover:bg-slate-100': select,
+          'hover:underline': !select,
+        },
+      ]}
     >
-      <span class="leading-tight">{name}</span>
+      <span class="hover:text-underline leading-tight">{name}</span>
 
       <ChevronDown size="16" class="text-slate-500" />
     </button>

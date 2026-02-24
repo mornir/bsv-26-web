@@ -1,5 +1,6 @@
 ---
 import LanguagePicker from './LanguagePicker.astro'
+import NavDropDown from './NavDropDown.astro'
 import { useTranslations } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 import Link from './Link.astro'
@@ -21,13 +22,16 @@ const mainNav = [
     name: t('nav.appendices'),
     path: 'a',
   },
+  { name: t('nav.faq'), path: 'anfragen' },
 
   {
-    name: t('nav.toc'),
-    path: 'toc',
+    name: 'mehr',
+    links: [
+      { name: t('nav.toc'), path: 'toc' },
+      { name: t('nav.all'), path: `gesamtwerk` },
+      { name: 'Installieren', path: `pwa` },
+    ],
   },
-  { name: t('nav.faq'), path: 'anfragen' },
-  { name: t('nav.all'), path: `gesamtwerk` },
 ]
 ---
 
@@ -41,7 +45,15 @@ const mainNav = [
     </a>
 
     <nav class="flex items-center justify-center gap-x-8">
-      {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
+      {
+        mainNav.map((item) =>
+          !item.links ? (
+            <Link text={item.name} slug={item.path} />
+          ) : (
+            <NavDropDown name={item.name} links={item.links} />
+          )
+        )
+      }
     </nav>
 
     <div class="flex items-center">
