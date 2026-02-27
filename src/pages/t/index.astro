@@ -1,12 +1,11 @@
 ---
 import BasicRichText from '@/components/portable-text/BasicRichText.astro'
-
 import Layout from '@/layouts/Layout.astro'
 import { getTitles } from '@/sanity/queries'
 import { formatTitle } from '@/i18n/utils'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 
-const lang = Astro.currentLocale as LangKeys
-
+const locale = getLocale(Astro.url) as LangKeys
 const titles = await getTitles()
 ---
 
@@ -14,21 +13,21 @@ const titles = await getTitles()
   <div class="mt-18 mb-32 px-24">
     <ul class="mx-auto flex max-w-3xl flex-col gap-y-8">
       {
-        titles.map((title: any) => (
+        titles.map((title) => (
           <li
             class="rounded-md border-4 px-6 py-5"
             style={`border-color: ${title.color?.hex}`}
           >
             <h2 class="text-lg font-semibold">
               <a
-                href={`/${lang}/titel/${title.number}/`}
+                href={getLocaleUrl(`/t/${title.number}`, locale)}
                 class="cursor-pointer underline"
               >
-                {formatTitle(title, lang)}
+                {title.number}. Titel: {title.name.de}
               </a>
             </h2>
             <div class="mt-2">
-              <BasicRichText blocks={title?.desc?.de ?? []} />
+              <BasicRichText blocks={title.desc?.de ?? []} />
             </div>
           </li>
         ))
