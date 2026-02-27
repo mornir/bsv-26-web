@@ -12,18 +12,20 @@ const {
   listItem === 'number' ? (
     <ol
       class:list={[
-        'my-4 list-inside space-y-2 marker:text-slate-500',
+        'marker:text-slate-500',
         {
-          'list-[superscript-numbers]': level === 1 && index !== 1,
-          'list-[lower-alpha]': level === 2 || (level === 1 && index === 1),
-          'list-decimal': level === 3,
+          'my-4 list-outside list-[superscript-numbers] space-y-4':
+            level === 1 && index !== 1,
+          'my-2 list-inside list-[lower-alpha] space-y-2 pl-2':
+            level === 2 || (level === 1 && index === 1),
+          'my-2 list-inside list-decimal space-y-2 pl-2': level === 3,
         },
       ]}
     >
       <slot />
     </ol>
   ) : (
-    <ul class="my-4 list-inside list-disc space-y-2 marker:text-slate-500">
+    <ul class="my-2 list-inside list-disc space-y-2 marker:text-slate-500">
       <slot />
     </ul>
   )

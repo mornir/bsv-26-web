@@ -1,6 +1,5 @@
 ---
 import PageFind from '@/layouts/PageFind.astro'
-import { ChevronDown } from '@lucide/astro'
 import Toolbar from '@/components/Toolbar.astro'
 import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
@@ -21,15 +20,23 @@ const { number } = Astro.params
 const article = await getArticle(number)
 if (!article) return Astro.redirect('/404')
 
-const references = [article.title.name.de]
-
-if (article.chapter?.number && article.chapter?.name) {
-  references.push(article.chapter.name.de)
+const articleView = {
+  number: article.number,
+  name: article.name[locale],
+  law: article.law[locale],
+  exp: article.exp?.[locale],
+  title: { number: article.title.number, name: article.title.name[locale] },
+  chapter: {
+    number: article.chapter?.number,
+    name: article.chapter?.name[locale],
+  },
+  section: {
+    number: article.section?.number,
+    name: article.section?.name[locale],
+  },
 }
 
-if (article.section?.number && article.section?.name) {
-  references.push(article.section.name.de)
-}
+export type ArticleView = typeof articleView
 ---
 
 <PageFind title={'Art. ' + article.number}>
@@ -62,34 +69,8 @@ if (article.section?.number && article.section?.name) {
         }
       </div>
     </Toolbar>
-
-    <!--     <div>
-      <ol>
-        {
-          references.map((ref, index) => (
-            <li class="flex flex-col items-center font-semibold">
-              <a
-                href="#"
-                class={index !== references.length - 1 ? 'text-lg' : 'text-2xl'}
-              >
-                {ref}
-              </a>
-              {index !== references.length - 1 && (
-                <ChevronDown class="text-gray-500" />
-              )}
-            </li>
-          ))
-        }
-      </ol>
-    </div>
- -->
     <div x-show="languages.length === 1">
-      <ArticlePage
-        title={article.name[locale] ?? ''}
-        number={article.number}
-        law={article.law[locale]}
-        exp={article.exp?.[locale]}
-      />
+      <ArticlePage article={articleView} />
     </div>
     <template x-if="languages.length > 1" x-cloak>
       <LangCompare article={article} />

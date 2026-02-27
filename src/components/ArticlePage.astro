@@ -1,42 +1,64 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
+import { ChevronRight } from '@lucide/astro'
+
+import type { ArticleView } from '@/pages/art/[number].astro'
 
 interface Props {
-  title: string
-  number: number
-  law: any
-  exp?: any
+  article: ArticleView
 }
 
-const { title, number, law, exp = null } = Astro.props
+const {
+  title,
+  chapter,
+  section,
+  number,
+  law,
+  exp = null,
+  name,
+} = Astro.props.article
 
 // mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
 ---
 
 <article id={`art-${number}`} class="mx-auto mt-18 mb-24 max-w-3xl">
+  <!-- Article Header -->
   <header>
-    <!--     <dl class="mb-3 font-mono text-xs text-gray-500">
-      <div>
-        <dt>Titel 1</dt>
-        <dd>Geltungsbereich</dd>
-      </div>
-      <div>
-        <dt>Kapitel 1</dt>
-        <dd>Allgemeine Bestimmungen</dd>
-      </div>
-      <div>
-        <dt>Abschnitt 1</dt>
-        <dd>Geltungsbereich</dd>
-      </div>
-    </dl> -->
+    <!-- Breadcrumbs - Hierarchical information -->
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+        <li class="flex items-center gap-2">
+          <span class="font-medium text-gray-900">
+            {title.number}. Titel
+          </span>
+          <span class="text-gray-400">·</span>
+          <span>{title.name}</span>
+        </li>
+        <ChevronRight class="h-4 w-4 text-gray-400" />
+        <li class="flex items-center gap-2">
+          <span class="font-medium text-gray-900">
+            {chapter.number}. Kapitel
+          </span>
+          <span class="text-gray-400">·</span>
+          <span>{chapter.name}</span>
+        </li>
+        <ChevronRight class="h-4 w-4 text-gray-400" />
+        <li class="flex items-center gap-2">
+          <span class="font-medium text-gray-900">
+            {section.number}. Abschnitt
+          </span>
+          <span class="text-gray-400">·</span>
+          <span>{section.name}</span>
+        </li>
+      </ol>
+    </nav>
+    <div class="mb-2 font-mono text-slate-600">
+      Artikel <span>{number}</span>
+    </div>
+    <h1 class="font-serif text-3xl leading-tight">
+      {name}
+    </h1>
   </header>
-
-  <div class="mb-2 font-mono text-slate-600">
-    Artikel {number}
-  </div>
-  <h1 class="font-serif text-3xl leading-tight">
-    {title}
-  </h1>
 
   <!-- Vorschriftentext -->
   <RichText blocks={law} />
