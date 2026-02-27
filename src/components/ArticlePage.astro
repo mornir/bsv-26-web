@@ -1,54 +1,64 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
+import { ChevronRight } from '@lucide/astro'
+
+import type { ArticleView } from '@/pages/art/[number].astro'
 
 interface Props {
-  title: string
-  number: number
-  law: any
-  exp?: any
+  article: ArticleView
 }
 
-const { title, number, law, exp = null } = Astro.props
+const {
+  title,
+  chapter,
+  section,
+  number,
+  law,
+  exp = null,
+  name,
+} = Astro.props.article
 
 // mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
 ---
 
 <article id={`art-${number}`} class="mx-auto mt-18 mb-24 max-w-3xl">
-  <header class="mb-8">
-    <div class="flex flex-wrap gap-3">
-      <div
-        class="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-2"
-      >
-        <span class="font-mono text-xs font-semibold text-blue-600"
-          >1. Titel:</span
-        >
-        <span class="text-sm text-blue-700">Geltungsbereich</span>
-      </div>
-      <div
-        class="inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-2"
-      >
-        <span class="font-mono text-xs font-semibold text-green-600"
-          >2. Kapitel:</span
-        >
-        <span class="text-sm text-green-700">Allgemeine Bestimmungen</span>
-      </div>
-      <div
-        class="inline-flex items-center gap-2 rounded-full bg-amber-100 px-4 py-2"
-      >
-        <span class="font-mono text-xs font-semibold text-amber-600"
-          >3. Abschnitt:</span
-        >
-        <span class="text-sm text-amber-700">Geltungsbereich</span>
-      </div>
+  <!-- Article Header -->
+  <header>
+    <!-- Breadcrumbs - Hierarchical information -->
+    <nav class="mb-6" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+        <li class="flex items-center gap-2">
+          <span class="font-medium text-gray-900">
+            {title.number}
+          </span>
+          <span class="text-gray-400">·</span>
+          <span>{title.name}</span>
+        </li>
+        <ChevronRight class="h-4 w-4 text-gray-400" />
+        <li class="flex items-center gap-2">
+          <span class="font-medium text-gray-900">
+            {chapter.number}
+          </span>
+          <span class="text-gray-400">·</span>
+          <span>{chapter.name}</span>
+        </li>
+        <ChevronRight class="h-4 w-4 text-gray-400" />
+        <li class="flex items-center gap-2">
+          <span class="font-medium text-gray-900">
+            {section.number}
+          </span>
+          <span class="text-gray-400">·</span>
+          <span>{section.name}</span>
+        </li>
+      </ol>
+    </nav>
+    <div class="mb-2 font-mono text-slate-600">
+      Artikel <span>{number}</span>
     </div>
+    <h1 class="font-serif text-3xl leading-tight">
+      {name}
+    </h1>
   </header>
-
-  <div class="mb-2 font-mono text-slate-600">
-    Artikel <span>{number}</span>
-  </div>
-  <h1 class="font-serif text-3xl leading-tight">
-    {title}
-  </h1>
 
   <!-- Vorschriftentext -->
   <RichText blocks={law} />
