@@ -1,0 +1,11 @@
+---
+import type { Props as $, Mark } from 'astro-portabletext/types'
+type Reference = { type: string; number: number }
+type Props = $<Mark<Reference>>
+
+const { node } = Astro.props
+
+const number = node.markDef.number
+---
+
+<a href={`/art/${number}`} class="relative z-20 underline"><slot /></a>

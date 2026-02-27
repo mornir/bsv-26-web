@@ -11,27 +11,29 @@ const titles = await getTitles()
 
 <Layout title="Titel">
   <div class="mt-18 mb-32 px-24">
-    <ul class="mx-auto flex max-w-3xl flex-col gap-y-8">
+    <ol class="mx-auto flex max-w-3xl flex-col gap-y-8">
       {
         titles.map((title) => (
-          <li
-            class="rounded-md border-4 px-6 py-5"
-            style={`border-color: ${title.color?.hex}`}
-          >
-            <h2 class="text-lg font-semibold">
-              <a
-                href={getLocaleUrl(`/t/${title.number}`, locale)}
-                class="cursor-pointer"
-              >
-                {title.number}. Titel: {title.name.de}
-              </a>
-            </h2>
-            <div class="mt-2">
-              <BasicRichText blocks={title.desc?.de ?? []} />
-            </div>
+          <li class="relative cursor-pointer rounded-lg border border-gray-300 p-6 transition-colors hover:border-gray-500">
+            <a
+              href={getLocaleUrl(`/t/${title.number}`, locale)}
+              class="after:absolute after:inset-0 after:z-0"
+            >
+              <h2>
+                <span class="block font-mono text-sm text-slate-600">
+                  {title.number}. Titel
+                </span>
+                <span class="mt-1 block text-lg font-semibold">
+                  {title.name.de}
+                </span>
+              </h2>
+              <div class="mt-2 leading-relaxed text-slate-700">
+                <BasicRichText blocks={title.desc?.de ?? []} />
+              </div>
+            </a>
           </li>
         ))
       }
-    </ul>
+    </ol>
   </div>
 </Layout>
