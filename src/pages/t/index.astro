@@ -14,7 +14,7 @@ const titles = await getTitles()
     <ol class="mx-auto flex max-w-3xl flex-col gap-y-8">
       {
         titles.map((title) => (
-          <li class="relative cursor-pointer rounded-lg border border-gray-300 p-6 transition-colors hover:border-gray-500">
+          <li class="relative cursor-pointer rounded-lg border border-slate-300 p-6 transition-colors hover:border-slate-500">
             <a
               href={getLocaleUrl(`/t/${title.number}`, locale)}
               class="after:absolute after:inset-0 after:z-0"
