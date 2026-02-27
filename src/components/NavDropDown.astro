@@ -76,7 +76,7 @@ const pathname = Astro.url.pathname
       {
         links.map((link) => (
           <a
-            href={link.path}
+            href={`/` + link.path}
             class={`flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-slate-50 focus-visible:bg-slate-50 ${pathname === link.path ? 'font-semibold text-primary' : 'text-slate-800'}`}
           >
             {link.name}
