@@ -77,15 +77,11 @@ const toc = buildToc()
 ---
 
 <Layout title="Inhaltsverzeichnis">
-  <nav class="mx-auto max-w-4xl space-y-10 text-base leading-relaxed">
-    <h1
-      class="mt-12 mb-8 pb-2 text-2xl font-bold tracking-tight text-slate-900"
-    >
-      Inhaltsverzeichnis
-    </h1>
+  <nav class="mx-auto mt-12 max-w-4xl space-y-10 text-base leading-relaxed">
+    <h1 class="mb-8 text-center font-serif text-3xl">Inhaltsverzeichnis</h1>
     {
       toc.map((title) => (
-        <div class="mb-8">
+        <div class="mb-8 rounded-lg border border-slate-300 bg-white p-6">
           <h2 class="mb-2 text-xl font-semibold text-slate-900">
             {formatTitle(title, locale)}
           </h2>
@@ -97,7 +93,7 @@ const toc = buildToc()
                 {title.articles.map((article) => (
                   <li>
                     <a
-                      href={`/a/${article.slug.current}`}
+                      href={`/art/${article.slug.current}`}
                       class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                     >
                       Art. {article.number} {article.name?.de}
@@ -118,7 +114,7 @@ const toc = buildToc()
                   {section.articles.map((article) => (
                     <li>
                       <a
-                        href={`/a/${article.slug.current}`}
+                        href={`/art/${article.slug.current}`}
                         class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                       >
                         Art. {article.number} {article.name?.de}
@@ -142,7 +138,7 @@ const toc = buildToc()
                     {chapter.articles.map((article) => (
                       <li>
                         <a
-                          href={`/a/${article.slug.current}`}
+                          href={`/art/${article.slug.current}`}
                           class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                         >
                           Art. {article.number} {article.name?.de}
@@ -163,7 +159,7 @@ const toc = buildToc()
                       {section.articles.map((article) => (
                         <li>
                           <a
-                            href={`/a/${article.slug.current}`}
+                            href={`/art/${article.slug.current}`}
                             class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                           >
                             Art. {article.number} {article.name?.de}
