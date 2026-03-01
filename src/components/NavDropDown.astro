@@ -1,5 +1,8 @@
 ---
 import { ChevronDown } from '@lucide/astro'
+import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
+const locale = getLocale(Astro.url)
+
 type Links = {
   name: string
   path: string
@@ -23,16 +26,12 @@ const pathname = Astro.url.pathname
               if (this.open) {
                   return this.close()
               }
-
               this.$refs.button.focus()
-
               this.open = true
           },
           close(focusAfter) {
               if (! this.open) return
-
               this.open = false
-
               focusAfter && focusAfter.focus()
           }
       }"
@@ -76,7 +75,11 @@ const pathname = Astro.url.pathname
       {
         links.map((link) => (
           <a
-            href={link.path.startsWith('/') ? link.path : '/' + link.path}
+            href={
+              link.path.startsWith('/')
+                ? link.path
+                : getLocaleUrl('/' + link.path, locale)
+            }
             class={`flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-slate-50 focus-visible:bg-slate-50 ${pathname === link.path ? 'font-semibold text-primary' : 'text-slate-800'}`}
           >
             {link.name}
