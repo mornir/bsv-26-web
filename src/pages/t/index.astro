@@ -1,6 +1,6 @@
 ---
 import BasicRichText from '@/components/portable-text/BasicRichText.astro'
-import Layout from '@/layouts/Layout.astro'
+import PageIndex from '@/layouts/PageIndex.astro'
 import { getTitles } from '@/sanity/queries'
 import { formatTitle } from '@/i18n/utils'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
@@ -9,32 +9,29 @@ const locale = getLocale(Astro.url) as LangKeys
 const titles = await getTitles()
 ---
 
-<Layout title="Titel">
-  <div class="mt-18 mb-32 px-24">
-    <h1 class="mb-8 text-center font-serif text-3xl">Titel-Übersicht</h1>
-    <ol class="mx-auto flex max-w-3xl flex-col gap-y-8">
-      {
-        titles.map((title) => (
-          <li class="relative cursor-pointer rounded-lg border border-slate-300 bg-white p-6 transition-colors hover:border-slate-500">
-            <a
-              href={getLocaleUrl(`/t/${title.number}`, locale)}
-              class="after:absolute after:inset-0 after:z-0"
-            >
-              <h2>
-                <span class="block font-mono text-sm text-slate-600">
-                  {title.number}.Titel
-                </span>
-                <span class="mt-1 block text-lg font-semibold">
-                  {title.name.de}
-                </span>
-              </h2>
-              <div class="mt-2 leading-relaxed text-slate-700">
-                <BasicRichText blocks={title.desc?.de ?? []} />
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-  </div>
-</Layout>
+<PageIndex title="Titel-Übersicht">
+  <ol class="flex flex-col gap-y-8">
+    {
+      titles.map((title) => (
+        <li class="relative cursor-pointer rounded-lg border border-slate-300 bg-white p-6 transition-colors hover:border-slate-500">
+          <a
+            href={getLocaleUrl(`/t/${title.number}`, locale)}
+            class="after:absolute after:inset-0 after:z-0"
+          >
+            <h2>
+              <span class="block font-mono text-sm text-slate-600">
+                {title.number}.Titel
+              </span>
+              <span class="mt-1 block text-lg font-semibold">
+                {title.name.de}
+              </span>
+            </h2>
+            <div class="mt-2 leading-relaxed text-slate-700">
+              <BasicRichText blocks={title.desc?.de ?? []} />
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</PageIndex>
