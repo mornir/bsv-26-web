@@ -17,56 +17,20 @@ export function useTranslations(lang: keyof typeof messages | undefined) {
 
 type heading = {
   number: number
-  name: LocaleString
-  [key: string]: unknown
+  type: 'title' | 'chapter' | 'section'
 }
 
-export function formatTitle(heading: heading, lang: string): string {
-  const { name, number } = heading
-
-  if (lang === 'fr') {
-    return `Titre ${number}: ${name.fr}`
-  }
-
-  return `${number}. Titel: ${name.de}`
-}
-
-function formatChapter(heading: heading, lang: string): string {
-  const { name, number } = heading
-
-  if (lang === 'fr') {
-    return `Chapitre ${number}: ${name.fr}`
-  }
-
-  return `${number}. Kapitel: ${name.de}`
-}
-
-function formatSection(heading: heading, lang: string): string {
-  const { name, number } = heading
-
-  if (lang === 'fr') {
-    return `Section ${number}: ${name.fr}`
-  }
-
-  return `${number}. Abschnitt: ${name.de}`
-}
-
-export function formatRef(
-  article: GetArticleQueryResult,
-  lang: string
+export function formatHeading(
+  { number, type }: heading,
+  lang: LangKeys
 ): string {
-  // NOT NEEDED
-  if (!article) return 'ERROR'
+  const t = useTranslations(lang)
 
-  const reference = [formatTitle(article.title, lang)]
+  const heading = t(`heading.${type}`)
 
-  if (article.chapter?.number) {
-    reference.push(formatChapter(article.chapter, lang))
+  if (lang === 'fr') {
+    return `${heading} ${number}`
   }
 
-  if (article.section?.number) {
-    reference.push(formatSection(article.section, lang))
-  }
-
-  return reference.join(', ')
+  return `${number}. ${heading}`
 }
