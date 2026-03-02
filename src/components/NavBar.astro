@@ -11,27 +11,19 @@ const t = useTranslations(locale)
 
 const mainNav = [
   {
-    name: t('nav.titles'),
-    path: 't',
-  },
-  {
     name: t('nav.articles'),
     path: 'art',
+  },
+  {
+    name: t('nav.titles'),
+    path: 't',
   },
   {
     name: t('nav.appendices'),
     path: 'a',
   },
-  { name: t('nav.faq'), path: 'anfragen' },
-
-  {
-    name: 'mehr',
-    links: [
-      { name: t('nav.toc'), path: 'toc' },
-      { name: t('nav.all'), path: `gesamtwerk` },
-      { name: 'Installieren', path: `pwa` },
-    ],
-  },
+  { name: t('nav.faq'), path: 'faq' },
+  /*   { name: t('nav.app'), path: 'app' }, */
 ]
 ---
 
@@ -45,15 +37,7 @@ const mainNav = [
     </a>
 
     <nav class="flex items-center justify-center gap-x-8">
-      {
-        mainNav.map((item) =>
-          !item.links ? (
-            <Link text={item.name} slug={item.path} />
-          ) : (
-            <NavDropDown name={item.name} links={item.links} />
-          )
-        )
-      }
+      {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
     </nav>
 
     <div class="flex items-center">

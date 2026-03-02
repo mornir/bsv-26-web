@@ -2,14 +2,13 @@
 import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 import PageIndex from '@/layouts/PageIndex.astro'
 import { getTitles } from '@/sanity/queries'
-import { formatHeading } from '@/i18n/utils'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url) as LangKeys
 const titles = await getTitles()
 ---
 
-<PageIndex title="Titel-Übersicht">
+<PageIndex title="Anhänge">
   <ol class="space-y-8">
     {
       titles.map((title) => (
@@ -20,7 +19,7 @@ const titles = await getTitles()
           >
             <h2>
               <span class="block font-mono text-sm text-slate-600">
-                {formatHeading({ number: title.number, type: 'title' }, locale)}
+                {title.number}.Titel
               </span>
               <span class="mt-1 block text-lg font-semibold">
                 {title.name.de}
