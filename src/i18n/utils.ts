@@ -1,5 +1,4 @@
 import messages from './messages'
-import type { GetArticleQueryResult, LocaleString } from '@/types/sanity.types'
 
 export const defaultLocale = 'de'
 export const locales = {
