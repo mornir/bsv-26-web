@@ -5,7 +5,7 @@ import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
-import { locales } from '@/i18n/utils'
+import { locales } from '@/i18n/ui'
 
 const locale = getLocale(Astro.url) as LangKeys
 

@@ -1,16 +1,9 @@
-import messages from './messages'
+import { ui, defaultLocale } from './ui'
 
-export const defaultLocale = 'de'
-export const locales = {
-  de: 'de-CH',
-  fr: 'fr-CH',
-  /*   it: 'it-CH', */
-} as const
-
-export function useTranslations(lang: keyof typeof messages | undefined) {
+export function useTranslations(lang: keyof typeof ui | undefined) {
   if (!lang) lang = defaultLocale
-  return function t(key: keyof (typeof messages)[typeof defaultLocale]) {
-    return messages[lang][key] || messages[defaultLocale][key]
+  return function t(key: keyof (typeof ui)[typeof defaultLocale]) {
+    return ui[lang][key] || ui[defaultLocale][key]
   }
 }
 

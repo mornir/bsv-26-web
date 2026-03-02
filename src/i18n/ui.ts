@@ -1,4 +1,16 @@
-export default {
+export const languages = {
+  de: 'Deutsch',
+  fr: 'Français',
+}
+
+export const locales = {
+  de: 'de-CH',
+  fr: 'fr-CH',
+  /*   it: 'it-CH', */
+}
+export const defaultLocale = 'de'
+
+export const ui = {
   de: {
     'nav.brand': 'BSV 2026',
     'nav.titles': 'Titel',
