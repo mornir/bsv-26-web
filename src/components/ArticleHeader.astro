@@ -9,29 +9,26 @@ const { title, chapter, section, number, name } = Astro.props
   <div class="mb-8 flex flex-wrap items-center gap-2">
     {/* Titel Pill */}
     <div
-      class="inline-flex font-medium items-center gap-2 px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full text-xs"
+      class="inline-flex font-medium items-center gap-2 px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full text-xs border border-purple-200"
     >
       <Book class="w-3.5 h-3.5" />
-      <span>1. Titel:</span>
-      <span>Brandschutzmassnahemen</span>
+      <span>1. Titel: Brandschutzmassnahemen</span>
     </div>
 
     {/* Kapitel Pill */}
     <div
-      class="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs"
+      class="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-full text-xs"
     >
       <Layers class="w-3.5 h-3.5" />
-      <span class="font-medium">2. Kapitel:</span>
-      <span>Flucht- und Rettungswege</span>
+      <span class="font-medium">2. Kapitel: Flucht- und Rettungswege</span>
     </div>
 
     {/* Abschnitt Pill */}
     <div
-      class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-50 text-sky-600 rounded-full text-xs"
+      class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-50 text-sky-600 border-sky-200 border rounded-full text-xs"
     >
       <FileText class="w-3.5 h-3.5" />
-      <span class="font-medium">3. Abschnitt</span>
-      <span>Brandabschnitte</span>
+      <span class="font-medium">3. Abschnitt: Brandabschnitte</span>
     </div>
   </div>
 
