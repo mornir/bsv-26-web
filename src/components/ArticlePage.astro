@@ -1,7 +1,6 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
 import { ChevronRight } from '@lucide/astro'
-
 import type { ArticleView } from '@/pages/art/[number].astro'
 
 interface Props {
@@ -17,15 +16,15 @@ const {
   exp = null,
   name,
 } = Astro.props.article
-
-// mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
 ---
 
-<article id={`art-${number}`} class="mx-auto mt-18 mb-24 max-w-3xl">
+<article
+  class="mx-auto rounded-lg mt-18 mb-24 border bg-white max-w-3xl border-slate-300 p-6"
+>
   <!-- Article Header -->
-  <header>
+  <header class="mb-4">
     <!-- Breadcrumbs - Hierarchical information -->
-    <nav class="mb-6" aria-label="Breadcrumb">
+    <nav class="mb-6">
       <ol class="flex flex-wrap items-center gap-2 text-sm text-slate-600">
         {
           [title, chapter, section]
@@ -48,7 +47,7 @@ const {
     <div class="mb-2 font-mono text-slate-600">
       Artikel <span>{number}</span>
     </div>
-    <h1 class="font-serif text-3xl leading-tight">
+    <h1 class="font-serif text-2xl leading-tight">
       {name}
     </h1>
   </header>
@@ -59,8 +58,8 @@ const {
   <!-- Erläuterung -->
   {
     exp && (
-      <div class="mt-8 w-fit rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-6">
-        <h2 class="mb-4 text-xl font-semibold text-blue-900">
+      <div class="mt-8 w-fit rounded-r-md border-l-4 border-blue-500 bg-blue-50 p-6">
+        <h2 class="mb-4 text-lg font-semibold text-blue-900">
           Erläuterung zum Art. {number}
         </h2>
         <div class="text-blue-900">

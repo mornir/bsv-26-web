@@ -1,28 +1,22 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { getArticlesFromTitle } from '@/sanity/queries'
+import { getArticlesFromTitle, getTitles } from '@/sanity/queries'
+import { formatHeading } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
+const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
-  const titlesCount = Array.from({ length: 10 }, (_, i) => String(i + 1))
-
-  const deRoutes = titlesCount.map((number) => ({
-    params: { lang: 'de', number },
+  const titles = await getTitles()
+  return titles.map((title) => ({
+    params: { number: title.slug.current },
   }))
-
-  const frRoutes = titlesCount.map((number) => ({
-    params: { lang: 'fr', number },
-  }))
-
-  return [...deRoutes, ...frRoutes]
 }
 
-const params = Astro.params
+const { number } = Astro.params
 
-const lang = params.lang as LangKeys
+const articles = await getArticlesFromTitle(number)
 
-const articles = await getArticlesFromTitle(parseInt(params.number))
-
-const heading = params.number + '. Titel'
+const heading = formatHeading({ number, type: 'title' }, locale)
 ---
 
 <Layout title={heading}>
@@ -31,7 +25,7 @@ const heading = params.number + '. Titel'
       {heading}
     </h1>
     <ul>
-      {articles.map((article) => <li>{article.name[lang]}</li>)}
+      {articles.map((article) => <li>{article.name[locale]}</li>)}
     </ul>
   </div>
 </Layout>
