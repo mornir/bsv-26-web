@@ -8,7 +8,7 @@ export function useTranslations(lang: keyof typeof ui | undefined) {
 }
 
 type heading = {
-  number: number
+  number: number | string
   type: 'title' | 'chapter' | 'section'
 }
 

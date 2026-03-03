@@ -23,12 +23,11 @@ export async function getFeatures() {
   return client.fetch(getFeaturesQuery)
 }
 
-// TODO: also fetch detail about title
-export async function getArticlesFromTitle(titleNumber: number) {
-  const getArticlesFromTitleQuery = defineQuery(`*[
-    _type == "article" 
-    && title->number == $titleNumber]
-    `)
+export async function getArticlesFromTitle(titleNumber: string) {
+  const getArticlesFromTitleQuery = defineQuery(`
+  *[_type == "article" && title->slug.current == $titleNumber]
+  ${articleProjection}
+  | order(number asc)`)
   return client.fetch(getArticlesFromTitleQuery, {
     titleNumber,
   })
