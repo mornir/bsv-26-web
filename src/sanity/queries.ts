@@ -56,8 +56,8 @@ export async function getNav() {
 
 export async function getIndex() {
   const getIndexQuery = defineQuery(`{
-  "articles": *[_type == "article"]{name, number, slug, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": section->number} | order(number asc),
-  "titles": *[_type == "title"]{name, number} | order(number asc),
+  "articles": *[_type == "article"]{name, number, "slug": slug.current, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": section->number} | order(number asc),
+  "titles": *[_type == "title"]{name, number, "slug": slug.current} | order(number asc),
   "chapters": *[_type == "chapter"]{name, number, "titleNum": title->number} | order(number asc),
   "sections": *[_type == "section"]{name, number, "titleNum": title->number, "chapterNum": chapter->number} | order(number asc),
 }`)
