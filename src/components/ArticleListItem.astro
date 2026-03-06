@@ -1,7 +1,6 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
 import ExpAccordion from '@/components/ExpAccordion.astro'
-import ArticleHeader from './ArticleHeader.astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -12,7 +11,7 @@ interface Props {
   exp?: any
 }
 
-const { name, number, law, exp = [] } = Astro.props
+const { name, number, law, exp = null } = Astro.props
 
 const url = getLocaleUrl('/art/' + number, locale)
 ---
@@ -32,7 +31,12 @@ const url = getLocaleUrl('/art/' + number, locale)
 
   <RichText blocks={law} />
 
-  <ExpAccordion number={number}>
-    <RichText blocks={exp} />
-  </ExpAccordion>
+  <!-- Erläuterung -->
+  {
+    exp && (
+      <ExpAccordion number={number}>
+        <RichText blocks={exp} />
+      </ExpAccordion>
+    )
+  }
 </article>

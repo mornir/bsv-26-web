@@ -3,6 +3,7 @@ import PageFind from '@/layouts/PageFind.astro'
 import Toolbar from '@/components/Toolbar.astro'
 import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
+import ArticlePills from '@/components/ArticlePills.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
 import { locales } from '@/i18n/ui'
@@ -40,7 +41,7 @@ export type ArticleView = typeof articleView
 ---
 
 <PageFind title={'Art. ' + article.number}>
-  <div x-data={`{languages: ['${locale}']}`}>
+  <div x-data={`{languages: ['${locale}']}`} class="mb-24">
     <Toolbar>
       <a
         href={`/gesamtwerk#art-${article.number}`}
@@ -69,7 +70,12 @@ export type ArticleView = typeof articleView
         }
       </div>
     </Toolbar>
-    <div x-show="languages.length === 1">
+    <div x-show="languages.length === 1" class="max-w-5xl mx-auto px-6">
+      <ArticlePills
+        title={articleView.title}
+        chapter={articleView.chapter}
+        section={articleView.section}
+      />
       <ArticlePage article={articleView} />
     </div>
     <template x-if="languages.length > 1" x-cloak>

@@ -2,8 +2,6 @@
 import RichText from '@/components/portable-text/RichText.astro'
 import type { ArticleView } from '@/pages/art/[number].astro'
 
-import ArticleHeader from './ArticleHeader.astro'
-
 interface Props {
   article: ArticleView
 }
@@ -20,12 +18,12 @@ const {
 ---
 
 <article
-  class="mx-auto rounded-lg mt-18 mb-24 border bg-white max-w-3xl border-slate-300 p-6"
+  class="mx-auto mt-4 rounded-lg border bg-white max-w-3xl border-slate-300 p-12"
 >
-  <ArticleHeader title={title} chapter={chapter} section={section}>
+  <header class="mb-6">
     <div class="mb-1 font-mono text-slate-600">Artikel {number}</div>
-    <h1 class="font-serif text-2xl leading-tight">{name}</h1></ArticleHeader
-  >
+    <h1 class="font-serif text-2xl leading-tight">{name}</h1>
+  </header>
   <!-- Vorschriftentext -->
   <RichText blocks={law} />
 
