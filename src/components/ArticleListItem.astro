@@ -1,29 +1,32 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
 import ExpAccordion from '@/components/ExpAccordion.astro'
+import ArticleHeader from './ArticleHeader.astro'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
+const locale = getLocale(Astro.url) as LangKeys
 
 interface Props {
-  title: string
+  name: string
   number: number
   law: any
   exp?: any
 }
 
-const { title, number, law, exp = [] } = Astro.props
+const { name, number, law, exp = [] } = Astro.props
 
-// mx-auto prose scroll-mt-12 prose-stone prose-p:my-2 prose-ol:mt-0 prose-ol:mb-2 prose-ul:mt-0 prose-ul:mb-2 prose-thead:font-semibold
-
-// mx-auto prose max-w-5xl prose-stone prose-p:my-2 prose-thead:font-semibold
+const url = getLocaleUrl('/art/' + number, locale)
 ---
 
-<article id={`art-${number}`} class="mx-auto max-w-3xl">
+<article
+  id={`art-${number}`}
+  class="rounded-lg mb-4 border bg-white border-slate-300 p-6"
+>
   <h2 class="mb-3">
-    <span class="mb-1 block font-mono text-sm text-gray-500"
+    <span class="mb-1 block font-mono text-sm text-slate-600"
       >Artikel {number}</span
     >
-    <a
-      class="block text-xl transition-colors hover:text-blue-600"
-      href={'/art/' + number}>{title}</a
+    <a class="block text-xl transition-colors hover:text-blue-600" href={url}
+      >{name}</a
     >
   </h2>
 

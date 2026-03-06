@@ -1,7 +1,8 @@
 ---
 import RichText from '@/components/portable-text/RichText.astro'
-import { ChevronRight } from '@lucide/astro'
 import type { ArticleView } from '@/pages/art/[number].astro'
+
+import ArticleHeader from './ArticleHeader.astro'
 
 interface Props {
   article: ArticleView
@@ -21,38 +22,10 @@ const {
 <article
   class="mx-auto rounded-lg mt-18 mb-24 border bg-white max-w-3xl border-slate-300 p-6"
 >
-  <!-- Article Header -->
-  <header class="mb-6">
-    <!-- Breadcrumbs - Hierarchical information -->
-    <nav class="mb-6">
-      <ol class="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-        {
-          [title, chapter, section]
-            .filter((heading) => Boolean(heading.number))
-            .map((heading, i, arr) => (
-              <li class="flex items-center gap-1">
-                <span class="font-medium text-slate-900">
-                  {heading.number}. Titel
-                </span>
-                <span class="text-slate-400">·</span>
-                <span>{heading.name}</span>
-                {i < arr.length - 1 && (
-                  // No chevron right if it is the last item
-                  <ChevronRight class="h-4 w-4 text-slate-400" />
-                )}
-              </li>
-            ))
-        }
-      </ol>
-    </nav>
-    <div class="mb-1 font-mono text-slate-600">
-      Artikel <span>{number}</span>
-    </div>
-    <h1 class="font-serif text-2xl leading-tight">
-      {name}
-    </h1>
-  </header>
-
+  <ArticleHeader title={title} chapter={chapter} section={section}>
+    <div class="mb-1 font-mono text-slate-600">Artikel {number}</div>
+    <h1 class="font-serif text-2xl leading-tight">{name}</h1></ArticleHeader
+  >
   <!-- Vorschriftentext -->
   <RichText blocks={law} />
 

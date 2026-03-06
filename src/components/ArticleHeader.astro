@@ -1,37 +1,67 @@
 ---
-import { ChevronRight, BookOpen, Book, FileText, Layers } from '@lucide/astro'
+import { Book, FileText, Layers } from '@lucide/astro'
+import { formatHeading } from '@/i18n/utils'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 
-const { title, chapter, section, number, name } = Astro.props
+const locale = getLocale(Astro.url) as LangKeys
+
+type heading = {
+  number: number | undefined
+  name: string | undefined
+}
+
+interface Props {
+  title: {
+    number: number
+    name: string | undefined
+  }
+  chapter?: heading
+  section?: heading
+}
+
+const { title, chapter = null, section = null } = Astro.props
 ---
 
 <header class="mb-6">
-  {/* Hierarchical Pills */}
   <div class="mb-8 flex flex-wrap items-center gap-2">
-    {/* Titel Pill */}
-    <div
+    <a
       class="inline-flex font-medium items-center gap-2 px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full text-xs border border-purple-200"
+      href={getLocaleUrl(`/t/${title.number}`, locale)}
     >
       <Book class="w-3.5 h-3.5" />
-      <span>1. Titel: Brandschutzmassnahemen</span>
-    </div>
+      <span
+        >{
+          `${formatHeading(
+            { number: title.number, type: 'title' },
+            locale
+          )}: ${title.name}`
+        }</span
+      >
+    </a>
 
-    {/* Kapitel Pill */}
-    <div
-      class="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-full text-xs"
-    >
-      <Layers class="w-3.5 h-3.5" />
-      <span class="font-medium">2. Kapitel: Flucht- und Rettungswege</span>
-    </div>
+    {
+      chapter?.number && (
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-full text-xs">
+          <Layers class="w-3.5 h-3.5" />
+          <span class="font-medium">{`${formatHeading(
+            { number: chapter.number, type: 'chapter' },
+            locale
+          )}: ${chapter.name}`}</span>
+        </div>
+      )
+    }
 
-    {/* Abschnitt Pill */}
-    <div
-      class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-50 text-sky-600 border-sky-200 border rounded-full text-xs"
-    >
-      <FileText class="w-3.5 h-3.5" />
-      <span class="font-medium">3. Abschnitt: Brandabschnitte</span>
-    </div>
+    {
+      section?.number && (
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-50 text-sky-600 border-sky-200 border rounded-full text-xs">
+          <FileText class="w-3.5 h-3.5" />
+          <span class="font-medium">{`${formatHeading(
+            { number: section.number, type: 'section' },
+            locale
+          )}: ${section.name}`}</span>
+        </div>
+      )
+    }
   </div>
-
-  <div class="mb-1 font-mono text-slate-600">Artikel 1</div>
-  <h1 class="font-serif text-2xl leading-tight">Schutzziele</h1>
+  <slot />
 </header>
