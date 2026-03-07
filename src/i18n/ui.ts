@@ -25,6 +25,7 @@ export const ui = {
     'heading.title': 'Titel',
     'heading.chapter': 'Kapitel',
     'heading.section': 'Abschnitt',
+    'heading.article': 'Artikel',
   },
   fr: {
     'nav.brand': 'PPI 2026',
@@ -40,5 +41,6 @@ export const ui = {
     'heading.title': 'Titre',
     'heading.chapter': 'Chapitre',
     'heading.section': 'Section',
+    'heading.article': 'Article',
   },
 } as const

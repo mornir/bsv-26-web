@@ -2,7 +2,7 @@
 import PageIndex from '@/layouts/PageIndex.astro'
 import { getIndex } from '@/sanity/queries'
 import { formatHeading } from '@/i18n/utils'
-import { getLocale } from 'astro-i18n-aut'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -74,6 +74,10 @@ function buildToc() {
 }
 
 const toc = buildToc()
+
+function artURL(slug: string) {
+  return getLocaleUrl('/art/' + slug, locale)
+}
 ---
 
 <PageIndex title="Inhaltsverzeichnis">
@@ -81,9 +85,11 @@ const toc = buildToc()
     {
       toc.map((title) => (
         <div class="rounded-lg border border-slate-300 bg-white p-6">
-          <h2 class="mb-2 text-xl font-semibold text-slate-900">
-            {formatHeading({ number: title.number, type: 'title' }, locale)}:
-            {title.name[locale]}
+          <h2 class="mb-2 text-xl font-semibold text-slate-900 hover:underline">
+            <a href={getLocaleUrl('/t/' + title.slug, locale)}>
+              {formatHeading({ number: title.number, type: 'title' }, locale)}:
+              {title.name[locale]}
+            </a>
           </h2>
 
           <div class="mt-3 ml-2 space-y-6">
@@ -93,7 +99,7 @@ const toc = buildToc()
                 {title.articles.map((article) => (
                   <li>
                     <a
-                      href={`/art/${article.slug.current}`}
+                      href={artURL(article.slug)}
                       class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                     >
                       Art. {article.number} {article.name[locale]}
@@ -118,7 +124,7 @@ const toc = buildToc()
                   {section.articles.map((article) => (
                     <li>
                       <a
-                        href={`/art/${article.slug.current}`}
+                        href={artURL(article.slug)}
                         class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                       >
                         Art. {article.number} {article.name[locale]}
@@ -146,7 +152,7 @@ const toc = buildToc()
                     {chapter.articles.map((article) => (
                       <li>
                         <a
-                          href={`/art/${article.slug.current}`}
+                          href={artURL(article.slug)}
                           class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                         >
                           Art. {article.number} {article.name[locale]}
@@ -171,7 +177,7 @@ const toc = buildToc()
                       {section.articles.map((article) => (
                         <li>
                           <a
-                            href={`/art/${article.slug.current}`}
+                            href={artURL(article.slug)}
                             class="text-slate-700 transition-colors duration-150 hover:text-primary hover:underline"
                           >
                             Art. {article.number} {article.name[locale]}

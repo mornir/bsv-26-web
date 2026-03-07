@@ -47,7 +47,7 @@ const expOptions = [
         {
           articles.map((article: any) => (
             <ArticleListItem
-              title={article.name[locale] ?? ''}
+              name={article.name[locale] ?? ''}
               number={article.number}
               law={article.law[locale]}
               exp={article.exp?.[locale]}
