@@ -6,15 +6,7 @@ interface Props {
   article: ArticleView
 }
 
-const {
-  title,
-  chapter,
-  section,
-  number,
-  law,
-  exp = null,
-  name,
-} = Astro.props.article
+const { number, law, exp = null, name } = Astro.props.article
 ---
 
 <article
