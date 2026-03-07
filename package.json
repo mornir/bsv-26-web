@@ -1,7 +1,9 @@
 {
-  "name": "app",
+  "name": "bsv-2026",
   "type": "module",
   "version": "0.0.1",
+  "author": "Jérôme Pott <jeromepott@hotmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
