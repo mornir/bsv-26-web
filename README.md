@@ -110,7 +110,7 @@ This repository provides a **technical implementation and web interface** for ac
 
 The official texts remain the property of their respective publishers.
 
-## License and trademarks
+## License and Trademarks
 
 This project is licensed under the **MIT License**.
 
