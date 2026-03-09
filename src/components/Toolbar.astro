@@ -1,9 +1,37 @@
 ---
-
+import { locales } from '@/i18n/ui'
+import { getLocale } from 'astro-i18n-aut'
+import { useTranslations } from '@/i18n/utils'
+const locale = getLocale(Astro.url) as LangKeys
+const t = useTranslations(locale)
 ---
 
 <div
-  class="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-slate-100 p-4"
+  class="sticky top-0 z-10 flex items-center justify-end border-b border-slate-200 bg-slate-100 p-4"
 >
-  <slot />
+  <!--   <a
+    href={`/gesamtwerk#art-2`}
+    class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
+  >
+    Artikel im Gesamtwerk anzeigen
+  </a> -->
+  <div class="flex justify-end gap-x-4">
+    {
+      Object.entries(locales)
+        .filter(([code]) => code !== locale)
+        .map(([code]) => (
+          <div>
+            <input
+              type="checkbox"
+              value={code}
+              x-model="languages"
+              name={code}
+              class="accent-violet-800"
+              id={code}
+            />
+            <label for={code}>{t(code as LangKeys)}</label>
+          </div>
+        ))
+    }
+  </div>
 </div>

@@ -8,6 +8,7 @@ export const locales = {
   fr: 'fr-CH',
   /*   it: 'it-CH', */
 }
+
 export const defaultLocale = 'de'
 
 export const ui = {
@@ -26,6 +27,8 @@ export const ui = {
     'heading.chapter': 'Kapitel',
     'heading.section': 'Abschnitt',
     'heading.article': 'Artikel',
+    fr: 'Französisch',
+    de: 'Deutsch',
   },
   fr: {
     'nav.brand': 'PPI 2026',
@@ -42,5 +45,7 @@ export const ui = {
     'heading.chapter': 'Chapitre',
     'heading.section': 'Section',
     'heading.article': 'Article',
+    fr: 'Français',
+    de: 'Allemand',
   },
 } as const
