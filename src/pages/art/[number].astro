@@ -6,7 +6,6 @@ import LangCompare from '@/components/LangCompare.astro'
 import ArticlePills from '@/components/ArticlePills.astro'
 import { getArticle, getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
-import { locales } from '@/i18n/ui'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -42,34 +41,7 @@ export type ArticleView = typeof articleView
 
 <PageFind title={'Art. ' + article.number}>
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
-    <Toolbar>
-      <a
-        href={`/gesamtwerk#art-${article.number}`}
-        class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
-      >
-        Artikel im Gesamtwerk anzeigen
-      </a>
-      <div class="flex justify-end gap-x-4">
-        <span>Sprachvergleich mit:</span>
-        {
-          Object.entries(locales)
-            .filter(([code]) => code !== locale)
-            .map(([code]) => (
-              <div>
-                <input
-                  type="checkbox"
-                  value={code}
-                  x-model="languages"
-                  name={code}
-                  class="accent-violet-800"
-                  id={code}
-                />
-                <label for={code}>{code.toUpperCase()}</label>
-              </div>
-            ))
-        }
-      </div>
-    </Toolbar>
+    <Toolbar />
     <div x-show="languages.length === 1" class="max-w-5xl mx-auto px-6">
       <ArticlePills
         title={articleView.title}
