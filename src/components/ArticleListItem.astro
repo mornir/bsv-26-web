@@ -24,10 +24,7 @@ const url = getLocaleUrl('/art/' + number, locale)
     <span class="mb-1 block font-mono text-sm text-slate-600"
       >Artikel {number}</span
     >
-    <a
-      class="block text-xl transition-colors hover:text-blue-600 font-semibold hover:underline"
-      href={url}>{name}</a
-    >
+    <a class="block text-xl font-semibold hover:underline" href={url}>{name}</a>
   </h2>
 
   <RichText blocks={law} />
