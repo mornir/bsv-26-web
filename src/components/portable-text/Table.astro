@@ -3,7 +3,9 @@ import TestTable from '../TestTable.astro'
 const { node } = Astro.props
 ---
 
-<TestTable />
+<div class="max-w-full overflow-x-auto">
+  <TestTable />
+</div>
 
 <!-- <div class="mx-auto max-w-7xl">
   <Fragment set:html={node.html} />
