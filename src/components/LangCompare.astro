@@ -44,3 +44,13 @@ function textSize(index: Number) {
     }
   </div>
 </div>
+
+<style>
+  /* https://docs.astro.build/en/guides/styling/#global-styles */
+  /* Subgrid needs to be applied to lists for horizontal alignement to work */
+  article :global(ol, ul) {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 20;
+  }
+</style>
