@@ -4,15 +4,19 @@ const {
   index,
 } = Astro.props
 
+console.log(Astro.props)
+
 // Tip: Classes added to fragment/slot are passed to Astro.props
 // https://github.com/theisel/astro-portabletext/blob/main/examples/portabletext-slots.astro
+
+// If 'grid grid-rows-subgrid row-span-20' causes perfomance issue, remove them for monolingual view, using framgent/slot.
 ---
 
 {
   listItem === 'number' ? (
     <ol
       class:list={[
-        'marker:text-slate-500 list-inside grid grid-rows-subgrid row-span-20',
+        'marker:text-slate-500 list-inside grid grid-rows-subgrid row-span-20 text-lg leading-relaxed text-slate-800',
         {
           'my-4 list-[superscript-numbers] space-y-4':
             level === 1 && index !== 1,
@@ -25,7 +29,7 @@ const {
       <slot />
     </ol>
   ) : (
-    <ul class="my-2 list-inside list-disc space-y-2 marker:text-slate-500">
+    <ul class="my-2 list-inside list-disc space-y-2 marker:text-slate-500 grid grid-rows-subgrid row-span-20 text-lg leading-relaxed text-slate-800">
       <slot />
     </ul>
   )
