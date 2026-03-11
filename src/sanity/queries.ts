@@ -34,6 +34,7 @@ export async function getArticlesFromTitle(titleSlug: string) {
   })
 }
 
+// TODO: remove
 export async function getArticle(slug: string) {
   const getArticleQuery = defineQuery(`
 
