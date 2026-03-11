@@ -23,7 +23,7 @@ const titles = await getTitles()
                 {formatHeading({ number: title.number, type: 'title' }, locale)}
               </span>
               <span class="mt-1 block text-lg font-semibold">
-                {title.name.de}
+                {title.name[locale]}
               </span>
             </h2>
             <div class="mt-2 leading-relaxed text-slate-700">
