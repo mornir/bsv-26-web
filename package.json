@@ -1,5 +1,6 @@
 {
   "name": "bsv-26-web",
+  "private": true,
   "type": "module",
   "version": "0.0.1",
   "author": "Jérôme Pott <jeromepott@hotmail.com>",

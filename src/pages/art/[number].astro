@@ -4,7 +4,7 @@ import Toolbar from '@/components/Toolbar.astro'
 import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import ArticlePills from '@/components/ArticlePills.astro'
-import { getArticle, getArticles } from '@/sanity/queries'
+import { getArticles } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url) as LangKeys
@@ -13,12 +13,11 @@ export async function getStaticPaths() {
   const articles = await getArticles()
   return articles.map((article) => ({
     params: { number: article.slug.current },
+    props: { article },
   }))
 }
 
-const { number } = Astro.params
-const article = await getArticle(number)
-if (!article) return Astro.redirect('/404')
+const { article } = Astro.props
 
 const articleView = {
   number: article.number,
