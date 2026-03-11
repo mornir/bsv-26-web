@@ -3,12 +3,13 @@ import Layout from '@/layouts/Layout.astro'
 
 interface Props {
   title: string
+  tabTitel?: string
 }
 
-const { title } = Astro.props
+const { title, tabTitel = title } = Astro.props
 ---
 
-<Layout title={title}>
+<Layout title={tabTitel}>
   <div class="mt-12 mb-32">
     <h1 class="text-center font-serif text-3xl">{title}</h1>
     <div class="mx-auto mt-8 max-w-3xl">

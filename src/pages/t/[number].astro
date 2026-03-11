@@ -4,6 +4,7 @@ import { getArticlesFromTitle, getTitles } from '@/sanity/queries'
 import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 import ArticleListItem from '@/components/ArticleListItem.astro'
+
 const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
@@ -15,15 +16,16 @@ export async function getStaticPaths() {
 
 const { number } = Astro.params
 
-const articles = await getArticlesFromTitle(number)
+const { articles, title } = await getArticlesFromTitle(number)
 
 const heading = formatHeading({ number, type: 'title' }, locale)
+const pageTitle = `${heading}: ${title?.name[locale]}`
 ---
 
-<PageIndex title={heading}>
+<PageIndex title={pageTitle} tabTitel={heading}>
   <section class="space-y-4">
     {
-      articles.map((article: any) => (
+      articles.map((article) => (
         <ArticleListItem
           name={article.name[locale] ?? ''}
           number={article.number}

@@ -23,13 +23,14 @@ export async function getFeatures() {
   return client.fetch(getFeaturesQuery)
 }
 
-export async function getArticlesFromTitle(titleNumber: string) {
-  const getArticlesFromTitleQuery = defineQuery(`
-  *[_type == "article" && title->slug.current == $titleNumber]
+export async function getArticlesFromTitle(titleSlug: string) {
+  const getArticlesFromTitleQuery = defineQuery(`{
+  "articles": *[_type == "article" && title->slug.current == $titleSlug]
   ${articleProjection}
-  | order(number asc)`)
+  | order(number asc),
+  "title": *[_type == "title" && slug.current == $titleSlug][0]}`)
   return client.fetch(getArticlesFromTitleQuery, {
-    titleNumber,
+    titleSlug,
   })
 }
 
