@@ -32,9 +32,11 @@ const url = getLocaleUrl('/art/' + number, locale)
   <!-- Erläuterung -->
   {
     exp && (
-      <ExpAccordion number={number}>
-        <RichText blocks={exp} />
-      </ExpAccordion>
+      <div class="mt-4">
+        <ExpAccordion number={number}>
+          <RichText blocks={exp} />
+        </ExpAccordion>
+      </div>
     )
   }
 </article>

@@ -9,6 +9,12 @@ export async function getTitles() {
   return client.fetch(getTitlesQuery)
 }
 
+export async function getAppendices() {
+  const getAppendicesQuery = defineQuery(`
+  *[_type == "appendix"] | order(number asc)`)
+  return client.fetch(getAppendicesQuery)
+}
+
 export async function getArticles() {
   const getArticlesQuery = defineQuery(`
   *[_type == "article"]
