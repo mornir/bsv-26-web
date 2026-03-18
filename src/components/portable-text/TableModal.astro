@@ -21,14 +21,14 @@ const TableComponent =
   <div class="flex justify-end mb-4">
     <button
       @click="open = true"
-      class="flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-300 whitespace-nowrap"
+      class="hidden items-center gap-2 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-300 whitespace-nowrap"
     >
       <Maximize2 class="h-4 w-4" />
       <span>Tabelle vergrössern</span>
     </button>
   </div>
 
-  <div class="max-w-full overflow-x-auto">
+  <div class="max-w-full overflow-x-auto detect-horizontal-scroll">
     {TableComponent && <TableComponent />}
     {source === 'html' && html && <Fragment set:html={html} />}
   </div>
@@ -90,3 +90,26 @@ const TableComponent =
     </div>
   </template>
 </div>
+
+<style>
+  :root {
+    timeline-scope: --can-scroll;
+    animation: detect-scroll forwards;
+    animation-timeline: --can-scroll;
+    container-name: --can-scroll;
+  }
+  .detect-horizontal-scroll {
+    scroll-timeline: --can-scroll x;
+  }
+  @keyframes detect-scroll {
+    0%,
+    to {
+      --can-scroll: 1;
+    }
+  }
+  @container --can-scroll style(--can-scroll: 1) {
+    button {
+      display: flex;
+    }
+  }
+</style>
