@@ -4,7 +4,7 @@ import Toolbar from '@/components/Toolbar.astro'
 import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import ArticlePills from '@/components/ArticlePills.astro'
-import { getArticles } from '@/sanity/queries'
+import { getArticles, getArticle } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url) as LangKeys
@@ -17,7 +17,12 @@ export async function getStaticPaths() {
   }))
 }
 
-const { article } = Astro.props
+let article = Astro.props.article
+
+/* const isDev = import.meta.env.DEV
+if (isDev) {
+  article = await getArticle(Astro.params.number)
+} */
 
 const articleView = {
   number: article.number,
