@@ -1,7 +1,20 @@
 ---
+import Qualifications from '@/components/tables/Qualifications.astro'
+import TestTable from '@/components/tables/TestTable.astro'
+
 import { X, Maximize2 } from '@lucide/astro'
 
-const { html, tableId, name } = Astro.props.node
+console.log(Astro.props.node)
+
+const { html, tableId, name, source } = Astro.props.node
+
+// Mapping tableId → component
+const tableMap = {
+  users_desc: TestTable,
+  users_char: Qualifications,
+}
+
+const TableComponent = source === 'predefined' ? tableMap[tableId] : null
 ---
 
 <div x-data="{ open: false }" class="mt-2 mb-6">
@@ -17,7 +30,8 @@ const { html, tableId, name } = Astro.props.node
   </div>
 
   <div class="max-w-full overflow-x-auto">
-    {tableId ? <h1>dd</h1> : <Fragment set:html={html} />}
+    {TableComponent && <TableComponent />}
+    {source === 'html' && html && <Fragment set:html={html} />}
   </div>
 
   <!-- Modal -->
@@ -69,7 +83,8 @@ const { html, tableId, name } = Astro.props.node
 
           <!-- Content -->
           <div class="p-6">
-            <Fragment set:html={html} />
+            {TableComponent && <TableComponent />}
+            {source === 'html' && html && <Fragment set:html={html} />}
           </div>
         </div>
       </div>
