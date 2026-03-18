@@ -28,7 +28,7 @@
   }
 
   .law-table thead th {
-    @apply bg-slate-100 font-semibold text-slate-800;
+    @apply bg-table-light font-semibold text-slate-800;
   }
 
   .law-table tbody tr:nth-child(even) {
@@ -40,9 +40,9 @@
   }
 
   /* Apply bold to first cell of the row */
-  .law-table tbody tr:hover td:first-child {
+  /*   .law-table tbody tr:hover td:first-child {
     @apply font-medium;
-  }
+  } */
 }
 
 [x-cloak] {
