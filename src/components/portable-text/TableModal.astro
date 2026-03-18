@@ -1,20 +1,19 @@
 ---
 import Qualifications from '@/components/tables/Qualifications.astro'
 import TestTable from '@/components/tables/TestTable.astro'
-
 import { X, Maximize2 } from '@lucide/astro'
-
-console.log(Astro.props.node)
+import type { Table } from '@/types/sanity.types'
+type TableId = NonNullable<Table['tableId']>
 
 const { html, tableId, name, source } = Astro.props.node
 
-// Mapping tableId → component
 const tableMap = {
   users_desc: TestTable,
   users_char: Qualifications,
 }
 
-const TableComponent = source === 'predefined' ? tableMap[tableId] : null
+const TableComponent =
+  source === 'predefined' ? tableMap[tableId as TableId] : null
 ---
 
 <div x-data="{ open: false }" class="mt-2 mb-6">
