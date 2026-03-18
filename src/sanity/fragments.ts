@@ -1,4 +1,4 @@
-// As of now, iterating over languages is not compatible with Sanity TypeGen.
+// As of 18-03-2026, iterating over languages is not compatible with Sanity TypeGen.
 import { defineQuery } from 'groq'
 
 /*
@@ -13,7 +13,10 @@ de[]{
     children[]{
     ...,
     _type == "table" => {
-      "html": @->html.de
+      "html": @->html.de,
+      "tableId": @->tableId,
+      "name": @->name.de,
+      "source": @->source,
     }
   },
   markDefs[]{
@@ -26,7 +29,6 @@ de[]{
        "number": @->number,
        "name": @->name.de,
         "img":  @->image.de,
-        
     },
   }
 },

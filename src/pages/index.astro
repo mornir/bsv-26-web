@@ -2,9 +2,11 @@
 import Layout from '@/layouts/Layout.astro'
 import Search from 'astro-pagefind/components/Search'
 import { useTranslations } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
 
-const currentLang = Astro.currentLocale as LangKeys
-const t = useTranslations(currentLang)
+const locale = getLocale(Astro.url) as LangKeys
+
+const t = useTranslations(locale)
 ---
 
 <Layout title="Startseite">
