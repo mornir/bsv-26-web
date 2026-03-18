@@ -1,0 +1,78 @@
+---
+import { X, Maximize2 } from '@lucide/astro'
+
+const { html, tableId, name } = Astro.props.node
+---
+
+<div x-data="{ open: false }" class="mt-2 mb-6">
+  <!-- Trigger -->
+  <div class="flex justify-end mb-4">
+    <button
+      @click="open = true"
+      class="flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-300 whitespace-nowrap"
+    >
+      <Maximize2 class="h-4 w-4" />
+      <span>Tabelle vergrössern</span>
+    </button>
+  </div>
+
+  <div class="max-w-full overflow-x-auto">
+    {tableId ? <h1>dd</h1> : <Fragment set:html={html} />}
+  </div>
+
+  <!-- Modal -->
+  <template x-teleport="body">
+    <div
+      x-show="open"
+      style="display: none"
+      @keydown.escape.prevent.stop="open = false"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={name}
+      class="fixed inset-0 z-10 overflow-y-auto"
+    >
+      <!-- Overlay -->
+      <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black/25">
+      </div>
+
+      <!-- Panel -->
+      <div
+        x-show="open"
+        x-transition
+        @click="open = false"
+        class="relative flex min-h-screen items-center justify-center p-4"
+      >
+        <div
+          @click.stop
+          x-trap.noscroll.inert="open"
+          class="relative max-h-[90vh] w-full max-w-7xl overflow-auto rounded-xl bg-white shadow-lg"
+        >
+          <!-- Header -->
+          <div
+            class="sticky top-0 flex items-start justify-between border-b border-gray-200 bg-white px-6 py-4"
+          >
+            <h2>
+              <span class="mb-1 block font-mono text-sm text-gray-500">
+                Tabelle
+              </span>
+              <span class="block font-serif text-xl">{name}</span>
+            </h2>
+
+            <button
+              type="button"
+              @click="open = false"
+              class="rounded-lg p-2 transition-colors hover:bg-gray-100"
+            >
+              <X class="h-6 w-6" aria-label="Close" />
+            </button>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6">
+            <Fragment set:html={html} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
