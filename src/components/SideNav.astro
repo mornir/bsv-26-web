@@ -14,18 +14,18 @@ function artURL(slug: string) {
 ---
 
 <aside class="sticky top-0">
-  <nav class="space-y-8 px-4 py-6 bg-slate-100 h-screen overflow-y-auto">
+  <nav class="space-y-8 p-6 bg-slate-100 h-screen overflow-y-auto">
     {
       toc.map((title) => (
         <div>
-          <h2 class="mb-2 font-semibold text-slate-900 hover:underline">
+          <h2 class="mb-2 font-semibold text-slate-600 hover:underline text-sm">
             <a href={getLocaleUrl('/t/' + title.slug, locale)}>
               {formatHeading({ number: title.number, type: 'title' }, locale)}:
               {title.name[locale]}
             </a>
           </h2>
 
-          <div class="mt-3 ml-2 space-y-6">
+          <div class="ml-2 space-y-6">
             {/* Articles directly under title */}
             {title.articles.length > 0 && (
               <ul class="space-y-1">
@@ -45,7 +45,7 @@ function artURL(slug: string) {
             {/* Sections directly under title */}
             {title.sections.map((section) => (
               <div>
-                <h3 class="mb-1  text-slate-800 text-sm font-medium">
+                <h3 class="mb-1 text-slate-600 text-sm font-semibold">
                   {formatHeading(
                     { number: section.number, type: 'section' },
                     locale
@@ -70,8 +70,8 @@ function artURL(slug: string) {
 
             {/* Chapters */}
             {title.chapters.map((chapter) => (
-              <div class="space-y-3 pl-6">
-                <h3 class="mb-1 font-medium text-slate-800">
+              <div class="space-y-3 pl-2 mt-2">
+                <h3 class="mb-1 font-semibold text-slate-600  text-sm">
                   {formatHeading(
                     { number: chapter.number, type: 'chapter' },
                     locale
