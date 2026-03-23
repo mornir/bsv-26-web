@@ -2,7 +2,7 @@
 import '@/styles/global.css'
 
 import NavBar from '@/components/NavBar.astro'
-import SideNav from '@/components/SideNav.astro'
+import SideNav from '@/components/sidenav/SideNav.astro'
 import { Font } from 'astro:assets'
 
 import { getLocale } from 'astro-i18n-aut'
@@ -47,7 +47,7 @@ const { title } = Astro.props
 <style>
   .c-grid-wrapper {
     display: grid;
-    grid-template-columns: 22rem 1fr;
+    grid-template-columns: 25rem 1fr;
     grid-template-areas: 'sidenav main';
   }
 
