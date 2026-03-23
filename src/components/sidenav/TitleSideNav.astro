@@ -1,0 +1,30 @@
+---
+import { ChevronDown, ChevronRight } from '@lucide/astro'
+
+interface Props {
+  name: string | undefined
+}
+
+const { name } = Astro.props
+---
+
+<div x-data="{ expanded: false }" role="region">
+  <h3>
+    <button
+      type="button"
+      x-on:click="expanded = !expanded"
+      :aria-expanded="expanded"
+      class="flex w-full items-center justify-between bg-blue-50 px-2 py-3 text-left text-blue-900 transition-colors hover:bg-blue-100"
+    >
+      <span class="mb-2 font-semibold text-slate-600 text-sm">{name}</span>
+      <ChevronDown x-show="expanded" class="h-5 w-5" />
+      <ChevronRight x-show="!expanded" class="h-5 w-5" />
+    </button>
+  </h3>
+
+  <div x-show="expanded" x-collapse>
+    <div class="ml-2 space-y-6">
+      <slot />
+    </div>
+  </div>
+</div>

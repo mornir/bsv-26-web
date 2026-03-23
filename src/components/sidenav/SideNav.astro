@@ -2,7 +2,8 @@
 import { getIndex } from '@/sanity/queries'
 import { buildToc } from '@/utils/helpers'
 import { formatHeading } from '@/i18n/utils'
-import ArticleSideNav from './ArticleSideNav.astro'
+import ArticleSideNav from '@/components/sidenav/ArticleSideNav.astro'
+import TitleSideNav from '@/components/sidenav/TitleSideNav.astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
 const index = await getIndex()
@@ -19,12 +20,23 @@ function artURL(slug: string) {
     {
       toc.map((title) => (
         <div>
-          <h2 class="mb-2 font-semibold text-slate-600 hover:underline text-sm">
-            <a href={getLocaleUrl('/t/' + title.slug, locale)}>
-              {formatHeading({ number: title.number, type: 'title' }, locale)}:
-              {title.name[locale]}
-            </a>
-          </h2>
+          <TitleSideNav
+            name={`${formatHeading({ number: title.number, type: 'title' }, locale)}}: ${title.name[locale]}`}
+          >
+            {title.articles.length > 0 && (
+              <ul class="space-y-1">
+                {title.articles.map((article) => (
+                  <li>
+                    <ArticleSideNav
+                      slug={artURL(article.slug)}
+                      number={article.number}
+                      name={article.name[locale]}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </TitleSideNav>
 
           <div class="ml-2 space-y-6">
             {/* Articles directly under title */}
