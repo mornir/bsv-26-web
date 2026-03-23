@@ -9,6 +9,11 @@
   --color-table-light: #ecdde5;
 }
 
+@theme inline {
+  --font-sans: var(--font-public-sans);
+  --font-serif: var(--font-newsreader);
+}
+
 @layer components {
   .law-table {
     @apply w-full border-collapse overflow-x-auto border border-slate-300 bg-white leading-snug transition-colors duration-150;

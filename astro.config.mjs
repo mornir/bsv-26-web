@@ -1,5 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'astro/config'
+import { defineConfig, fontProviders } from 'astro/config'
 import alpinejs from '@astrojs/alpinejs'
 import sitemap from '@astrojs/sitemap'
 import { i18n, filterSitemapByDefaultLocale } from 'astro-i18n-aut/integration'
@@ -13,6 +13,18 @@ export default defineConfig({
   build: {
     format: 'file',
   },
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Public Sans',
+      cssVariable: '--font-public-sans',
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Newsreader',
+      cssVariable: '--font-newsreader',
+    },
+  ],
   integrations: [
     i18n({
       locales,

@@ -2,6 +2,8 @@
 import '@/styles/global.css'
 
 import NavBar from '@/components/NavBar.astro'
+import SideNav from '@/components/SideNav.astro'
+import { Font } from 'astro:assets'
 
 import { getLocale } from 'astro-i18n-aut'
 import { locales } from '@/i18n/ui'
@@ -23,16 +25,37 @@ const { title } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-public-sans" />
+    <Font cssVariable="--font-newsreader" />
     <title>{title} – BSV 2026</title>
   </head>
   <body class="bg-slate-50 text-primary">
     <!--     <Gate /> -->
     <NavBar />
-    <div>
-      <main>
+    <div class="c-grid-wrapper">
+      <div class="sidenav">
+        <SideNav />
+      </div>
+      <main class="main">
         <slot />
       </main>
     </div>
     <!--    <footer>FOOTER</footer> -->
   </body>
 </html>
+
+<style>
+  .c-grid-wrapper {
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+    grid-template-areas: 'sidenav main';
+  }
+
+  .c-main {
+    grid-area: 'main';
+  }
+
+  .c-sidenav {
+    grid-area: 'sidenav';
+  }
+</style>
