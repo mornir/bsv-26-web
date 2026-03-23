@@ -1,79 +1,15 @@
 ---
 import PageIndex from '@/layouts/PageIndex.astro'
+import { buildToc } from '@/utils/helpers'
 import { getIndex } from '@/sanity/queries'
 import { formatHeading } from '@/i18n/utils'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url) as LangKeys
 
-const { titles, chapters, sections, articles } = await getIndex()
+const index = await getIndex()
 
-/**
- * Build hierarchical tree
- */
-function buildToc() {
-  return titles.map((title) => {
-    const titleChapters = chapters.filter((c) => c.titleNum === title.number)
-
-    const titleSections = sections.filter(
-      (s) => s.titleNum === title.number && !s.chapterNum
-    )
-
-    const titleArticles = articles.filter(
-      (a) => a.titleNum === title.number && !a.chapterNum && !a.sectionNum
-    )
-
-    return {
-      ...title,
-      chapters: titleChapters.map((chapter) => {
-        const chapterSections = sections.filter(
-          (s) => s.titleNum === title.number && s.chapterNum === chapter.number
-        )
-
-        const chapterArticles = articles.filter(
-          (a) =>
-            a.titleNum === title.number &&
-            a.chapterNum === chapter.number &&
-            !a.sectionNum
-        )
-
-        return {
-          ...chapter,
-          sections: chapterSections.map((section) => {
-            const sectionArticles = articles.filter(
-              (a) =>
-                a.titleNum === title.number &&
-                a.chapterNum === chapter.number &&
-                a.sectionNum === section.number
-            )
-
-            return {
-              ...section,
-              articles: sectionArticles,
-            }
-          }),
-          articles: chapterArticles,
-        }
-      }),
-      sections: titleSections.map((section) => {
-        const sectionArticles = articles.filter(
-          (a) =>
-            a.titleNum === title.number &&
-            !a.chapterNum &&
-            a.sectionNum === section.number
-        )
-
-        return {
-          ...section,
-          articles: sectionArticles,
-        }
-      }),
-      articles: titleArticles,
-    }
-  })
-}
-
-const toc = buildToc()
+const toc = buildToc(index)
 
 function artURL(slug: string) {
   return getLocaleUrl('/art/' + slug, locale)
