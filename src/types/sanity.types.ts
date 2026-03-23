@@ -12,6 +12,8 @@
  * ---------------------------------------------------------------------------------
  */
 
+export declare const internalGroqTypeReferenceTo: unique symbol;
+
 // Source: schema.json
 export type Qualifications = {
   _id: string;
@@ -247,7 +249,7 @@ export type Table = {
   _rev: string;
   name: LocaleString;
   source: "predefined" | "html";
-  tableId?: "users_desc" | "users_char";
+  tableId?: "users_desc" | "users_char" | "users_examples";
   html?: LocaleText;
 };
 
@@ -268,7 +270,8 @@ export type UsersGroup = {
   _rev: string;
   designation: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I";
   desc: LocaleText;
-  risk: "low" | "moderate" | "high" | "very_high";
+  examples: LocaleText;
+  riskLevel: "low" | "moderate" | "elevated" | "high" | "very_high";
   attention: "yes" | "no";
   reactionCapability: "fast" | "slow";
   familiarity: "yes" | "no";
@@ -412,14 +415,14 @@ export type SanityFileAsset = {
   title?: string;
   description?: string;
   altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
+  sha1hash: string;
+  extension: string;
+  mimeType: string;
+  size: number;
+  assetId: string;
   uploadId?: string;
-  path?: string;
-  url?: string;
+  path: string;
+  url: string;
   source?: SanityAssetSourceData;
 };
 
@@ -441,14 +444,14 @@ export type SanityImageAsset = {
   title?: string;
   description?: string;
   altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
+  sha1hash: string;
+  extension: string;
+  mimeType: string;
+  size: number;
+  assetId: string;
   uploadId?: string;
-  path?: string;
-  url?: string;
+  path: string;
+  url: string;
   metadata?: SanityImageMetadata;
   source?: SanityAssetSourceData;
 };
@@ -461,8 +464,6 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes = Qualifications | LocaleString | Feature | SanityImageAssetReference | LocaleImage | LocaleText | LocaleBlockContent | SimpleEditor | LocaleSimpleEditor | TableReference | MeasureTargetReference | QualificationsReference | FigureReference | BlockContent | Appendix | Slug | MeasureTarget | TitleReference | Figure | SanityImageCrop | SanityImageHotspot | Table | Faq | UsersGroup | ExternalLink | ArticleReference | InternalLink | ChapterReference | SectionReference | Article | Section | Chapter | Title | Latex | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
-
-export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getTitlesQuery
