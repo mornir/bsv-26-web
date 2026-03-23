@@ -37,19 +37,19 @@ The site is built using a modern static architecture and deployed on Cloudflare'
 
 ### Requirements
 
-- Node.js or Bun
-- Bun (recommended)
+- Node.js v22
+- pnpm v10
 
 ### Install dependencies
 
 ```bash
-bun install
+pnpm install
 ```
 
 ### Start the development server
 
 ```bash
-bun run dev
+pnpm run dev
 ```
 
 The site will be available at:
@@ -63,7 +63,7 @@ http://localhost:4321
 Generate the static site:
 
 ```bash
-bun run build
+pnpm run build
 ```
 
 The output will be generated in the `dist/` directory.
@@ -81,7 +81,7 @@ Typical workflow:
 Build settings typically include:
 
 ```
-Build command: bun run build
+Build command: pnpm run deploy
 Output directory: dist
 ```
 
