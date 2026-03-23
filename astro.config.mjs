@@ -30,5 +30,17 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        'alpinejs',
+        '@alpinejs/focus',
+        '@alpinejs/persist',
+        '@alpinejs/collapse',
+        'tippy.js',
+      ],
+    },
+  },
+  devToolbar: {
+    enabled: false,
   },
 })
