@@ -45,7 +45,7 @@ export type ArticleView = typeof articleView
 
 <PageFind title={'Art. ' + article.number}>
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
-    <Toolbar />
+    <!--    <Toolbar /> -->
     <div x-show="languages.length === 1" class="max-w-5xl mx-auto px-6">
       <ArticlePills
         title={articleView.title}
