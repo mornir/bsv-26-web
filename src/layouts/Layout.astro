@@ -29,14 +29,14 @@ const { title } = Astro.props
     <Font cssVariable="--font-newsreader" />
     <title>{title} – BSV 2026</title>
   </head>
-  <body class="bg-slate-50 text-primary">
+  <body class="text-primary">
     <!--     <Gate /> -->
     <NavBar />
     <div class="c-grid-wrapper">
-      <div class="sidenav">
+      <div class="sidenav bg-slate-100 border-slate-200 border">
         <SideNav />
       </div>
-      <main class="main">
+      <main class="main bg-surface">
         <slot />
       </main>
     </div>

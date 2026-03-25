@@ -7,6 +7,7 @@
   --color-accent: oklch(43.8% 0.218 303.724);
   --color-table: #dabbcb;
   --color-table-light: #ecdde5;
+  --color-surface: #f4faff;
 }
 
 @theme inline {
