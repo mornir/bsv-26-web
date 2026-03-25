@@ -11,7 +11,7 @@ const t = useTranslations(locale)
 >
   <!--   <a
     href={`/gesamtwerk#art-2`}
-    class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
+    class="bg-primary px-4 py-2 text-white duration-700 ease-out"
   >
     Artikel im Gesamtwerk anzeigen
   </a> -->
@@ -26,7 +26,6 @@ const t = useTranslations(locale)
               value={code}
               x-model="languages"
               name={code}
-              class="accent-violet-800"
               id={code}
             />
             <label for={code}>{t(code as LangKeys)}</label>
