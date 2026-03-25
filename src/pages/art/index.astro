@@ -22,7 +22,7 @@ function artURL(slug: string) {
       toc.map((title) => (
         <div class="rounded-lg border border-slate-300 bg-white p-6">
           <h2 class="mb-2 text-xl font-semibold text-slate-900 hover:underline">
-            <a href={getLocaleUrl('/t/' + title.slug, locale)}>
+            <a href={getLocaleUrl('/titel/' + title.slug, locale)}>
               {formatHeading({ number: title.number, type: 'title' }, locale)}:
               {title.name[locale]}
             </a>
