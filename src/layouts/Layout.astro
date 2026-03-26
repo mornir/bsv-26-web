@@ -3,6 +3,7 @@ import '@/styles/global.css'
 
 import NavBar from '@/components/NavBar.astro'
 import SideNav from '@/components/sidenav/SideNav.astro'
+import MetadataPanel from '@/components/MetadataPanel.astro'
 import { Font } from 'astro:assets'
 
 import { getLocale } from 'astro-i18n-aut'
@@ -33,12 +34,13 @@ const { title } = Astro.props
     <!--     <Gate /> -->
     <NavBar />
     <div class="c-grid-wrapper">
-      <div class="sidenav bg-slate-50/80 border-slate-200 border">
+      <div class="sidenav bg-slate-100/80 border-slate-200 border">
         <SideNav />
       </div>
-      <main class="main bg-surface">
+      <main class="c-main bg-surface">
         <slot />
       </main>
+      <div class="c-metadata bg-surface"><MetadataPanel /></div>
     </div>
     <!--    <footer>FOOTER</footer> -->
   </body>
@@ -47,8 +49,8 @@ const { title } = Astro.props
 <style>
   .c-grid-wrapper {
     display: grid;
-    grid-template-columns: 25rem 1fr;
-    grid-template-areas: 'sidenav main';
+    grid-template-columns: 25rem 4fr 1fr;
+    grid-template-areas: 'sidenav main metadata';
   }
 
   .c-main {
@@ -57,5 +59,9 @@ const { title } = Astro.props
 
   .c-sidenav {
     grid-area: 'sidenav';
+  }
+
+  .c-metadata {
+    grid-area: 'metadata';
   }
 </style>

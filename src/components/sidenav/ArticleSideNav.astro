@@ -6,11 +6,16 @@ interface Props {
 }
 
 const { slug, number, name } = Astro.props
+
+const pathname = Astro.url.pathname
 ---
 
 <a
   href={slug}
-  class="text-slate-700 text-sm transition-colors duration-150 hover:text-slate-300"
+  class:list={[
+    'text-slate-700 text-sm transition-colors duration-150 hover:text-slate-300',
+    { 'bg-blue-100': pathname === slug },
+  ]}
 >
   Art. {number}
   {name}
