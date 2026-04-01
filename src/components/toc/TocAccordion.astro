@@ -6,13 +6,16 @@ interface Props {
 }
 
 const { name } = Astro.props
+
+//TODO: find a better way
 const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
 ---
 
 <div x-data="{ expanded: false }" role="region" aria-labelledby={headingId}>
-  <h3 id={headingId}>
+  <h3>
     <button
       type="button"
+      id={headingId}
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
       class="flex w-full items-center justify-between px-4 py-3 text-left text-slate-600 transition-colors hover:bg-blue-100"
