@@ -2,7 +2,7 @@
 import '@/styles/global.css'
 
 import NavBar from '@/components/NavBar.astro'
-import SideNav from '@/components/sidenav/SideNav.astro'
+import TocNav from '@/components/toc/TocNav.astro'
 import MetadataPanel from '@/components/MetadataPanel.astro'
 import { Font } from 'astro:assets'
 
@@ -35,7 +35,7 @@ const { title } = Astro.props
     <NavBar />
     <div class="c-grid-wrapper">
       <div class="sidenav bg-slate-100/80 border-slate-200 border">
-        <SideNav />
+        <TocNav />
       </div>
       <main class="c-main bg-surface">
         <slot />
