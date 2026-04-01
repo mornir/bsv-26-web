@@ -21,10 +21,10 @@ const { number, law, exp = null, name } = Astro.props.article
   {
     exp && (
       <div class="mt-8 w-fit border-l-4 border-[#49636f] bg-[#cdedfe] p-6">
-        <h2 class="font-sans  font-bold uppercase tracking-widest text-secondary">
+        <h2 class="font-sans font-bold uppercase tracking-widest text-secondary">
           Erläuterung zum Art. {number}
         </h2>
-        <div class="text-slate-900 mt-8">
+        <div class="mt-8">
           <RichText blocks={exp} />
         </div>
       </div>

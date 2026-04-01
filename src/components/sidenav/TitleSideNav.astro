@@ -16,9 +16,8 @@ const { name } = Astro.props
       :aria-expanded="expanded"
       class="flex w-full items-center justify-between px-2 py-3 text-left text-blue-900 transition-colors hover:bg-blue-100"
     >
-      <span class="font-semibold text-slate-600 text-sm">{name}</span>
-      <ChevronDown x-show="expanded" class="h-5 w-5" />
-      <ChevronRight x-show="!expanded" class="h-5 w-5" />
+      <span class="font-medium text-slate-600 text-sm">{name}</span>
+      <ChevronDown x-show="expanded" class="size-4" />
     </button>
   </h3>
 

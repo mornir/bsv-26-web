@@ -14,7 +14,7 @@ const pathname = Astro.url.pathname
   href={slug}
   class:list={[
     'text-slate-700 text-sm transition-colors duration-150 hover:text-slate-300',
-    { 'bg-blue-100': pathname === slug },
+    { 'font-bold': pathname === slug },
   ]}
 >
   Art. {number}
