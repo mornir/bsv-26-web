@@ -1,15 +1,16 @@
 ---
-import { ChevronDown, ChevronRight } from '@lucide/astro'
+import { ChevronDown } from '@lucide/astro'
 
 interface Props {
   name: string | undefined
 }
 
 const { name } = Astro.props
+const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
 ---
 
-<div x-data="{ expanded: false }" role="region">
-  <h3>
+<div x-data="{ expanded: false }" role="region" aria-labelledby={headingId}>
+  <h3 id={headingId}>
     <button
       type="button"
       x-on:click="expanded = !expanded"
