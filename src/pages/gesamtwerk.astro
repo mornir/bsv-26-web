@@ -3,7 +3,6 @@ import ArticleListItem from '@/components/ArticleListItem.astro'
 import Toolbar from '@/components/Toolbar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getArticles } from '@/sanity/queries'
-import SideNav from '@/components/sidenav/SideNav.astro'
 import { getLocale } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url) as LangKeys
@@ -19,9 +18,6 @@ const expOptions = [
 
 <Layout title="Gesamtwerk">
   <div class="c-grid-wrapper">
-    <div class="c-sidenav">
-      <SideNav />
-    </div>
     <div x-data="$store.toolbar" class="c-main mb-24">
       <Toolbar>
         <div class="flex gap-x-4">

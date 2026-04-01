@@ -8,6 +8,7 @@
   --color-table-light: #ecdde5;
   --color-surface: #f4faff;
   --color-law: #0a3747;
+  --color-outline: #5a8092;
 }
 
 @theme inline {
