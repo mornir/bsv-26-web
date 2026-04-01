@@ -14,15 +14,15 @@ const { name } = Astro.props
       type="button"
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
-      class="flex w-full items-center justify-between px-2 py-3 text-left text-blue-900 transition-colors hover:bg-blue-100"
+      class="flex w-full items-center justify-between px-4 py-3 text-left text-slate-600 transition-colors hover:bg-blue-100"
     >
-      <span class="font-medium text-slate-600 text-sm">{name}</span>
+      <span class="font-medium text-base">{name}</span>
       <ChevronDown x-show="expanded" class="size-4" />
     </button>
   </h3>
 
   <div x-show="expanded" x-collapse>
-    <div class="pl-2 space-y-2 border-l border-blue-200">
+    <div class="ml-2 pl-2 space-y-2 border-l-2 border-blue-200">
       <slot />
     </div>
   </div>

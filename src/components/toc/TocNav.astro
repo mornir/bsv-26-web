@@ -16,7 +16,7 @@ function artURL(slug: string) {
 ---
 
 <aside class="sticky top-0">
-  <nav class="space-y-1 p-6 h-screen overflow-y-auto">
+  <nav class="space-y-1 py-6 h-screen overflow-y-auto">
     {
       toc.map((title) => (
         <TocAccordion name={title.name[locale]}>
@@ -36,12 +36,12 @@ function artURL(slug: string) {
           )}
           {/* Sections directly under title */}
           {title.sections.map((section) => (
-            <div>
+            <div class="mb-4">
               <h3 class="mb-1 text-slate-500 text-sm font-semibold">
                 {section.name[locale]}
               </h3>
 
-              <ul class="mt-1 space-y-1 pl-2">
+              <ul class="space-y-1 pl-2">
                 {section.articles.map((article) => (
                   <li>
                     <TocArticle
