@@ -34,7 +34,7 @@ const { title } = Astro.props
     <!--     <Gate /> -->
     <NavBar />
     <div class="c-grid-wrapper">
-      <div class="sidenav bg-slate-100/80 border-slate-200 border">
+      <div class="c-sidenav bg-slate-100/80 border-slate-200 border">
         <TocNav />
       </div>
       <main class="c-main bg-surface">
@@ -54,14 +54,14 @@ const { title } = Astro.props
   }
 
   .c-main {
-    grid-area: 'main';
+    grid-area: main;
   }
 
   .c-sidenav {
-    grid-area: 'sidenav';
+    grid-area: sidenav;
   }
 
   .c-metadata {
-    grid-area: 'metadata';
+    grid-area: metadata;
   }
 </style>
