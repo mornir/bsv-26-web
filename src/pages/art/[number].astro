@@ -1,6 +1,7 @@
 ---
 import PageFind from '@/layouts/PageFind.astro'
 import Toolbar from '@/components/Toolbar.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import ArticlePage from '@/components/ArticlePage.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import ArticlePills from '@/components/ArticlePills.astro'
@@ -47,7 +48,7 @@ export type ArticleView = typeof articleView
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
     <!--    <Toolbar /> -->
     <div x-show="languages.length === 1" class="max-w-5xl mx-auto px-6">
-      <ArticlePills
+      <Breadcrumbs
         title={articleView.title}
         chapter={articleView.chapter}
         section={articleView.section}

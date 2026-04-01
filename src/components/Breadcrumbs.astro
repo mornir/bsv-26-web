@@ -1,0 +1,35 @@
+---
+import { Book, FileText, Layers } from '@lucide/astro'
+import { formatHeading } from '@/i18n/utils'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
+
+const locale = getLocale(Astro.url) as LangKeys
+
+type heading = {
+  number: number | undefined
+  name: string | undefined
+}
+
+interface Props {
+  title: {
+    number: number
+    name: string | undefined
+  }
+  chapter?: heading
+  section?: heading
+}
+
+const { title, chapter = null, section = null } = Astro.props
+---
+
+<nav
+  class="flex items-center gap-2 mb-8 text-[11px] font-medium tracking-wide uppercase text-outline"
+>
+  <a class="hover:text-primary transition-colors font-medium" href="#">Home</a>
+  <span>/</span>
+  <a class="hover:text-primary transition-colors" href="#">Titel 3</a>
+  <span>/</span>
+  <a class="hover:text-primary transition-colors" href="#">Kapitel 1</a>
+  <span>/</span>
+  <span class="text-on-surface">Art. 37</span>
+</nav>
