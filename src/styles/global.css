@@ -4,9 +4,16 @@
 
 @theme {
   --color-primary: var(--color-slate-800);
-  --color-accent: oklch(43.8% 0.218 303.724);
   --color-table: #dabbcb;
   --color-table-light: #ecdde5;
+  --color-surface: #f4faff;
+  --color-law: #0a3747;
+  --color-outline: #5a8092;
+}
+
+@theme inline {
+  --font-sans: var(--font-public-sans);
+  --font-serif: var(--font-newsreader);
 }
 
 @layer components {

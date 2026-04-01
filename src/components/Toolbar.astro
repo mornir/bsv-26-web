@@ -6,12 +6,12 @@ const locale = getLocale(Astro.url) as LangKeys
 const t = useTranslations(locale)
 ---
 
-<div
-  class="sticky top-0 z-10 flex items-center justify-end border-b border-slate-200 bg-slate-100 p-4"
+<aside
+  class="sticky top-0 z-10 flex items-center justify-end border-b bg-slate-50 border-slate-200 p-4"
 >
   <!--   <a
     href={`/gesamtwerk#art-2`}
-    class="bg-primary px-4 py-2 text-white duration-700 ease-out hover:bg-accent"
+    class="bg-primary px-4 py-2 text-white duration-700 ease-out"
   >
     Artikel im Gesamtwerk anzeigen
   </a> -->
@@ -26,7 +26,6 @@ const t = useTranslations(locale)
               value={code}
               x-model="languages"
               name={code}
-              class="accent-violet-800"
               id={code}
             />
             <label for={code}>{t(code as LangKeys)}</label>
@@ -34,4 +33,4 @@ const t = useTranslations(locale)
         ))
     }
   </div>
-</div>
+</aside>

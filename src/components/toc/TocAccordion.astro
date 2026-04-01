@@ -1,0 +1,30 @@
+---
+import { ChevronDown } from '@lucide/astro'
+
+interface Props {
+  name: string | undefined
+}
+
+const { name } = Astro.props
+const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
+---
+
+<div x-data="{ expanded: false }" role="region" aria-labelledby={headingId}>
+  <h3 id={headingId}>
+    <button
+      type="button"
+      x-on:click="expanded = !expanded"
+      :aria-expanded="expanded"
+      class="flex w-full items-center justify-between px-4 py-3 text-left text-slate-600 transition-colors hover:bg-blue-100"
+    >
+      <span class="font-medium text-base">{name}</span>
+      <ChevronDown x-show="expanded" class="size-4" />
+    </button>
+  </h3>
+
+  <div x-show="expanded" x-collapse>
+    <div class="ml-2 pl-2 space-y-2 border-l-2 border-blue-200">
+      <slot />
+    </div>
+  </div>
+</div>
