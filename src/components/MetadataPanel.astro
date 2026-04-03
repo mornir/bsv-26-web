@@ -1,5 +1,5 @@
 ---
-import { Share2, History, SquareArrowOutUpRight } from '@lucide/astro'
+import { Share2, History, SquareArrowOutUpRight, Glasses } from '@lucide/astro'
 ---
 
 <aside class="hidden xl:block w-72 pr-8 sticky top-24 h-fit">
@@ -29,35 +29,6 @@ import { Share2, History, SquareArrowOutUpRight } from '@lucide/astro'
         <p class="text-xs text-on-surface font-medium leading-normal">
           Grundsätze
         </p>
-      </div>
-    </div>
-    <div class="pt-6 border-t border-slate-300/30">
-      <h4
-        class="text-[10px] uppercase font-bold tracking-widest text-primary mb-4"
-      >
-        Übersetzungen
-      </h4>
-      <div class="flex flex-col gap-3">
-        <label class="flex items-center gap-2 cursor-pointer group">
-          <input
-            class="w-3.5 h-3.5 rounded-sm border-slate-300 text-primary focus:ring-primary/20"
-            type="checkbox"
-          />
-          <span
-            class="text-xs text-on-surface font-medium group-hover:text-primary transition-colors"
-            >Französisch</span
-          >
-        </label>
-        <label class="flex items-center gap-2 cursor-pointer group">
-          <input
-            class="w-3.5 h-3.5 rounded-sm border-slate-300 text-primary focus:ring-primary/20"
-            type="checkbox"
-          />
-          <span
-            class="text-xs text-on-surface font-medium group-hover:text-primary transition-colors"
-            >Italienisch</span
-          >
-        </label>
       </div>
     </div>
     <div class="pt-6 border-t border-slate-300/30 mt-6">
@@ -98,16 +69,20 @@ import { Share2, History, SquareArrowOutUpRight } from '@lucide/astro'
           class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
           href="#"
         >
+          <Glasses class="size-3" /> Übersetzungen vergleichen</a
+        >
+        <a
+          class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
+          href="#"
+        >
           <Share2 class="size-3" /> Artikel teilen</a
         >
-        <div class="flex flex-col gap-3">
-          <a
-            class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
-            href="#"
-          >
-            <History class="size-3" /> Verlauf ansehen
-          </a>
-        </div>
+        <a
+          class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
+          href="#"
+        >
+          <History class="size-3" /> Verlauf ansehen
+        </a>
       </div>
     </div>
   </div>
