@@ -3,15 +3,20 @@ import { ChevronDown } from '@lucide/astro'
 
 interface Props {
   name: string | undefined
+  isOpen?: boolean
 }
 
-const { name } = Astro.props
+const { name, isOpen = false } = Astro.props
 
 //TODO: find a better way
 const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
 ---
 
-<div x-data="{ expanded: false }" role="region" aria-labelledby={headingId}>
+<div
+  x-data={`{ expanded: ${isOpen} }`}
+  role="region"
+  aria-labelledby={headingId}
+>
   <h3>
     <button
       type="button"

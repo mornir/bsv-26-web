@@ -19,7 +19,10 @@ function artURL(slug: string) {
   <nav class="space-y-1 py-6 h-screen overflow-y-auto">
     {
       toc.map((title) => (
-        <TocAccordion name={title.name[locale]}>
+        <TocAccordion
+          name={title.name[locale]}
+          isOpen={!!title.chapters.length}
+        >
           {/* Articles directly under title */}
           {title.articles.length > 0 && (
             <ul class="space-y-1">
