@@ -17,6 +17,14 @@ de[]{
       "tableId": @->tableId,
       "name": @->name.de,
       "source": @->source,
+    },
+    _type == "regulationTable" => {
+      "name": @->name,
+      "desc": @->description.de,
+      "requirements": @->requirements[].name.de,
+      "rows": @->rows[] {
+        "system": system->name.de
+      }
     }
   },
   markDefs[]{
@@ -26,9 +34,9 @@ de[]{
       "type": @.reference->_type,
     },
     _type == "figure" => {
-       "number": @->number,
-       "name": @->name.de,
-        "img":  @->image.de,
+      "number": @->number,
+      "name": @->name.de,
+      "img":  @->image.de,
     },
   }
 },
