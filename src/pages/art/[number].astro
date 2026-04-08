@@ -3,7 +3,8 @@ import PageFind from '@/layouts/PageFind.astro'
 import RichText from '@/components/portable-text/RichText.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import { getArticles, getArticle } from '@/sanity/queries'
-import { getLocale } from 'astro-i18n-aut'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
+import { formatHeading } from '@/i18n/utils'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -17,10 +18,11 @@ export async function getStaticPaths() {
 
 let art = Astro.props.article
 
-/* const isDev = import.meta.env.DEV
+const isDev = import.meta.env.DEV
 if (isDev) {
-  article = await getArticle(Astro.params.number)
-} */
+  // @ts-ignore
+  art = await getArticle(Astro.params.number)
+}
 ---
 
 <PageFind title={'Art. ' + art.number}>
@@ -30,13 +32,45 @@ if (isDev) {
       <nav
         class="flex items-center gap-2 mb-8 text-[11px] font-medium tracking-wide uppercase text-outline"
       >
-        <a class="hover:text-primary transition-colors" href="#">Home</a>
+        <a class="hover:text-primary transition-colors" href="/">Startseite</a>
         <span>/</span>
-        <a class="hover:text-primary transition-colors" href="#">3. Titel</a>
+        <a
+          class="hover:text-primary transition-colors"
+          href={getLocaleUrl(`/titel/${art.title.number}`, locale)}
+        >
+          {formatHeading({ number: art.title.number, type: 'title' }, locale)}
+        </a>
+
         <span>/</span>
-        <a class="hover:text-primary transition-colors" href="#">1. Kapitel</a>
-        <span>/</span>
-        <span class="text-primary">Art. 37</span>
+
+        {
+          art?.chapter?.number && (
+            <Fragment>
+              <span class="text-primary">
+                {formatHeading(
+                  { number: art.chapter.number, type: 'chapter' },
+                  locale
+                )}
+              </span>
+              <span>/</span>
+            </Fragment>
+          )
+        }
+
+        {
+          art?.section?.number && (
+            <Fragment>
+              <span class="text-primary">
+                {formatHeading(
+                  { number: art.section.number, type: 'section' },
+                  locale
+                )}
+              </span>
+              <span>/</span>
+            </Fragment>
+          )
+        }
+        <span class="text-primary">Art. {art.number}</span>
       </nav>
       <article class="mt-4 font-serif text-law">
         <header class="mb-6">
@@ -47,6 +81,7 @@ if (isDev) {
             {art.name[locale]}
           </h1>
         </header>
+
         <!-- Vorschriftentext -->
         <RichText blocks={art.law[locale]} />
 
@@ -65,6 +100,8 @@ if (isDev) {
         }
       </article>
     </div>
+
+    <!-- Sprachvergleich -->
     <template x-if="languages.length > 1" x-cloak>
       <LangCompare article={art} />
     </template>
