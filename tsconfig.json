@@ -3,9 +3,8 @@
   "include": [".astro/types.d.ts", "**/*", "src/types/sanity.types.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
-    "baseUrl": ".", // Required for "paths" to work
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   }
 }
