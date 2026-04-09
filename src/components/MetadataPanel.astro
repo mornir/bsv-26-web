@@ -2,88 +2,84 @@
 import { Share2, History, SquareArrowOutUpRight, Glasses } from '@lucide/astro'
 ---
 
-<aside class="hidden xl:block w-72 pr-8 sticky top-24 h-fit">
-  <div class="border border-slate-200 p-6 rounded-sm shadow-sm bg-[#e7f6ff]">
+<aside class="hidden xl:block w-72 p-6 sticky top-24 h-fit">
+  <h4 class="text-[10px] uppercase font-bold tracking-widest text-primary mb-4">
+    Metadaten
+  </h4>
+  <div class="flex flex-col gap-4 mb-5">
+    <div>
+      <p
+        class="text-[10px] text-outline uppercase font-bold tracking-tighter mb-1"
+      >
+        3. Titel
+      </p>
+      <p class="text-xs text-on-surface font-medium leading-normal">
+        Nachweis des Sicherheitsniveaus
+      </p>
+    </div>
+    <div>
+      <p
+        class="text-[10px] text-outline uppercase font-bold tracking-tighter mb-1"
+      >
+        1. Kapitel
+      </p>
+      <p class="text-xs text-on-surface font-medium leading-normal">
+        Grundsätze
+      </p>
+    </div>
+  </div>
+  <div class="pt-6 border-t border-slate-300/30 mt-6">
     <h4
       class="text-[10px] uppercase font-bold tracking-widest text-primary mb-4"
     >
-      Metadaten
+      ANFRAGEN
     </h4>
-    <div class="flex flex-col gap-4 mb-5">
-      <div>
-        <p
-          class="text-[10px] text-outline uppercase font-bold tracking-tighter mb-1"
-        >
-          3. Titel
-        </p>
-        <p class="text-xs text-on-surface font-medium leading-normal">
-          Nachweis des Sicherheitsniveaus
-        </p>
-      </div>
-      <div>
-        <p
-          class="text-[10px] text-outline uppercase font-bold tracking-tighter mb-1"
-        >
-          1. Kapitel
-        </p>
-        <p class="text-xs text-on-surface font-medium leading-normal">
-          Grundsätze
-        </p>
-      </div>
-    </div>
-    <div class="pt-6 border-t border-slate-300/30 mt-6">
-      <h4
-        class="text-[10px] uppercase font-bold tracking-widest text-primary mb-4"
-      >
-        ANFRAGEN
-      </h4>
-      <ul class="flex flex-col gap-3">
-        <li>
-          <a
-            class="text-[11px] text-outline hover:text-primary flex items-center gap-2 transition-colors"
-            href="#"
-          >
-            <SquareArrowOutUpRight class="size-3" />
-            Art. 36 Grundsätze
-          </a>
-        </li>
-        <li>
-          <a
-            class="text-[11px] text-outline hover:text-primary flex items-center gap-2 transition-colors"
-            href="#"
-          >
-            <SquareArrowOutUpRight class="size-3" />
-            Art. 38 Zuständigkeiten
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="pt-6 border-t border-slate-300/30 mt-6">
-      <h4
-        class="text-[10px] uppercase font-bold tracking-widest text-primary mb-4"
-      >
-        Aktionen
-      </h4>
-      <div class="flex flex-col gap-4">
+    <ul class="flex flex-col gap-3">
+      <li>
         <a
-          class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
+          class="text-[11px] text-outline hover:text-primary flex items-center gap-2 transition-colors"
           href="#"
         >
-          <Glasses class="size-3" /> Übersetzungen vergleichen</a
-        >
-        <a
-          class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
-          href="#"
-        >
-          <Share2 class="size-3" /> Artikel teilen</a
-        >
-        <a
-          class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
-          href="#"
-        >
-          <History class="size-3" /> Verlauf ansehen
+          <SquareArrowOutUpRight class="size-3" />
+          Art. 36 Grundsätze
         </a>
-      </div>
+      </li>
+      <li>
+        <a
+          class="text-[11px] text-outline hover:text-primary flex items-center gap-2 transition-colors"
+          href="#"
+        >
+          <SquareArrowOutUpRight class="size-3" />
+          Art. 38 Zuständigkeiten
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="pt-6 border-t border-slate-300/30 mt-6">
+    <h4
+      class="text-[10px] uppercase font-bold tracking-widest text-primary mb-4"
+    >
+      Aktionen
+    </h4>
+    <div class="flex flex-col gap-4">
+      <a
+        class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
+        href="#"
+      >
+        <Glasses class="size-3" /> Übersetzungen vergleichen</a
+      >
+      <a
+        class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
+        href="#"
+      >
+        <Share2 class="size-3" /> Artikel teilen</a
+      >
+      <a
+        class="text-[11px] text-primary font-bold hover:underline flex items-center gap-2"
+        href="#"
+      >
+        <History class="size-3" /> Verlauf ansehen
+      </a>
     </div>
   </div>
 </aside>
