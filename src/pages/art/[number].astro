@@ -2,6 +2,7 @@
 import PageFind from '@/layouts/PageFind.astro'
 import RichText from '@/components/portable-text/RichText.astro'
 import LangCompare from '@/components/LangCompare.astro'
+import ArticlePrevNext from '@/components/ArticlePrevNext.astro'
 import { getArticles, getArticle } from '@/sanity/queries'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
@@ -98,6 +99,8 @@ if (isDev) {
             </div>
           )
         }
+
+        <ArticlePrevNext />
       </article>
     </div>
 
