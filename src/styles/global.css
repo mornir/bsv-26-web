@@ -20,11 +20,11 @@
 
 @layer components {
   .law-table {
-    @apply min-w-full border-collapse border border-slate-200;
+    @apply w-full border-collapse overflow-x-auto border border-slate-200;
   }
 
   .law-table thead {
-    @apply bg-surface;
+    @apply bg-blue-50;
   }
 
   .law-table thead tr:first-child {

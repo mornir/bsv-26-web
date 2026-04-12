@@ -1,43 +1,45 @@
 ---
 import Tooltip from '@/components/Tooltip.astro'
 
+// console.log(Astro.props.node)
+
 const { desc, requirements } = Astro.props.node
 ---
 
 <table class="law-table">
   <thead>
     <tr>
-      <td rowspan={desc ? '2' : '1'}>
+      <th rowspan={desc ? '2' : '1'}>
         <p>Bst.</p>
-      </td>
-      <td rowspan={desc ? '2' : '1'}>
+      </th>
+      <th rowspan={desc ? '2' : '1'}>
         <p>System</p>
-      </td>
-      <td rowspan={desc ? '2' : '1'}>
+      </th>
+      <th rowspan={desc ? '2' : '1'}>
         <p>Systemeigenschaft</p>
-      </td>
-      <td rowspan={desc ? '2' : '1'}>
+      </th>
+      <th rowspan={desc ? '2' : '1'}>
         <p>
           <Tooltip message="Schutzgut Personen">P</Tooltip>
         </p>
-      </td>
-      <td rowspan={desc ? '2' : '1'}>
+      </th>
+      <th rowspan={desc ? '2' : '1'}>
         <p><Tooltip message="Schutzgut Gebäude">G</Tooltip></p>
-      </td>
+      </th>
       {
         desc && (
-          <td colspan={requirements.length}>
+          <th colspan={requirements.length}>
             <p class="text-center">{desc}</p>
-          </td>
+          </th>
         )
       }
     </tr>
     <tr>
       {
         requirements.map((req: string) => (
-          <td>
+          <th>
             <p class="text-center">{req}</p>
-          </td>
+          </th>
         ))
       }
     </tr>
