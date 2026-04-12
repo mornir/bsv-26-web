@@ -34,13 +34,13 @@ const { title } = Astro.props
   <body class="text-primary">
     <NavBar />
     <div class="c-grid-wrapper">
-      <div class="c-sidenav bg-slate-100/80 border-slate-200 border">
+      <div class="c-sidenav bg-slate-100/80 border-slate-200 border-r">
         <TocNav />
       </div>
       <main class="c-main">
         <slot />
       </main>
-      <div class="c-metadata bg-surface">
+      <div class="c-metadata bg-surface border-l border-slate-200">
         <MetadataPanel />
       </div>
     </div>

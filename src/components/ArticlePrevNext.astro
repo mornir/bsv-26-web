@@ -1,33 +1,59 @@
 ---
 import { ArrowLeft, ArrowRight } from '@lucide/astro'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
+import { useTranslations } from '@/i18n/utils'
+
+interface AdjacentArticle {
+  number: number
+  name: Partial<Record<LangKeys, string>>
+}
+
+interface Props {
+  previousArticle?: AdjacentArticle | null
+  nextArticle?: AdjacentArticle | null
+}
+
+const { previousArticle = null, nextArticle = null } = Astro.props
+const locale = getLocale(Astro.url) as LangKeys
+const t = useTranslations(locale)
 ---
 
-<nav
-  class="mt-16 pt-8 border-t border-slate-200 flex items-center justify-between font-sans"
->
-  <a
-    class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group"
-    href="#"
-  >
-    <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
+<nav class="mt-16 pt-8 border-t border-slate-200 grid grid-cols-2 font-sans">
+  {
+    previousArticle && (
+      <a
+        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -ml-4 px-4 py-3 rounded-sm transition-all duration-200 group justify-self-start"
+        href={getLocaleUrl(`/art/${previousArticle.number}`, locale)}
+      >
+        <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
 
-    <div class="flex flex-col">
-      <span class="text-xxs uppercase font-bold text-outline tracking-wider"
-        >Vorheriger Artikel</span
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase font-bold text-outline tracking-wider">
+            {t('nav.prev')}
+          </span>
+          <span class="text-sm font-bold">
+            Art. {previousArticle.number} {previousArticle.name[locale]}
+          </span>
+        </div>
+      </a>
+    )
+  }
+  {
+    nextArticle && (
+      <a
+        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -mr-4 px-4 py-3 rounded-sm transition-all duration-200 group text-right justify-self-end col-start-2"
+        href={getLocaleUrl(`/art/${nextArticle.number}`, locale)}
       >
-      <span class="text-sm font-bold">Art. 36 Grundsätze</span>
-    </div>
-  </a>
-  <a
-    class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group text-right"
-    href="#"
-  >
-    <div class="flex flex-col">
-      <span class="text-xxs uppercase font-bold text-outline tracking-wider"
-        >Nächster Artikel</span
-      >
-      <span class="text-sm font-bold">Art. 38 Zuständigkeiten</span>
-    </div>
-    <ArrowRight class="size-5 group-hover:translate-x-1 transition-transform" />
-  </a>
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase font-bold text-outline tracking-wider">
+            {t('nav.next')}
+          </span>
+          <span class="text-sm font-bold">
+            Art. {nextArticle.number} {nextArticle.name[locale]}
+          </span>
+        </div>
+        <ArrowRight class="size-5 group-hover:translate-x-1 transition-transform" />
+      </a>
+    )
+  }
 </nav>

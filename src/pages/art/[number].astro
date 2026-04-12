@@ -11,13 +11,29 @@ const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
   const articles = await getArticles()
-  return articles.map((article) => ({
+  return articles.map((article, index) => ({
     params: { number: article.slug.current },
-    props: { article },
+    props: {
+      article,
+      previousArticle: articles[index - 1]
+        ? {
+            number: articles[index - 1].number,
+            name: articles[index - 1].name,
+          }
+        : null,
+      nextArticle: articles[index + 1]
+        ? {
+            number: articles[index + 1].number,
+            name: articles[index + 1].name,
+          }
+        : null,
+    },
   }))
 }
 
 let art = Astro.props.article
+const previousArticle = Astro.props.previousArticle
+const nextArticle = Astro.props.nextArticle
 
 const isDev = import.meta.env.DEV
 if (isDev) {
@@ -89,7 +105,7 @@ if (isDev) {
         <!-- Erläuterung -->
         {
           art.exp?.[locale] && (
-            <div class="mt-8 w-fit border-l-4 border-[#49636f] bg-[#cdedfe] p-6">
+            <div class="mt-8 w-fit border-l-4 p-6 bg-slate-50/50 border border-slate-200 rounded-sm  border-l-primary">
               <h2 class="font-sans font-bold uppercase tracking-widest text-secondary">
                 Erläuterung zu Art. {art.number}
               </h2>
@@ -100,7 +116,7 @@ if (isDev) {
           )
         }
 
-        <ArticlePrevNext />
+        <ArticlePrevNext {previousArticle} {nextArticle} />
       </article>
     </div>
 
