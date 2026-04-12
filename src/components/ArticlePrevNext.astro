@@ -1,0 +1,33 @@
+---
+import { ArrowLeft, ArrowRight } from '@lucide/astro'
+---
+
+<nav
+  class="mt-16 pt-8 border-t border-slate-200 flex items-center justify-between font-sans"
+>
+  <a
+    class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group"
+    href="#"
+  >
+    <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
+
+    <div class="flex flex-col">
+      <span class="text-xxs uppercase font-bold text-outline tracking-wider"
+        >Vorheriger Artikel</span
+      >
+      <span class="text-sm font-bold">Art. 36 Grundsätze</span>
+    </div>
+  </a>
+  <a
+    class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group text-right"
+    href="#"
+  >
+    <div class="flex flex-col">
+      <span class="text-xxs uppercase font-bold text-outline tracking-wider"
+        >Nächster Artikel</span
+      >
+      <span class="text-sm font-bold">Art. 38 Zuständigkeiten</span>
+    </div>
+    <ArrowRight class="size-5 group-hover:translate-x-1 transition-transform" />
+  </a>
+</nav>

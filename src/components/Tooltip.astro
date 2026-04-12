@@ -7,7 +7,7 @@ const { message = 'Tooltip' } = Astro.props
   x-tooltip
   data-message={message}
   type="button"
-  class="inline cursor-pointer"
+  class="inline cursor-pointer underline decoration-dotted"
 >
-  <sup>[?]</sup>
+  <slot />
 </button>

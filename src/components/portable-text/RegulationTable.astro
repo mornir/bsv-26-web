@@ -1,0 +1,264 @@
+---
+import Tooltip from '@/components/Tooltip.astro'
+
+const { desc, requirements } = Astro.props.node
+---
+
+<table class="law-table">
+  <thead>
+    <tr>
+      <td rowspan={desc ? '2' : '1'}>
+        <p>Bst.</p>
+      </td>
+      <td rowspan={desc ? '2' : '1'}>
+        <p>System</p>
+      </td>
+      <td rowspan={desc ? '2' : '1'}>
+        <p>Systemeigenschaft</p>
+      </td>
+      <td rowspan={desc ? '2' : '1'}>
+        <p>
+          <Tooltip message="Schutzgut Personen">P</Tooltip>
+        </p>
+      </td>
+      <td rowspan={desc ? '2' : '1'}>
+        <p><Tooltip message="Schutzgut Gebäude">G</Tooltip></p>
+      </td>
+      {
+        desc && (
+          <td colspan={requirements.length}>
+            <p class="text-center">{desc}</p>
+          </td>
+        )
+      }
+    </tr>
+    <tr>
+      {
+        requirements.map((req: string) => (
+          <td>
+            <p class="text-center">{req}</p>
+          </td>
+        ))
+      }
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <p>a.</p>
+      </td>
+      <td>
+        <p>Gebäudeteil</p>
+      </td>
+      <td>
+        <p>Gesamthöhe</p>
+      </td>
+      <td>
+        <p>—</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p class="text-center">≤ 100 m</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>b.</p>
+      </td>
+      <td>
+        <p>Gebäudeteil</p>
+      </td>
+      <td>
+        <p>Gebäude mit 1 Geschoss über Terrain</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p>—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">≤ 11 m</p>
+      </td>
+      <td>
+        <p class="text-center">
+          &gt; 11 bis <br />
+          ≤ 30 m
+        </p>
+      </td>
+      <td>
+        <p class="text-center">
+          &gt; 30 bis <br />
+          ≤ 100 m
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>c.</p>
+      </td>
+      <td>
+        <p>Gebäudeteil</p>
+      </td>
+      <td>
+        <p>Gesamthöhe</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p>—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">≤ 30 m</p>
+      </td>
+      <td>
+        <p class="text-center">
+          &gt; 30 bis <br />
+          ≤ 100 m
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>d.</p>
+      </td>
+      <td>
+        <p>Gebäudeteil</p>
+      </td>
+      <td>
+        <p>Gebäude mit ≥ 2 Geschossen über Terrain</p>
+        <p>Nutzergruppen A, B, C, D, E, H</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p>—</p>
+      </td>
+      <td>
+        <p class="text-center">≤ 20 Personen</p>
+      </td>
+      <td>
+        <p class="text-center">&gt; 20 Personen</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>e.</p>
+      </td>
+      <td>
+        <p>Gebäudeteil</p>
+      </td>
+      <td>
+        <p>Gesamthöhe</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p class="text-center">≤ 30 m</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">&gt; 30 m</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>f.</p>
+      </td>
+      <td>
+        <p>Brandabschnitt</p>
+      </td>
+      <td>
+        <p>Gebäude mit ≥ 2 Geschossen über Terrain</p>
+        <p>Nutzergruppe F, G, I</p>
+      </td>
+      <td>
+        <p>—</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">≤ 11 m</p>
+      </td>
+      <td>
+        <p class="text-center">
+          &gt; 11 bis <br />
+          ≤ 30 m
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>g.</p>
+      </td>
+      <td>
+        <p>Raum</p>
+      </td>
+      <td>
+        <p>Anzahl Personen</p>
+      </td>
+      <td>
+        <p>X</p>
+      </td>
+      <td>
+        <p>—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+      <td>
+        <p class="text-center">&gt; 1'000 Personen</p>
+      </td>
+      <td>
+        <p class="text-center">—</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

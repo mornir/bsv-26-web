@@ -9,6 +9,8 @@
   --color-surface: #f4faff;
   --color-law: #0a3747;
   --color-outline: #5a8092;
+
+  --text-xxs: 0.625rem;
 }
 
 @theme inline {
