@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && tsc --noEmit && astro build",
+    "deploy": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
