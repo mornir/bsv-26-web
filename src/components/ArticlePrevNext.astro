@@ -4,7 +4,7 @@ import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 import { useTranslations } from '@/i18n/utils'
 
 interface AdjacentArticle {
-  number: number | string
+  number: number
   name: Partial<Record<LangKeys, string>>
 }
 
@@ -16,11 +16,6 @@ interface Props {
 const { previousArticle = null, nextArticle = null } = Astro.props
 const locale = getLocale(Astro.url) as LangKeys
 const t = useTranslations(locale)
-
-function getArticleName(article: AdjacentArticle | null) {
-  if (!article) return ''
-  return article.name[locale]
-}
 ---
 
 <nav class="mt-16 pt-8 border-t border-slate-200 grid grid-cols-2 font-sans">
@@ -37,7 +32,7 @@ function getArticleName(article: AdjacentArticle | null) {
             {t('nav.prev')}
           </span>
           <span class="text-sm font-bold">
-            Art. {previousArticle.number} {getArticleName(previousArticle)}
+            Art. {previousArticle.number} {previousArticle.name[locale]}
           </span>
         </div>
       </a>
@@ -54,7 +49,7 @@ function getArticleName(article: AdjacentArticle | null) {
             {t('nav.next')}
           </span>
           <span class="text-sm font-bold">
-            Art. {nextArticle.number} {getArticleName(nextArticle)}
+            Art. {nextArticle.number} {nextArticle.name[locale]}
           </span>
         </div>
         <ArrowRight class="size-5 group-hover:translate-x-1 transition-transform" />
