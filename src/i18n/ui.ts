@@ -29,6 +29,8 @@ export const ui = {
     'heading.article': 'Artikel',
     fr: 'Französisch',
     de: 'Deutsch',
+    'nav.prev': 'Vorheriger Artikel',
+    'nav.next': 'Nächster Artikel',
   },
   fr: {
     'nav.brand': 'PPI 2026',
@@ -47,5 +49,7 @@ export const ui = {
     'heading.article': 'Article',
     fr: 'Français',
     de: 'Allemand',
+    'nav.prev': 'Article précédent',
+    'nav.next': 'Article suivant',
   },
 } as const
