@@ -1,12 +1,14 @@
 ---
-import { ChevronDown } from '@lucide/astro'
+import { ChevronDown, ChevronRight } from '@lucide/astro'
 
 interface Props {
+  number?: number
   name: string | undefined
   isOpen?: boolean
+  class?: string
 }
 
-const { name, isOpen = false } = Astro.props
+const { name, isOpen = false, class: className, number } = Astro.props
 
 //TODO: find a better way
 const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
@@ -23,10 +25,11 @@ const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
       id={headingId}
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
-      class="flex w-full items-center justify-between px-4 py-3 text-left text-slate-600 transition-colors hover:bg-blue-100"
+      class="flex w-full items-center justify-between px-4 py-2 text-left text-slate-600 transition-colors hover:bg-blue-100"
     >
-      <span class="font-medium text-base">{name}</span>
+      <span class={className}>{name}</span>
       <ChevronDown x-show="expanded" class="size-4" />
+      <ChevronRight x-show="!expanded" class="size-4" />
     </button>
   </h3>
 

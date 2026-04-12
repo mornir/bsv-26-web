@@ -22,6 +22,8 @@ function artURL(slug: string) {
         <TocAccordion
           name={title.name[locale]}
           isOpen={!!title.chapters.length}
+          class="font-medium text-base"
+          number={title.number}
         >
           {/* Articles directly under title */}
           {title.articles.length > 0 && (
@@ -59,7 +61,11 @@ function artURL(slug: string) {
           ))}
 
           {title.chapters.map((chapter) => (
-            <TocAccordion name={chapter.name[locale]}>
+            <TocAccordion
+              name={chapter.name[locale]}
+              number={chapter.number}
+              class="font-bold text-xxs uppercase"
+            >
               {chapter.articles.length > 0 && (
                 <ul class="space-y-1 pl-2">
                   {chapter.articles.map((article) => (
