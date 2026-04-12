@@ -25,7 +25,7 @@ function getArticleName(article: AdjacentArticle | null) {
   {
     previousArticle && (
       <a
-        class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group"
+        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -ml-4 px-4 py-3 rounded-sm transition-all duration-200 group justify-self-start"
         href={getLocaleUrl(`/art/${previousArticle.number}`, locale)}
       >
         <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
@@ -44,7 +44,7 @@ function getArticleName(article: AdjacentArticle | null) {
   {
     nextArticle && (
       <a
-        class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group text-right justify-self-end col-start-2"
+        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -mr-4 px-4 py-3 rounded-sm transition-all duration-200 group text-right justify-self-end col-start-2"
         href={getLocaleUrl(`/art/${nextArticle.number}`, locale)}
       >
         <div class="flex flex-col">
