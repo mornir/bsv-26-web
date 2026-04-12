@@ -31,15 +31,15 @@ export async function getStaticPaths() {
   }))
 }
 
-let art = Astro.props.article
+const art = Astro.props.article
 const previousArticle = Astro.props.previousArticle
 const nextArticle = Astro.props.nextArticle
 
-const isDev = import.meta.env.DEV
+/* const isDev = import.meta.env.DEV
 if (isDev) {
   // @ts-ignore
   art = await getArticle(Astro.params.number)
-}
+} */
 ---
 
 <PageFind title={'Art. ' + art.number}>
