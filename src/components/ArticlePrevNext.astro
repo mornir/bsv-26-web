@@ -1,33 +1,62 @@
 ---
 import { ArrowLeft, ArrowRight } from '@lucide/astro'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
+
+interface AdjacentArticle {
+  number: number | string
+  name: Partial<Record<LangKeys, string>>
+}
+
+interface Props {
+  previousArticle?: AdjacentArticle | null
+  nextArticle?: AdjacentArticle | null
+}
+
+const { previousArticle = null, nextArticle = null } = Astro.props
+const locale = getLocale(Astro.url) as LangKeys
+
+function getArticleName(article: AdjacentArticle | null) {
+  if (!article) return ''
+  return article.name[locale]
+}
 ---
 
-<nav
-  class="mt-16 pt-8 border-t border-slate-200 flex items-center justify-between font-sans"
->
-  <a
-    class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group"
-    href="#"
-  >
-    <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
+<nav class="mt-16 pt-8 border-t border-slate-200 grid grid-cols-2 font-sans">
+  {
+    previousArticle && (
+      <a
+        class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group"
+        href={getLocaleUrl(`/art/${previousArticle.number}`, locale)}
+      >
+        <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
 
-    <div class="flex flex-col">
-      <span class="text-xxs uppercase font-bold text-outline tracking-wider"
-        >Vorheriger Artikel</span
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase font-bold text-outline tracking-wider">
+            Vorheriger Artikel
+          </span>
+          <span class="text-sm font-bold">
+            Art. {previousArticle.number} {getArticleName(previousArticle)}
+          </span>
+        </div>
+      </a>
+    )
+  }
+  {
+    nextArticle && (
+      <a
+        class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group text-right justify-self-end col-start-2"
+        href={getLocaleUrl(`/art/${nextArticle.number}`, locale)}
       >
-      <span class="text-sm font-bold">Art. 36 Grundsätze</span>
-    </div>
-  </a>
-  <a
-    class="flex items-center gap-2 text-slate-900 hover:text-primary transition-colors group text-right"
-    href="#"
-  >
-    <div class="flex flex-col">
-      <span class="text-xxs uppercase font-bold text-outline tracking-wider"
-        >Nächster Artikel</span
-      >
-      <span class="text-sm font-bold">Art. 38 Zuständigkeiten</span>
-    </div>
-    <ArrowRight class="size-5 group-hover:translate-x-1 transition-transform" />
-  </a>
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase font-bold text-outline tracking-wider">
+            Nächster Artikel
+          </span>
+          <span class="text-sm font-bold">
+            Art. {nextArticle.number} {getArticleName(nextArticle)}
+          </span>
+        </div>
+        <ArrowRight class="size-5 group-hover:translate-x-1 transition-transform" />
+      </a>
+    )
+  }
 </nav>
