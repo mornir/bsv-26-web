@@ -1,0 +1,47 @@
+---
+import { formatHeading } from '@/i18n/utils'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
+
+interface Props {
+  articleNumber: number
+  title: { number: number }
+  chapter?: { number: number } | null
+  section?: { number: number } | null
+}
+
+const locale = getLocale(Astro.url) as LangKeys
+
+const { articleNumber, title, chapter, section } = Astro.props
+
+const crumbs = [
+  chapter
+    ? formatHeading({ number: chapter.number, type: 'chapter' }, locale)
+    : null,
+  section
+    ? formatHeading({ number: section.number, type: 'section' }, locale)
+    : null,
+].filter(Boolean)
+---
+
+<nav
+  class="flex items-center gap-2 mb-8 text-[11px] font-medium tracking-wide uppercase text-outline"
+>
+  <a class="hover:text-primary transition-colors" href="/">Startseite</a>
+  <span>/</span>
+  <a
+    class="hover:text-primary transition-colors"
+    href={getLocaleUrl(`/titel/${title.number}`, locale)}
+  >
+    {formatHeading({ number: title.number, type: 'title' }, locale)}
+  </a>
+  {
+    crumbs.map((label) => (
+      <Fragment>
+        <span>/</span>
+        <span class="text-primary">{label}</span>
+      </Fragment>
+    ))
+  }
+  <span>/</span>
+  <span class="text-primary">Art. {articleNumber}</span>
+</nav>
