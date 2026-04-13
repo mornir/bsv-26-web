@@ -48,7 +48,7 @@ const hierarchy = [
       {
         hierarchy.map((item) => (
           <div>
-            <p class="text-xs text-outline uppercase font-bold tracking-tighter mb-1">
+            <p class="text-xxs text-outline uppercase font-medium tracking-wide mb-1 ">
               {item!.heading}
             </p>
             <p class="text-sm text-on-surface font-medium leading-normal">
@@ -64,21 +64,28 @@ const hierarchy = [
       </h4>
       <ul class="flex flex-col gap-3">
         <li>
-          <a
-            class="text-sm text-outline hover:text-primary flex items-center gap-2 transition-colors"
-            href="#"
-          >
-            <SquareArrowOutUpRight class="size-3" />
-            Art. 36 Grundsätze
+          <a class="flex flex-col" href="#">
+            <span
+              class="text-xxs text-slate-500 uppercase font-bold tracking-tight"
+              >12-006</span
+            >
+            <span
+              class="text-sm text-outline hover:text-primary transition-colors"
+              >Verwenden von Parkhäusern</span
+            >
           </a>
         </li>
         <li>
-          <a
-            class="text-sm text-outline hover:text-primary flex items-center gap-2 transition-colors"
-            href="#"
-          >
-            <SquareArrowOutUpRight class="size-3" />
-            Art. 38 Zuständigkeiten
+          <a class="flex flex-col" href="#">
+            <span
+              class="text-xxs text-slate-500 uppercase font-bold tracking-tight"
+              >14-029</span
+            >
+            <span
+              class="text-sm text-outline hover:text-primary transition-colors"
+              >Aufbringen mineralischer Dämmung auf bestehende brennbare Dämmung
+              an Fassaden</span
+            >
           </a>
         </li>
       </ul>
