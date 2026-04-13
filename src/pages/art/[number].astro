@@ -46,8 +46,9 @@ if (isDev) {
 <ArticleLayout title={'Art. ' + art.number}>
   <MetadataPanel
     slot="metadata-panel"
-    articleNumber={art.number}
-    articleName={art.name}
+    title={art.title}
+    chapter={art.chapter}
+    section={art.section}
   />
 
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
@@ -74,7 +75,8 @@ if (isDev) {
                 {formatHeading(
                   { number: art.chapter.number, type: 'chapter' },
                   locale
-                )}
+                )}{' '}
+                &ndash; {art.chapter.name[locale]}
               </span>
               <span>/</span>
             </Fragment>
@@ -88,7 +90,8 @@ if (isDev) {
                 {formatHeading(
                   { number: art.section.number, type: 'section' },
                   locale
-                )}
+                )}{' '}
+                &ndash; {art.section.name[locale]}
               </span>
               <span>/</span>
             </Fragment>

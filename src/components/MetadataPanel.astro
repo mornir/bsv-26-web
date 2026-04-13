@@ -4,13 +4,39 @@ import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 
 interface Props {
-  articleNumber: number
-  articleName: Partial<Record<LangKeys, string>>
+  title: { number: number; name: Partial<Record<LangKeys, string>> }
+  chapter?: { number: number; name: Partial<Record<LangKeys, string>> } | null
+  section?: { number: number; name: Partial<Record<LangKeys, string>> } | null
 }
 
 const locale = getLocale(Astro.url) as LangKeys
 
-const { articleNumber, articleName } = Astro.props
+const { title, chapter, section } = Astro.props
+
+const hierarchy = [
+  {
+    heading: formatHeading({ number: title.number, type: 'title' }, locale),
+    name: title.name[locale],
+  },
+  chapter
+    ? {
+        heading: formatHeading(
+          { number: chapter.number, type: 'chapter' },
+          locale
+        ),
+        name: chapter.name[locale],
+      }
+    : null,
+  section
+    ? {
+        heading: formatHeading(
+          { number: section.number, type: 'section' },
+          locale
+        ),
+        name: section.name[locale],
+      }
+    : null,
+].filter(Boolean)
 ---
 
 <div class="bg-surface border-l border-slate-200">
@@ -19,36 +45,18 @@ const { articleNumber, articleName } = Astro.props
       Gliederung
     </h4>
     <div class="flex flex-col gap-4 mb-5">
-      <div>
-        <p
-          class="text-xs text-outline uppercase font-bold tracking-tighter mb-1"
-        >
-          {formatHeading({ number: articleNumber, type: 'title' }, locale)}
-        </p>
-        <p class="text-sm text-on-surface font-medium leading-normal">
-          {articleName[locale]}
-        </p>
-      </div>
-      <div>
-        <p
-          class="text-xs text-outline uppercase font-bold tracking-tighter mb-1"
-        >
-          1. Kapitel
-        </p>
-        <p class="text-sm text-on-surface font-medium leading-normal">
-          Grundsätze
-        </p>
-      </div>
-      <div>
-        <p
-          class="text-xs text-outline uppercase font-bold tracking-tighter mb-1"
-        >
-          1. Abschnitt
-        </p>
-        <p class="text-sm text-on-surface font-medium leading-normal">
-          Regelungen
-        </p>
-      </div>
+      {
+        hierarchy.map((item) => (
+          <div>
+            <p class="text-xs text-outline uppercase font-bold tracking-tighter mb-1">
+              {item!.heading}
+            </p>
+            <p class="text-sm text-on-surface font-medium leading-normal">
+              {item!.name}
+            </p>
+          </div>
+        ))
+      }
     </div>
     <div class="pt-6 border-t border-slate-300/30 mt-6">
       <h4 class="text-xs uppercase font-bold tracking-widest text-primary mb-4">
