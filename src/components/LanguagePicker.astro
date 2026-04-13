@@ -4,10 +4,12 @@ import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import NavDropDown from './NavDropDown.astro'
 const locale = getLocale(Astro.url) as LangKeys
 
-const links = Object.entries(locales).map(([lang]) => ({
-  name: languages[lang as LangKeys],
-  path: getLocaleUrl(Astro.url, lang),
-}))
+const links = Object.entries(locales)
+  .filter(([lang]) => lang !== locale)
+  .map(([lang]) => ({
+    name: languages[lang as LangKeys],
+    path: getLocaleUrl(Astro.url, lang),
+  }))
 ---
 
 <div class="flex items-center">
