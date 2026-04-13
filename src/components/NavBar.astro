@@ -31,10 +31,7 @@ const mainNav = [
   <div
     class="mx-auto flex flex-col gap-y-4 md:flex-row items-center justify-between px-4 py-3"
   >
-    <a
-      href={`/`}
-      class="text-xl font-bold text-slate-900 transition-colors duration-200 hover:text-primary font-serif tracking-wider"
-    >
+    <a href={`/`} class="text-xl font-bold font-serif tracking-wider">
       {t('nav.brand')}
     </a>
 
@@ -43,6 +40,7 @@ const mainNav = [
     </nav>
 
     <div class="flex items-center">
+      <span>SEARCH</span>
       <LanguagePicker />
     </div>
   </div>
