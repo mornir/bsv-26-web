@@ -1,5 +1,5 @@
 ---
-import PageFind from '@/layouts/PageFind.astro'
+import ArticleLayout from '@/layouts/ArticleLayout.astro'
 import RichText from '@/components/portable-text/RichText.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import ArticlePrevNext from '@/components/ArticlePrevNext.astro'
@@ -42,7 +42,7 @@ if (isDev) {
 }
 ---
 
-<PageFind title={'Art. ' + art.number}>
+<ArticleLayout title={'Art. ' + art.number}>
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
     <!--    <Toolbar /> -->
     <div x-show="languages.length === 1" class="max-w-3xl mx-auto p-12">
@@ -125,4 +125,4 @@ if (isDev) {
       <LangCompare article={art} />
     </template>
   </div>
-</PageFind>
+</ArticleLayout>

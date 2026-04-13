@@ -33,13 +33,7 @@ const { title } = Astro.props
   </head>
   <body class="text-primary">
     <NavBar />
-    <div class="grid grid-cols-[20rem_4fr_1fr]">
-      <TocNav />
-      <main>
-        <slot />
-      </main>
-      <MetadataPanel />
-    </div>
+    <slot />
     <Footer />
   </body>
 </html>
