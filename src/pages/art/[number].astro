@@ -3,6 +3,7 @@ import ArticleLayout from '@/layouts/ArticleLayout.astro'
 import RichText from '@/components/portable-text/RichText.astro'
 import LangCompare from '@/components/LangCompare.astro'
 import ArticlePrevNext from '@/components/ArticlePrevNext.astro'
+import MetadataPanel from '@/components/MetadataPanel.astro'
 import { getArticles, getArticle } from '@/sanity/queries'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
@@ -43,6 +44,7 @@ if (isDev) {
 ---
 
 <ArticleLayout title={'Art. ' + art.number}>
+  <MetadataPanel slot="metadata-panel" />
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
     <!--    <Toolbar /> -->
     <div x-show="languages.length === 1" class="max-w-3xl mx-auto p-12">
