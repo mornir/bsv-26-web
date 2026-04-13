@@ -33,37 +33,13 @@ const { title } = Astro.props
   </head>
   <body class="text-primary">
     <NavBar />
-    <div class="c-grid-wrapper">
-      <div class="c-sidenav bg-slate-100/80 border-slate-200 border-r">
-        <TocNav />
-      </div>
-      <main class="c-main">
+    <div class="grid grid-cols-[20rem_4fr_1fr]">
+      <TocNav />
+      <main>
         <slot />
       </main>
-      <div class="c-metadata bg-surface border-l border-slate-200">
-        <MetadataPanel />
-      </div>
+      <MetadataPanel />
     </div>
     <Footer />
   </body>
 </html>
-
-<style>
-  .c-grid-wrapper {
-    display: grid;
-    grid-template-columns: 20rem 4fr 1fr;
-    grid-template-areas: 'sidenav main metadata';
-  }
-
-  .c-main {
-    grid-area: main;
-  }
-
-  .c-sidenav {
-    grid-area: sidenav;
-  }
-
-  .c-metadata {
-    grid-area: metadata;
-  }
-</style>
