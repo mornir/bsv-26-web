@@ -44,7 +44,12 @@ if (isDev) {
 ---
 
 <ArticleLayout title={'Art. ' + art.number}>
-  <MetadataPanel slot="metadata-panel" />
+  <MetadataPanel
+    slot="metadata-panel"
+    articleNumber={art.number}
+    articleName={art.name}
+  />
+
   <div x-data={`{languages: ['${locale}']}`} class="mb-24">
     <!--    <Toolbar /> -->
     <div x-show="languages.length === 1" class="max-w-3xl mx-auto p-12">
