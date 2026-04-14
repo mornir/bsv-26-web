@@ -1,77 +1,119 @@
 ---
 import { Share2, History, SquareArrowOutUpRight, Glasses } from '@lucide/astro'
+import { formatHeading } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
+
+interface Props {
+  title: { number: number; name: Partial<Record<LangKeys, string>> }
+  chapter?: { number: number; name: Partial<Record<LangKeys, string>> } | null
+  section?: { number: number; name: Partial<Record<LangKeys, string>> } | null
+}
+
+const locale = getLocale(Astro.url) as LangKeys
+
+const { title, chapter, section } = Astro.props
+
+const hierarchy = [
+  {
+    heading: formatHeading({ number: title.number, type: 'title' }, locale),
+    name: title.name[locale],
+  },
+  chapter
+    ? {
+        heading: formatHeading(
+          { number: chapter.number, type: 'chapter' },
+          locale
+        ),
+        name: chapter.name[locale],
+      }
+    : null,
+  section
+    ? {
+        heading: formatHeading(
+          { number: section.number, type: 'section' },
+          locale
+        ),
+        name: section.name[locale],
+      }
+    : null,
+].filter(Boolean)
 ---
 
-<aside class="p-6 sticky top-24 h-fit">
-  <h4 class="text-xs uppercase font-bold tracking-widest text-primary mb-4">
-    Gliederung
-  </h4>
-  <div class="flex flex-col gap-4 mb-5">
-    <div>
-      <p class="text-xs text-outline uppercase font-bold tracking-tighter mb-1">
-        3. Titel
-      </p>
-      <p class="text-sm text-on-surface font-medium leading-normal">
-        Nachweis des Sicherheitsniveaus
-      </p>
-    </div>
-    <div>
-      <p class="text-xs text-outline uppercase font-bold tracking-tighter mb-1">
-        1. Kapitel
-      </p>
-      <p class="text-sm text-on-surface font-medium leading-normal">
-        Grundsätze
-      </p>
-    </div>
-  </div>
-  <div class="pt-6 border-t border-slate-300/30 mt-6">
+<div class="bg-surface border-l border-slate-200">
+  <aside class="p-6 sticky top-24 h-fit">
     <h4 class="text-xs uppercase font-bold tracking-widest text-primary mb-4">
-      ANFRAGEN
+      Gliederung
     </h4>
-    <ul class="flex flex-col gap-3">
-      <li>
+    <div class="flex flex-col gap-4 mb-5">
+      {
+        hierarchy.map((item) => (
+          <div>
+            <p class="text-xxs text-outline uppercase font-medium tracking-wide mb-1 ">
+              {item!.heading}
+            </p>
+            <p class="text-sm text-on-surface font-medium leading-normal">
+              {item!.name}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="pt-6 border-t border-slate-300/30 mt-6">
+      <h4 class="text-xs uppercase font-bold tracking-widest text-primary mb-4">
+        ANFRAGEN
+      </h4>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a class="flex flex-col" href="#">
+            <span
+              class="text-xxs text-slate-500 uppercase font-bold tracking-tight"
+              >12-006</span
+            >
+            <span
+              class="text-sm text-outline hover:text-primary transition-colors"
+              >Verwenden von Parkhäusern</span
+            >
+          </a>
+        </li>
+        <li>
+          <a class="flex flex-col" href="#">
+            <span
+              class="text-xxs text-slate-500 uppercase font-bold tracking-tight"
+              >14-029</span
+            >
+            <span
+              class="text-sm text-outline hover:text-primary transition-colors"
+              >Aufbringen mineralischer Dämmung auf bestehende brennbare Dämmung
+              an Fassaden</span
+            >
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="pt-6 border-t border-slate-300/30 mt-6">
+      <h4 class="text-xs uppercase font-bold tracking-widest text-primary mb-4">
+        Aktionen
+      </h4>
+      <div class="flex flex-col gap-4">
         <a
-          class="text-sm text-outline hover:text-primary flex items-center gap-2 transition-colors"
+          class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
           href="#"
         >
-          <SquareArrowOutUpRight class="size-3" />
-          Art. 36 Grundsätze
-        </a>
-      </li>
-      <li>
+          <Glasses class="size-4" /> Übersetzungen vergleichen</a
+        >
         <a
-          class="text-sm text-outline hover:text-primary flex items-center gap-2 transition-colors"
+          class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
           href="#"
         >
-          <SquareArrowOutUpRight class="size-3" />
-          Art. 38 Zuständigkeiten
+          <Share2 class="size-3" /> Artikel teilen</a
+        >
+        <a
+          class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
+          href="#"
+        >
+          <History class="size-4" /> Verlauf ansehen
         </a>
-      </li>
-    </ul>
-  </div>
-  <div class="pt-6 border-t border-slate-300/30 mt-6">
-    <h4 class="text-xs uppercase font-bold tracking-widest text-primary mb-4">
-      Aktionen
-    </h4>
-    <div class="flex flex-col gap-4">
-      <a
-        class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
-        href="#"
-      >
-        <Glasses class="size-4" /> Übersetzungen vergleichen</a
-      >
-      <a
-        class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
-        href="#"
-      >
-        <Share2 class="size-3" /> Artikel teilen</a
-      >
-      <a
-        class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
-        href="#"
-      >
-        <History class="size-4" /> Verlauf ansehen
-      </a>
+      </div>
     </div>
-  </div>
-</aside>
+  </aside>
+</div>

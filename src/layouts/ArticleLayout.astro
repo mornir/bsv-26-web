@@ -1,0 +1,20 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import TocNav from '@/components/toc/TocNav.astro'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<Layout title={title}>
+  <div class="grid grid-cols-[20rem_4fr_1fr]">
+    <TocNav />
+    <main data-pagefind-body>
+      <slot />
+    </main>
+    <slot name="metadata-panel" />
+  </div>
+</Layout>
