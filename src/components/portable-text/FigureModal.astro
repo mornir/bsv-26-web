@@ -7,94 +7,70 @@ const { name, number, img } = Astro.props.node.markDef
 const url = urlFor(img.asset).quality(90).auto('format').url()
 ---
 
-<span x-data>
+<span x-data="{ open: false }">
   <!-- Trigger -->
   <button
     type="button"
-    @click="$refs.dialog.showModal()"
+    @click="open = true"
     class="inline-flex cursor-pointer items-center gap-1"
   >
     <slot />
     <Fullscreen class="h-5 w-5" />
   </button>
+
+  <!-- Modal -->
   <template x-teleport="body">
-    <!-- Modal -->
-    <dialog
-      x-ref="dialog"
-      @click.self="$refs.dialog.close()"
-      class="figure-modal max-h-[90vh] w-full max-w-4xl overflow-auto rounded-xl bg-white p-0 shadow-lg m-auto"
+    <div
+      x-show="open"
+      style="display: none"
+      @keydown.escape.prevent.stop="open = false"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={name}
+      class="fixed inset-0 z-30 overflow-y-auto"
     >
-      <!-- Header -->
+      <!-- Overlay -->
+      <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black/25">
+      </div>
 
+      <!-- Panel -->
       <div
-        class="sticky top-0 flex items-start justify-between border-b border-gray-200 bg-white px-6 py-4"
+        x-show="open"
+        x-transition
+        @click="open = false"
+        class="relative flex min-h-screen items-center justify-center p-4"
       >
-        <h2>
-          <span class="mb-1 block font-mono text-sm text-gray-500">
-            Abbildung {number}
-          </span>
-          <span class="block font-serif text-xl">{name}</span>
-        </h2>
-
-        <button
-          type="button"
-          @click="$refs.dialog.close()"
-          class="rounded-lg p-2 transition-colors hover:bg-gray-100"
+        <div
+          @click.stop
+          x-trap.noscroll.inert="open"
+          class="relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-xl bg-white shadow-lg"
         >
-          <X class="h-6 w-6" aria-label="Close" />
-        </button>
-      </div>
+          <!-- Header -->
+          <div
+            class="sticky top-0 flex items-start justify-between border-b border-gray-200 bg-white px-6 py-4"
+          >
+            <h2>
+              <span class="mb-1 block font-mono text-sm text-gray-500">
+                Abbildung {number}
+              </span>
+              <span class="block font-serif text-xl">{name}</span>
+            </h2>
 
-      <!-- Content -->
-      <div class="p-6">
-        <img src={url} alt={img.alt} class="mx-auto max-h-[80vh]" />
+            <button
+              type="button"
+              @click="open = false"
+              class="rounded-lg p-2 transition-colors hover:bg-gray-100"
+            >
+              <X class="h-6 w-6" aria-label="Close" />
+            </button>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6">
+            <img src={url} alt={img.alt} class="mx-auto max-h-[80vh]" />
+          </div>
+        </div>
       </div>
-    </dialog>
+    </div>
   </template>
 </span>
-
-<style>
-  .figure-modal {
-    opacity: 0;
-    transform: scale(0.95);
-    transition:
-      opacity 150ms ease-in-out,
-      transform 150ms ease-in-out,
-      overlay 150ms ease-in-out allow-discrete,
-      display 150ms ease-in-out allow-discrete;
-  }
-
-  .figure-modal[open] {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  @starting-style {
-    .figure-modal[open] {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-  }
-
-  .figure-modal::backdrop {
-    background-color: rgb(0 0 0 / 0);
-    transition:
-      background-color 150ms ease-in-out,
-      overlay 150ms ease-in-out allow-discrete,
-      display 150ms ease-in-out allow-discrete;
-  }
-
-  .figure-modal[open]::backdrop {
-    background-color: rgb(0 0 0 / 0.25);
-  }
-
-  @starting-style {
-    .figure-modal[open]::backdrop {
-      background-color: rgb(0 0 0 / 0);
-    }
-  }
-
-  :global(body:has(.figure-modal[open])) {
-    overflow: hidden;
-  }
-</style>
