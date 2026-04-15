@@ -22,7 +22,6 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
   <template x-teleport="body">
     <div
       x-show="open"
-      style="display: none"
       @keydown.escape.prevent.stop="open = false"
       role="dialog"
       aria-modal="true"
