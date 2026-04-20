@@ -1,0 +1,90 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro'
+import RichText from '@/components/portable-text/RichText.astro'
+import ArticlePrevNext from '@/components/ArticlePrevNext.astro'
+import MetadataPanel from '@/components/MetadataPanel.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import { getArticles, getArticle } from '@/sanity/queries'
+import { getLocale } from 'astro-i18n-aut'
+
+const locale = getLocale(Astro.url) as LangKeys
+
+export async function getStaticPaths() {
+  const articles = await getArticles()
+  return articles.map((article, index) => ({
+    params: { number: article.slug.current },
+    props: {
+      article,
+      previousArticle: articles[index - 1]
+        ? {
+            number: articles[index - 1].number,
+            name: articles[index - 1].name,
+          }
+        : null,
+      nextArticle: articles[index + 1]
+        ? {
+            number: articles[index + 1].number,
+            name: articles[index + 1].name,
+          }
+        : null,
+    },
+  }))
+}
+
+let art = Astro.props.article
+const previousArticle = Astro.props.previousArticle
+const nextArticle = Astro.props.nextArticle
+
+const isDev = import.meta.env.DEV
+if (isDev) {
+  // @ts-ignore
+  art = await getArticle(Astro.params.number)
+}
+---
+
+<ArticleLayout title={'Art. ' + art.number}>
+  <MetadataPanel
+    slot="metadata-panel"
+    title={art.title}
+    chapter={art.chapter}
+    section={art.section}
+  />
+
+  <div class="max-w-3xl mx-auto p-12">
+    <Breadcrumbs
+      articleNumber={art.number}
+      title={art.title}
+      chapter={art.chapter}
+      section={art.section}
+    />
+    <article class="mt-4 font-serif text-law">
+      <header class="mb-6">
+        <h2 class="mb-1 font-mono text-slate-600">
+          Artikel {art.number}
+        </h2>
+        <h1 class="text-3xl leading-tight font-medium">
+          {art.name[locale]}
+        </h1>
+      </header>
+
+      <!-- Vorschriftentext -->
+      <RichText blocks={art.law[locale]} />
+
+      <!-- Erläuterung -->
+      {
+        art.exp?.[locale] && (
+          <div class="mt-8 w-fit border-l-2 p-6 bg-slate-50/50 border border-slate-200  border-l-primary">
+            <h2 class="font-sans font-bold uppercase tracking-widest text-secondary">
+              Erläuterung zu Art. {art.number}
+            </h2>
+            <div class="mt-6">
+              <RichText blocks={art.exp[locale]} />
+            </div>
+          </div>
+        )
+      }
+
+      <ArticlePrevNext {previousArticle} {nextArticle} />
+    </article>
+  </div>
+</ArticleLayout>
