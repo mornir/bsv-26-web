@@ -7,7 +7,7 @@ import Superscript from './Superscript.astro'
 import Subscript from './Subscript.astro'
 import List from './List.astro'
 import Block from './Block.astro'
-import TableModal from './TableModal.astro'
+import FlexTable from './FlexTable.astro'
 import RegulationTable from './RegulationTable.astro'
 
 interface Props {
@@ -27,7 +27,7 @@ const components = {
   },
   type: {
     latex: Latex,
-    table: TableModal,
+    table: FlexTable,
     regulationTable: RegulationTable,
   },
 }

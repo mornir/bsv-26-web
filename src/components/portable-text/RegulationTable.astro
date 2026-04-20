@@ -1,12 +1,13 @@
 ---
+import TableModal from './TableModal.astro'
 import Tooltip from '@/components/Tooltip.astro'
 
-// console.log(Astro.props.node)
+console.log(Astro.props.node)
 
-const { desc, requirements } = Astro.props.node
+const { desc, requirements, name } = Astro.props.node
 ---
 
-<div class="max-w-full overflow-x-auto detect-horizontal-scroll">
+<TableModal name={name}>
   <table class="law-table">
     <thead>
       <tr>
@@ -265,4 +266,4 @@ const { desc, requirements } = Astro.props.node
       </tr>
     </tbody>
   </table>
-</div>
+</TableModal>
