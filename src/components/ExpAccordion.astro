@@ -14,22 +14,25 @@ const { number } = Astro.props
       type="button"
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
-      class="flex w-full items-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-left font-medium text-blue-900 transition-colors hover:bg-blue-100"
+      class="flex w-full items-center gap-2 bg-slate-50/50 px-4 py-3 text-left font-medium text-secondary transition-colors border-l-2 border-l-primary cursor-pointer justify-between"
     >
+      <span
+        class="font-sans font-bold uppercase tracking-widest text-secondary text-xs"
+        >Erläuterung zu Art. {number}</span
+      >
+
       <ChevronDown x-show="expanded" class="h-5 w-5" />
 
       <ChevronRight x-show="!expanded" class="h-5 w-5" />
-
-      <span class="text-sm">Erläuterung zu Art. {number}</span>
     </button>
   </h3>
 
   <div
     x-show="expanded"
     x-collapse
-    class="border-l-4 bg-slate-50/50 border border-slate-200 rounded-sm border-l-primary"
+    class="border-l-2 bg-slate-50/50 border-l-primary"
   >
-    <div class="p-5 leading-relaxed">
+    <div class="p-4 leading-relaxed">
       <slot />
     </div>
   </div>

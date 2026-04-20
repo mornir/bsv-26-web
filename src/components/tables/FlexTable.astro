@@ -1,0 +1,24 @@
+---
+import TableModal from '@/components/portable-text/TableModal.astro'
+import Qualifications from '@/components/tables/Qualifications.astro'
+import TestTable from '@/components/tables/TestTable.astro'
+
+import type { Table } from '@/types/sanity.types'
+type TableId = NonNullable<Table['tableId']>
+
+const { html, tableId, name, source } = Astro.props.node
+
+const tableMap = {
+  users_desc: TestTable,
+  users_char: Qualifications,
+  users_examples: Qualifications,
+}
+
+const TableComponent =
+  source === 'predefined' ? tableMap[tableId as TableId] : null
+---
+
+<TableModal name={name}>
+  {TableComponent && <TableComponent />}
+  {source === 'html' && html && <Fragment set:html={html} />}
+</TableModal>

@@ -22,7 +22,7 @@ const t = useTranslations(locale)
   {
     previousArticle && (
       <a
-        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -ml-4 px-4 py-3 rounded-sm transition-all duration-200 group justify-self-start"
+        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -ml-4 px-4 py-3 transition-all duration-200 group justify-self-start"
         href={getLocaleUrl(`/art/${previousArticle.number}`, locale)}
       >
         <ArrowLeft class="size-5 group-hover:-translate-x-1 transition-transform" />
@@ -41,7 +41,7 @@ const t = useTranslations(locale)
   {
     nextArticle && (
       <a
-        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -mr-4 px-4 py-3 rounded-sm transition-all duration-200 group text-right justify-self-end col-start-2"
+        class="flex items-center gap-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 -mr-4 px-4 py-3 transition-all duration-200 group text-right justify-self-end col-start-2"
         href={getLocaleUrl(`/art/${nextArticle.number}`, locale)}
       >
         <div class="flex flex-col">

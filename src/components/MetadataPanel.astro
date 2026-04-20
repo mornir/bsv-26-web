@@ -69,9 +69,8 @@ const hierarchy = [
               class="text-xxs text-slate-500 uppercase font-bold tracking-tight"
               >12-006</span
             >
-            <span
-              class="text-sm text-outline hover:text-primary transition-colors"
-              >Verwenden von Parkhäusern</span
+            <span class="text-sm text-primary transition-colors hover:underline"
+              >Feuerwiderstand von Tragwerken</span
             >
           </a>
         </li>
@@ -81,8 +80,7 @@ const hierarchy = [
               class="text-xxs text-slate-500 uppercase font-bold tracking-tight"
               >14-029</span
             >
-            <span
-              class="text-sm text-outline hover:text-primary transition-colors"
+            <span class="text-sm text-primary transition-colors hover:underline"
               >Aufbringen mineralischer Dämmung auf bestehende brennbare Dämmung
               an Fassaden</span
             >
@@ -97,7 +95,7 @@ const hierarchy = [
       <div class="flex flex-col gap-4">
         <a
           class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
-          href="#"
+          href={Astro.url.pathname + '/vergleich'}
         >
           <Glasses class="size-4" /> Übersetzungen vergleichen</a
         >

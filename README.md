@@ -9,7 +9,7 @@ Static website for Swiss fire safety regulations with multilingual content and f
 The project is designed to:
 
 - provide clear navigation of legislative texts
-- support multiple languages (French, German, Italian)
+- support multiple languages (German, French, Italian)
 - offer instant full-text search
 - remain fast and accessible through static generation
 
@@ -17,7 +17,7 @@ The site is built using a modern static architecture and deployed on Cloudflare'
 
 ## Features
 
-- 📚 Structured navigation of regulations, chapters, sections, and articles
+- 📚 Structured navigation of regulations, chapters, sections and articles
 - 🌍 Multilingual content (FR / DE / IT)
 - 🔎 Full-text search powered by Pagefind
 - ⚡ Static site generation for high performance
@@ -78,13 +78,6 @@ Typical workflow:
 2. Cloudflare Pages automatically builds the site
 3. The generated static files are deployed globally
 
-Build settings typically include:
-
-```
-Build command: pnpm run deploy
-Output directory: dist
-```
-
 ## Content
 
 All legislative content is managed through **Sanity CMS**.
@@ -104,11 +97,11 @@ This allows:
 ## Legal Notice
 
 The content published on this website consists of **official fire safety regulations** issued by the  
-**Vereinigung Kantonaler Feuerversicherungen (VKF / AEAI)**.
+**Vereinigung Kantonaler Feuerversicherungen (VKF)**.
 
 This repository provides a **technical implementation and web interface** for accessing these regulations.
 
-The official texts remain the property of their respective publishers.
+The official texts remain the property of VKF.
 
 ## License and Trademarks
 
@@ -116,8 +109,7 @@ This project is licensed under the **MIT License**.
 
 See the `LICENSE` file for details.
 
-VKF and the VKF logo are trademarks of
-Vereinigung Kantonaler Feuerversicherungen (VKF).
+VKF and the VKF logo are trademarks of Vereinigung Kantonaler Feuerversicherungen (VKF).
 
 The MIT License applies only to the source code in this repository.
 No rights are granted to use the VKF name or logo.
