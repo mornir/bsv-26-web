@@ -1,5 +1,5 @@
 ---
-import PageIndex from '@/layouts/PageIndex.astro'
+import ArticleList from '@/layouts/ArticleList.astro'
 import { getArticlesFromTitle, getTitles } from '@/sanity/queries'
 import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
@@ -22,7 +22,7 @@ const heading = formatHeading({ number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
 ---
 
-<PageIndex title={pageTitle} tabTitel={heading}>
+<ArticleList title={pageTitle} tabTitel={heading}>
   <section class="space-y-4">
     {
       articles.map((article) => (
@@ -35,4 +35,4 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
       ))
     }
   </section>
-</PageIndex>
+</ArticleList>

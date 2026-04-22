@@ -16,7 +16,7 @@ const { name, number, law, exp = null } = Astro.props
 const url = getLocaleUrl('/art/' + number, locale)
 ---
 
-<article id={`art-${number}`} class="mb-4 p-6 font-serif">
+<article id={`art-${number}`} class="p-6 font-serif">
   <h2 class="mb-3">
     <span class="mb-1 block font-mono text-sm text-slate-600"
       >Artikel {number}</span
