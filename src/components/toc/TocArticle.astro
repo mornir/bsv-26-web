@@ -7,7 +7,7 @@ interface Props {
 
 const { slug, number, name } = Astro.props
 
-const pathname = Astro.url.pathname
+const pathname = Astro.url.pathname.replace(/\.html$/, '')
 ---
 
 <a
