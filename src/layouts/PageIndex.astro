@@ -10,10 +10,10 @@ const { title, tabTitel = title } = Astro.props
 ---
 
 <Layout title={tabTitel}>
-  <div class="pt-12 pb-32">
+  <main class="pt-12 pb-32 bg-slate-50">
     <h1 class="text-center font-semibold font-serif text-3xl">{title}</h1>
     <div class="mx-auto mt-8 max-w-3xl">
       <slot />
     </div>
-  </div>
+  </main>
 </Layout>
