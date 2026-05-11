@@ -1,5 +1,6 @@
 ---
 import LanguagePicker from './LanguagePicker.astro'
+import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
 import { useTranslations } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 import Link from './Link.astro'
@@ -38,7 +39,10 @@ const mainNav = [
       {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
     </nav>
 
-    <div class="flex items-center">
+    <div class="flex items-center gap-x-2">
+      <PagefindConfig highlight-param />
+      <pagefind-modal-trigger></pagefind-modal-trigger>
+      <pagefind-modal></pagefind-modal>
       <LanguagePicker />
     </div>
   </div>
