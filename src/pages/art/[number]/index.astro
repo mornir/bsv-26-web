@@ -94,6 +94,5 @@ if (isDev) {
 
 <script type="module">
   await import('/pagefind/pagefind-highlight.js')
-  // TODO: Ensure that the highlightParam configured here matches the highlightParam given to Pagefind when searching.
-  new PagefindHighlight({ highlightParam: '' })
+  new PagefindHighlight({ highlightParam: 'highlight' })
 </script>
