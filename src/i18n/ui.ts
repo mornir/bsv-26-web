@@ -13,7 +13,7 @@ export const defaultLocale = 'de'
 
 export const ui = {
   de: {
-    'nav.brand': 'BSV 2026',
+    'nav.brand': 'Brandschutzvorschriften',
     'nav.titles': 'Titel',
     'nav.articles': 'Artikel',
     'nav.titles.overview': 'Übersicht',
@@ -21,8 +21,7 @@ export const ui = {
     'nav.faq': 'Anfragen',
     'nav.all': 'Gesamtwerk',
     'nav.app': 'App',
-    'nav.agent': 'KI-Modus',
-    'home.title': 'Schweizerische Brandschutzvorschriften 2026',
+    'home.title': 'Schweizerische Brandschutzvorschriften',
     lang: 'Deutsch',
     'heading.title': 'Titel',
     'heading.chapter': 'Kapitel',
@@ -34,7 +33,7 @@ export const ui = {
     'nav.next': 'Nächster Artikel',
   },
   fr: {
-    'nav.brand': 'PPI 2026',
+    'nav.brand': 'Prescriptions de protection incendie',
     'nav.titles': 'Titres',
     'nav.articles': 'Articles',
     'nav.titles.overview': "Vue d'ensemble",
@@ -42,8 +41,7 @@ export const ui = {
     'nav.faq': 'Demandes',
     'nav.all': 'Ouvrage complet',
     'nav.app': 'App',
-    'nav.agent': 'Mode IA',
-    'home.title': 'Prescriptions suisses de protection incendie 2026',
+    'home.title': 'Prescriptions suisses de protection incendie',
     lang: 'français',
     'heading.title': 'Titre',
     'heading.chapter': 'Chapitre',
