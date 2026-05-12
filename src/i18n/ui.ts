@@ -15,7 +15,7 @@ export const ui = {
   de: {
     'nav.brand': 'BSV 2026',
     'nav.titles': 'Titel',
-    'nav.articles': 'Inhaltsverzeichnis',
+    'nav.articles': 'Artikel',
     'nav.titles.overview': 'Übersicht',
     'nav.appendices': 'Anhänge',
     'nav.faq': 'Anfragen',
@@ -36,7 +36,7 @@ export const ui = {
   fr: {
     'nav.brand': 'PPI 2026',
     'nav.titles': 'Titres',
-    'nav.articles': 'Table des matières',
+    'nav.articles': 'Articles',
     'nav.titles.overview': "Vue d'ensemble",
     'nav.appendices': 'Annexes',
     'nav.faq': 'Demandes',

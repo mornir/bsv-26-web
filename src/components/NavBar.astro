@@ -24,32 +24,27 @@ const mainNav = [
     path: 'anhang',
   },
   { name: t('nav.faq'), path: 'faq' },
-  { name: t('nav.agent'), path: 'agent' },
 ]
 ---
 
 <header class="border-b border-slate-200 bg-white sticky top-0 z-30">
-  <div
-    class="mx-auto flex flex-col gap-y-4 md:flex-row items-center justify-between px-8 py-3"
-  >
-    <div class="flex items-center gap-12">
-      <div class="flex items-center gap-2">
-        <a href={`/`} class="text-xl font-bold font-serif tracking-wider">
-          {t('nav.brand')}
-        </a>
+  <div class="grid grid-cols-3 gap-y-4 px-8 py-2 items-center">
+    <div class="flex items-center gap-2">
+      <a href={`/`} class="text-xl font-bold font-serif tracking-wider">
+        {t('nav.brand')}
+      </a>
 
-        <span
-          class="px-1.5 py-0.5 bg-slate-100 text-slate-600 text-xxs font-semibold rounded-sm tracking-wide leading-none"
-          >BETA</span
-        >
-      </div>
-
-      <nav class="flex gap-8 text-sm">
-        {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
-      </nav>
+      <span
+        class="px-1.5 py-0.5 bg-slate-100 text-slate-600 text-xxs font-semibold rounded-sm tracking-wide leading-none"
+        >BETA</span
+      >
     </div>
 
-    <div class="flex items-center gap-x-8">
+    <nav class="flex gap-8 text-sm justify-self-center">
+      {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
+    </nav>
+
+    <div class="flex items-center gap-x-6 justify-self-end">
       <div class="flex items-center gap-4">
         <nav class="flex gap-4 font-headline text-xs font-bold">
           <a class="text-primary border-b-2 border-primary" href="#">DE</a>
@@ -62,8 +57,8 @@ const mainNav = [
         </nav>
       </div>
       <div>
-        <PagefindConfig highlight-param="highlight" />
-        <pagefind-modal-trigger></pagefind-modal-trigger>
+        <PagefindConfig highlight-param="highlight" preload={true} />
+        <pagefind-modal-trigger compact></pagefind-modal-trigger>
         <pagefind-modal></pagefind-modal>
       </div>
     </div>
