@@ -7,6 +7,8 @@ type Props = BlockProps
 const props = Astro.props
 ---
 
-<DefaultBlock {...props} class:list={'my-2 text-lg leading-relaxed'}
+<DefaultBlock
+  {...props}
+  class:list={'my-2 text-lg leading-relaxed text-justify hyphens-auto'}
   ><slot /></DefaultBlock
 >
