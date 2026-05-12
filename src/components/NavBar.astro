@@ -1,8 +1,9 @@
 ---
-import LanguagePicker from './LanguagePicker.astro'
-import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
+import { locales, languages } from '@/i18n/ui'
+import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import { useTranslations } from '@/i18n/utils'
-import { getLocale } from 'astro-i18n-aut'
+import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
+
 import Link from './Link.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
@@ -29,21 +30,42 @@ const mainNav = [
 
 <header class="border-b border-slate-200 bg-white sticky top-0 z-30">
   <div
-    class="mx-auto flex flex-col gap-y-4 md:flex-row items-center justify-between px-4 py-3"
+    class="mx-auto flex flex-col gap-y-4 md:flex-row items-center justify-between px-8 py-3"
   >
-    <a href={`/`} class="text-xl font-bold font-serif tracking-wider">
-      {t('nav.brand')}
-    </a>
+    <div class="flex items-center gap-12">
+      <div class="flex items-center gap-2">
+        <a href={`/`} class="text-xl font-bold font-serif tracking-wider">
+          {t('nav.brand')}
+        </a>
 
-    <nav class="flex items-center justify-center gap-x-8">
-      {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
-    </nav>
+        <span
+          class="px-1.5 py-0.5 bg-slate-100 text-slate-600 text-xxs font-semibold rounded-sm tracking-wide leading-none"
+          >BETA</span
+        >
+      </div>
 
-    <div class="flex items-center gap-x-2">
-      <PagefindConfig highlight-param="highlight" />
-      <pagefind-modal-trigger></pagefind-modal-trigger>
-      <pagefind-modal></pagefind-modal>
-      <LanguagePicker />
+      <nav class="flex gap-8 text-sm">
+        {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
+      </nav>
+    </div>
+
+    <div class="flex items-center gap-x-8">
+      <div class="flex items-center gap-4">
+        <nav class="flex gap-4 font-headline text-xs font-bold">
+          <a class="text-primary border-b-2 border-primary" href="#">DE</a>
+          <a class="text-outline hover:text-primary transition-colors" href="#"
+            >FR</a
+          >
+          <a class="text-outline hover:text-primary transition-colors" href="#"
+            >IT</a
+          >
+        </nav>
+      </div>
+      <div>
+        <PagefindConfig highlight-param="highlight" />
+        <pagefind-modal-trigger></pagefind-modal-trigger>
+        <pagefind-modal></pagefind-modal>
+      </div>
     </div>
   </div>
 </header>

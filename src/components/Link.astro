@@ -16,10 +16,10 @@ const normalizedPath = path.replace(/\/$/, '') || '/'
 
 <a
   href={getLocaleUrl(path, locale)}
-  class={`font-medium transition-colors duration-200 hover:text-primary ${
+  class={`font-bold transition-colors duration-200 hover:text-primary uppercase tracking-wider ${
     pathname === normalizedPath
-      ? 'text-primary font-semibold border-b-2 border-primary pb-0.5'
-      : 'text-slate-700 hover:underline'
+      ? 'text-primary  border-b-2 border-primary'
+      : 'text-outline hover:underline'
   }`}
 >
   {text}
