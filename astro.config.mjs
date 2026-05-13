@@ -9,9 +9,9 @@ import pagefind from 'astro-pagefind'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://bsv.terminofeu.ch',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   build: {
-    format: 'file',
+    format: 'directory',
   },
   fonts: [
     {
