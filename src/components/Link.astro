@@ -3,21 +3,17 @@ import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 
 const locale = getLocale(Astro.url)
 
-// IMPORTANT: normalize .html output
-const pathname = Astro.url.pathname.replace(/\.html$/, '')
+const pathname = Astro.url.pathname
 
 const { text = 'TEXT', slug = '/' } = Astro.props
 
-const path = `/${slug}`
-
-// also normalize target path just in case
-const normalizedPath = path.replace(/\/$/, '') || '/'
+const path = `/${slug}/`
 ---
 
 <a
   href={getLocaleUrl(path, locale)}
   class={`font-medium transition-colors duration-200 hover:text-primary ${
-    pathname === normalizedPath
+    pathname === path
       ? 'text-primary font-semibold border-b-2 border-primary pb-0.5'
       : 'text-slate-700 hover:underline'
   }`}
