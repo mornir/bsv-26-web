@@ -23,7 +23,8 @@ de[]{
       "desc": @->description.de,
       "requirements": @->requirements[].name.de,
       "rows": @->rows[] {
-        "system": system->name.de
+         ...,
+        "system": system->name.de,
       }
     }
   },
