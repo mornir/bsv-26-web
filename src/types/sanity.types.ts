@@ -12,1241 +12,1524 @@
  * ---------------------------------------------------------------------------------
  */
 
-export declare const internalGroqTypeReferenceTo: unique symbol;
+export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: schema.json
-export type Qualifications = {
-  _id: string;
-  _type: "qualifications";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: LocaleString;
-  functions?: Array<{
-    funktion?: "fire_safety_engineering" | "fire_safety_verification_methods";
-    vk1?: "self-declaration" | "specialist" | "expert";
-    vk2?: "self-declaration" | "specialist" | "expert";
-    vk3?: "self-declaration" | "specialist" | "expert";
-    vk4?: "self-declaration" | "specialist" | "expert";
-    rechnerischerNachweis?: "self-declaration" | "specialist" | "expert";
-    leistungsbasiert?: "self-declaration" | "specialist" | "expert";
-    _type: "function";
-    _key: string;
-  }>;
-};
+export type ArticleReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'article'
+}
+
+export type FireReactionTable = {
+  _id: string
+  _type: 'fireReactionTable'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  article?: ArticleReference
+  name?: LocaleString
+  concept:
+    | 'basic-concept'
+    | 'extinguishing-system-concept'
+    | 'basic-and-extinguishing-concept'
+  description?: LocaleString
+  rows?: Array<
+    {
+      _key: string
+    } & FireReactionRow
+  >
+}
 
 export type LocaleString = {
-  _type: "localeString";
-  de: string;
-  fr?: string;
-  it?: string;
-};
+  _type: 'localeString'
+  de: string
+  fr?: string
+  it?: string
+}
+
+export type Qualifications = {
+  _id: string
+  _type: 'qualifications'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+  functions?: Array<{
+    funktion?: 'fire_safety_engineering' | 'fire_safety_verification_methods'
+    vk1?: 'self-declaration' | 'specialist' | 'expert'
+    vk2?: 'self-declaration' | 'specialist' | 'expert'
+    vk3?: 'self-declaration' | 'specialist' | 'expert'
+    vk4?: 'self-declaration' | 'specialist' | 'expert'
+    rechnerischerNachweis?: 'self-declaration' | 'specialist' | 'expert'
+    leistungsbasiert?: 'self-declaration' | 'specialist' | 'expert'
+    _type: 'function'
+    _key: string
+  }>
+}
 
 export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
 
 export type LocaleImage = {
-  _type: "localeImage";
+  _type: 'localeImage'
   de: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt: string
+    _type: 'image'
+  }
   fr?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt: string
+    _type: 'image'
+  }
   it?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
-};
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt: string
+    _type: 'image'
+  }
+}
 
 export type LocaleText = {
-  _type: "localeText";
-  de: string;
-  fr?: string;
-  it?: string;
-};
+  _type: 'localeText'
+  de: string
+  fr?: string
+  it?: string
+}
 
 export type LocaleBlockContent = {
-  _type: "localeBlockContent";
-  de: BlockContent;
-  fr?: BlockContent;
-  it?: BlockContent;
-};
+  _type: 'localeBlockContent'
+  de: BlockContent
+  fr?: BlockContent
+  it?: BlockContent
+}
 
 export type SimpleEditor = Array<{
   children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal";
-  listItem?: never;
-  markDefs?: Array<{
-    _key: string;
-  } & InternalLink>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
+    marks?: Array<string>
+    text?: string
+    _type: 'span'
+    _key: string
+  }>
+  style?: 'normal'
+  listItem?: never
+  markDefs?: Array<
+    {
+      _key: string
+    } & InternalLink
+  >
+  level?: number
+  _type: 'block'
+  _key: string
+}>
 
 export type LocaleSimpleEditor = {
-  _type: "localeSimpleEditor";
-  de: SimpleEditor;
-  fr?: SimpleEditor;
-  it?: SimpleEditor;
-};
+  _type: 'localeSimpleEditor'
+  de: SimpleEditor
+  fr?: SimpleEditor
+  it?: SimpleEditor
+}
 
 export type TableReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "table";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'table'
+}
 
 export type RegulationTableReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "regulationTable";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'regulationTable'
+}
 
 export type FigureReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "figure";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'figure'
+}
 
 export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  } | {
-    _key: string;
-  } & TableReference | {
-    _key: string;
-  } & RegulationTableReference>;
-  style?: "normal";
-  listItem?: "number" | "bullet";
-  markDefs?: Array<{
-    _key: string;
-  } & InternalLink | {
-    _key: string;
-  } & ExternalLink | {
-    _key: string;
-  } & FigureReference>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
+  children?: Array<
+    | {
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }
+    | ({
+        _key: string
+      } & TableReference)
+    | ({
+        _key: string
+      } & RegulationTableReference)
+  >
+  style?: 'normal'
+  listItem?: 'number' | 'bullet'
+  markDefs?: Array<
+    | ({
+        _key: string
+      } & InternalLink)
+    | ({
+        _key: string
+      } & ExternalLink)
+    | ({
+        _key: string
+      } & FigureReference)
+  >
+  level?: number
+  _type: 'block'
+  _key: string
+}>
 
 export type Appendix = {
-  _id: string;
-  _type: "appendix";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
-  body: LocaleBlockContent;
-};
+  _id: string
+  _type: 'appendix'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  slug: Slug
+  name: LocaleString
+  body: LocaleBlockContent
+}
 
 export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
+  _type: 'slug'
+  current: string
+  source?: string
+}
 
 export type MeasureTarget = {
-  _id: string;
-  _type: "measureTarget";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  measure: LocaleString;
-  peopleInBuilding: "applies" | "not_applicable";
-  interventionForces: "applies" | "not_applicable";
-  buildingsAndFacilities: "applies" | "not_applicable";
-};
+  _id: string
+  _type: 'measureTarget'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  measure: LocaleString
+  protectedAssets?: ProtectedAssets
+}
+
+export type ProtectedAssets = {
+  _type: 'protectedAssets'
+  peopleInBuilding: boolean
+  buildings: boolean
+  firefighters: boolean
+}
 
 export type TitleReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "title";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'title'
+}
 
 export type Figure = {
-  _id: string;
-  _type: "figure";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  name: LocaleString;
-  title: TitleReference;
-  image?: LocaleImage;
-};
+  _id: string
+  _type: 'figure'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  name: LocaleString
+  title: TitleReference
+  image?: LocaleImage
+}
 
 export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
+  _type: 'sanity.imageCrop'
+  top: number
+  bottom: number
+  left: number
+  right: number
+}
 
 export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
+  _type: 'sanity.imageHotspot'
+  x: number
+  y: number
+  height: number
+  width: number
+}
 
 export type Table = {
-  _id: string;
-  _type: "table";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: LocaleString;
-  source: "predefined" | "html";
-  tableId?: "users_desc" | "users_char" | "users_examples";
-  html?: LocaleText;
-};
+  _id: string
+  _type: 'table'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+  myRichTable?: RichTable
+  source: 'predefined' | 'html'
+  tableId?: 'users_desc' | 'users_char' | 'users_examples'
+  html?: LocaleText
+}
+
+export type RichTable = {
+  _type: 'richTable'
+  rows: Array<
+    {
+      _key: string
+    } & RichTableRow
+  >
+  columnHeaders?: Array<
+    {
+      _key: string
+    } & ColumnHeader
+  >
+  hasColumnTitles?: boolean
+  hasRowTitles?: boolean
+}
 
 export type Faq = {
-  _id: string;
-  _type: "faq";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: LocaleString;
-};
+  _id: string
+  _type: 'faq'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+}
 
 export type SystemReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "system";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'system'
+}
+
+export type FireReactionRow = {
+  _type: 'fireReactionRow'
+  letter?: 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g'
+  system?: SystemReference
+  systemProperty?: LocaleSimpleEditor
+  protectedAssets?: ProtectedAssets
+  requirements?: Array<{
+    type?: 'RF3' | 'RF2' | 'RF1' | '(cr)'
+    criterion?: LocaleSimpleEditor
+    _type: 'requirement'
+    _key: string
+  }>
+}
 
 export type RegulationRow = {
-  _type: "regulationRow";
-  letter?: string;
-  system?: SystemReference;
-  systemProperty?: LocaleSimpleEditor;
-  people?: boolean;
-  firefighters?: boolean;
-  buildings?: boolean;
+  _type: 'regulationRow'
+  letter?: 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g'
+  system?: SystemReference
+  systemProperty?: LocaleSimpleEditor
+  protectedAssets?: ProtectedAssets
   requirements?: Array<{
-    type?: string;
-    criterion?: LocaleSimpleEditor;
-    _type: "requirement";
-    _key: string;
-  }>;
-};
+    type?: string
+    criterion?: LocaleSimpleEditor
+    _type: 'requirement'
+    _key: string
+  }>
+}
 
 export type RegulationTable = {
-  _id: string;
-  _type: "regulationTable";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  description?: LocaleString;
+  _id: string
+  _type: 'regulationTable'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  article?: ArticleReference
+  name?: LocaleString
+  description?: LocaleString
   requirements?: Array<{
-    value?: string;
-    name?: LocaleString;
-    _type: "requirement";
-    _key: string;
-  }>;
-  rows?: Array<{
-    _key: string;
-  } & RegulationRow>;
-};
+    value?: string
+    name?: LocaleString
+    _type: 'requirement'
+    _key: string
+  }>
+  rows?: Array<
+    {
+      _key: string
+    } & RegulationRow
+  >
+}
 
 export type System = {
-  _id: string;
-  _type: "system";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: LocaleString;
-};
+  _id: string
+  _type: 'system'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: LocaleString
+}
 
 export type UsersGroup = {
-  _id: string;
-  _type: "usersGroup";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  designation: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I";
-  desc: LocaleText;
-  examples: LocaleText;
-  riskLevel: "low" | "moderate" | "elevated" | "high" | "very_high";
-  attention: "yes" | "no";
-  reactionCapability: "fast" | "slow";
-  familiarity: "yes" | "no";
-  escapeCapability: "yes" | "no";
-  walkingSpeed: "fast" | "slow";
-};
+  _id: string
+  _type: 'usersGroup'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  designation: 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I'
+  desc: LocaleText
+  examples: LocaleText
+  riskLevel: 'low' | 'moderate' | 'elevated' | 'high' | 'very_high'
+  characteristics: {
+    attention: 'yes' | 'no'
+    reactionCapability: 'fast' | 'slow'
+    familiarity: 'yes' | 'no'
+    escapeCapability: 'yes' | 'no'
+    walkingSpeed: 'fast' | 'slow'
+  }
+}
 
 export type ExternalLink = {
-  _type: "externalLink";
-  href: string;
-};
-
-export type ArticleReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "article";
-};
+  _type: 'externalLink'
+  href: string
+}
 
 export type InternalLink = {
-  _type: "internalLink";
-  reference: ArticleReference;
-};
+  _type: 'internalLink'
+  reference: ArticleReference
+}
 
 export type ChapterReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "chapter";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'chapter'
+}
 
 export type SectionReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "section";
-};
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'section'
+}
 
 export type Article = {
-  _id: string;
-  _type: "article";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: TitleReference;
-  chapter?: ChapterReference;
-  section?: SectionReference;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
-  law: LocaleBlockContent;
-  exp?: LocaleBlockContent;
-};
+  _id: string
+  _type: 'article'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: TitleReference
+  chapter?: ChapterReference
+  section?: SectionReference
+  number: number
+  slug: Slug
+  name: LocaleString
+  law: LocaleBlockContent
+  exp?: LocaleBlockContent
+}
 
 export type Section = {
-  _id: string;
-  _type: "section";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  title: TitleReference;
-  chapter?: ChapterReference;
-  name: LocaleString;
-};
+  _id: string
+  _type: 'section'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: TitleReference
+  chapter?: ChapterReference
+  name: LocaleString
+}
 
 export type Chapter = {
-  _id: string;
-  _type: "chapter";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  title: TitleReference;
-  name: LocaleString;
-};
+  _id: string
+  _type: 'chapter'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  title: TitleReference
+  name: LocaleString
+}
 
 export type Title = {
-  _id: string;
-  _type: "title";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
-  desc?: LocaleSimpleEditor;
-};
+  _id: string
+  _type: 'title'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  slug: Slug
+  name: LocaleString
+  desc?: LocaleSimpleEditor
+}
+
+export type SanityAgentContextConversation = {
+  _id: string
+  _type: 'sanity.agentContextConversation'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  agentId: string
+  threadId: string
+  messages?: Array<{
+    role: 'user' | 'assistant' | 'system' | 'tool'
+    content?: string
+    toolName?: string
+    toolType?: 'call' | 'result'
+    _type: 'conversationMessage'
+    _key: string
+  }>
+  startedAt?: string
+  messagesUpdatedAt?: string
+  modelProvider?: string
+  modelId?: string
+  tokenUsage?: {
+    inputTokens?: number
+    outputTokens?: number
+    totalTokens?: number
+  }
+  coreMetrics?: {
+    successScore?: number
+    sentiment?: 'positive' | 'neutral' | 'negative'
+    contentGaps?: Array<string>
+  }
+  classifiedAt?: string
+  classificationError?: string
+}
 
 export type SanityAgentContext = {
-  _id: string;
-  _type: "sanity.agentContext";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  version?: string;
-  name?: string;
-  slug: Slug;
-  groqFilter?: string;
-  instructions?: string;
-};
+  _id: string
+  _type: 'sanity.agentContext'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  version?: string
+  name?: string
+  slug: Slug
+  groqFilter?: string
+  instructions?: string
+}
+
+export type Content = Array<{
+  children?: Array<{
+    marks?: Array<string>
+    text?: string
+    _type: 'span'
+    _key: string
+  }>
+  style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+  listItem?: 'bullet' | 'number'
+  markDefs?: Array<{
+    href?: string
+    _type: 'link'
+    _key: string
+  }>
+  level?: number
+  _type: 'block'
+  _key: string
+}>
+
+export type RichTableBlock = RichTable
+
+export type ColumnHeader = {
+  _type: 'columnHeader'
+  title?: string
+  cellIndex: number
+}
+
+export type RichTableCell = {
+  _type: 'richTableCell'
+  content?: Content
+}
+
+export type RichTableRow = {
+  _type: 'richTableRow'
+  title?: string
+  cells?: Array<
+    {
+      _key: string
+    } & RichTableCell
+  >
+}
 
 export type Latex = {
-  _type: "latex";
-  body?: string;
-};
+  _type: 'latex'
+  body?: string
+}
 
 export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
-};
+  _type: 'sanity.imagePaletteSwatch'
+  background?: string
+  foreground?: string
+  population?: number
+  title?: string
+}
 
 export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
-};
+  _type: 'sanity.imagePalette'
+  darkMuted?: SanityImagePaletteSwatch
+  lightVibrant?: SanityImagePaletteSwatch
+  darkVibrant?: SanityImagePaletteSwatch
+  vibrant?: SanityImagePaletteSwatch
+  dominant?: SanityImagePaletteSwatch
+  lightMuted?: SanityImagePaletteSwatch
+  muted?: SanityImagePaletteSwatch
+}
 
 export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
-  height: number;
-  width: number;
-  aspectRatio: number;
-};
+  _type: 'sanity.imageDimensions'
+  height: number
+  width: number
+  aspectRatio: number
+}
 
 export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  thumbHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
-};
+  _type: 'sanity.imageMetadata'
+  location?: Geopoint
+  dimensions?: SanityImageDimensions
+  palette?: SanityImagePalette
+  lqip?: string
+  blurHash?: string
+  thumbHash?: string
+  hasAlpha?: boolean
+  isOpaque?: boolean
+}
 
 export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash: string;
-  extension: string;
-  mimeType: string;
-  size: number;
-  assetId: string;
-  uploadId?: string;
-  path: string;
-  url: string;
-  source?: SanityAssetSourceData;
-};
+  _id: string
+  _type: 'sanity.fileAsset'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  originalFilename?: string
+  label?: string
+  title?: string
+  description?: string
+  altText?: string
+  sha1hash: string
+  extension: string
+  mimeType: string
+  size: number
+  assetId: string
+  uploadId?: string
+  path: string
+  url: string
+  source?: SanityAssetSourceData
+}
 
 export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
+  _type: 'sanity.assetSourceData'
+  name?: string
+  id?: string
+  url?: string
+}
 
 export type SanityImageAsset = {
-  _id: string;
-  _type: "sanity.imageAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash: string;
-  extension: string;
-  mimeType: string;
-  size: number;
-  assetId: string;
-  uploadId?: string;
-  path: string;
-  url: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
-};
+  _id: string
+  _type: 'sanity.imageAsset'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  originalFilename?: string
+  label?: string
+  title?: string
+  description?: string
+  altText?: string
+  sha1hash: string
+  extension: string
+  mimeType: string
+  size: number
+  assetId: string
+  uploadId?: string
+  path: string
+  url: string
+  metadata?: SanityImageMetadata
+  source?: SanityAssetSourceData
+}
 
 export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
-};
+  _type: 'geopoint'
+  lat?: number
+  lng?: number
+  alt?: number
+}
 
-export type AllSanitySchemaTypes = Qualifications | LocaleString | SanityImageAssetReference | LocaleImage | LocaleText | LocaleBlockContent | SimpleEditor | LocaleSimpleEditor | TableReference | RegulationTableReference | FigureReference | BlockContent | Appendix | Slug | MeasureTarget | TitleReference | Figure | SanityImageCrop | SanityImageHotspot | Table | Faq | SystemReference | RegulationRow | RegulationTable | System | UsersGroup | ExternalLink | ArticleReference | InternalLink | ChapterReference | SectionReference | Article | Section | Chapter | Title | SanityAgentContext | Latex | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes =
+  | ArticleReference
+  | FireReactionTable
+  | LocaleString
+  | Qualifications
+  | SanityImageAssetReference
+  | LocaleImage
+  | LocaleText
+  | LocaleBlockContent
+  | SimpleEditor
+  | LocaleSimpleEditor
+  | TableReference
+  | RegulationTableReference
+  | FigureReference
+  | BlockContent
+  | Appendix
+  | Slug
+  | MeasureTarget
+  | ProtectedAssets
+  | TitleReference
+  | Figure
+  | SanityImageCrop
+  | SanityImageHotspot
+  | Table
+  | RichTable
+  | Faq
+  | SystemReference
+  | FireReactionRow
+  | RegulationRow
+  | RegulationTable
+  | System
+  | UsersGroup
+  | ExternalLink
+  | InternalLink
+  | ChapterReference
+  | SectionReference
+  | Article
+  | Section
+  | Chapter
+  | Title
+  | SanityAgentContextConversation
+  | SanityAgentContext
+  | Content
+  | RichTableBlock
+  | ColumnHeader
+  | RichTableCell
+  | RichTableRow
+  | Latex
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageMetadata
+  | SanityFileAsset
+  | SanityAssetSourceData
+  | SanityImageAsset
+  | Geopoint
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getTitlesQuery
-// Query: *[_type == "title"]   {..., desc {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}} | order(number asc)
+// Query: *[_type == "title"]   {..., desc {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}} | order(number asc)
 export type GetTitlesQueryResult = Array<{
-  _id: string;
-  _type: "title";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
+  _id: string
+  _type: 'title'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  slug: Slug
+  name: LocaleString
   desc: {
     de: Array<{
       children: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: never;
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }> | null
+      style?: 'normal'
+      listItem?: never
       markDefs: Array<{
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+        _key: string
+        _type: 'internalLink'
+        reference: ArticleReference
+        number: number
+        type: 'article'
+      }> | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
     fr: Array<{
       children: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: never;
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }> | null
+      style?: 'normal'
+      listItem?: never
       markDefs: Array<{
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-  } | null;
-}>;
+        _key: string
+        _type: 'internalLink'
+        reference: ArticleReference
+        number: number
+        type: 'article'
+      }> | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  } | null
+}>
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getAppendicesQuery
 // Query: *[_type == "appendix"] | order(number asc)
 export type GetAppendicesQueryResult = Array<{
-  _id: string;
-  _type: "appendix";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
-  body: LocaleBlockContent;
-}>;
+  _id: string
+  _type: 'appendix'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  number: number
+  slug: Slug
+  name: LocaleString
+  body: LocaleBlockContent
+}>
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getArticlesQuery
-// Query: *[_type == "article"]    { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}    | order(number asc)
+// Query: *[_type == "article"]    { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}    | order(number asc)
 export type GetArticlesQueryResult = Array<{
-  _id: string;
-  _type: "article";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  _id: string
+  _type: 'article'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
   title: {
-    _id: string;
-    _type: "title";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    slug: Slug;
-    name: LocaleString;
-    desc?: LocaleSimpleEditor;
-  };
+    _id: string
+    _type: 'title'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    slug: Slug
+    name: LocaleString
+    desc?: LocaleSimpleEditor
+  }
   chapter: {
-    _id: string;
-    _type: "chapter";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    title: TitleReference;
-    name: LocaleString;
-  } | null;
+    _id: string
+    _type: 'chapter'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    title: TitleReference
+    name: LocaleString
+  } | null
   section: {
-    _id: string;
-    _type: "section";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    title: TitleReference;
-    chapter?: ChapterReference;
-    name: LocaleString;
-  } | null;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
+    _id: string
+    _type: 'section'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    title: TitleReference
+    chapter?: ChapterReference
+    name: LocaleString
+  } | null
+  number: number
+  slug: Slug
+  name: LocaleString
   law: {
     de: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
     fr: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-  };
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  }
   exp: {
     de: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
     fr: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-  } | null;
-}>;
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  } | null
+}>
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getFeaturesQuery
 // Query: *[_type == "feature"]
-export type GetFeaturesQueryResult = Array<never>;
+export type GetFeaturesQueryResult = Array<never>
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getArticlesFromTitleQuery
-// Query: {  "articles": *[_type == "article" && title->slug.current == $titleSlug]    { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}    | order(number asc),  "title": *[_type == "title" && slug.current == $titleSlug][0]}
+// Query: {  "articles": *[_type == "article" && title->slug.current == $titleSlug]    { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}    | order(number asc),  "title": *[_type == "title" && slug.current == $titleSlug][0]}
 export type GetArticlesFromTitleQueryResult = {
   articles: Array<{
-    _id: string;
-    _type: "article";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
+    _id: string
+    _type: 'article'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
     title: {
-      _id: string;
-      _type: "title";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      number: number;
-      slug: Slug;
-      name: LocaleString;
-      desc?: LocaleSimpleEditor;
-    };
+      _id: string
+      _type: 'title'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      slug: Slug
+      name: LocaleString
+      desc?: LocaleSimpleEditor
+    }
     chapter: {
-      _id: string;
-      _type: "chapter";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      number: number;
-      title: TitleReference;
-      name: LocaleString;
-    } | null;
+      _id: string
+      _type: 'chapter'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      title: TitleReference
+      name: LocaleString
+    } | null
     section: {
-      _id: string;
-      _type: "section";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      number: number;
-      title: TitleReference;
-      chapter?: ChapterReference;
-      name: LocaleString;
-    } | null;
-    number: number;
-    slug: Slug;
-    name: LocaleString;
+      _id: string
+      _type: 'section'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      title: TitleReference
+      chapter?: ChapterReference
+      name: LocaleString
+    } | null
+    number: number
+    slug: Slug
+    name: LocaleString
     law: {
       de: Array<{
-        children: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }> | null;
-        style?: "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          _key: string;
-          _type: "externalLink";
-          href: string;
-        } | {
-          _key: string;
-          _type: "internalLink";
-          reference: ArticleReference;
-          number: number;
-          type: "article";
-        }> | null;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
+        children: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
       fr: Array<{
-        children: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }> | null;
-        style?: "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          _key: string;
-          _type: "externalLink";
-          href: string;
-        } | {
-          _key: string;
-          _type: "internalLink";
-          reference: ArticleReference;
-          number: number;
-          type: "article";
-        }> | null;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }> | null;
-    };
+        children: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }> | null
+    }
     exp: {
       de: Array<{
-        children: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }> | null;
-        style?: "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          _key: string;
-          _type: "externalLink";
-          href: string;
-        } | {
-          _key: string;
-          _type: "internalLink";
-          reference: ArticleReference;
-          number: number;
-          type: "article";
-        }> | null;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
+        children: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
       fr: Array<{
-        children: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }> | null;
-        style?: "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<{
-          _key: string;
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        } | {
-          _key: string;
-          _type: "externalLink";
-          href: string;
-        } | {
-          _key: string;
-          _type: "internalLink";
-          reference: ArticleReference;
-          number: number;
-          type: "article";
-        }> | null;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }> | null;
-    } | null;
-  }>;
+        children: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }> | null
+    } | null
+  }>
   title: {
-    _id: string;
-    _type: "title";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    slug: Slug;
-    name: LocaleString;
-    desc?: LocaleSimpleEditor;
-  } | null;
-};
+    _id: string
+    _type: 'title'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    slug: Slug
+    name: LocaleString
+    desc?: LocaleSimpleEditor
+  } | null
+}
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getArticleQuery
-// Query: *[_type == "article" && defined(slug.current) && slug.current == $slug][0]      { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {        "system": system->name.de      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}
+// Query: *[_type == "article" && defined(slug.current) && slug.current == $slug][0]      { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,    },    _type == "regulationTable" => {      "name": @->name,      "desc": @->description.de,      "requirements": @->requirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}
 export type GetArticleQueryResult = {
-  _id: string;
-  _type: "article";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  _id: string
+  _type: 'article'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
   title: {
-    _id: string;
-    _type: "title";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    slug: Slug;
-    name: LocaleString;
-    desc?: LocaleSimpleEditor;
-  };
+    _id: string
+    _type: 'title'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    slug: Slug
+    name: LocaleString
+    desc?: LocaleSimpleEditor
+  }
   chapter: {
-    _id: string;
-    _type: "chapter";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    title: TitleReference;
-    name: LocaleString;
-  } | null;
+    _id: string
+    _type: 'chapter'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    title: TitleReference
+    name: LocaleString
+  } | null
   section: {
-    _id: string;
-    _type: "section";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    number: number;
-    title: TitleReference;
-    chapter?: ChapterReference;
-    name: LocaleString;
-  } | null;
-  number: number;
-  slug: Slug;
-  name: LocaleString;
+    _id: string
+    _type: 'section'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    number: number
+    title: TitleReference
+    chapter?: ChapterReference
+    name: LocaleString
+  } | null
+  number: number
+  slug: Slug
+  name: LocaleString
   law: {
     de: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
     fr: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-  };
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  }
   exp: {
     de: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
     fr: Array<{
-      children: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }> | null;
-      style?: "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        _key: string;
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      } | {
-        _key: string;
-        _type: "externalLink";
-        href: string;
-      } | {
-        _key: string;
-        _type: "internalLink";
-        reference: ArticleReference;
-        number: number;
-        type: "article";
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-  } | null;
-} | null;
+      children: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }
+      > | null
+      style?: 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs: Array<
+        | {
+            _key: string
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+          }
+        | {
+            _key: string
+            _type: 'externalLink'
+            href: string
+          }
+        | {
+            _key: string
+            _type: 'internalLink'
+            reference: ArticleReference
+            number: number
+            type: 'article'
+          }
+      > | null
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+  } | null
+} | null
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getNavQuery
 // Query: *[_type == "title"] {  name, number,  "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},  "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }} | order(number asc),  "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}} | order(number asc)
 export type GetNavQueryResult = Array<{
-  name: LocaleString;
-  number: number;
+  name: LocaleString
+  number: number
   articles: Array<{
-    name: LocaleString;
-    number: number;
+    name: LocaleString
+    number: number
     chapter: {
-      _id: string;
-      _type: "chapter";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      number: number;
-      title: TitleReference;
-      name: LocaleString;
-    } | null;
+      _id: string
+      _type: 'chapter'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      title: TitleReference
+      name: LocaleString
+    } | null
     section: {
-      _id: string;
-      _type: "section";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      number: number;
-      title: TitleReference;
-      chapter?: ChapterReference;
-      name: LocaleString;
-    } | null;
-  }>;
+      _id: string
+      _type: 'section'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      title: TitleReference
+      chapter?: ChapterReference
+      name: LocaleString
+    } | null
+  }>
   chapters: Array<{
-    name: LocaleString;
-    number: number;
+    name: LocaleString
+    number: number
     sections: Array<{
-      name: LocaleString;
-    }>;
-  }>;
+      name: LocaleString
+    }>
+  }>
   sections: Array<{
-    name: LocaleString;
-    number: number;
-  }>;
-}>;
+    name: LocaleString
+    number: number
+  }>
+}>
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getIndexQuery
 // Query: {  "articles": *[_type == "article"]{name, number, "slug": slug.current, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": section->number} | order(number asc),  "titles": *[_type == "title"]{name, number, "slug": slug.current} | order(number asc),  "chapters": *[_type == "chapter"]{name, number, "titleNum": title->number} | order(number asc),  "sections": *[_type == "section"]{name, number, "titleNum": title->number, "chapterNum": chapter->number} | order(number asc),}
 export type GetIndexQueryResult = {
   articles: Array<{
-    name: LocaleString;
-    number: number;
-    slug: string;
-    titleNum: number;
-    chapterNum: number | null;
-    sectionNum: number | null;
-  }>;
+    name: LocaleString
+    number: number
+    slug: string
+    titleNum: number
+    chapterNum: number | null
+    sectionNum: number | null
+  }>
   titles: Array<{
-    name: LocaleString;
-    number: number;
-    slug: string;
-  }>;
+    name: LocaleString
+    number: number
+    slug: string
+  }>
   chapters: Array<{
-    name: LocaleString;
-    number: number;
-    titleNum: number;
-  }>;
+    name: LocaleString
+    number: number
+    titleNum: number
+  }>
   sections: Array<{
-    name: LocaleString;
-    number: number;
-    titleNum: number;
-    chapterNum: number | null;
-  }>;
-};
-
-// Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
-  interface SanityQueries {
-    "\n  *[_type == \"title\"] \n  {..., desc {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}} | order(number asc)": GetTitlesQueryResult;
-    "\n  *[_type == \"appendix\"] | order(number asc)": GetAppendicesQueryResult;
-    "\n  *[_type == \"article\"]\n  \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  | order(number asc)": GetArticlesQueryResult;
-    "*[_type == \"feature\"]": GetFeaturesQueryResult;
-    "{\n  \"articles\": *[_type == \"article\" && title->slug.current == $titleSlug]\n  \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  | order(number asc),\n  \"title\": *[_type == \"title\" && slug.current == $titleSlug][0]}": GetArticlesFromTitleQueryResult;
-    "\n\n    *[_type == \"article\" && defined(slug.current) && slug.current == $slug][0]\n    \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.de,\n      \"tableId\": @->tableId,\n      \"name\": @->name.de,\n      \"source\": @->source,\n    },\n    _type == \"regulationTable\" => {\n      \"name\": @->name,\n      \"desc\": @->description.de,\n      \"requirements\": @->requirements[].name.de,\n      \"rows\": @->rows[] {\n        \"system\": system->name.de\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n      \"number\": @->number,\n      \"name\": @->name.de,\n      \"img\":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == \"table\" => {\n      \"html\": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      \"number\": @.reference->number,\n      \"type\": @.reference->_type,\n    },\n    _type == \"figure\" => {\n       \"number\": @->number,\n       \"name\": @->name.fr,\n        \"img\":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n    ": GetArticleQueryResult;
-    "*[_type == \"title\"] {\n  name, number,\n  \"articles\":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},\n  \"chapters\": *[_type=='chapter' && references(^._id)]{ name, number, \"sections\": *[_type=='section' && references(^._id)]{ name }} | order(number asc),\n  \"sections\": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)": GetNavQueryResult;
-    "{\n  \"articles\": *[_type == \"article\"]{name, number, \"slug\": slug.current, \"titleNum\": title->number, \"chapterNum\": chapter->number, \"sectionNum\": section->number} | order(number asc),\n  \"titles\": *[_type == \"title\"]{name, number, \"slug\": slug.current} | order(number asc),\n  \"chapters\": *[_type == \"chapter\"]{name, number, \"titleNum\": title->number} | order(number asc),\n  \"sections\": *[_type == \"section\"]{name, number, \"titleNum\": title->number, \"chapterNum\": chapter->number} | order(number asc),\n}": GetIndexQueryResult;
-  }
+    name: LocaleString
+    number: number
+    titleNum: number
+    chapterNum: number | null
+  }>
 }
 
+// Query TypeMap
+import '@sanity/client'
+declare module '@sanity/client' {
+  interface SanityQueries {
+    '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
+    '\n  *[_type == "appendix"] | order(number asc)': GetAppendicesQueryResult
+    '\n  *[_type == "article"]\n  \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  | order(number asc)': GetArticlesQueryResult
+    '*[_type == "feature"]': GetFeaturesQueryResult
+    '{\n  "articles": *[_type == "article" && title->slug.current == $titleSlug]\n  \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  | order(number asc),\n  "title": *[_type == "title" && slug.current == $titleSlug][0]}': GetArticlesFromTitleQueryResult
+    '\n\n    *[_type == "article" && defined(slug.current) && slug.current == $slug][0]\n    \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name,\n      "desc": @->description.de,\n      "requirements": @->requirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n    ': GetArticleQueryResult
+    '*[_type == "title"] {\n  name, number,\n  "articles":   *[_type==\'article\' && references(^._id)]{name, number, chapter->, section->},\n  "chapters": *[_type==\'chapter\' && references(^._id)]{ name, number, "sections": *[_type==\'section\' && references(^._id)]{ name }} | order(number asc),\n  "sections": *[_type==\'section\' && references(^._id) && !defined(^.chapters)]{name, number}\n} | order(number asc)': GetNavQueryResult
+    '{\n  "articles": *[_type == "article"]{name, number, "slug": slug.current, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": section->number} | order(number asc),\n  "titles": *[_type == "title"]{name, number, "slug": slug.current} | order(number asc),\n  "chapters": *[_type == "chapter"]{name, number, "titleNum": title->number} | order(number asc),\n  "sections": *[_type == "section"]{name, number, "titleNum": title->number, "chapterNum": chapter->number} | order(number asc),\n}': GetIndexQueryResult
+  }
+}
