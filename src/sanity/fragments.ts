@@ -21,7 +21,7 @@ de[]{
     _type == "regulationTable" => {
       "name": @->name,
       "desc": @->description.de,
-      "requirements": @->requirements[].name.de,
+      "requirements": @->possibleRequirements[].name.de,
       "rows": @->rows[] {
          ...,
         "system": system->name.de,
