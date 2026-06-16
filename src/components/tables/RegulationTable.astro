@@ -3,13 +3,11 @@ import TableModal from '@/components/portable-text/TableModal.astro'
 import Tooltip from '@/components/Tooltip.astro'
 import BasicRichText from '../portable-text/BasicRichText.astro'
 
-const { desc, requirements, name, rows } = Astro.props.node
-
-console.log(rows)
+const { desc, possibleRequirements, name, rows } = Astro.props.node
 ---
 
-<TableModal name={name.de}>
-  <table class="law-table">
+<TableModal name={name}>
+  <table class="law-table hyphens-none">
     <thead>
       <tr>
         <th rowspan={desc ? '2' : '1'}>
@@ -31,7 +29,7 @@ console.log(rows)
         </th>
         {
           desc && (
-            <th colspan={requirements.length}>
+            <th colspan={possibleRequirements.length}>
               <p class="text-center text-balance">{desc}</p>
             </th>
           )
@@ -39,7 +37,7 @@ console.log(rows)
       </tr>
       <tr>
         {
-          requirements.map((req: string) => (
+          possibleRequirements.map((req: string) => (
             <th>
               <p class="text-center">{req}</p>
             </th>
@@ -57,7 +55,7 @@ console.log(rows)
             <td>
               <p>{row.system}</p>
             </td>
-            <td class="text-balance">
+            <td>
               <BasicRichText blocks={row.systemProperty.de} />
             </td>
             <td>
@@ -66,18 +64,26 @@ console.log(rows)
             <td>
               <p>X</p>
             </td>
-            <td>
-              <p class="text-center">≤ 100 m</p>
-            </td>
-            <td>
-              <p class="text-center">—</p>
-            </td>
-            <td>
-              <p class="text-center">—</p>
-            </td>
-            <td>
-              <p class="text-center">—</p>
-            </td>
+
+            {possibleRequirements.map((posReq: string) => {
+              const requirement = row.requirements.find(
+                (req: any) => req.name === posReq
+              )
+
+              if (requirement) {
+                return (
+                  <td class="text-center">
+                    <BasicRichText blocks={requirement?.criterion?.de} />
+                  </td>
+                )
+              }
+
+              return (
+                <td>
+                  <p class="text-center">—</p>
+                </td>
+              )
+            })}
           </tr>
         ))
       }

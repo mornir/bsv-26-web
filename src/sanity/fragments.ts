@@ -19,9 +19,9 @@ de[]{
       "source": @->source,
     },
     _type == "regulationTable" => {
-      "name": @->name,
+      "name": @->name.de,
       "desc": @->description.de,
-      "requirements": @->possibleRequirements[].name.de,
+      "possibleRequirements": @->possibleRequirements[].name.de,
       "rows": @->rows[] {
          ...,
         "system": system->name.de,
