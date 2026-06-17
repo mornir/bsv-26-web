@@ -26,6 +26,9 @@
 
   .law-table thead {
     @apply bg-blue-50;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .law-table thead tr:first-child {
