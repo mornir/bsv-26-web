@@ -69,14 +69,14 @@ const assets = [
     <tbody>
       {
         rows.map((row: any) => (
-          <tr>
-            <td>
+          <tr class="group">
+            <td class="group-hover:bg-slate-200">
               <p>{row.letter}.</p>
             </td>
-            <td>
+            <td class="group-hover:bg-slate-200">
               <p>{row.system}</p>
             </td>
-            <td class="max-w-2xs text-left">
+            <td class="max-w-2xs text-left group-hover:bg-slate-200">
               <BasicRichText blocks={row.systemProperty.de} />
             </td>
 
@@ -95,7 +95,7 @@ const assets = [
 
               if (requirement) {
                 return (
-                  <td class="text-center">
+                  <td class="text-center font-semibold group-hover:bg-slate-200">
                     <BasicRichText blocks={requirement?.criterion?.de} />
                   </td>
                 )
