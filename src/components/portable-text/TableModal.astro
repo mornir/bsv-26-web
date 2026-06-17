@@ -9,7 +9,7 @@ const { name = '' } = Astro.props
   <div class="flex justify-end mb-4">
     <button
       @click="open = true"
-      class="hidden items-center gap-1.5 text-outline hover:text-primary transition-colors px-3 py-2 rounded border border-outline/20 hover:border-primary/30 bg-white cursor-pointer"
+      class="flex items-center gap-1.5 text-outline hover:text-primary transition-colors px-3 py-2 rounded border border-outline/20 hover:border-primary/30 bg-white cursor-pointer"
       title="Tabelle vergrössern"
     >
       <Maximize class="h-4 w-4" />
@@ -78,7 +78,7 @@ const { name = '' } = Astro.props
 </div>
 
 <style>
-  :root {
+  /*   :root {
     timeline-scope: --can-scroll;
     animation: detect-scroll forwards;
     animation-timeline: --can-scroll;
@@ -97,5 +97,5 @@ const { name = '' } = Astro.props
     button {
       display: flex;
     }
-  }
+  } */
 </style>
