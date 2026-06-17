@@ -26,6 +26,14 @@ de[]{
          ...,
         "system": system->name.de,
       }
+    },
+    _type == "fireReactionTable" => {
+      "name": @->name.de,
+      "desc": @->description.de,
+      "rows": @->rows[] {
+         ...,
+        "system": system->name.de,
+      }
     }
   },
   markDefs[]{

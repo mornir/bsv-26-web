@@ -4,24 +4,26 @@ import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 
 const { desc, possibleRequirements, name, rows } = Astro.props.node
 
+const requirements = possibleRequirements || ['RF3', 'RF2', 'RF1', '(cr)']
+
 const assets = [
   {
     letter: 'P',
     legend: 'Schutzgut "Personen im Gebäude"',
     key: 'peopleInBuilding',
-    show: rows.some((row: any) => row.protectedAssets.peopleInBuilding),
+    show: rows?.some((row: any) => row.protectedAssets.peopleInBuilding),
   },
   {
     letter: 'B',
     legend: 'Schutzgut Gebäude',
     key: 'buildings',
-    show: rows.some((row: any) => row.protectedAssets.buildings),
+    show: rows?.some((row: any) => row.protectedAssets.buildings),
   },
 
   {
     letter: 'F',
     key: 'firefighters',
-    show: rows.some((row: any) => row.protectedAssets.firefighters),
+    show: rows?.some((row: any) => row.protectedAssets.firefighters),
   },
 ]
 ---
@@ -50,7 +52,7 @@ const assets = [
         }
         {
           desc && (
-            <th colspan={possibleRequirements.length}>
+            <th colspan={requirements.length}>
               <p class="text-center text-balance">{desc}</p>
             </th>
           )
@@ -58,7 +60,7 @@ const assets = [
       </tr>
       <tr>
         {
-          possibleRequirements.map((req: string) => (
+          requirements.map((req: string) => (
             <th class="w-32">
               <p class="text-center">{req}</p>
             </th>
@@ -88,14 +90,23 @@ const assets = [
                 </td>
               ))}
 
-            {possibleRequirements.map((posReq: string) => {
+            {requirements.map((posReq: string) => {
               const requirement = row.requirements.find(
                 (req: any) => req.name === posReq
               )
 
               if (requirement) {
                 return (
-                  <td class="text-center font-semibold group-hover:bg-slate-200">
+                  <td
+                    class:list={[
+                      'text-center font-semibold group-hover:bg-slate-200',
+                      {
+                        'bg-yellow-500': requirement.name === 'RF3',
+                      },
+                      { 'bg-orange-500': requirement.name === 'RF2' },
+                      { 'bg-blue-500': requirement.name === 'RF1' },
+                    ]}
+                  >
                     <BasicRichText blocks={requirement?.criterion?.de} />
                   </td>
                 )
