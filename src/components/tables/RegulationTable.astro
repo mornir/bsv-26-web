@@ -1,9 +1,29 @@
 ---
 import TableModal from '@/components/portable-text/TableModal.astro'
-import Tooltip from '@/components/Tooltip.astro'
-import BasicRichText from '../portable-text/BasicRichText.astro'
+import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 
 const { desc, possibleRequirements, name, rows } = Astro.props.node
+
+const assets = [
+  {
+    letter: 'P',
+    legend: 'Schutzgut "Personen im Gebäude"',
+    key: 'peopleInBuilding',
+    show: rows.some((row: any) => row.protectedAssets.peopleInBuilding),
+  },
+  {
+    letter: 'B',
+    legend: 'Schutzgut Gebäude',
+    key: 'buildings',
+    show: rows.some((row: any) => row.protectedAssets.buildings),
+  },
+
+  {
+    letter: 'F',
+    key: 'firefighters',
+    show: rows.some((row: any) => row.protectedAssets.firefighters),
+  },
+]
 ---
 
 <TableModal name={name}>
@@ -19,14 +39,15 @@ const { desc, possibleRequirements, name, rows } = Astro.props.node
         <th rowspan={desc ? '2' : '1'}>
           <p>Systemeigenschaft</p>
         </th>
-        <th rowspan={desc ? '2' : '1'}>
-          <p>
-            <Tooltip message="Schutzgut Personen im Gebäude">P</Tooltip>
-          </p>
-        </th>
-        <th rowspan={desc ? '2' : '1'}>
-          <p><Tooltip message="Schutzgut Gebäude">G</Tooltip></p>
-        </th>
+        {
+          assets
+            .filter((asset) => asset.show)
+            .map((pAsset) => (
+              <th rowspan={desc ? '2' : '1'}>
+                <p class="text-center">{pAsset.letter}</p>
+              </th>
+            ))
+        }
         {
           desc && (
             <th colspan={possibleRequirements.length}>
@@ -38,7 +59,7 @@ const { desc, possibleRequirements, name, rows } = Astro.props.node
       <tr>
         {
           possibleRequirements.map((req: string) => (
-            <th>
+            <th style="width: 100px;">
               <p class="text-center">{req}</p>
             </th>
           ))
@@ -58,14 +79,17 @@ const { desc, possibleRequirements, name, rows } = Astro.props.node
             <td>
               <BasicRichText blocks={row.systemProperty.de} />
             </td>
-            <td>
-              <p>—</p>
-            </td>
-            <td>
-              <p>X</p>
-            </td>
+
+            {assets
+              .filter((asset) => asset.show)
+              .map((pAsset) => (
+                <td class="text-center">
+                  <p>{row.protectedAssets[pAsset.key] ? 'X' : '—'}</p>
+                </td>
+              ))}
 
             {possibleRequirements.map((posReq: string) => {
+              console.log(row.protectedAssets)
               const requirement = row.requirements.find(
                 (req: any) => req.name === posReq
               )
