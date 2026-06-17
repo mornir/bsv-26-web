@@ -1,14 +1,35 @@
 ---
 import TableModal from '@/components/portable-text/TableModal.astro'
-import Tooltip from '@/components/Tooltip.astro'
+import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 
-// console.log(Astro.props.node)
+const { desc, possibleRequirements, name, rows } = Astro.props.node
 
-const { desc, requirements, name } = Astro.props.node
+const requirements = possibleRequirements || ['RF3', 'RF2', 'RF1', '(cr)']
+
+const assets = [
+  {
+    letter: 'P',
+    legend: 'Schutzgut "Personen im Gebäude"',
+    key: 'peopleInBuilding',
+    show: rows?.some((row: any) => row.protectedAssets.peopleInBuilding),
+  },
+  {
+    letter: 'B',
+    legend: 'Schutzgut Gebäude',
+    key: 'buildings',
+    show: rows?.some((row: any) => row.protectedAssets.buildings),
+  },
+
+  {
+    letter: 'F',
+    key: 'firefighters',
+    show: rows?.some((row: any) => row.protectedAssets.firefighters),
+  },
+]
 ---
 
 <TableModal name={name}>
-  <table class="law-table">
+  <table class="law-table hyphens-none">
     <thead>
       <tr>
         <th rowspan={desc ? '2' : '1'}>
@@ -20,18 +41,19 @@ const { desc, requirements, name } = Astro.props.node
         <th rowspan={desc ? '2' : '1'}>
           <p>Systemeigenschaft</p>
         </th>
-        <th rowspan={desc ? '2' : '1'}>
-          <p>
-            <Tooltip message="Schutzgut Personen">P</Tooltip>
-          </p>
-        </th>
-        <th rowspan={desc ? '2' : '1'}>
-          <p><Tooltip message="Schutzgut Gebäude">G</Tooltip></p>
-        </th>
+        {
+          assets
+            .filter((asset) => asset.show)
+            .map((pAsset) => (
+              <th rowspan={desc ? '2' : '1'}>
+                <p class="text-center">{pAsset.letter}</p>
+              </th>
+            ))
+        }
         {
           desc && (
             <th colspan={requirements.length}>
-              <p class="text-center">{desc}</p>
+              <p class="text-center text-balance">{desc}</p>
             </th>
           )
         }
@@ -39,7 +61,7 @@ const { desc, requirements, name } = Astro.props.node
       <tr>
         {
           requirements.map((req: string) => (
-            <th>
+            <th class="w-32">
               <p class="text-center">{req}</p>
             </th>
           ))
@@ -47,223 +69,58 @@ const { desc, requirements, name } = Astro.props.node
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-          <p>a.</p>
-        </td>
-        <td>
-          <p>Gebäudeteil</p>
-        </td>
-        <td>
-          <p>Gesamthöhe</p>
-        </td>
-        <td>
-          <p>—</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p class="text-center">≤ 100 m</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>b.</p>
-        </td>
-        <td>
-          <p>Gebäudeteil</p>
-        </td>
-        <td>
-          <p>Gebäude mit 1 Geschoss über Terrain</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p>—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">≤ 11 m</p>
-        </td>
-        <td>
-          <p class="text-center">
-            &gt; 11 bis <br />
-            ≤ 30 m
-          </p>
-        </td>
-        <td>
-          <p class="text-center">
-            &gt; 30 bis <br />
-            ≤ 100 m
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>c.</p>
-        </td>
-        <td>
-          <p>Gebäudeteil</p>
-        </td>
-        <td>
-          <p>Gesamthöhe</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p>—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">≤ 30 m</p>
-        </td>
-        <td>
-          <p class="text-center">
-            &gt; 30 bis <br />
-            ≤ 100 m
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>d.</p>
-        </td>
-        <td>
-          <p>Gebäudeteil</p>
-        </td>
-        <td>
-          <p>Gebäude mit ≥ 2 Geschossen über Terrain</p>
-          <p>Nutzergruppen A, B, C, D, E, H</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p>—</p>
-        </td>
-        <td>
-          <p class="text-center">≤ 20 Personen</p>
-        </td>
-        <td>
-          <p class="text-center">&gt; 20 Personen</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>e.</p>
-        </td>
-        <td>
-          <p>Gebäudeteil</p>
-        </td>
-        <td>
-          <p>Gesamthöhe</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p class="text-center">≤ 30 m</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">&gt; 30 m</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>f.</p>
-        </td>
-        <td>
-          <p>Brandabschnitt</p>
-        </td>
-        <td>
-          <p>Gebäude mit ≥ 2 Geschossen über Terrain</p>
-          <p>Nutzergruppe F, G, I</p>
-        </td>
-        <td>
-          <p>—</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">≤ 11 m</p>
-        </td>
-        <td>
-          <p class="text-center">
-            &gt; 11 bis <br />
-            ≤ 30 m
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>g.</p>
-        </td>
-        <td>
-          <p>Raum</p>
-        </td>
-        <td>
-          <p>Anzahl Personen</p>
-        </td>
-        <td>
-          <p>X</p>
-        </td>
-        <td>
-          <p>—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-        <td>
-          <p class="text-center">&gt; 1'000 Personen</p>
-        </td>
-        <td>
-          <p class="text-center">—</p>
-        </td>
-      </tr>
+      {
+        rows.map((row: any) => (
+          <tr class="group">
+            <td class="group-hover:bg-slate-200">
+              <p>{row.letter}.</p>
+            </td>
+            <td class="group-hover:bg-slate-200">
+              <p>{row.system}</p>
+            </td>
+            <td class="max-w-2xs text-left group-hover:bg-slate-200">
+              <BasicRichText blocks={row.systemProperty.de} />
+            </td>
+
+            {assets
+              .filter((asset) => asset.show)
+              .map((pAsset) => (
+                <td class="text-center">
+                  <p>{row.protectedAssets[pAsset.key] ? 'X' : '—'}</p>
+                </td>
+              ))}
+
+            {requirements.map((posReq: string) => {
+              const requirement = row.requirements.find(
+                (req: any) => req.name === posReq
+              )
+
+              if (requirement) {
+                return (
+                  <td
+                    class:list={[
+                      'text-center font-semibold group-hover:bg-slate-200',
+                      {
+                        'bg-yellow-500': requirement.name === 'RF3',
+                      },
+                      { 'bg-orange-500': requirement.name === 'RF2' },
+                      { 'bg-blue-500': requirement.name === 'RF1' },
+                    ]}
+                  >
+                    <BasicRichText blocks={requirement?.criterion?.de} />
+                  </td>
+                )
+              }
+
+              return (
+                <td>
+                  <p class="text-center">—</p>
+                </td>
+              )
+            })}
+          </tr>
+        ))
+      }
     </tbody>
   </table>
 </TableModal>
