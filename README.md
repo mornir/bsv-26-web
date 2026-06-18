@@ -37,8 +37,8 @@ The site is built using a modern static architecture and deployed on Cloudflare'
 
 ### Requirements
 
-- Node.js v22
-- pnpm v10
+- Node.js v24
+- pnpm v11
 
 ### Install dependencies
 
