@@ -49,5 +49,6 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "es5"
-  }
+  },
+  "packageManager": "pnpm@11.7.0"
 }
