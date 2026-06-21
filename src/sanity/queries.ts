@@ -2,6 +2,16 @@ import { defineQuery } from 'groq'
 import { parsePortableText, articleProjection } from './fragments'
 import client from './client'
 
+export async function getUnits() {
+  const getUnitsQuery = defineQuery(`
+  *[_type == 'title'] | order(number asc) {
+  number,
+  "title": name.de,
+  "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name }
+}`)
+  return client.fetch(getUnitsQuery)
+}
+
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
   *[_type == "title"] 

@@ -1,20 +1,48 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import PageIndex from '@/layouts/PageIndex.astro'
 
-import { useTranslations } from '@/i18n/utils'
+import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
+import { getUnits } from '@/sanity/queries'
 
 const locale = getLocale(Astro.url) as LangKeys
 
 const t = useTranslations(locale)
+
+const units = await getUnits()
 ---
 
-<Layout title="Startseite">
-  <div class="-mt-16 grid place-content-center">
-    <h1
-      class="mx-auto mb-14 block max-w-3xl font-serif text-center text-5xl/16 font-semibold text-balance"
-    >
-      {t('home.title')}
-    </h1>
+<PageIndex tabTitel="Startseite" title={t('home.title')}>
+  <div class="grid justify-center gap-8">
+    {
+      units.map((unit) => {
+        if (unit.chapters.length > 0) {
+          return (
+            <div>
+              <h2 class=" text-xl font-semibold">
+                {formatHeading({ number: unit.number, type: 'title' }, locale)}:{' '}
+                {unit.title}
+              </h2>
+
+              <ol class="flex gap-2 flex-wrap mt-2">
+                {unit.chapters.map((chapter) => (
+                  <li class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500">
+                    <a href="#">{chapter.name.de}</a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )
+        }
+        return (
+          <div class="cursor-pointer border border-slate-300 bg-white p-6 transition-colors hover:border-slate-500">
+            <h2 class="text-xl font-semibold">
+              {formatHeading({ number: unit.number, type: 'title' }, locale)}{' '}
+              {unit.title}
+            </h2>
+          </div>
+        )
+      })
+    }
   </div>
-</Layout>
+</PageIndex>
