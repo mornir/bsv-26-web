@@ -19,14 +19,14 @@ const units = await getUnits()
         if (unit.chapters.length > 0) {
           return (
             <div class="border px-6 py-4 border-slate-300">
-              <h2 class="text-xl font-semibold mb-4 flex">
+              <h2 class="text-xl font-semibold mb-4 grid grid-cols-[1fr_2fr]">
                 <span>
                   {formatHeading(
                     { number: unit.number, type: 'title' },
                     locale
                   )}
                 </span>
-                <span class="self-center">{unit.title}</span>
+                <span class="col-start-2">{unit.title}</span>
               </h2>
 
               <ol class="flex gap-3 flex-wrap mt-2">
@@ -49,9 +49,12 @@ const units = await getUnits()
             class="cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500"
             href="#"
           >
-            <h2 class="text-xl font-semibold">
-              {formatHeading({ number: unit.number, type: 'title' }, locale)}{' '}
-              {unit.title}
+            <h2 class="text-xl font-semibold grid grid-cols-[1fr_2fr]">
+              <span>
+                {formatHeading({ number: unit.number, type: 'title' }, locale)}
+              </span>
+
+              <span class="col-start-2">{unit.title}</span>
             </h2>
           </a>
         )
