@@ -19,21 +19,21 @@ const units = await getUnits()
         if (unit.chapters.length > 0) {
           return (
             <div class="border px-6 py-4 border-slate-300">
-              <h2 class="text-xl font-semibold mb-4 grid grid-cols-[1fr_2fr]">
+              <h2 class="text-xl font-semibold mb-4 grid grid-cols-[1fr_3fr_1fr]">
                 <span>
                   {formatHeading(
                     { number: unit.number, type: 'title' },
                     locale
                   )}
                 </span>
-                <span class="col-start-2">{unit.title}</span>
+                <span class="justify-self-center">{unit.title}</span>
               </h2>
 
               <ol class="flex gap-3 flex-wrap mt-2">
                 {unit.chapters.map((chapter) => (
                   <li>
                     <a
-                      href="#"
+                      href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
                       class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500 block"
                     >
                       {chapter.name.de}
@@ -49,12 +49,12 @@ const units = await getUnits()
             class="cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500"
             href="#"
           >
-            <h2 class="text-xl font-semibold grid grid-cols-[1fr_2fr]">
+            <h2 class="text-xl font-semibold grid grid-cols-[1fr_2fr_1fr]">
               <span>
                 {formatHeading({ number: unit.number, type: 'title' }, locale)}
               </span>
 
-              <span class="col-start-2">{unit.title}</span>
+              <span class="justify-self-center">{unit.title}</span>
             </h2>
           </a>
         )
