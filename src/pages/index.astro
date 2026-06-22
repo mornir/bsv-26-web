@@ -13,21 +13,31 @@ const units = await getUnits()
 ---
 
 <PageIndex tabTitel="Startseite" title={t('home.title')}>
-  <div class="grid justify-center gap-8">
+  <div class="grid justify-center gap-y-8">
     {
       units.map((unit) => {
         if (unit.chapters.length > 0) {
           return (
-            <div>
-              <h2 class=" text-xl font-semibold">
-                {formatHeading({ number: unit.number, type: 'title' }, locale)}:{' '}
-                {unit.title}
+            <div class="border px-6 py-4 border-slate-300">
+              <h2 class="text-xl font-semibold mb-4 flex">
+                <span>
+                  {formatHeading(
+                    { number: unit.number, type: 'title' },
+                    locale
+                  )}
+                </span>
+                <span class="self-center">{unit.title}</span>
               </h2>
 
-              <ol class="flex gap-2 flex-wrap mt-2">
+              <ol class="flex gap-3 flex-wrap mt-2">
                 {unit.chapters.map((chapter) => (
-                  <li class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500">
-                    <a href="#">{chapter.name.de}</a>
+                  <li>
+                    <a
+                      href="#"
+                      class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500 block"
+                    >
+                      {chapter.name.de}
+                    </a>
                   </li>
                 ))}
               </ol>
@@ -35,12 +45,15 @@ const units = await getUnits()
           )
         }
         return (
-          <div class="cursor-pointer border border-slate-300 bg-white p-6 transition-colors hover:border-slate-500">
+          <a
+            class="cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500"
+            href="#"
+          >
             <h2 class="text-xl font-semibold">
               {formatHeading({ number: unit.number, type: 'title' }, locale)}{' '}
               {unit.title}
             </h2>
-          </div>
+          </a>
         )
       })
     }
