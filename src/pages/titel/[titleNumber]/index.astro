@@ -10,16 +10,18 @@ const locale = getLocale(Astro.url) as LangKeys
 export async function getStaticPaths() {
   const titles = await getTitles()
   return titles.map((title) => ({
-    params: { number: title.slug.current },
+    params: { titleNumber: title.slug.current },
   }))
 }
 
-const { number } = Astro.params
+const { titleNumber: number } = Astro.params
 
 const { articles, title } = await getArticlesFromTitle(number)
 
 const heading = formatHeading({ number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
+
+//TODO: if chapters, show list of chapters instead!
 ---
 
 <ArticleList title={pageTitle} tabTitel={heading}>
