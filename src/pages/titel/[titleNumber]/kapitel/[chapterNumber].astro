@@ -1,11 +1,17 @@
 ---
 import ArticleList from '@/layouts/ArticleList.astro'
+import { getChapters } from '@/sanity/queries'
 
 export async function getStaticPaths() {
-  return [{ params: { titleNumber: '1', chapterNumber: '1' } }]
-}
+  const chapters = await getChapters()
 
-console.log(Astro)
+  return chapters.map((chapter) => ({
+    params: {
+      titleNumber: chapter.title.slug,
+      chapterNumber: chapter.number.toString(),
+    },
+  }))
+}
 ---
 
-<h2>test</h2>
+<ArticleList title="Kapitel">dd</ArticleList>

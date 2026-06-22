@@ -158,6 +158,13 @@ export type FireReactionTableReference = {
   [internalGroqTypeReferenceTo]?: 'fireReactionTable'
 }
 
+export type MeasureTargetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'measureTarget'
+}
+
 export type TableReference = {
   _ref: string
   _type: 'reference'
@@ -186,6 +193,9 @@ export type BlockContent = Array<{
     | ({
         _key: string
       } & FireReactionTableReference)
+    | ({
+        _key: string
+      } & MeasureTargetReference)
     | ({
         _key: string
       } & TableReference)
@@ -232,6 +242,7 @@ export type MeasureTarget = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  article: ArticleReference
   measure: LocaleString
   protectedAssets?: ProtectedAssets
 }
@@ -285,26 +296,9 @@ export type Table = {
   _updatedAt: string
   _rev: string
   name: LocaleString
-  myRichTable?: RichTable
   source: 'predefined' | 'html'
   tableId?: 'users_desc' | 'users_char' | 'users_examples'
   html?: LocaleText
-}
-
-export type RichTable = {
-  _type: 'richTable'
-  rows: Array<
-    {
-      _key: string
-    } & RichTableRow
-  >
-  columnHeaders?: Array<
-    {
-      _key: string
-    } & ColumnHeader
-  >
-  hasColumnTitles?: boolean
-  hasRowTitles?: boolean
 }
 
 export type Faq = {
@@ -522,48 +516,6 @@ export type SanityAgentContext = {
   instructions?: string
 }
 
-export type Content = Array<{
-  children?: Array<{
-    marks?: Array<string>
-    text?: string
-    _type: 'span'
-    _key: string
-  }>
-  style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-  listItem?: 'bullet' | 'number'
-  markDefs?: Array<{
-    href?: string
-    _type: 'link'
-    _key: string
-  }>
-  level?: number
-  _type: 'block'
-  _key: string
-}>
-
-export type RichTableBlock = RichTable
-
-export type ColumnHeader = {
-  _type: 'columnHeader'
-  title?: string
-  cellIndex: number
-}
-
-export type RichTableCell = {
-  _type: 'richTableCell'
-  content?: Content
-}
-
-export type RichTableRow = {
-  _type: 'richTableRow'
-  title?: string
-  cells?: Array<
-    {
-      _key: string
-    } & RichTableCell
-  >
-}
-
 export type Latex = {
   _type: 'latex'
   body?: string
@@ -679,6 +631,7 @@ export type AllSanitySchemaTypes =
   | LocaleSimpleEditor
   | RegulationTableReference
   | FireReactionTableReference
+  | MeasureTargetReference
   | TableReference
   | FigureReference
   | BlockContent
@@ -691,7 +644,6 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Table
-  | RichTable
   | Faq
   | SystemReference
   | FireReactionRow
@@ -709,11 +661,6 @@ export type AllSanitySchemaTypes =
   | Title
   | SanityAgentContextConversation
   | SanityAgentContext
-  | Content
-  | RichTableBlock
-  | ColumnHeader
-  | RichTableCell
-  | RichTableRow
   | Latex
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -726,12 +673,13 @@ export type AllSanitySchemaTypes =
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getUnitsQuery
-// Query: *[_type == 'title'] | order(number asc) {  number,  "title": name.de,  "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name }}
+// Query: *[_type == 'title'] | order(number asc) {  number,  "title": name.de,  "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number }}
 export type GetUnitsQueryResult = Array<{
   number: number
   title: string
   chapters: Array<{
     name: LocaleString
+    number: number
   }>
 }>
 
@@ -789,6 +737,17 @@ export type GetTitlesQueryResult = Array<{
       _key: string
     }> | null
   } | null
+}>
+
+// Source: ../bsv-26-web/src/sanity/queries.ts
+// Variable: getChaptersQuery
+// Query: *[_type == "chapter"] | order(number asc) {  number,  name,  title-> { "slug": slug.current }}
+export type GetChaptersQueryResult = Array<{
+  number: number
+  name: LocaleString
+  title: {
+    slug: string
+  }
 }>
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
@@ -1544,8 +1503,9 @@ export type GetIndexQueryResult = {
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n  *[_type == \'title\'] | order(number asc) {\n  number,\n  "title": name.de,\n  "chapters": *[_type==\'chapter\' && references(^._id)] | order(number asc) { name }\n}': GetUnitsQueryResult
+    '\n  *[_type == \'title\'] | order(number asc) {\n  number,\n  "title": name.de,\n  "chapters": *[_type==\'chapter\' && references(^._id)] | order(number asc) { name, number }\n}': GetUnitsQueryResult
     '\n  *[_type == "title"] \n  {..., desc {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name.de,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n    _type == "fireReactionTable" => {\n      "name": @->name.de,\n      "desc": @->description.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}} | order(number asc)': GetTitlesQueryResult
+    '\n  *[_type == "chapter"] | order(number asc) {\n  number,\n  name,\n  title-> { "slug": slug.current }\n}\n ': GetChaptersQueryResult
     '\n  *[_type == "appendix"] | order(number asc)': GetAppendicesQueryResult
     '\n  *[_type == "article"]\n  \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name.de,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n    _type == "fireReactionTable" => {\n      "name": @->name.de,\n      "desc": @->description.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n    },\n    _type == "regulationTable" => {\n      "name": @->name.de,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n    _type == "fireReactionTable" => {\n      "name": @->name.de,\n      "desc": @->description.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  | order(number asc)': GetArticlesQueryResult
     '*[_type == "feature"]': GetFeaturesQueryResult
