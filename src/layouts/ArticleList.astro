@@ -11,13 +11,11 @@ const { title, tabTitel = title } = Astro.props
 ---
 
 <Layout title={tabTitel}>
-  <div class="grid grid-cols-[20rem_1fr]">
-    <TocNav />
-    <main class="mx-auto mt-8 max-w-3xl">
-      <h1 class="text-center font-semibold font-serif text-3xl mb-8">
-        {title}
-      </h1>
-      <slot />
-    </main>
-  </div>
+  <slot name="toc" />
+  <main class="mx-auto mt-8 max-w-3xl">
+    <h1 class="text-center font-semibold font-serif text-3xl mb-8">
+      {title}
+    </h1>
+    <slot />
+  </main>
 </Layout>
