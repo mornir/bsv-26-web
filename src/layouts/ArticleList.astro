@@ -11,11 +11,15 @@ const { title, tabTitel = title } = Astro.props
 ---
 
 <Layout title={tabTitel}>
-  <slot name="toc" />
-  <main class="mx-auto mt-8 max-w-3xl">
-    <h1 class="text-center font-semibold font-serif text-3xl mb-8">
-      {title}
-    </h1>
-    <slot />
-  </main>
+  <div class="mx-auto mt-8 max-w-6xl flex gap-8">
+    <main class="flex-1 max-w-3xl">
+      <h1 class="text-center font-semibold font-serif text-3xl mb-8">
+        {title}
+      </h1>
+      <slot />
+    </main>
+    <aside class="sticky top-8 h-fit">
+      <slot name="toc" />
+    </aside>
+  </div>
 </Layout>
