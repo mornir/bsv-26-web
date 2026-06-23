@@ -47,7 +47,10 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
         <ol>
           {chapters.map((chapter) => (
             <li>
-              <a href="#" class="text-xl underline">
+              <a
+                href={`/titel/${title.number}/kapitel/${chapter.number}/`}
+                class="text-xl underline"
+              >
                 {chapter.name[locale]}
               </a>
             </li>
