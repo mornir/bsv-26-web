@@ -26,8 +26,6 @@ const { chapters, articles, title } = Astro.props
 
 const heading = formatHeading({ number: title.number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
-
-//TODO: if chapters, show list of chapters instead!
 ---
 
 <ArticleList title={pageTitle} tabTitel={heading}>
@@ -44,6 +42,18 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
         ))
     }
 
-    {chapters.length > 0 && <div>List of chapters</div>}
+    {
+      chapters.length > 0 && (
+        <ol>
+          {chapters.map((chapter) => (
+            <li>
+              <a href="#" class="text-xl underline">
+                {chapter.name[locale]}
+              </a>
+            </li>
+          ))}
+        </ol>
+      )
+    }
   </section>
 </ArticleList>
