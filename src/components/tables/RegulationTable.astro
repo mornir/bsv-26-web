@@ -1,8 +1,7 @@
 ---
-import TableModal from '@/components/portable-text/TableModal.astro'
 import BasicRichText from '@/components/portable-text/BasicRichText.astro'
 
-const { desc, possibleRequirements, name, rows } = Astro.props.node
+const { desc, possibleRequirements, rows } = Astro.props
 
 const requirements = possibleRequirements || ['RF3', 'RF2', 'RF1', '(cr)']
 
@@ -28,99 +27,97 @@ const assets = [
 ]
 ---
 
-<TableModal name={name}>
-  <table class="law-table hyphens-none">
-    <thead>
-      <tr>
-        <th rowspan={desc ? '2' : '1'}>
-          <p>Bst.</p>
-        </th>
-        <th rowspan={desc ? '2' : '1'}>
-          <p>System</p>
-        </th>
-        <th rowspan={desc ? '2' : '1'}>
-          <p>Systemeigenschaft</p>
-        </th>
-        {
-          assets
-            .filter((asset) => asset.show)
-            .map((pAsset) => (
-              <th rowspan={desc ? '2' : '1'}>
-                <p class="text-center">{pAsset.letter}</p>
-              </th>
-            ))
-        }
-        {
-          desc && (
-            <th colspan={requirements.length}>
-              <p class="text-center text-balance">{desc}</p>
-            </th>
-          )
-        }
-      </tr>
-      <tr>
-        {
-          requirements.map((req: string) => (
-            <th class="w-32">
-              <p class="text-center">{req}</p>
+<table class="law-table hyphens-none">
+  <thead>
+    <tr>
+      <th rowspan={desc ? '2' : '1'}>
+        <p>Bst.</p>
+      </th>
+      <th rowspan={desc ? '2' : '1'}>
+        <p>System</p>
+      </th>
+      <th rowspan={desc ? '2' : '1'}>
+        <p>Systemeigenschaft</p>
+      </th>
+      {
+        assets
+          .filter((asset) => asset.show)
+          .map((pAsset) => (
+            <th rowspan={desc ? '2' : '1'}>
+              <p class="text-center">{pAsset.letter}</p>
             </th>
           ))
-        }
-      </tr>
-    </thead>
-    <tbody>
+      }
       {
-        rows.map((row: any) => (
-          <tr class="group">
-            <td class="group-hover:bg-slate-200">
-              <p>{row.letter}.</p>
-            </td>
-            <td class="group-hover:bg-slate-200">
-              <p>{row.system}</p>
-            </td>
-            <td class="max-w-2xs text-left group-hover:bg-slate-200">
-              <BasicRichText blocks={row.systemProperty.de} />
-            </td>
-
-            {assets
-              .filter((asset) => asset.show)
-              .map((pAsset) => (
-                <td class="text-center">
-                  <p>{row.protectedAssets[pAsset.key] ? 'X' : '—'}</p>
-                </td>
-              ))}
-
-            {requirements.map((posReq: string) => {
-              const requirement = row.requirements.find(
-                (req: any) => req.name === posReq
-              )
-
-              if (requirement) {
-                return (
-                  <td
-                    class:list={[
-                      'text-center font-semibold group-hover:bg-slate-200',
-                      {
-                        'bg-yellow-500': requirement.name === 'RF3',
-                      },
-                      { 'bg-orange-500': requirement.name === 'RF2' },
-                      { 'bg-blue-500': requirement.name === 'RF1' },
-                    ]}
-                  >
-                    <BasicRichText blocks={requirement?.criterion?.de} />
-                  </td>
-                )
-              }
-
-              return (
-                <td>
-                  <p class="text-center">—</p>
-                </td>
-              )
-            })}
-          </tr>
+        desc && (
+          <th colspan={requirements.length}>
+            <p class="text-center text-balance">{desc}</p>
+          </th>
+        )
+      }
+    </tr>
+    <tr>
+      {
+        requirements.map((req: string) => (
+          <th class="w-32">
+            <p class="text-center">{req}</p>
+          </th>
         ))
       }
-    </tbody>
-  </table>
-</TableModal>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      rows.map((row: any) => (
+        <tr class="group">
+          <td class="group-hover:bg-slate-200">
+            <p>{row.letter}.</p>
+          </td>
+          <td class="group-hover:bg-slate-200">
+            <p>{row.system}</p>
+          </td>
+          <td class="max-w-2xs text-left group-hover:bg-slate-200">
+            <BasicRichText blocks={row.systemProperty.de} />
+          </td>
+
+          {assets
+            .filter((asset) => asset.show)
+            .map((pAsset) => (
+              <td class="text-center">
+                <p>{row.protectedAssets[pAsset.key] ? 'X' : '—'}</p>
+              </td>
+            ))}
+
+          {requirements.map((posReq: string) => {
+            const requirement = row.requirements.find(
+              (req: any) => req.name === posReq
+            )
+
+            if (requirement) {
+              return (
+                <td
+                  class:list={[
+                    'text-center font-semibold group-hover:bg-slate-200',
+                    {
+                      'bg-yellow-500': requirement.name === 'RF3',
+                    },
+                    { 'bg-orange-500': requirement.name === 'RF2' },
+                    { 'bg-blue-500': requirement.name === 'RF1' },
+                  ]}
+                >
+                  <BasicRichText blocks={requirement?.criterion?.de} />
+                </td>
+              )
+            }
+
+            return (
+              <td>
+                <p class="text-center">—</p>
+              </td>
+            )
+          })}
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

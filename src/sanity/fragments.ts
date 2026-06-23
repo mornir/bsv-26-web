@@ -13,13 +13,11 @@ de[]{
     children[]{
     ...,
     _type == "table" => {
+      "tableType": @->_type,
       "html": @->html.de,
       "tableId": @->tableId,
       "name": @->name.de,
       "source": @->source,
-    },
-    _type == "regulationTable" => {
-      "name": @->name.de,
       "desc": @->description.de,
       "possibleRequirements": @->possibleRequirements[].name.de,
       "rows": @->rows[] {
@@ -27,14 +25,6 @@ de[]{
         "system": system->name.de,
       }
     },
-    _type == "fireReactionTable" => {
-      "name": @->name.de,
-      "desc": @->description.de,
-      "rows": @->rows[] {
-         ...,
-        "system": system->name.de,
-      }
-    }
   },
   markDefs[]{
     ...,
