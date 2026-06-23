@@ -1,17 +1,38 @@
 ---
 import ArticleList from '@/layouts/ArticleList.astro'
 import { getChapters } from '@/sanity/queries'
+import ArticleListItem from '@/components/ArticleListItem.astro'
+import { getLocale } from 'astro-i18n-aut'
+
+const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
   const chapters = await getChapters()
-
   return chapters.map((chapter) => ({
     params: {
       titleNumber: chapter.title.slug,
       chapterNumber: chapter.number.toString(),
     },
+    props: {
+      articles: chapter.articles,
+    },
   }))
 }
+
+const { articles } = Astro.props
 ---
 
-<ArticleList title="Kapitel">dd</ArticleList>
+<ArticleList title="Kapitel">
+  <section class="space-y-4">
+    {
+      articles.map((article) => (
+        <ArticleListItem
+          name={article.name[locale] ?? ''}
+          number={article.number}
+          law={article.law[locale]}
+          exp={article.exp?.[locale]}
+        />
+      ))
+    }
+  </section>
+</ArticleList>

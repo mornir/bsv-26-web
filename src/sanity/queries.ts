@@ -14,8 +14,8 @@ export async function getUnits() {
 
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
-  *[_type == "title"] 
-  {..., desc {${parsePortableText}}} | order(number asc)`)
+  *[_type == "title"] | order(number asc)
+  {..., desc {${parsePortableText}}} `)
   return client.fetch(getTitlesQuery)
 }
 
@@ -24,7 +24,8 @@ export async function getChapters() {
   *[_type == "chapter"] | order(number asc) {
   number,
   name,
-  title-> { "slug": slug.current }
+  title-> { "slug": slug.current },
+  "articles": *[_type == 'article' && references(^._id)] | order(number asc)
 }
  `)
   return client.fetch(getChaptersQuery)
