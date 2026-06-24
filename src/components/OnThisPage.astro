@@ -16,10 +16,10 @@ const { articles = [], title = 'Auf dieser Seite' } = Astro.props
 
 <aside class="sticky top-24 h-fit">
   <p class="text-lg font-semibold mb-2">{title}</p>
-  <nav class="flex flex-col gap-y-3">
+  <nav class="flex flex-col gap-y-3 h-[calc(100vh-150px)] overflow-y-auto">
     {
       articles.map((article) => (
-        <a href="#" class="text-sm">
+        <a href={`#art-${article.number}`} class="text-sm">
           Art.{article.number} {article.name.de}
         </a>
       ))
