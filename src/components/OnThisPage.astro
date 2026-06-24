@@ -1,10 +1,10 @@
 ---
-const { articles = [] } = Astro.props
+const { articles = [], title = 'Auf dieser Seite' } = Astro.props
 ---
 
 <aside class="sticky top-24 h-fit">
-  <p class="text-lg font-semibold mb-2">Auf dieser Seite</p>
-  <nav class="flex flex-col gap-y-3 max-w-xs">
+  <p class="text-lg font-semibold mb-2">{title}</p>
+  <nav class="flex flex-col gap-y-3">
     {
       articles.map((article) => (
         <a href="#" class="text-sm">
