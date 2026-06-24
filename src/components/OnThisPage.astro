@@ -1,8 +1,13 @@
 ---
-import type { Article } from '@/types/sanity.types'
+import type {
+  GetTitlesQueryResult,
+  GetChaptersQueryResult,
+} from '@/types/sanity.types'
 
 interface Props {
-  articles?: Article[]
+  articles?:
+    | GetTitlesQueryResult[number]['articles']
+    | GetChaptersQueryResult[number]['articles']
   title?: string
 }
 
