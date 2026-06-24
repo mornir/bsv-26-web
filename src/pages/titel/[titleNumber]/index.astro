@@ -1,0 +1,64 @@
+---
+import ArticleList from '@/layouts/ArticleList.astro'
+import { getTitles } from '@/sanity/queries'
+import { formatHeading } from '@/i18n/utils'
+import { getLocale } from 'astro-i18n-aut'
+import ArticleListItem from '@/components/ArticleListItem.astro'
+import OnThisPage from '@/components/OnThisPage.astro'
+
+const locale = getLocale(Astro.url) as LangKeys
+
+export async function getStaticPaths() {
+  const titles = await getTitles()
+  return titles.map((title) => ({
+    params: { titleNumber: title.slug.current },
+    props: {
+      chapters: title.chapters,
+      articles: title.articles,
+      title: {
+        number: title.number,
+        name: title.name,
+      },
+    },
+  }))
+}
+
+const { chapters, articles, title } = Astro.props
+
+const heading = formatHeading({ number: title.number, type: 'title' }, locale)
+const pageTitle = `${heading}: ${title?.name[locale]}`
+---
+
+<ArticleList title={pageTitle} tabTitel={heading}>
+  <OnThisPage slot="toc" articles={articles} title="In diesem Titel" />
+  <section class="space-y-4">
+    {
+      chapters.length === 0 &&
+        articles.map((article) => (
+          <ArticleListItem
+            name={article.name[locale] ?? ''}
+            number={article.number}
+            law={article.law[locale]}
+            exp={article.exp?.[locale]}
+          />
+        ))
+    }
+
+    {
+      chapters.length > 0 && (
+        <ol>
+          {chapters.map((chapter) => (
+            <li>
+              <a
+                href={`/titel/${title.number}/kapitel/${chapter.number}/`}
+                class="text-xl underline"
+              >
+                {chapter.name[locale]}
+              </a>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </section>
+</ArticleList>

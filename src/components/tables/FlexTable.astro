@@ -2,11 +2,22 @@
 import TableModal from '@/components/portable-text/TableModal.astro'
 import Qualifications from '@/components/tables/Qualifications.astro'
 import TestTable from '@/components/tables/TestTable.astro'
+import RegulationTable from '@/components/tables/RegulationTable.astro'
+import MeasureTarget from '@/components/tables/MeasureTarget.astro'
 
 import type { Table } from '@/types/sanity.types'
 type TableId = NonNullable<Table['tableId']>
 
-const { html, tableId, name, source } = Astro.props.node
+const {
+  html,
+  tableId,
+  name,
+  source,
+  tableType,
+  rows,
+  desc,
+  possibleRequirements,
+} = Astro.props.node
 
 const tableMap = {
   users_desc: TestTable,
@@ -19,6 +30,16 @@ const TableComponent =
 ---
 
 <TableModal name={name}>
+  {
+    (tableType === 'regulationTable' || tableType === 'fireReactionTable') && (
+      <RegulationTable
+        rows={rows}
+        desc={desc}
+        possibleRequirements={possibleRequirements}
+      />
+    )
+  }
+  {tableType === 'measureTarget' && <MeasureTarget />}
   {TableComponent && <TableComponent />}
   {source === 'html' && html && <Fragment set:html={html} />}
 </TableModal>

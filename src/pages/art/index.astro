@@ -23,7 +23,8 @@ function artURL(slug: string) {
         <div class="border border-slate-300 bg-white p-6">
           <h2 class="mb-2 text-xl font-semibold text-slate-900 hover:underline font-serif">
             <a href={getLocaleUrl('/titel/' + title.slug, locale)}>
-              {formatHeading({ number: title.number, type: 'title' }, locale)}:
+              {formatHeading({ number: title.number, type: 'title' }, locale)}
+              :&nbsp;
               {title.name[locale]}
             </a>
           </h2>

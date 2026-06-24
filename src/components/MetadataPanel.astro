@@ -1,5 +1,11 @@
 ---
-import { Share2, History, SquareArrowOutUpRight, Glasses } from '@lucide/astro'
+import {
+  Share2,
+  History,
+  SquareArrowOutUpRight,
+  Glasses,
+  BookOpenText,
+} from '@lucide/astro'
 import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 
@@ -93,6 +99,12 @@ const hierarchy = [
         Aktionen
       </h4>
       <div class="flex flex-col gap-4">
+        <a
+          class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
+          href="#"
+        >
+          <BookOpenText class="size-4" /> Artikel im Regelwerk ansehen</a
+        >
         <a
           class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
           href="vergleich/"

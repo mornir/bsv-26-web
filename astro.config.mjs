@@ -31,6 +31,7 @@ export default defineConfig({
     i18n({
       locales,
       defaultLocale,
+      exclude: ['pages/**/vergleich.astro'],
     }),
     sitemap({
       i18n: {
@@ -56,8 +57,5 @@ export default defineConfig({
   },
   devToolbar: {
     enabled: false,
-  },
-  experimental: {
-    rustCompiler: true,
   },
 })

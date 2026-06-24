@@ -2,11 +2,38 @@ import { defineQuery } from 'groq'
 import { parsePortableText, articleProjection } from './fragments'
 import client from './client'
 
+// TODO: Add Anhänge
+export async function getUnits() {
+  const getUnitsQuery = defineQuery(`
+  *[_type == 'title'] | order(number asc) {
+  number,
+  "title": name.de,
+  "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number }
+}`)
+  return client.fetch(getUnitsQuery)
+}
+
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
-  *[_type == "title"] 
-  {..., desc {${parsePortableText}}} | order(number asc)`)
+  *[_type == "title"] | order(number asc)
+  {..., desc {${parsePortableText}},
+    "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number },
+    "articles": *[_type == 'article' && references(^._id) && !defined(chapter)] | order(number asc)
+    ${articleProjection}
+  } `)
   return client.fetch(getTitlesQuery)
+}
+
+export async function getChapters() {
+  const getChaptersQuery = defineQuery(`
+  *[_type == "chapter"] | order(number asc) {
+  number,
+  name,
+  title-> { "slug": slug.current },
+  "articles": *[_type == 'article' && references(^._id)] | order(number asc) ${articleProjection}
+}
+ `)
+  return client.fetch(getChaptersQuery)
 }
 
 export async function getAppendices() {
@@ -27,17 +54,6 @@ export async function getArticles() {
 export async function getFeatures() {
   const getFeaturesQuery = defineQuery(`*[_type == "feature"]`)
   return client.fetch(getFeaturesQuery)
-}
-
-export async function getArticlesFromTitle(titleSlug: string) {
-  const getArticlesFromTitleQuery = defineQuery(`{
-  "articles": *[_type == "article" && title->slug.current == $titleSlug]
-  ${articleProjection}
-  | order(number asc),
-  "title": *[_type == "title" && slug.current == $titleSlug][0]}`)
-  return client.fetch(getArticlesFromTitleQuery, {
-    titleSlug,
-  })
 }
 
 // TODO: remove
