@@ -42,6 +42,7 @@
     "@types/alpinejs": "^3.13.11",
     "@types/alpinejs__collapse": "^3.13.4",
     "@types/alpinejs__focus": "^3.13.4",
+    "@types/alpinejs__intersect": "^3.13.4",
     "@types/alpinejs__persist": "^3.13.4",
     "prettier": "^3.8.4"
   },
