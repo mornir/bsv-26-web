@@ -30,7 +30,7 @@ export async function getChapters() {
   number,
   name,
   title-> { "slug": slug.current },
-  "articles": *[_type == 'article' && references(^._id)] | order(number asc)
+  "articles": *[_type == 'article' && references(^._id)] | order(number asc) ${articleProjection}
 }
  `)
   return client.fetch(getChaptersQuery)

@@ -944,7 +944,7 @@ export type GetTitlesQueryResult = Array<{
 
 // Source: ../bsv-26-web/src/sanity/queries.ts
 // Variable: getChaptersQuery
-// Query: *[_type == "chapter"] | order(number asc) {  number,  name,  title-> { "slug": slug.current },  "articles": *[_type == 'article' && references(^._id)] | order(number asc)}
+// Query: *[_type == "chapter"] | order(number asc) {  number,  name,  title-> { "slug": slug.current },  "articles": *[_type == 'article' && references(^._id)] | order(number asc)   { ..., law {de[]{  ...,    children[]{    ...,    _type == "table" => {      "tableType": @->_type,      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,      "desc": @->description.de,      "possibleRequirements": @->possibleRequirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    },  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, exp {de[]{  ...,    children[]{    ...,    _type == "table" => {      "tableType": @->_type,      "html": @->html.de,      "tableId": @->tableId,      "name": @->name.de,      "source": @->source,      "desc": @->description.de,      "possibleRequirements": @->possibleRequirements[].name.de,      "rows": @->rows[] {         ...,        "system": system->name.de,      }    },  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {      "number": @->number,      "name": @->name.de,      "img":  @->image.de,    },  }},fr[]{  ...,    children[]{    ...,    _type == "table" => {      "html": @->html.fr    }  },  markDefs[]{    ...,    _type == "internalLink" => {      "number": @.reference->number,      "type": @.reference->_type,    },    _type == "figure" => {       "number": @->number,       "name": @->name.fr,        "img":  @->image.fr,            },  }}}, title->, chapter ->, section ->}  }
 export type GetChaptersQueryResult = Array<{
   number: number
   name: LocaleString
@@ -957,14 +957,205 @@ export type GetChaptersQueryResult = Array<{
     _createdAt: string
     _updatedAt: string
     _rev: string
-    title: TitleReference
-    chapter?: ChapterReference
-    section?: SectionReference
+    title: {
+      _id: string
+      _type: 'title'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      slug: Slug
+      name: LocaleString
+      desc?: LocaleSimpleEditor
+    }
+    chapter: {
+      _id: string
+      _type: 'chapter'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      title: TitleReference
+      name: LocaleString
+    } | null
+    section: {
+      _id: string
+      _type: 'section'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      number: number
+      title: TitleReference
+      chapter?: ChapterReference
+      name: LocaleString
+    } | null
     number: number
     slug: Slug
     name: LocaleString
-    law: LocaleBlockContent
-    exp?: LocaleBlockContent
+    law: {
+      de: Array<{
+        children: Array<
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
+      fr: Array<{
+        children: Array<
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }> | null
+    }
+    exp: {
+      de: Array<{
+        children: Array<
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
+      fr: Array<{
+        children: Array<
+          | {
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+        > | null
+        style?: 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs: Array<
+          | {
+              _key: string
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+            }
+          | {
+              _key: string
+              _type: 'externalLink'
+              href: string
+            }
+          | {
+              _key: string
+              _type: 'internalLink'
+              reference: ArticleReference
+              number: number
+              type: 'article'
+            }
+        > | null
+        level?: number
+        _type: 'block'
+        _key: string
+      }> | null
+    } | null
   }>
 }>
 
@@ -1488,7 +1679,7 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == \'title\'] | order(number asc) {\n  number,\n  "title": name.de,\n  "chapters": *[_type==\'chapter\' && references(^._id)] | order(number asc) { name, number }\n}': GetUnitsQueryResult
     '\n  *[_type == "title"] | order(number asc)\n  {..., desc {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n},\n    "chapters": *[_type==\'chapter\' && references(^._id)] | order(number asc) { name, number },\n    "articles": *[_type == \'article\' && references(^._id) && !defined(chapter)] | order(number asc)\n    \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  } ': GetTitlesQueryResult
-    '\n  *[_type == "chapter"] | order(number asc) {\n  number,\n  name,\n  title-> { "slug": slug.current },\n  "articles": *[_type == \'article\' && references(^._id)] | order(number asc)\n}\n ': GetChaptersQueryResult
+    '\n  *[_type == "chapter"] | order(number asc) {\n  number,\n  name,\n  title-> { "slug": slug.current },\n  "articles": *[_type == \'article\' && references(^._id)] | order(number asc) \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n}\n ': GetChaptersQueryResult
     '\n  *[_type == "appendix"] | order(number asc)': GetAppendicesQueryResult
     '\n  *[_type == "article"]\n  \n  { ..., law {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, exp {\nde[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "tableType": @->_type,\n      "html": @->html.de,\n      "tableId": @->tableId,\n      "name": @->name.de,\n      "source": @->source,\n      "desc": @->description.de,\n      "possibleRequirements": @->possibleRequirements[].name.de,\n      "rows": @->rows[] {\n         ...,\n        "system": system->name.de,\n      }\n    },\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n      "number": @->number,\n      "name": @->name.de,\n      "img":  @->image.de,\n    },\n  }\n},\nfr[]{\n  ...,\n    children[]{\n    ...,\n    _type == "table" => {\n      "html": @->html.fr\n    }\n  },\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      "number": @.reference->number,\n      "type": @.reference->_type,\n    },\n    _type == "figure" => {\n       "number": @->number,\n       "name": @->name.fr,\n        "img":  @->image.fr,\n        \n    },\n  }\n}\n}, title->, chapter ->, section ->}\n  \n  | order(number asc)': GetArticlesQueryResult
     '*[_type == "feature"]': GetFeaturesQueryResult
