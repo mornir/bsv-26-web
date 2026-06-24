@@ -4,6 +4,7 @@ import { getChapters } from '@/sanity/queries'
 import ArticleListItem from '@/components/ArticleListItem.astro'
 import { getLocale } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
+import OnThisPage from '@/components/OnThisPage.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -34,6 +35,7 @@ const pageTitle = `${heading}: ${chapter?.name[locale]}`
 ---
 
 <ArticleList title={pageTitle} tabTitel={heading}>
+  <OnThisPage slot="toc" articles={articles} title="In diesem Kapitel" />
   <section class="space-y-4">
     {
       articles.map((article) => (
