@@ -1,4 +1,11 @@
 ---
+import type { Article } from '@/types/sanity.types'
+
+interface Props {
+  articles?: Article[]
+  title?: string
+}
+
 const { articles = [], title = 'Auf dieser Seite' } = Astro.props
 ---
 
