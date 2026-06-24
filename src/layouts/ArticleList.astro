@@ -11,8 +11,9 @@ const { title, tabTitel = title } = Astro.props
 ---
 
 <Layout title={tabTitel}>
-  <div class="mx-auto mt-8 max-w-6xl flex gap-8">
-    <main class="flex-1 max-w-3xl">
+  <div class="mt-8 grid grid-cols-[auto_1fr_auto] gap-8">
+    <slot name="toc" />
+    <main class="col-start-2 max-w-3xl justify-self-center">
       <h1 class="text-center font-semibold font-serif text-3xl mb-8">
         {title}
       </h1>
