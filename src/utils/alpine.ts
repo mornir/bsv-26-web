@@ -6,6 +6,7 @@ import tippy from 'tippy.js'
 import intersect from '@alpinejs/intersect'
 
 export default (Alpine: Alpine) => {
+  //TODO: review unused plugins
   Alpine.plugin(focus)
   Alpine.plugin(persist)
   Alpine.plugin(collapse)
