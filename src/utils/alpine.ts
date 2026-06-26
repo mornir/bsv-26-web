@@ -15,8 +15,4 @@ export default (Alpine: Alpine) => {
   Alpine.directive('tooltip', (el) => {
     tippy(el, { content: el.dataset.message })
   })
-
-  Alpine.store('toolbar', {
-    exp: 'show',
-  })
 }
