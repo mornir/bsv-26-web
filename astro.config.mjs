@@ -51,6 +51,7 @@ export default defineConfig({
         '@alpinejs/focus',
         '@alpinejs/persist',
         '@alpinejs/collapse',
+        '@alpinejs/intersect',
         'tippy.js',
       ],
     },
