@@ -10,23 +10,21 @@ const locale = getLocale(Astro.url) as LangKeys
 
 const t = useTranslations(locale)
 
+//INFO: removed routes: Inhaltsverzeichnis, Titel, Anhänge
+
 const mainNav = [
   {
-    name: 'Inhaltsverzeichnis',
-    path: 'art',
+    name: 'Übersicht',
+    path: '',
   },
   {
-    name: t('nav.titles'),
-    path: 'titel',
+    name: 'Nutzergruppen',
+    path: 'nutzergruppen',
   },
   {
-    name: 'Regelwerke',
+    name: 'Regelwerke Dritter',
     path: 'regelwerke',
   },
-  /*   {
-    name: t('nav.appendices'),
-    path: 'anhang',
-  }, */
   { name: t('nav.faq'), path: 'faq' },
 ]
 ---
