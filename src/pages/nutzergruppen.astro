@@ -4,12 +4,12 @@ import { getUsersGroups } from '@/sanity/queries'
 
 const usersGroup = await getUsersGroups()
 
-const risk = [
-  { title: 'Niedrig', value: 'low', color: 'lime' },
-  { title: 'Mittlere', value: 'moderate', color: 'yellow' },
-  { title: 'Erhöht', value: 'elevated', color: 'amber' },
-  { title: 'Hoch', value: 'high', color: 'orange' },
-  { title: 'Sehr Hoch', value: 'very_high', color: 'red' },
+const riskLevels = [
+  { title: 'Niedrige', value: 'low' },
+  { title: 'Mittlere', value: 'moderate' },
+  { title: 'Erhöhte', value: 'elevated' },
+  { title: 'Hohe', value: 'high' },
+  { title: 'Sehr hohe', value: 'very_high' },
 ]
 ---
 
@@ -19,25 +19,41 @@ const risk = [
   </p>
   <div class="flex flex-col gap-y-8 mt-2">
     {
-      usersGroup.map((group) => (
-        <div class="bg-white p-6">
-          <div class="flex justify-between items-baseline">
-            <h2 class="font-semibold text-xl"> Gruppe {group.designation}</h2>
-            <span class={`text-lime-500`}>
-              {risk.find((r) => r.value === group.riskLevel)?.title}
-            </span>
-          </div>
-          <p class="mt-4">
-            <span class="font-semibold">Beispiele:</span> <br />
-            {group.examples.de}
-          </p>
+      usersGroup.map((group) => {
+        const { title, value } = riskLevels.find(
+          (r) => r.value === group.riskLevel
+        )
 
-          <p class="mt-4">
-            <span class="font-semibold">Beschreibung:</span> <br />{' '}
-            {group.desc.de}
-          </p>
-        </div>
-      ))
+        return (
+          <div class="bg-white px-6 py-8">
+            <div class="flex justify-between items-center">
+              <h2 class="font-bold text-xl">Gruppe {group.designation}</h2>
+
+              <span
+                class:list={[
+                  'font-semibold',
+                  { 'text-red-500': value === 'very_high' },
+                  { 'text-orange-500': value === 'high' },
+                  { 'text-amber-500': value === 'elevated' },
+                  { 'text-yellow-500': value === 'moderate' },
+                  { 'text-lime-500': value === 'low' },
+                ]}
+              >
+                {title} Gefährdung
+              </span>
+            </div>
+            <p class="mt-4">
+              <span class="font-semibold">Beispiele:</span> <br />
+              {group.examples.de}
+            </p>
+
+            <p class="mt-4">
+              <span class="font-semibold">Beschreibung:</span> <br />{' '}
+              {group.desc.de}
+            </p>
+          </div>
+        )
+      })
     }
   </div>
 </PageIndex>
