@@ -51,9 +51,10 @@ export async function getArticles() {
   return client.fetch(getArticlesQuery)
 }
 
-export async function getFeatures() {
-  const getFeaturesQuery = defineQuery(`*[_type == "feature"]`)
-  return client.fetch(getFeaturesQuery)
+export async function getUsersGroups() {
+  const getUsersGroupsQuery = defineQuery(`
+  *[_type == "usersGroup"] | order(designation asc)`)
+  return client.fetch(getUsersGroupsQuery)
 }
 
 // TODO: remove

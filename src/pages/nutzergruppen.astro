@@ -1,5 +1,43 @@
 ---
 import PageIndex from '@/layouts/PageIndex.astro'
+import { getUsersGroups } from '@/sanity/queries'
+
+const usersGroup = await getUsersGroups()
+
+const risk = [
+  { title: 'Niedrig', value: 'low', color: 'lime' },
+  { title: 'Mittlere', value: 'moderate', color: 'yellow' },
+  { title: 'Erhöht', value: 'elevated', color: 'amber' },
+  { title: 'Hoch', value: 'high', color: 'orange' },
+  { title: 'Sehr Hoch', value: 'very_high', color: 'red' },
+]
 ---
 
-<PageIndex title="Nutzergruppen" />
+<PageIndex title="Nutzergruppen">
+  <p class="text-right text-xs italic">
+    Zusammenstellung aus <a href="/art/50/" class="underline">Art. 50</a>
+  </p>
+  <div class="flex flex-col gap-y-8 mt-2">
+    {
+      usersGroup.map((group) => (
+        <div class="bg-white p-6">
+          <div class="flex justify-between items-baseline">
+            <h2 class="font-semibold text-xl"> Gruppe {group.designation}</h2>
+            <span class={`text-lime-500`}>
+              {risk.find((r) => r.value === group.riskLevel)?.title}
+            </span>
+          </div>
+          <p class="mt-4">
+            <span class="font-semibold">Beispiele:</span> <br />
+            {group.examples.de}
+          </p>
+
+          <p class="mt-4">
+            <span class="font-semibold">Beschreibung:</span> <br />{' '}
+            {group.desc.de}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</PageIndex>
