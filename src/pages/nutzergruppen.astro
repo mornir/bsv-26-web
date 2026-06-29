@@ -20,9 +20,9 @@ const riskLevels = [
   <div class="flex flex-col gap-y-8 mt-2">
     {
       usersGroup.map((group) => {
-        const { title, value } = riskLevels.find(
-          (r) => r.value === group.riskLevel
-        )
+        const riskLevel = riskLevels.find((r) => r.value === group.riskLevel)
+        if (!riskLevel) return null
+        const { title, value } = riskLevel
 
         return (
           <div class="bg-white px-6 py-8">
