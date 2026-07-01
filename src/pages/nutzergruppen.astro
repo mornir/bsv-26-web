@@ -1,0 +1,112 @@
+---
+import PageIndex from '@/layouts/PageIndex.astro'
+import { getUsersGroups } from '@/sanity/queries'
+
+const usersGroup = await getUsersGroups()
+
+const riskLevels = [
+  { title: 'Niedrige', value: 'low' },
+  { title: 'Mittlere', value: 'moderate' },
+  { title: 'Erhöhte', value: 'elevated' },
+  { title: 'Hohe', value: 'high' },
+  { title: 'Sehr hohe', value: 'very_high' },
+]
+---
+
+<PageIndex title="Nutzergruppen">
+  <p class="text-right text-xs italic">
+    Zusammenstellung aus <a href="/art/50/" class="underline">Art. 50</a>
+  </p>
+  <div class="flex flex-col gap-y-8 mt-2">
+    {
+      usersGroup.map((group) => {
+        const riskLevel = riskLevels.find((r) => r.value === group.riskLevel)
+        if (!riskLevel) return null
+        const { title, value } = riskLevel
+
+        return (
+          <div class="bg-white px-6 py-8">
+            <div class="flex justify-between items-center">
+              <h2 class="font-bold text-xl">Gruppe {group.designation}</h2>
+
+              <span
+                class:list={[
+                  'font-semibold',
+                  { 'text-red-600': value === 'very_high' },
+                  { 'text-orange-500': value === 'high' },
+                  { 'text-amber-500': value === 'elevated' },
+                  { 'text-yellow-500': value === 'moderate' },
+                  { 'text-lime-600': value === 'low' },
+                ]}
+              >
+                {title} Gefährdung
+              </span>
+            </div>
+            <p class="mt-4">
+              <span class="font-semibold">Beispiele</span> <br />
+              {group.examples.de}
+            </p>
+
+            <div class="mt-4">
+              <h3 class="font-semibold">Charakteristiken</h3>
+
+              <ul class="flex flex-wrap gap-2  mt-2">
+                <li class="border-slate-300 border px-4 py-2 ">
+                  {group.characteristics.attention === 'yes' ? (
+                    <span class="text-lime-600 font-semibold">aufmerksam</span>
+                  ) : (
+                    <span class="text-red-600 font-semibold">
+                      nicht aufmerksam
+                    </span>
+                  )}
+                </li>
+                <li class="border-slate-300 border px-4 py-2 ">
+                  {group.characteristics.reactionCapability === 'fast' ? (
+                    <span class="text-lime-600 font-semibold">
+                      reagiert schnell
+                    </span>
+                  ) : (
+                    <span class="text-red-600 font-semibold">
+                      reagiert langsam
+                    </span>
+                  )}
+                </li>
+                <li class="border-slate-300 border px-4 py-2 ">
+                  {group.characteristics.familiarity === 'yes' ? (
+                    <span class="text-lime-600 font-semibold">
+                      mit der Umgebung vertraut
+                    </span>
+                  ) : (
+                    <span class="text-red-600 font-semibold">
+                      mit der Umgebung nicht vertraut
+                    </span>
+                  )}
+                </li>
+                <li class="border-slate-300 border px-4 py-2 ">
+                  {group.characteristics.escapeCapability === 'yes' ? (
+                    <span class="text-lime-600 font-semibold">fluchtfähig</span>
+                  ) : (
+                    <span class="text-red-600 font-semibold">
+                      nicht fluchtfähig
+                    </span>
+                  )}
+                </li>
+                <li class="border-slate-300 border px-4 py-2 ">
+                  {group.characteristics.walkingSpeed === 'fast' ? (
+                    <span class="text-lime-600 font-semibold">
+                      bewegt sich schnell
+                    </span>
+                  ) : (
+                    <span class="text-red-600 font-semibold">
+                      bewegt sich langsam
+                    </span>
+                  )}
+                </li>
+              </ul>
+            </div>
+          </div>
+        )
+      })
+    }
+  </div>
+</PageIndex>

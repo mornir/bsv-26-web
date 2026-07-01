@@ -14,6 +14,9 @@ importers:
       '@alpinejs/focus':
         specifier: ^3.15.12
         version: 3.15.12
+      '@alpinejs/intersect':
+        specifier: ^3.15.12
+        version: 3.15.12
       '@alpinejs/persist':
         specifier: ^3.15.12
         version: 3.15.12
@@ -84,6 +87,9 @@ importers:
       '@types/alpinejs__focus':
         specifier: ^3.13.4
         version: 3.13.4
+      '@types/alpinejs__intersect':
+        specifier: ^3.13.4
+        version: 3.13.4
       '@types/alpinejs__persist':
         specifier: ^3.13.4
         version: 3.13.4
@@ -98,6 +104,9 @@ packages:
 
   '@alpinejs/focus@3.15.12':
     resolution: {integrity: sha512-lmqbFTlbQGywDgsW4dY0pv18CKhuHJrq8mffU1OO14J34uUk+lCQElmSgJdRGHYv9qBezE6zdvmhN6n2tg0A1A==}
+
+  '@alpinejs/intersect@3.15.12':
+    resolution: {integrity: sha512-B2AlMDgx4xlRQjpDHO9SZrYur5cZkPZK0K6uY4Se+MmdePhIQ8m36gHGe0UKIYkFQkBGhVhPICGVoMYpSSYMWg==}
 
   '@alpinejs/persist@3.15.12':
     resolution: {integrity: sha512-vzDRf/3r8B5ihHvLYUkkg+XbJz4nNst+5jR5BM4Uff3BhdRenJlXKFnd3kYbM2Z/KCU65zg5neqOVhbNpytZ9A==}
@@ -1123,6 +1132,9 @@ packages:
 
   '@types/alpinejs__focus@3.13.4':
     resolution: {integrity: sha512-g7pQNxST7palODhfg6DJoKWS59pD8EK1wNjkJydBP2u8LntlO8oD4f2uj6Ywh2CL/olM/bPSyYxwr+WQQPlphg==}
+
+  '@types/alpinejs__intersect@3.13.4':
+    resolution: {integrity: sha512-yoX6WO7AleeULOQvPz7rrx7FJmu6l033bM7QiGcWyvZjqF2KIut99ByUZO6OWUQuYmbRjxsKthGiUYNaAywHiA==}
 
   '@types/alpinejs__persist@3.13.4':
     resolution: {integrity: sha512-H+cW7294EV5fGmIGD3BCJme54//KyWxZcP4uI9pk6W7fECR5hEwdO7j7wogz0o4vapS/kXiXiAjuqC9F+W0Vpw==}
@@ -2430,6 +2442,8 @@ snapshots:
       focus-trap: 8.2.0
       tabbable: 6.4.0
 
+  '@alpinejs/intersect@3.15.12': {}
+
   '@alpinejs/persist@3.15.12': {}
 
   '@astrojs/alpinejs@1.0.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
@@ -3225,6 +3239,10 @@ snapshots:
       '@types/alpinejs': 3.13.11
 
   '@types/alpinejs__focus@3.13.4':
+    dependencies:
+      '@types/alpinejs': 3.13.11
+
+  '@types/alpinejs__intersect@3.13.4':
     dependencies:
       '@types/alpinejs': 3.13.11
 

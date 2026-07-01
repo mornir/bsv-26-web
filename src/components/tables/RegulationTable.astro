@@ -1,5 +1,6 @@
 ---
 import BasicRichText from '@/components/portable-text/BasicRichText.astro'
+import { Info } from '@lucide/astro'
 
 const { desc, possibleRequirements, rows } = Astro.props
 
@@ -8,19 +9,20 @@ const requirements = possibleRequirements || ['RF3', 'RF2', 'RF1', '(cr)']
 const assets = [
   {
     letter: 'P',
-    legend: 'Schutzgut "Personen im Gebäude"',
+    legend: 'Schutzgut: Personen im Gebäude',
     key: 'peopleInBuilding',
     show: rows?.some((row: any) => row.protectedAssets.peopleInBuilding),
   },
   {
-    letter: 'B',
-    legend: 'Schutzgut Gebäude',
+    letter: 'G',
+    legend: 'Schutzgut: Gebäude',
     key: 'buildings',
     show: rows?.some((row: any) => row.protectedAssets.buildings),
   },
 
   {
-    letter: 'F',
+    letter: 'I',
+    legend: 'Schutzgut: Interventionskräfte',
     key: 'firefighters',
     show: rows?.some((row: any) => row.protectedAssets.firefighters),
   },
@@ -44,7 +46,15 @@ const assets = [
           .filter((asset) => asset.show)
           .map((pAsset) => (
             <th rowspan={desc ? '2' : '1'}>
-              <p class="text-center">{pAsset.letter}</p>
+              <button
+                class="flex flex-col items-center cursor-help mt-3.5 w-full"
+                type="button"
+                x-tooltip
+                data-message={pAsset.legend}
+              >
+                <span>{pAsset.letter}</span>
+                <Info size={14} class:list={'text-slate-500'} />
+              </button>
             </th>
           ))
       }

@@ -1,0 +1,24 @@
+---
+import { getUsersGroups } from '@/sanity/queries'
+
+const usersGroup = await getUsersGroups()
+---
+
+<table class="law-table">
+  <thead>
+    <tr>
+      <th>Nutzergruppe</th>
+      <th>Beispiele</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      usersGroup.map((group) => (
+        <tr>
+          <td class="text-center font-bold">{group.designation}</td>
+          <td>{group.examples.de}</td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

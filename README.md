@@ -70,12 +70,12 @@ The output will be generated in the `dist/` directory.
 
 ## Deployment
 
-The project is deployed using **Cloudflare Pages**.
+The project is deployed using **Cloudflare Workers**.
 
 Typical workflow:
 
 1. Push changes to the repository
-2. Cloudflare Pages automatically builds the site
+2. Cloudflare Workers automatically builds the site
 3. The generated static files are deployed globally
 
 ## Content

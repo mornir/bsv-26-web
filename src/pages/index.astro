@@ -18,8 +18,8 @@ const units = await getUnits()
       units.map((unit) => {
         if (unit.chapters.length > 0) {
           return (
-            <div class="border px-6 py-4 border-slate-300">
-              <h2 class="text-xl font-semibold mb-4 grid grid-cols-[1fr_3fr_1fr]">
+            <div class="border p-6 border-slate-300">
+              <h2 class="text-xl font-bold mb-4 grid grid-cols-[1fr_3fr_1fr] font-serif">
                 <span>
                   {formatHeading(
                     { number: unit.number, type: 'title' },
@@ -34,7 +34,7 @@ const units = await getUnits()
                   <li>
                     <a
                       href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                      class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500 block"
+                      class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500 block font-semibold"
                     >
                       {chapter.name.de}
                     </a>
@@ -49,7 +49,7 @@ const units = await getUnits()
             class="cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500"
             href={`/titel/${unit.number}/`}
           >
-            <h2 class="text-xl font-semibold grid grid-cols-[1fr_2fr_1fr]">
+            <h2 class="text-xl font-bold grid grid-cols-[1fr_2fr_1fr] font-serif">
               <span>
                 {formatHeading({ number: unit.number, type: 'title' }, locale)}
               </span>
@@ -60,5 +60,16 @@ const units = await getUnits()
         )
       })
     }
+  </div>
+
+  <div class="mt-12">
+    <h2 class="font-semibold">Weitere Links</h2>
+    <ul class="space-y-2 mt-4">
+      <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
+      <li><a href="/titel/" class="underline">Titel-Übersicht</a></li>
+      <li><a href="#" class="underline">Model Code</a></li>
+      <li><a href="#" class="underline">Abbildungen</a></li>
+      <li><a href="#" class="underline">Ingress</a></li>
+    </ul>
   </div>
 </PageIndex>

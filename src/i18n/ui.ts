@@ -1,8 +1,3 @@
-export const languages = {
-  de: 'Deutsch',
-  fr: 'Français',
-}
-
 export const locales = {
   de: 'de-CH',
   fr: 'fr-CH',

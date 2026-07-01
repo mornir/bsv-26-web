@@ -1,5 +1,5 @@
 ---
-import { locales, languages } from '@/i18n/ui'
+import { locales } from '@/i18n/ui'
 import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import { useTranslations } from '@/i18n/utils'
 import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
@@ -12,21 +12,13 @@ const t = useTranslations(locale)
 
 const mainNav = [
   {
-    name: 'Inhaltsverzeichnis',
-    path: 'art',
+    name: 'Übersicht',
+    path: '',
   },
   {
-    name: t('nav.titles'),
-    path: 'titel',
+    name: 'Nutzergruppen',
+    path: 'nutzergruppen',
   },
-  {
-    name: 'Regelwerke',
-    path: 'regelwerke',
-  },
-  /*   {
-    name: t('nav.appendices'),
-    path: 'anhang',
-  }, */
   { name: t('nav.faq'), path: 'faq' },
 ]
 ---
@@ -51,13 +43,22 @@ const mainNav = [
     <div class="flex items-center gap-x-6 justify-self-end">
       <div class="flex items-center gap-4">
         <nav class="flex gap-4 font-headline text-xs font-bold">
-          <a class="text-primary border-b-2 border-primary" href="#">DE</a>
-          <a class="text-outline hover:text-primary transition-colors" href="#"
-            >FR</a
-          >
-          <a class="text-outline hover:text-primary transition-colors" href="#"
-            >IT</a
-          >
+          {
+            Object.entries(locales).map(([lang]) => (
+              <a
+                class:list={[
+                  { 'text-primary border-b-2 border-primary': locale === lang },
+                  {
+                    'text-outline hover:text-primary transition-colors':
+                      locale !== lang,
+                  },
+                ]}
+                href={getLocaleUrl(Astro.url, lang)}
+              >
+                {lang.toUpperCase()}
+              </a>
+            ))
+          }
         </nav>
       </div>
       <div>

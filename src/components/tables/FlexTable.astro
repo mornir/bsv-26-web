@@ -1,7 +1,9 @@
 ---
-import TableModal from '@/components/portable-text/TableModal.astro'
+import TableModal from '@/components/tables/TableModal.astro'
 import Qualifications from '@/components/tables/Qualifications.astro'
-import TestTable from '@/components/tables/TestTable.astro'
+import UsersGroupChar from './UsersGroupChar.astro'
+import UsersGroupEx from './UsersGroupEx.astro'
+import UsersGroupRisk from './UsersGroupRisk.astro'
 import RegulationTable from '@/components/tables/RegulationTable.astro'
 import MeasureTarget from '@/components/tables/MeasureTarget.astro'
 
@@ -20,9 +22,9 @@ const {
 } = Astro.props.node
 
 const tableMap = {
-  users_desc: TestTable,
-  users_char: Qualifications,
-  users_examples: Qualifications,
+  users_risk: UsersGroupRisk,
+  users_char: UsersGroupChar,
+  users_examples: UsersGroupEx,
 }
 
 const TableComponent =

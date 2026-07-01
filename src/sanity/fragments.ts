@@ -64,5 +64,5 @@ fr[]{
 `)
 
 export const articleProjection = defineQuery(`
-  { ..., law {${parsePortableText}}, exp {${parsePortableText}}, title->, chapter ->, section ->}
+  { ..., law {${parsePortableText}}, exp {${parsePortableText}}, title->, chapter->, section->}
   `)

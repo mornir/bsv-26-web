@@ -1,0 +1,38 @@
+---
+import { getUsersGroups } from '@/sanity/queries'
+
+const usersGroup = await getUsersGroups()
+
+const riskLevels = [
+  { title: 'Niedrige', value: 'low' },
+  { title: 'Mittlere', value: 'moderate' },
+  { title: 'Erhöhte', value: 'elevated' },
+  { title: 'Hohe', value: 'high' },
+  { title: 'Sehr hohe', value: 'very_high' },
+]
+---
+
+<table class="law-table">
+  <thead>
+    <tr>
+      <th>Nutzergruppe</th>
+      <th>Beschreibung</th>
+      <th>Gefährdung</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      usersGroup.map((group) => (
+        <tr>
+          <td>{group.designation}</td>
+          <td class="max-w-xs">{group.desc.de}</td>
+          <td>
+            {riskLevels.find((risk) => risk.value === group.riskLevel)?.title}
+            <br />
+            Gefährdung
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
