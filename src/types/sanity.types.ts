@@ -290,7 +290,7 @@ export type Table = {
   article: ArticleReference
   name: LocaleString
   source: 'predefined' | 'html'
-  tableId?: 'users_desc' | 'users_char' | 'users_examples'
+  tableId?: 'users_risk' | 'users_char' | 'users_examples'
   html?: LocaleText
 }
 

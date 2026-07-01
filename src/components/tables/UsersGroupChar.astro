@@ -1,0 +1,37 @@
+---
+import { getUsersGroups } from '@/sanity/queries'
+
+const usersGroup = await getUsersGroups()
+---
+
+<table class="law-table hyphens-none">
+  <thead>
+    <tr>
+      <th rowspan="2" class="text-center">Nutzergruppe</th>
+      <th class="text-center">Aufmerksamkeit</th>
+      <th class="text-center">Reaktionsfähigkeit</th>
+      <th class="text-center">Vertrautheit</th>
+      <th class="text-center">Fluchtfähigkeit</th>
+      <th class="text-center">Gehgeschwindigkeit</th>
+    </tr>
+    <tr>
+      <th colspan="5" class="text-center">
+        <strong>Kombination von Nutzercharakteristiken</strong>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      usersGroup.map(({ designation, characteristics: char }) => (
+        <tr class="text-center">
+          <td class="font-bold  bg-blue-50"> {designation}</td>
+          <td>{char.attention === 'yes' ? 'ja' : 'nein'}</td>
+          <td>{char.reactionCapability === 'fast' ? 'schnell' : 'langsam'}</td>
+          <td>{char.familiarity === 'yes' ? 'ja' : 'nein'}</td>
+          <td>{char.escapeCapability === 'yes' ? 'ja' : 'nein'}</td>
+          <td>{char.walkingSpeed === 'fast' ? 'schnell' : 'langsam'}</td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
