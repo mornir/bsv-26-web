@@ -10,6 +10,7 @@ import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 
 interface Props {
+  articleNumber: number
   title: { number: number; name: Partial<Record<LangKeys, string>> }
   chapter?: { number: number; name: Partial<Record<LangKeys, string>> } | null
   section?: { number: number; name: Partial<Record<LangKeys, string>> } | null
@@ -17,7 +18,9 @@ interface Props {
 
 const locale = getLocale(Astro.url) as LangKeys
 
-const { title, chapter, section } = Astro.props
+const { title, chapter, section, articleNumber } = Astro.props
+
+console.log(chapter)
 
 const hierarchy = [
   {
@@ -101,7 +104,7 @@ const hierarchy = [
       <div class="flex flex-col gap-4">
         <a
           class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
-          href="#"
+          href={`/titel/${title.number}/${chapter ? `kapitel/${chapter.number}/` : ''}#art-${articleNumber}`}
         >
           <BookOpenText class="size-4" /> Artikel im Regelwerk ansehen</a
         >
