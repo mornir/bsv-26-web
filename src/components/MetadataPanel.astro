@@ -6,43 +6,28 @@ import {
   Glasses,
   BookOpenText,
 } from '@lucide/astro'
-import { formatHeading } from '@/i18n/utils'
-import { getLocale } from 'astro-i18n-aut'
 
 interface Props {
-  title: { number: number; name: Partial<Record<LangKeys, string>> }
-  chapter?: { number: number; name: Partial<Record<LangKeys, string>> } | null
-  section?: { number: number; name: Partial<Record<LangKeys, string>> } | null
+  articleNumber: number
+  hierarchy: Hierarchy
 }
 
-const locale = getLocale(Astro.url) as LangKeys
+const { articleNumber, hierarchy } = Astro.props
 
-const { title, chapter, section } = Astro.props
+//TODO: how to handle Abschnitte??
 
-const hierarchy = [
-  {
-    heading: formatHeading({ number: title.number, type: 'title' }, locale),
-    name: title.name[locale],
-  },
-  chapter
-    ? {
-        heading: formatHeading(
-          { number: chapter.number, type: 'chapter' },
-          locale
-        ),
-        name: chapter.name[locale],
-      }
-    : null,
-  section
-    ? {
-        heading: formatHeading(
-          { number: section.number, type: 'section' },
-          locale
-        ),
-        name: section.name[locale],
-      }
-    : null,
-].filter(Boolean)
+/* const openInContextURL = hierarchy.reduce((currentPath, item) => {
+  // Exclude Abschnitte
+  if (!item.link || item.link === '#') {
+    return currentPath
+  }
+  return item.link
+}, '')
+ */
+
+// Check if hierarchy contains a chapter
+const openInContextURL =
+  hierarchy.length > 1 ? hierarchy[1].link : hierarchy[0].link
 ---
 
 <div class="bg-surface border-l border-slate-200">
@@ -101,7 +86,7 @@ const hierarchy = [
       <div class="flex flex-col gap-4">
         <a
           class="text-sm text-primary font-semibold hover:underline flex items-center gap-2"
-          href="#"
+          href={`${openInContextURL}#art-${articleNumber}`}
         >
           <BookOpenText class="size-4" /> Artikel im Regelwerk ansehen</a
         >

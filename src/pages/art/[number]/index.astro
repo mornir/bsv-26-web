@@ -6,6 +6,7 @@ import MetadataPanel from '@/components/MetadataPanel.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import { getArticles, getArticle } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
+import { formatHeading } from '@/i18n/utils'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -40,23 +41,47 @@ if (isDev) {
   // @ts-ignore
   art = await getArticle(Astro.params.number)
 }
+
+const { title, chapter, section } = art
+
+const hierarchy = [
+  {
+    heading: formatHeading({ number: title.number, type: 'title' }, locale),
+    name: title.name[locale],
+    link: `/titel/${title.number}/`,
+  },
+  chapter
+    ? {
+        heading: formatHeading(
+          { number: chapter.number, type: 'chapter' },
+          locale
+        ),
+        name: chapter.name[locale],
+        link: `/titel/${title.number}/kapitel/${chapter.number}/`,
+      }
+    : null,
+  section
+    ? {
+        heading: formatHeading(
+          { number: section.number, type: 'section' },
+          locale
+        ),
+        name: section.name[locale],
+        link: '#',
+      }
+    : null,
+].filter(Boolean) as Hierarchy
 ---
 
 <ArticleLayout title={'Art. ' + art.number}>
   <MetadataPanel
     slot="metadata-panel"
-    title={art.title}
-    chapter={art.chapter}
-    section={art.section}
+    hierarchy={hierarchy}
+    articleNumber={art.number}
   />
 
   <div class="max-w-3xl mx-auto p-12">
-    <Breadcrumbs
-      articleNumber={art.number}
-      title={art.title}
-      chapter={art.chapter}
-      section={art.section}
-    />
+    <Breadcrumbs articleNumber={art.number} crumbs={hierarchy} />
     <article class="mt-4 font-serif text-law">
       <header class="mb-6">
         <h1>
