@@ -20,8 +20,6 @@ const locale = getLocale(Astro.url) as LangKeys
 
 const { title, chapter, section, articleNumber } = Astro.props
 
-console.log(chapter)
-
 const hierarchy = [
   {
     heading: formatHeading({ number: title.number, type: 'title' }, locale),
