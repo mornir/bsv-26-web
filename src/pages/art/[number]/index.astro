@@ -70,15 +70,13 @@ const hierarchy = [
         link: '#',
       }
     : null,
-].filter(Boolean)
+].filter(Boolean) as Hierarchy
 ---
 
 <ArticleLayout title={'Art. ' + art.number}>
   <MetadataPanel
     slot="metadata-panel"
-    title={art.title}
-    chapter={art.chapter}
-    section={art.section}
+    hierarchy={hierarchy}
     articleNumber={art.number}
   />
 

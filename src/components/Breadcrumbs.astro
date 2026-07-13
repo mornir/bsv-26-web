@@ -1,7 +1,7 @@
 ---
 interface Props {
   articleNumber: number
-  crumbs: { heading: string; name: string; link: string }[]
+  crumbs: Hierarchy
 }
 
 const { crumbs, articleNumber } = Astro.props
