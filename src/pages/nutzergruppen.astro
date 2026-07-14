@@ -14,7 +14,7 @@ const riskLevels = [
 ---
 
 <PageIndex title="Nutzergruppen">
-  <p class="text-right text-xs italic">
+  <p class="text-right text-sm italic">
     Zusammenstellung aus <a href="/art/50/" class="underline">Art. 50</a>
   </p>
   <div class="flex flex-col gap-y-8 mt-2">
@@ -25,7 +25,7 @@ const riskLevels = [
         const { title, value } = riskLevel
 
         return (
-          <div class="bg-white px-6 py-8">
+          <div class="bg-white px-6 py-8 border-slate-300 border">
             <div class="flex justify-between items-center">
               <h2 class="font-bold text-xl">Gruppe {group.designation}</h2>
 
@@ -51,7 +51,7 @@ const riskLevels = [
               <h3 class="font-semibold">Charakteristiken</h3>
 
               <ul class="flex flex-wrap gap-2  mt-2">
-                <li class="border-slate-300 border px-4 py-2 ">
+                <li class="border-slate-200 border px-4 py-2 ">
                   {group.characteristics.attention === 'yes' ? (
                     <span class="text-lime-600 font-semibold">aufmerksam</span>
                   ) : (
@@ -60,7 +60,7 @@ const riskLevels = [
                     </span>
                   )}
                 </li>
-                <li class="border-slate-300 border px-4 py-2 ">
+                <li class="border-slate-200 border px-4 py-2 ">
                   {group.characteristics.reactionCapability === 'fast' ? (
                     <span class="text-lime-600 font-semibold">
                       reagiert schnell
@@ -71,7 +71,7 @@ const riskLevels = [
                     </span>
                   )}
                 </li>
-                <li class="border-slate-300 border px-4 py-2 ">
+                <li class="border-slate-200 border px-4 py-2 ">
                   {group.characteristics.familiarity === 'yes' ? (
                     <span class="text-lime-600 font-semibold">
                       mit der Umgebung vertraut
@@ -82,7 +82,7 @@ const riskLevels = [
                     </span>
                   )}
                 </li>
-                <li class="border-slate-300 border px-4 py-2 ">
+                <li class="border-slate-200 border px-4 py-2 ">
                   {group.characteristics.escapeCapability === 'yes' ? (
                     <span class="text-lime-600 font-semibold">fluchtfähig</span>
                   ) : (
@@ -91,7 +91,7 @@ const riskLevels = [
                     </span>
                   )}
                 </li>
-                <li class="border-slate-300 border px-4 py-2 ">
+                <li class="border-slate-200 border px-4 py-2 ">
                   {group.characteristics.walkingSpeed === 'fast' ? (
                     <span class="text-lime-600 font-semibold">
                       bewegt sich schnell
