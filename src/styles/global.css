@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import './katex.css';
 @import 'tippy.js/dist/tippy.css';
 
 @theme {
