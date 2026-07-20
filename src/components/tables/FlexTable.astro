@@ -6,15 +6,17 @@ import UsersGroupEx from './UsersGroupEx.astro'
 import UsersGroupRisk from './UsersGroupRisk.astro'
 import RegulationTable from '@/components/tables/RegulationTable.astro'
 import MeasureTarget from '@/components/tables/MeasureTarget.astro'
+import RichTextTable from './RichTextTable.astro'
 
 import type { Table } from '@/types/sanity.types'
 type TableId = NonNullable<Table['tableId']>
 
 const {
-  html,
+  source,
+  customTable,
   tableId,
   name,
-  source,
+  type,
   tableType,
   rows,
   desc,
@@ -27,8 +29,8 @@ const tableMap = {
   users_examples: UsersGroupEx,
 }
 
-const TableComponent =
-  source === 'predefined' ? tableMap[tableId as TableId] : null
+const PredefinedTable =
+  type === 'predefined' ? tableMap[tableId as TableId] : null
 ---
 
 <TableModal name={name}>
@@ -42,6 +44,6 @@ const TableComponent =
     )
   }
   {tableType === 'measureTarget' && <MeasureTarget />}
-  {TableComponent && <TableComponent />}
-  {source === 'html' && html && <Fragment set:html={html} />}
+  {PredefinedTable && <PredefinedTable />}
+  {source === 'custom' && <RichTextTable customTable={customTable} />}
 </TableModal>
