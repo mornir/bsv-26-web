@@ -27,6 +27,7 @@ const titles = await getTitles()
               </span>
             </h2>
             <div class="mt-2 leading-relaxed text-slate-700">
+              <!-- add "relative z-20" to make links to make them clickable -->
               <BasicRichText blocks={title.desc?.de ?? []} />
             </div>
           </a>
