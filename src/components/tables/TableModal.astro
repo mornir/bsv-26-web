@@ -100,7 +100,7 @@ const { name = '' } = Astro.props
         const container = this.$refs.scrollContainer
         if (!container) return
 
-        this.showButton = container.scrollWidth <= container.clientWidth
+        this.showButton = container.scrollWidth > container.clientWidth
       },
     }))
   })
