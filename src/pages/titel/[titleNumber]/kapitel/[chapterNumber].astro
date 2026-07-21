@@ -42,7 +42,10 @@ const pageTitle = `${heading}: ${chapter?.name[locale]}`
     sections.length > 0 &&
       sections.map((section) => (
         <div>
-          <h2 class="font-semibold text-center  text-xl mt-12">
+          <h2
+            class="font-semibold text-center text-xl mt-12 scroll-mt-24"
+            id={`abs-${section.number}`}
+          >
             {formatHeading({ number: section.number, type: 'section' }, locale)}
             : {section.name.de}
           </h2>
