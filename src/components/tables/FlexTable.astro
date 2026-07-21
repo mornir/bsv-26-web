@@ -30,7 +30,7 @@ const tableMap = {
 }
 
 const PredefinedTable =
-  type === 'predefined' ? tableMap[tableId as TableId] : null
+  source === 'predefined' ? tableMap[tableId as TableId] : null
 ---
 
 <TableModal name={name}>
