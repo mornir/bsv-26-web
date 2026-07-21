@@ -4,7 +4,10 @@ import { X, Maximize } from '@lucide/astro'
 const { name = '' } = Astro.props
 ---
 
-<div x-data="tableModal" x-init="init" class="mt-2 mb-6">
+<div
+  x-data="{open: false, showButton: $refs.scrollContainer.scrollWidth > $refs.scrollContainer.clientWidth}"
+  class="mt-2 mb-6"
+>
   <!-- Trigger -->
   <div class="flex justify-end mb-4">
     <button
@@ -78,8 +81,9 @@ const { name = '' } = Astro.props
   </template>
 </div>
 
-<script>
-  document.addEventListener('alpine:init', () => {
+<!-- <script>
+//TODO: check if ResizeObserver is needed; if not, remove this code
+document.addEventListener('alpine:init', () => {
     Alpine.data('tableModal', () => ({
       open: false,
       showButton: true,
@@ -104,4 +108,4 @@ const { name = '' } = Astro.props
       },
     }))
   })
-</script>
+</script> -->
