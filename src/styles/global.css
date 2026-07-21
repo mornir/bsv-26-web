@@ -20,7 +20,7 @@
 
 @layer components {
   .law-table {
-    @apply w-full border-collapse border border-slate-200;
+    @apply w-full border-collapse border border-law;
   }
 
   .law-table thead {
@@ -35,11 +35,11 @@
   }
 
   .law-table thead th {
-    @apply border border-slate-200 px-3 py-2 text-left font-bold text-primary;
+    @apply border border-law px-3 py-2 text-left font-bold text-law;
   }
 
   .law-table tbody {
-    @apply divide-y divide-slate-200;
+    @apply divide-y divide-law;
   }
 
   .law-table tbody tr {
@@ -47,7 +47,7 @@
   }
 
   .law-table tbody td {
-    @apply border border-slate-200 px-3 py-2;
+    @apply border border-law px-3 py-2;
   }
 }
 
