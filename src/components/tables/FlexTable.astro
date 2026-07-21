@@ -16,7 +16,6 @@ const {
   customTable,
   tableId,
   name,
-  type,
   tableType,
   rows,
   desc,
@@ -45,5 +44,9 @@ const PredefinedTable =
   }
   {tableType === 'measureTarget' && <MeasureTarget />}
   {PredefinedTable && <PredefinedTable />}
-  {source === 'custom' && <RichTextTable customTable={customTable} />}
+  {
+    customTable && source === 'custom' && (
+      <RichTextTable customTable={customTable} />
+    )
+  }
 </TableModal>
