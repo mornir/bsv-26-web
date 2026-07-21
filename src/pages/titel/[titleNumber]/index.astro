@@ -15,6 +15,7 @@ export async function getStaticPaths() {
     props: {
       chapters: title.chapters,
       articles: title.articles,
+      sections: title.sections,
       title: {
         number: title.number,
         name: title.name,
@@ -23,7 +24,7 @@ export async function getStaticPaths() {
   }))
 }
 
-const { chapters, articles, title } = Astro.props
+const { chapters, articles, title, sections } = Astro.props
 
 const heading = formatHeading({ number: title.number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
@@ -31,9 +32,9 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
 
 <ArticleList title={pageTitle} tabTitel={heading}>
   <OnThisPage slot="toc" articles={articles} title="In diesem Titel" />
-  <section class="space-y-4">
+  <div class="space-y-8">
     {
-      chapters.length === 0 &&
+      sections.length === 0 &&
         articles.map((article) => (
           <ArticleListItem
             name={article.name[locale] ?? ''}
@@ -43,22 +44,50 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
           />
         ))
     }
+  </div>
 
+  <div class="space-y-8">
     {
-      chapters.length > 0 && (
-        <ol>
-          {chapters.map((chapter) => (
-            <li>
-              <a
-                href={`/titel/${title.number}/kapitel/${chapter.number}/`}
-                class="text-xl underline"
-              >
-                {chapter.name[locale]}
-              </a>
-            </li>
-          ))}
-        </ol>
-      )
+      sections.length > 0 &&
+        sections.map((section) => (
+          <div>
+            <h2 class="font-semibold text-center  text-xl mt-12">
+              {formatHeading(
+                { number: section.number, type: 'section' },
+                locale
+              )}
+              : {section.name.de}
+            </h2>
+
+            <div class="space-y-8 mt-8">
+              {section.articles.map((article) => (
+                <ArticleListItem
+                  name={article.name[locale] ?? ''}
+                  number={article.number}
+                  law={article.law[locale]}
+                  exp={article.exp?.[locale]}
+                />
+              ))}
+            </div>
+          </div>
+        ))
     }
-  </section>
+  </div>
+
+  {
+    chapters.length > 0 && (
+      <ol>
+        {chapters.map((chapter) => (
+          <li>
+            <a
+              href={`/titel/${title.number}/kapitel/${chapter.number}/`}
+              class="text-xl underline"
+            >
+              {chapter.name[locale]}
+            </a>
+          </li>
+        ))}
+      </ol>
+    )
+  }
 </ArticleList>

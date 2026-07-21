@@ -39,37 +39,39 @@ const pageTitle = `${heading}: ${chapter?.name[locale]}`
   <OnThisPage slot="toc" articles={articles} title="In diesem Kapitel" />
 
   {
-    sections.map((section) => (
-      <div>
-        <h2 class="font-semibold text-center  text-xl mt-12">
-          {formatHeading({ number: section.number, type: 'section' }, locale)}:{' '}
-          {section.name.de}
-        </h2>
+    sections.length > 0 &&
+      sections.map((section) => (
+        <div>
+          <h2 class="font-semibold text-center  text-xl mt-12">
+            {formatHeading({ number: section.number, type: 'section' }, locale)}
+            : {section.name.de}
+          </h2>
 
-        <div class="space-y-8 mt-8">
-          {section.articles.map((article) => (
-            <ArticleListItem
-              name={article.name[locale] ?? ''}
-              number={article.number}
-              law={article.law[locale]}
-              exp={article.exp?.[locale]}
-            />
-          ))}
+          <div class="space-y-8 mt-8">
+            {section.articles.map((article) => (
+              <ArticleListItem
+                name={article.name[locale] ?? ''}
+                number={article.number}
+                law={article.law[locale]}
+                exp={article.exp?.[locale]}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    ))
+      ))
   }
 
   <div class="space-y-8">
     {
-      articles.map((article) => (
-        <ArticleListItem
-          name={article.name[locale] ?? ''}
-          number={article.number}
-          law={article.law[locale]}
-          exp={article.exp?.[locale]}
-        />
-      ))
+      sections.length === 0 &&
+        articles.map((article) => (
+          <ArticleListItem
+            name={article.name[locale] ?? ''}
+            number={article.number}
+            law={article.law[locale]}
+            exp={article.exp?.[locale]}
+          />
+        ))
     }
   </div>
 </ArticleList>
