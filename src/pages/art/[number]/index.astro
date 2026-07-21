@@ -67,7 +67,10 @@ const hierarchy = [
           locale
         ),
         name: section.name[locale],
-        link: '#',
+        link: chapter
+          ? `/titel/${title.number}/kapitel/${chapter.number}/` +
+            `#abs-${section.number}`
+          : `/titel/${title.number}/` + `#abs-${section.number}`,
       }
     : null,
 ].filter(Boolean) as Hierarchy
