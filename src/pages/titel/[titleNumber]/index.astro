@@ -31,7 +31,7 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
 ---
 
 <ArticleList title={pageTitle} tabTitel={heading}>
-  <OnThisPage slot="toc" articles={articles} title="In diesem Titel" />
+  <OnThisPage slot="on-this-page" articles={articles} title="In diesem Titel" />
 
   {
     sections.length === 0 ? (
