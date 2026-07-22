@@ -1,10 +1,10 @@
 ---
 import ArticleList from '@/layouts/ArticleList.astro'
 import { getChapters } from '@/sanity/queries'
-import ArticleListItem from '@/components/ArticleListItem.astro'
 import { getLocale } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
 import OnThisPage from '@/components/OnThisPage.astro'
+import ArticleSection from '@/components/ArticleSection.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -39,42 +39,21 @@ const pageTitle = `${heading}: ${chapter?.name[locale]}`
   <OnThisPage slot="toc" articles={articles} title="In diesem Kapitel" />
 
   {
-    sections.length > 0 &&
+    sections.length === 0 ? (
+      <ArticleSection
+        articles={articles}
+        locale={locale}
+        articleHeadingLevel="h2"
+      />
+    ) : (
       sections.map((section) => (
-        <div>
-          <h2
-            class="font-semibold text-center text-xl mt-12 scroll-mt-24"
-            id={`abs-${section.number}`}
-          >
-            {formatHeading({ number: section.number, type: 'section' }, locale)}
-            : {section.name.de}
-          </h2>
-
-          <div class="space-y-8 mt-8">
-            {section.articles.map((article) => (
-              <ArticleListItem
-                name={article.name[locale] ?? ''}
-                number={article.number}
-                law={article.law[locale]}
-                exp={article.exp?.[locale]}
-              />
-            ))}
-          </div>
-        </div>
+        <ArticleSection
+          articles={section.articles}
+          locale={locale}
+          section={section}
+          articleHeadingLevel="h3"
+        />
       ))
+    )
   }
-
-  <div class="space-y-8">
-    {
-      sections.length === 0 &&
-        articles.map((article) => (
-          <ArticleListItem
-            name={article.name[locale] ?? ''}
-            number={article.number}
-            law={article.law[locale]}
-            exp={article.exp?.[locale]}
-          />
-        ))
-    }
-  </div>
 </ArticleList>

@@ -3,8 +3,8 @@ import ArticleList from '@/layouts/ArticleList.astro'
 import { getTitles } from '@/sanity/queries'
 import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
-import ArticleListItem from '@/components/ArticleListItem.astro'
 import OnThisPage from '@/components/OnThisPage.astro'
+import ArticleSection from '@/components/ArticleSection.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -32,50 +32,25 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
 
 <ArticleList title={pageTitle} tabTitel={heading}>
   <OnThisPage slot="toc" articles={articles} title="In diesem Titel" />
-  <div class="space-y-8">
-    {
-      sections.length === 0 &&
-        articles.map((article) => (
-          <ArticleListItem
-            name={article.name[locale] ?? ''}
-            number={article.number}
-            law={article.law[locale]}
-            exp={article.exp?.[locale]}
-          />
-        ))
-    }
-  </div>
 
-  <div class="space-y-8">
-    {
-      sections.length > 0 &&
-        sections.map((section) => (
-          <div>
-            <h2
-              class="font-semibold text-center scroll-mt-24 text-xl mt-12"
-              id={`abs-${section.number}`}
-            >
-              {formatHeading(
-                { number: section.number, type: 'section' },
-                locale
-              )}
-              : {section.name.de}
-            </h2>
-
-            <div class="space-y-8 mt-8">
-              {section.articles.map((article) => (
-                <ArticleListItem
-                  name={article.name[locale] ?? ''}
-                  number={article.number}
-                  law={article.law[locale]}
-                  exp={article.exp?.[locale]}
-                />
-              ))}
-            </div>
-          </div>
-        ))
-    }
-  </div>
+  {
+    sections.length === 0 ? (
+      <ArticleSection
+        articles={articles}
+        locale={locale}
+        articleHeadingLevel="h2"
+      />
+    ) : (
+      sections.map((section) => (
+        <ArticleSection
+          articles={section.articles}
+          locale={locale}
+          section={section}
+          articleHeadingLevel="h3"
+        />
+      ))
+    )
+  }
 
   {
     chapters.length > 0 && (

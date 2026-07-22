@@ -1,0 +1,56 @@
+---
+import ArticleListItem from '@/components/ArticleListItem.astro'
+import { formatHeading } from '@/i18n/utils'
+
+interface Props {
+  articles: Array<any>
+  locale: LangKeys
+  section?: {
+    number: number | string
+    name: {
+      de: string
+    }
+  }
+  articleHeadingLevel?: 'h2' | 'h3'
+}
+
+const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
+---
+
+{
+  section ? (
+    <div>
+      <h2
+        class="font-semibold text-center scroll-mt-24 text-xl mt-12"
+        id={`abs-${section.number}`}
+      >
+        {formatHeading({ number: section.number, type: 'section' }, locale)}:{' '}
+        {section.name.de}
+      </h2>
+
+      <div class="space-y-8 mt-8">
+        {articles.map((article) => (
+          <ArticleListItem
+            name={article.name[locale] ?? ''}
+            number={article.number}
+            law={article.law[locale]}
+            exp={article.exp?.[locale]}
+            headingLevel={articleHeadingLevel}
+          />
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div class="space-y-8">
+      {articles.map((article) => (
+        <ArticleListItem
+          name={article.name[locale] ?? ''}
+          number={article.number}
+          law={article.law[locale]}
+          exp={article.exp?.[locale]}
+          headingLevel={articleHeadingLevel}
+        />
+      ))}
+    </div>
+  )
+}
