@@ -28,7 +28,7 @@ const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
         {section.name.de}
       </h2>
 
-      <div class="space-y-8 mt-8">
+      <div class="space-y-8 mt-8" data-pagefind-ignore>
         {articles.map((article) => (
           <ArticleListItem
             name={article.name[locale] ?? ''}
@@ -41,7 +41,7 @@ const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
       </div>
     </div>
   ) : (
-    <div class="space-y-8">
+    <div class="space-y-8" data-pagefind-ignore>
       {articles.map((article) => (
         <ArticleListItem
           name={article.name[locale] ?? ''}
