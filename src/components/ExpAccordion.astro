@@ -1,5 +1,5 @@
 ---
-import { ChevronDown, ChevronRight } from '@lucide/astro'
+import { ChevronDown } from '@lucide/astro'
 
 interface Props {
   number: number
@@ -14,23 +14,25 @@ const { number } = Astro.props
       type="button"
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
-      class="flex w-full items-center gap-2 bg-slate-50/50 px-4 py-3 text-left font-medium text-secondary transition-colors border-l-2 border-l-primary cursor-pointer justify-between"
+      class="flex w-full items-center gap-2 bg-blue-50/50 px-4 py-3 text-left font-medium text-secondary transition-colors border-l-2 border-l-blue-800 cursor-pointer justify-between"
     >
       <span
         class="font-sans font-bold uppercase tracking-widest text-secondary text-xs"
         >Erläuterung zu Art. {number}</span
       >
 
-      <ChevronDown x-show="expanded" class="h-5 w-5" />
-
-      <ChevronRight x-show="!expanded" class="h-5 w-5" />
+      <ChevronDown
+        x-show="true"
+        class="h-5 w-5 transition-transform duration-200"
+        :class="expanded ? 'rotate-180' : 'rotate-0'"
+      />
     </button>
   </h3>
 
   <div
     x-show="expanded"
     x-collapse
-    class="border-l-2 bg-slate-50/50 border-l-primary"
+    class="border-l-2 bg-blue-50/50 border-l-blue-800"
   >
     <div class="p-4 leading-relaxed">
       <slot />

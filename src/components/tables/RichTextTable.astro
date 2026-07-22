@@ -1,0 +1,41 @@
+---
+// import type { RichTableType } from 'sanity-plugin-rich-table'
+
+import BasicRichText from '@/components/portable-text/BasicRichText.astro'
+
+/* interface Props {
+  customTable
+} */
+
+const { rows, columnHeaders, hasColumnTitles, hasRowTitles } =
+  Astro.props.customTable
+---
+
+<table class="law-table">
+  {
+    hasColumnTitles && (
+      <thead>
+        <tr>
+          {hasRowTitles && <th />}
+          {columnHeaders?.map((header) => (
+            <th>{header.title}</th>
+          ))}
+        </tr>
+      </thead>
+    )
+  }
+  <tbody>
+    {
+      rows.map((row) => (
+        <tr>
+          {hasRowTitles && <th scope="row">{row.title}</th>}
+          {row.cells?.map((cell) => (
+            <td>
+              <BasicRichText blocks={cell.content} />
+            </td>
+          ))}
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

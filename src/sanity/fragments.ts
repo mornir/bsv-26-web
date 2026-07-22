@@ -14,11 +14,11 @@ de[]{
     ...,
     _type == "table" => {
       "tableType": @->_type,
-      "html": @->html.de,
       "tableId": @->tableId,
       "name": @->name.de,
       "source": @->source,
       "desc": @->description.de,
+      "customTable": @->customTable.de,
       "possibleRequirements": @->possibleRequirements[].name.de,
       "rows": @->rows[] {
          ...,
@@ -43,9 +43,6 @@ fr[]{
   ...,
     children[]{
     ...,
-    _type == "table" => {
-      "html": @->html.fr
-    }
   },
   markDefs[]{
     ...,

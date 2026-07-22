@@ -109,10 +109,12 @@ const assets = [
                   class:list={[
                     'text-center font-semibold group-hover:bg-slate-200',
                     {
-                      'bg-yellow-500': requirement.name === 'RF3',
+                      'bg-rf3': requirement.name === 'RF3',
                     },
-                    { 'bg-orange-500': requirement.name === 'RF2' },
-                    { 'bg-blue-500': requirement.name === 'RF1' },
+                    { 'bg-rf2': requirement.name === 'RF2' },
+                    {
+                      'bg-rf1 text-white': requirement.name === 'RF1',
+                    },
                   ]}
                 >
                   <BasicRichText blocks={requirement?.criterion?.de} />

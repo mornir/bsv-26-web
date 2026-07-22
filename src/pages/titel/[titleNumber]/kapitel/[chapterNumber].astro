@@ -1,10 +1,10 @@
 ---
 import ArticleList from '@/layouts/ArticleList.astro'
 import { getChapters } from '@/sanity/queries'
-import ArticleListItem from '@/components/ArticleListItem.astro'
 import { getLocale } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
 import OnThisPage from '@/components/OnThisPage.astro'
+import ArticleSection from '@/components/ArticleSection.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -17,6 +17,7 @@ export async function getStaticPaths() {
     },
     props: {
       articles: chapter.articles,
+      sections: chapter.sections,
       chapter: {
         number: chapter.number,
         name: chapter.name,
@@ -25,7 +26,7 @@ export async function getStaticPaths() {
   }))
 }
 
-const { articles, chapter } = Astro.props
+const { articles, chapter, sections } = Astro.props
 
 const heading = formatHeading(
   { number: chapter.number, type: 'chapter' },
@@ -36,16 +37,23 @@ const pageTitle = `${heading}: ${chapter?.name[locale]}`
 
 <ArticleList title={pageTitle} tabTitel={heading}>
   <OnThisPage slot="toc" articles={articles} title="In diesem Kapitel" />
-  <section class="space-y-4">
-    {
-      articles.map((article) => (
-        <ArticleListItem
-          name={article.name[locale] ?? ''}
-          number={article.number}
-          law={article.law[locale]}
-          exp={article.exp?.[locale]}
+
+  {
+    sections.length === 0 ? (
+      <ArticleSection
+        articles={articles}
+        locale={locale}
+        articleHeadingLevel="h2"
+      />
+    ) : (
+      sections.map((section) => (
+        <ArticleSection
+          articles={section.articles}
+          locale={locale}
+          section={section}
+          articleHeadingLevel="h3"
         />
       ))
-    }
-  </section>
+    )
+  }
 </ArticleList>

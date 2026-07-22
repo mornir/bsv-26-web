@@ -18,6 +18,7 @@ export async function getTitles() {
   *[_type == "title"] | order(number asc)
   {..., desc {${parsePortableText}},
     "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number },
+    "sections": *[_type == "section" && references(^._id) && !defined(chapter)] | order(number asc) { number, name, "articles": *[_type == "article" && references(^._id)] | order(number asc) ${articleProjection} },
     "articles": *[_type == 'article' && references(^._id) && !defined(chapter)] | order(number asc)
     ${articleProjection}
   } `)
@@ -30,6 +31,7 @@ export async function getChapters() {
   number,
   name,
   title-> { "slug": slug.current },
+  "sections": *[_type == "section" && references(^._id)] | order(number asc) { number, name, "articles": *[_type == "article" && references(^._id)] | order(number asc) ${articleProjection} },
   "articles": *[_type == 'article' && references(^._id)] | order(number asc) ${articleProjection}
 }
  `)

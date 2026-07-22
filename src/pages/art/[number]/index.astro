@@ -67,7 +67,10 @@ const hierarchy = [
           locale
         ),
         name: section.name[locale],
-        link: '#',
+        link: chapter
+          ? `/titel/${title.number}/kapitel/${chapter.number}/` +
+            `#abs-${section.number}`
+          : `/titel/${title.number}/` + `#abs-${section.number}`,
       }
     : null,
 ].filter(Boolean) as Hierarchy
@@ -101,11 +104,11 @@ const hierarchy = [
         <!-- Erläuterung -->
         {
           art.exp?.[locale] && (
-            <div class="mt-8 w-fit border-l-2 p-6 bg-slate-50/50 border border-slate-200  border-l-primary">
+            <div class="mt-8 w-fit border-l-2 p-6 bg-blue-50/50 border border-blue-100  border-l-blue-800 text-blue-800">
               <h2 class="font-sans font-bold uppercase tracking-widest text-secondary">
                 Erläuterung zu Art. {art.number}
               </h2>
-              <div class="mt-6">
+              <div class="mt-6 ">
                 <RichText blocks={art.exp[locale]} />
               </div>
             </div>
@@ -116,8 +119,8 @@ const hierarchy = [
     </article>
   </div>
 </ArticleLayout>
-
+<!-- 
 <script is:inline>
   await import('/pagefind/pagefind-highlight.js')
   new PagefindHighlight({ highlightParam: 'highlight' })
-</script>
+</script> -->

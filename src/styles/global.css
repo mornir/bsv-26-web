@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import './katex.css';
 @import 'tippy.js/dist/tippy.css';
 
 @theme {
@@ -9,7 +8,10 @@
   --color-surface: #f4faff;
   --color-law: #0a3747;
   --color-outline: #5a8092;
-  --color-on-surface: '#0a3747';
+  --color-on-surface: #0a3747;
+  --color-rf1: #0066ff;
+  --color-rf2: #f18700;
+  --color-rf3: #ffce44;
 
   --text-xxs: 0.625rem;
 }
@@ -21,26 +23,26 @@
 
 @layer components {
   .law-table {
-    @apply w-full border-collapse border border-slate-200;
+    @apply w-full border-collapse border border-law;
   }
 
   .law-table thead {
-    @apply bg-blue-50;
+    @apply bg-table-light;
     position: sticky;
     top: 0;
     z-index: 10;
   }
 
   .law-table thead tr:first-child {
-    @apply bg-slate-100;
+    @apply bg-table;
   }
 
   .law-table thead th {
-    @apply border border-slate-200 px-3 py-2 text-left font-bold text-primary;
+    @apply border border-law px-3 py-2 text-left font-bold text-law;
   }
 
   .law-table tbody {
-    @apply divide-y divide-slate-200;
+    @apply divide-y divide-law;
   }
 
   .law-table tbody tr {
@@ -48,7 +50,7 @@
   }
 
   .law-table tbody td {
-    @apply border border-slate-200 px-3 py-2;
+    @apply border border-law px-3 py-2;
   }
 }
 

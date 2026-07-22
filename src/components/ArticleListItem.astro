@@ -9,27 +9,29 @@ interface Props {
   number: number
   law: any
   exp?: any
+  headingLevel?: 'h2' | 'h3'
 }
 
-const { name, number, law, exp = null } = Astro.props
+const { name, number, law, exp = null, headingLevel = 'h2' } = Astro.props
 
 const url = getLocaleUrl('/art/' + number, locale)
+const HeadingTag = headingLevel
 ---
 
-<article class="p-6 font-serif">
-  <h2 class="mb-3 scroll-mt-24" id={`art-${number}`}>
+<article class="px-6 font-serif">
+  <HeadingTag class="mb-3 scroll-mt-24" id={`art-${number}`}>
     <span class="mb-1 block font-mono text-sm text-slate-600"
       >Artikel {number}</span
     >
     <a class="block text-xl font-semibold hover:underline" href={url}>{name}</a>
-  </h2>
+  </HeadingTag>
 
   <RichText blocks={law} />
 
   <!-- Erläuterung -->
   {
     exp && (
-      <div class="mt-4">
+      <div class="mt-4 text-blue-800">
         <ExpAccordion number={number}>
           <RichText blocks={exp} />
         </ExpAccordion>

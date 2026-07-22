@@ -4,10 +4,14 @@ import { X, Maximize } from '@lucide/astro'
 const { name = '' } = Astro.props
 ---
 
-<div x-data="{ open: false }" class="mt-2 mb-6">
+<div
+  x-data="{open: false, showButton: $refs.scrollContainer.scrollWidth > $refs.scrollContainer.clientWidth}"
+  class="mt-2 mb-6"
+>
   <!-- Trigger -->
   <div class="flex justify-end mb-4">
     <button
+      x-show="showButton"
       @click="open = true"
       class="flex items-center gap-1.5 text-outline hover:text-primary transition-colors px-3 py-2 rounded border border-outline/20 hover:border-primary/30 bg-white cursor-pointer"
       title="Tabelle vergrössern"
@@ -17,7 +21,7 @@ const { name = '' } = Astro.props
     </button>
   </div>
 
-  <div class="max-w-full overflow-x-auto detect-horizontal-scroll">
+  <div x-ref="scrollContainer" class="max-w-full overflow-x-auto">
     <slot />
   </div>
 
@@ -77,25 +81,31 @@ const { name = '' } = Astro.props
   </template>
 </div>
 
-<style>
-  /*   :root {
-    timeline-scope: --can-scroll;
-    animation: detect-scroll forwards;
-    animation-timeline: --can-scroll;
-    container-name: --can-scroll;
-  }
-  .detect-horizontal-scroll {
-    scroll-timeline: --can-scroll x;
-  }
-  @keyframes detect-scroll {
-    0%,
-    to {
-      --can-scroll: 1;
-    }
-  }
-  @container --can-scroll style(--can-scroll: 1) {
-    button {
-      display: flex;
-    }
-  } */
-</style>
+<!-- <script>
+//TODO: check if ResizeObserver is needed; if not, remove this code
+document.addEventListener('alpine:init', () => {
+    Alpine.data('tableModal', () => ({
+      open: false,
+      showButton: true,
+
+      init() {
+        this.$nextTick(() => {
+          this.checkOverflow()
+
+          const container = this.$refs.scrollContainer
+          if (!container) return
+
+          const observer = new ResizeObserver(() => this.checkOverflow())
+          observer.observe(container)
+        })
+      },
+
+      checkOverflow() {
+        const container = this.$refs.scrollContainer
+        if (!container) return
+
+        this.showButton = container.scrollWidth > container.clientWidth
+      },
+    }))
+  })
+</script> -->

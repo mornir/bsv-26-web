@@ -3,8 +3,8 @@ import ArticleList from '@/layouts/ArticleList.astro'
 import { getTitles } from '@/sanity/queries'
 import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
-import ArticleListItem from '@/components/ArticleListItem.astro'
 import OnThisPage from '@/components/OnThisPage.astro'
+import ArticleSection from '@/components/ArticleSection.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -15,6 +15,7 @@ export async function getStaticPaths() {
     props: {
       chapters: title.chapters,
       articles: title.articles,
+      sections: title.sections,
       title: {
         number: title.number,
         name: title.name,
@@ -23,7 +24,7 @@ export async function getStaticPaths() {
   }))
 }
 
-const { chapters, articles, title } = Astro.props
+const { chapters, articles, title, sections } = Astro.props
 
 const heading = formatHeading({ number: title.number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
@@ -31,34 +32,40 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
 
 <ArticleList title={pageTitle} tabTitel={heading}>
   <OnThisPage slot="toc" articles={articles} title="In diesem Titel" />
-  <section class="space-y-4">
-    {
-      chapters.length === 0 &&
-        articles.map((article) => (
-          <ArticleListItem
-            name={article.name[locale] ?? ''}
-            number={article.number}
-            law={article.law[locale]}
-            exp={article.exp?.[locale]}
-          />
-        ))
-    }
 
-    {
-      chapters.length > 0 && (
-        <ol>
-          {chapters.map((chapter) => (
-            <li>
-              <a
-                href={`/titel/${title.number}/kapitel/${chapter.number}/`}
-                class="text-xl underline"
-              >
-                {chapter.name[locale]}
-              </a>
-            </li>
-          ))}
-        </ol>
-      )
-    }
-  </section>
+  {
+    sections.length === 0 ? (
+      <ArticleSection
+        articles={articles}
+        locale={locale}
+        articleHeadingLevel="h2"
+      />
+    ) : (
+      sections.map((section) => (
+        <ArticleSection
+          articles={section.articles}
+          locale={locale}
+          section={section}
+          articleHeadingLevel="h3"
+        />
+      ))
+    )
+  }
+
+  {
+    chapters.length > 0 && (
+      <ol>
+        {chapters.map((chapter) => (
+          <li>
+            <a
+              href={`/titel/${title.number}/kapitel/${chapter.number}/`}
+              class="text-xl underline"
+            >
+              {chapter.name[locale]}
+            </a>
+          </li>
+        ))}
+      </ol>
+    )
+  }
 </ArticleList>

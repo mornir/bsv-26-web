@@ -32,7 +32,6 @@
     "astro-pagefind": "^2.0.0",
     "astro-portabletext": "0.13.0",
     "groq": "6.1.0",
-    "katex": "^0.17.0",
     "tailwindcss": "^4.3.1",
     "tippy.js": "^6.3.7"
   },
