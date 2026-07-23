@@ -13,16 +13,12 @@ The project is designed to:
 - offer instant full-text search
 - remain fast and accessible through static generation
 
-The site is built using a modern static architecture and deployed on Cloudflare's global edge network.
-
 ## Features
 
 - 📚 Structured navigation of regulations, chapters, sections and articles
-- 🌍 Multilingual content (FR / DE / IT)
+- 🌍 Multilingual content (FR / DE / IT) with side-by-side comparison
 - 🔎 Full-text search powered by Pagefind
 - ⚡ Static site generation for high performance
-- 📱 Responsive interface
-- ☁️ Global deployment on Cloudflare Pages
 
 ## Tech Stack
 
@@ -31,7 +27,6 @@ The site is built using a modern static architecture and deployed on Cloudflare'
 - Alpine.js — lightweight frontend interactivity
 - Tailwind CSS — utility-first styling
 - Pagefind — static search indexing
-- Cloudflare — global hosting and edge delivery
 
 ## Development
 
@@ -67,16 +62,6 @@ pnpm run build
 ```
 
 The output will be generated in the `dist/` directory.
-
-## Deployment
-
-The project is deployed using **Cloudflare Workers**.
-
-Typical workflow:
-
-1. Push changes to the repository
-2. Cloudflare Workers automatically builds the site
-3. The generated static files are deployed globally
 
 ## Content
 
