@@ -11,20 +11,20 @@ const assets = [
     letter: 'P',
     legend: 'Schutzgut: Personen im Gebäude',
     key: 'peopleInBuilding',
-    show: rows?.some((row: any) => row.protectedAssets.peopleInBuilding),
+    show: rows?.some((row: any) => row.protectedAssets?.peopleInBuilding),
   },
   {
     letter: 'G',
     legend: 'Schutzgut: Gebäude',
     key: 'buildings',
-    show: rows?.some((row: any) => row.protectedAssets.buildings),
+    show: rows?.some((row: any) => row.protectedAssets?.buildings),
   },
 
   {
     letter: 'I',
     legend: 'Schutzgut: Interventionskräfte',
     key: 'firefighters',
-    show: rows?.some((row: any) => row.protectedAssets.firefighters),
+    show: rows?.some((row: any) => row.protectedAssets?.firefighters),
   },
 ]
 ---
@@ -99,7 +99,7 @@ const assets = [
             ))}
 
           {requirements.map((posReq: string) => {
-            const requirement = row.requirements.find(
+            const requirement = row.requirements?.find(
               (req: any) => req.name === posReq
             )
 
