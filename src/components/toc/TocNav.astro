@@ -30,6 +30,14 @@ function isCurrentChapter(titleNumber: number, chapterNumber: number) {
     ) === normalizedPath(Astro.url.pathname)
   )
 }
+
+function isCurrentTitle(titleNumber: number, chapters: { number: number }[]) {
+  return (
+    normalizedPath(new URL(titleURL(titleNumber), Astro.url).pathname) ===
+      normalizedPath(Astro.url.pathname) ||
+    chapters.some((chapter) => isCurrentChapter(titleNumber, chapter.number))
+  )
+}
 ---
 
 <aside class="sticky top-14">
@@ -40,9 +48,8 @@ function isCurrentChapter(titleNumber: number, chapterNumber: number) {
           <TocAccordion
             name={title.name[locale]}
             href={titleURL(title.number)}
-            isOpen={title.chapters.some((chapter) =>
-              isCurrentChapter(title.number, chapter.number)
-            )}
+            isOpen={isCurrentTitle(title.number, title.chapters)}
+            isActive={isCurrentTitle(title.number, title.chapters)}
             class="font-medium text-slate-600"
           >
             {title.chapters.map((chapter) => (
@@ -67,7 +74,14 @@ function isCurrentChapter(titleNumber: number, chapterNumber: number) {
         ) : (
           <a
             href={titleURL(title.number)}
-            class="block px-4 py-2 font-medium text-slate-600 transition-colors hover:underline"
+            class:list={[
+              'block px-4 py-2 font-medium text-slate-600 transition-colors hover:underline',
+              isCurrentTitle(title.number, title.chapters) &&
+                'border-l-2 border-primary/60 bg-blue-50 pl-3 text-primary',
+            ]}
+            aria-current={
+              isCurrentTitle(title.number, title.chapters) ? 'page' : undefined
+            }
           >
             {title.name[locale]}
           </a>

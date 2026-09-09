@@ -6,10 +6,17 @@ interface Props {
   name: string | undefined
   href?: string
   isOpen?: boolean
+  isActive?: boolean
   class?: string
 }
 
-const { name, href, isOpen = false, class: className } = Astro.props
+const {
+  name,
+  href,
+  isOpen = false,
+  isActive = false,
+  class: className,
+} = Astro.props
 
 //TODO: find a better way
 const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
@@ -26,9 +33,15 @@ const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
       id={headingId}
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
-      class="flex w-full items-center justify-between px-4 py-2 text-left text-slate-600 transition-colors hover:bg-blue-100"
+      class:list={[
+        'flex w-full items-center justify-between px-4 py-2 text-left text-slate-600 transition-colors hover:bg-blue-100',
+        isActive && 'border-l-2 border-primary/60 bg-blue-50 pl-3 text-primary',
+      ]}
+      aria-current={isActive ? 'page' : undefined}
     >
-      <span class={className}>{name}</span>
+      <span class:list={[className, isActive && 'text-primary']}>
+        {name}
+      </span>
       <ChevronDown x-show="expanded" class="size-4 flex-none" />
       <ChevronRight x-show="!expanded" class="size-4 flex-none" />
     </button>
