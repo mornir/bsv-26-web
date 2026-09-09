@@ -4,27 +4,25 @@ import { Info } from '@lucide/astro'
 
 const { desc, possibleRequirements, rows } = Astro.props
 
-const requirements = possibleRequirements || ['RF3', 'RF2', 'RF1', '(cr)']
-
 const assets = [
   {
     letter: 'P',
     legend: 'Schutzgut: Personen im Gebäude',
     key: 'peopleInBuilding',
-    show: rows?.some((row: any) => row.protectedAssets.peopleInBuilding),
+    show: rows?.some((row: any) => row.protectedAssets?.peopleInBuilding),
   },
   {
     letter: 'G',
     legend: 'Schutzgut: Gebäude',
     key: 'buildings',
-    show: rows?.some((row: any) => row.protectedAssets.buildings),
+    show: rows?.some((row: any) => row.protectedAssets?.buildings),
   },
 
   {
     letter: 'I',
     legend: 'Schutzgut: Interventionskräfte',
     key: 'firefighters',
-    show: rows?.some((row: any) => row.protectedAssets.firefighters),
+    show: rows?.some((row: any) => row.protectedAssets?.firefighters),
   },
 ]
 ---
@@ -60,21 +58,23 @@ const assets = [
       }
       {
         desc && (
-          <th colspan={requirements.length}>
+          <th colspan={possibleRequirements.length}>
             <p class="text-center text-balance">{desc}</p>
           </th>
         )
       }
     </tr>
-    <tr>
-      {
-        requirements.map((req: string) => (
-          <th class="w-32">
-            <p class="text-center">{req}</p>
-          </th>
-        ))
-      }
-    </tr>
+    {
+      possibleRequirements.length > 0 && (
+        <tr>
+          {possibleRequirements.map((req: string) => (
+            <th class="w-32">
+              <p class="text-center">{req}</p>
+            </th>
+          ))}
+        </tr>
+      )
+    }
   </thead>
   <tbody>
     {
@@ -98,8 +98,8 @@ const assets = [
               </td>
             ))}
 
-          {requirements.map((posReq: string) => {
-            const requirement = row.requirements.find(
+          {possibleRequirements.map((posReq: string) => {
+            const requirement = row.requirements?.find(
               (req: any) => req.name === posReq
             )
 

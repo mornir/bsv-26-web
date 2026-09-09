@@ -1,0 +1,25 @@
+---
+import TableModal from '@/components/tables/TableModal.astro'
+import Qualifications from '@/components/tables/Qualifications.astro'
+import UsersGroupChar from './UsersGroupChar.astro'
+import UsersGroupEx from './UsersGroupEx.astro'
+import UsersGroupRisk from './UsersGroupRisk.astro'
+
+import type { PredefinedTable } from '@/types/sanity.types'
+type TableId = NonNullable<PredefinedTable['tableId']>
+
+const { name, tableId } = Astro.props.node
+
+const tableMap = {
+  users_risk: UsersGroupRisk,
+  users_char: UsersGroupChar,
+  users_examples: UsersGroupEx,
+  qualifications_required: Qualifications,
+}
+
+const PredefinedTable = tableMap[tableId as TableId] || null
+---
+
+<TableModal name={name}>
+  {PredefinedTable && <PredefinedTable />}
+</TableModal>

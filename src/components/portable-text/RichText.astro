@@ -8,6 +8,7 @@ import Subscript from './Subscript.astro'
 import List from './List.astro'
 import Block from './Block.astro'
 import FlexTable from '@/components/tables/FlexTable.astro'
+import PredefinedTable from '../tables/PredefinedTable.astro'
 
 interface Props {
   blocks: any
@@ -27,6 +28,7 @@ const components = {
   type: {
     /*     latex: Latex, */
     table: FlexTable,
+    predefinedTable: PredefinedTable,
   },
 }
 ---

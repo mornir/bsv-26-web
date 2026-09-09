@@ -8,7 +8,7 @@ interface Props {
   class?: string
 }
 
-const { name, isOpen = false, class: className, number } = Astro.props
+const { name, isOpen = false, class: className } = Astro.props
 
 //TODO: find a better way
 const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`

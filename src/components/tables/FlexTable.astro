@@ -1,35 +1,11 @@
 ---
 import TableModal from '@/components/tables/TableModal.astro'
-import Qualifications from '@/components/tables/Qualifications.astro'
-import UsersGroupChar from './UsersGroupChar.astro'
-import UsersGroupEx from './UsersGroupEx.astro'
-import UsersGroupRisk from './UsersGroupRisk.astro'
 import RegulationTable from '@/components/tables/RegulationTable.astro'
 import MeasureTarget from '@/components/tables/MeasureTarget.astro'
 import RichTextTable from './RichTextTable.astro'
 
-import type { Table } from '@/types/sanity.types'
-type TableId = NonNullable<Table['tableId']>
-
-const {
-  source,
-  customTable,
-  tableId,
-  name,
-  tableType,
-  rows,
-  desc,
-  possibleRequirements,
-} = Astro.props.node
-
-const tableMap = {
-  users_risk: UsersGroupRisk,
-  users_char: UsersGroupChar,
-  users_examples: UsersGroupEx,
-}
-
-const PredefinedTable =
-  source === 'predefined' ? tableMap[tableId as TableId] : null
+const { customTable, name, tableType, rows, desc, possibleRequirements } =
+  Astro.props.node
 ---
 
 <TableModal name={name}>
@@ -38,15 +14,14 @@ const PredefinedTable =
       <RegulationTable
         rows={rows}
         desc={desc}
-        possibleRequirements={possibleRequirements}
+        possibleRequirements={
+          tableType === 'fireReactionTable'
+            ? ['RF3', 'RF2', 'RF1', '(cr)']
+            : (possibleRequirements ?? [])
+        }
       />
     )
   }
   {tableType === 'measureTarget' && <MeasureTarget />}
-  {PredefinedTable && <PredefinedTable />}
-  {
-    customTable && source === 'custom' && (
-      <RichTextTable customTable={customTable} />
-    )
-  }
+  {customTable && <RichTextTable customTable={customTable} />}
 </TableModal>

@@ -18,7 +18,7 @@ de[]{
       "name": @->name.de,
       "source": @->source,
       "desc": @->description.de,
-      "customTable": @->customTable.de,
+      "customTable": @->table.de,
       "possibleRequirements": @->possibleRequirements[].name.de,
       "rows": @->rows[] {
          ...,
