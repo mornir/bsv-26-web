@@ -81,13 +81,12 @@ export async function getNav() {
   return client.fetch(getNavQuery)
 }
 
-export async function getIndex() {
-  const getIndexQuery = defineQuery(`{
-  "articles": *[_type == "article"]{name, number, "slug": slug.current, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": section->number} | order(number asc),
-  "titles": *[_type == "title"]{name, number, "slug": slug.current} | order(number asc),
-  "chapters": *[_type == "chapter"]{name, number, "titleNum": title->number} | order(number asc),
-  "sections": *[_type == "section"]{name, number, "titleNum": title->number, "chapterNum": chapter->number} | order(number asc),
+export async function getTocNav() {
+  const getTocNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
+  number,
+  name,
+  "chapters": *[_type == "chapter" && references(^._id)] { name, number }
 }`)
 
-  return client.fetch(getIndexQuery)
+  return client.fetch(getTocNavQuery)
 }

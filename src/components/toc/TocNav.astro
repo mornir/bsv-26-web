@@ -1,13 +1,11 @@
 ---
-import { getIndex } from '@/sanity/queries'
-import { buildToc } from '@/utils/helpers'
-import { formatHeading } from '@/i18n/utils'
+import { getTocNav } from '@/sanity/queries'
 import TocAccordion from '@/components/toc/TocAccordion.astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
-const index = await getIndex()
 
-const toc = buildToc(index)
+//TODO: like for "On this page", find a way to not make an additionnal API call
+const toc = await getTocNav()
 
 function titleURL(number: number) {
   return getLocaleUrl(`/titel/${number}/`, locale)
@@ -16,8 +14,6 @@ function titleURL(number: number) {
 function chapterURL(titleNumber: number, chapterNumber: number) {
   return getLocaleUrl(`/titel/${titleNumber}/kapitel/${chapterNumber}/`, locale)
 }
-
-console.log(Astro.url)
 
 function normalizedPath(pathname: string) {
   return pathname.replace(/\/$/, '')
