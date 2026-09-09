@@ -17,7 +17,7 @@ const { rows, columnHeaders, hasColumnTitles, hasRowTitles } =
       <thead>
         <tr>
           {hasRowTitles && <th />}
-          {columnHeaders?.map((header) => (
+          {columnHeaders?.map((header: any) => (
             <th>{header.title}</th>
           ))}
         </tr>
@@ -26,10 +26,10 @@ const { rows, columnHeaders, hasColumnTitles, hasRowTitles } =
   }
   <tbody>
     {
-      rows.map((row) => (
+      rows.map((row: any) => (
         <tr>
           {hasRowTitles && <th scope="row">{row.title}</th>}
-          {row.cells?.map((cell) => (
+          {row.cells?.map((cell: any) => (
             <td>
               <BasicRichText blocks={cell.content} />
             </td>
