@@ -31,7 +31,7 @@ function chapterURL(titleNumber: number, chapterNumber: number) {
             {title.chapters.map((chapter) => (
               <a
                 href={chapterURL(title.number, chapter.number)}
-                class="block px-4 py-2 text-xs  text-slate-600 transition-colors hover:text-primary"
+                class="block pl-4  text-sm  text-slate-600 transition-colors hover:text-primary"
               >
                 {chapter.name[locale]}
               </a>
