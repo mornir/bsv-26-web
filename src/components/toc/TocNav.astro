@@ -18,42 +18,34 @@ function chapterURL(titleNumber: number, chapterNumber: number) {
 }
 ---
 
-<div class="bg-slate-50 border-slate-200 border-r">
-  <aside class="sticky top-14">
-    <nav class="space-y-1 py-6 h-[calc(100vh-56px)] overflow-y-auto">
-      {
-        toc.map((title) =>
-          title.chapters.length > 0 ? (
-            <TocAccordion
-              name={`${formatHeading({ number: title.number, type: 'title' }, locale)}: ${title.name[locale]}`}
-              href={titleURL(title.number)}
-              isOpen
-              class="font-medium text-base"
-            >
-              {title.chapters.map((chapter) => (
-                <a
-                  href={chapterURL(title.number, chapter.number)}
-                  class="block px-4 py-2 text-xs font-bold uppercase text-slate-600 transition-colors hover:text-primary"
-                >
-                  {formatHeading(
-                    { number: chapter.number, type: 'chapter' },
-                    locale
-                  )}
-                  : {chapter.name[locale]}
-                </a>
-              ))}
-            </TocAccordion>
-          ) : (
-            <a
-              href={titleURL(title.number)}
-              class="block px-4 py-2 font-medium text-slate-600 transition-colors hover:bg-blue-100"
-            >
-              {formatHeading({ number: title.number, type: 'title' }, locale)}:{' '}
-              {title.name[locale]}
-            </a>
-          )
+<aside class="sticky top-14">
+  <nav class="space-y-1 h-[calc(100vh-56px)] overflow-y-auto">
+    {
+      toc.map((title) =>
+        title.chapters.length > 0 ? (
+          <TocAccordion
+            name={title.name[locale]}
+            href={titleURL(title.number)}
+            class="font-medium text-slate-600"
+          >
+            {title.chapters.map((chapter) => (
+              <a
+                href={chapterURL(title.number, chapter.number)}
+                class="block px-4 py-2 text-xs  text-slate-600 transition-colors hover:text-primary"
+              >
+                {chapter.name[locale]}
+              </a>
+            ))}
+          </TocAccordion>
+        ) : (
+          <a
+            href={titleURL(title.number)}
+            class="block px-4 py-2 font-medium text-slate-600 transition-colors hover:bg-blue-100"
+          >
+            {title.name[locale]}
+          </a>
         )
-      }
-    </nav>
-  </aside>
-</div>
+      )
+    }
+  </nav>
+</aside>
