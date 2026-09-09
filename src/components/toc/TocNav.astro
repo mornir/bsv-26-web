@@ -2,7 +2,6 @@
 import { getIndex } from '@/sanity/queries'
 import { buildToc } from '@/utils/helpers'
 import { formatHeading } from '@/i18n/utils'
-import TocArticle from '@/components/toc/TocArticle.astro'
 import TocAccordion from '@/components/toc/TocAccordion.astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
@@ -10,8 +9,12 @@ const index = await getIndex()
 
 const toc = buildToc(index)
 
-function artURL(slug: string) {
-  return getLocaleUrl('/art/' + slug, locale)
+function titleURL(number: number) {
+  return getLocaleUrl(`/titel/${number}/`, locale)
+}
+
+function chapterURL(titleNumber: number, chapterNumber: number) {
+  return getLocaleUrl(`/titel/${titleNumber}/kapitel/${chapterNumber}/`, locale)
 }
 ---
 
@@ -19,95 +22,37 @@ function artURL(slug: string) {
   <aside class="sticky top-14">
     <nav class="space-y-1 py-6 h-[calc(100vh-56px)] overflow-y-auto">
       {
-        toc.map((title) => (
-          <TocAccordion
-            name={title.name[locale]}
-            isOpen={!!title.chapters.length}
-            class="font-medium text-base"
-            number={title.number}
-          >
-            {/* Articles directly under title */}
-            {title.articles.length > 0 && (
-              <ul class="space-y-1">
-                {title.articles.map((article) => (
-                  <li>
-                    <TocArticle
-                      slug={artURL(article.slug)}
-                      number={article.number}
-                      name={article.name[locale]}
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
-            {/* Sections directly under title */}
-            {title.sections.map((section) => (
-              <div class="mb-4">
-                <h3 class="mb-1 text-slate-500 text-sm font-semibold">
-                  {section.name[locale]}
-                </h3>
-
-                <ul class="space-y-1 pl-2">
-                  {section.articles.map((article) => (
-                    <li>
-                      <TocArticle
-                        slug={artURL(article.slug)}
-                        number={article.number}
-                        name={article.name[locale]}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-
-            {title.chapters.map((chapter) => (
-              <TocAccordion
-                name={chapter.name[locale]}
-                number={chapter.number}
-                class="font-bold text-xxs uppercase"
-              >
-                {chapter.articles.length > 0 && (
-                  <ul class="space-y-1 pl-2">
-                    {chapter.articles.map((article) => (
-                      <li>
-                        <TocArticle
-                          slug={artURL(article.slug)}
-                          number={article.number}
-                          name={article.name[locale]}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {chapter.sections.map((section) => (
-                  <div class="pl-6">
-                    <h4 class="mb-1 text-slate-700">
-                      {formatHeading(
-                        { number: section.number, type: 'section' },
-                        locale
-                      )}
-                      — {section.name[locale]}
-                    </h4>
-
-                    <ul class="mt-1 space-y-1 pl-2">
-                      {section.articles.map((article) => (
-                        <li>
-                          <TocArticle
-                            slug={artURL(article.slug)}
-                            number={article.number}
-                            name={article.name[locale]}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </TocAccordion>
-            ))}
-          </TocAccordion>
-        ))
+        toc.map((title) =>
+          title.chapters.length > 0 ? (
+            <TocAccordion
+              name={`${formatHeading({ number: title.number, type: 'title' }, locale)}: ${title.name[locale]}`}
+              href={titleURL(title.number)}
+              isOpen
+              class="font-medium text-base"
+            >
+              {title.chapters.map((chapter) => (
+                <a
+                  href={chapterURL(title.number, chapter.number)}
+                  class="block px-4 py-2 text-xs font-bold uppercase text-slate-600 transition-colors hover:text-primary"
+                >
+                  {formatHeading(
+                    { number: chapter.number, type: 'chapter' },
+                    locale
+                  )}
+                  : {chapter.name[locale]}
+                </a>
+              ))}
+            </TocAccordion>
+          ) : (
+            <a
+              href={titleURL(title.number)}
+              class="block px-4 py-2 font-medium text-slate-600 transition-colors hover:bg-blue-100"
+            >
+              {formatHeading({ number: title.number, type: 'title' }, locale)}:{' '}
+              {title.name[locale]}
+            </a>
+          )
+        )
       }
     </nav>
   </aside>

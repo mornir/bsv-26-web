@@ -4,11 +4,12 @@ import { ChevronDown, ChevronRight } from '@lucide/astro'
 interface Props {
   number?: number
   name: string | undefined
+  href?: string
   isOpen?: boolean
   class?: string
 }
 
-const { name, isOpen = false, class: className } = Astro.props
+const { name, href, isOpen = false, class: className } = Astro.props
 
 //TODO: find a better way
 const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
@@ -20,17 +21,29 @@ const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
   aria-labelledby={headingId}
 >
   <h3>
-    <button
-      type="button"
-      id={headingId}
-      x-on:click="expanded = !expanded"
-      :aria-expanded="expanded"
-      class="flex w-full items-center justify-between px-4 py-2 text-left text-slate-600 transition-colors hover:bg-blue-100"
+    <div
+      class="flex items-center pr-4 text-slate-600 transition-colors hover:bg-blue-100"
     >
-      <span class={className}>{name}</span>
-      <ChevronDown x-show="expanded" class="size-4 flex-none" />
-      <ChevronRight x-show="!expanded" class="size-4 flex-none" />
-    </button>
+      <a
+        href={href}
+        class:list={[
+          'min-w-0 flex-1 px-4 py-2 text-left',
+          className,
+          { 'pointer-events-none': !href },
+        ]}>{name}</a
+      >
+      <button
+        type="button"
+        id={headingId}
+        x-on:click="expanded = !expanded"
+        :aria-expanded="expanded"
+        aria-label={`Toggle ${name}`}
+        class="flex-none p-2"
+      >
+        <ChevronDown x-show="expanded" class="size-4" />
+        <ChevronRight x-show="!expanded" class="size-4" />
+      </button>
+    </div>
   </h3>
 
   <div x-show="expanded" x-collapse>
