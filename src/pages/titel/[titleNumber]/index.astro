@@ -54,14 +54,22 @@ const pageTitle = `${heading}: ${title?.name[locale]}`
 
   {
     chapters.length > 0 && (
-      <ol>
+      <ol class="mt-8 grid gap-4 sm:grid-cols-2">
         {chapters.map((chapter) => (
-          <li>
+          <li class="border border-slate-300 bg-white transition-colors hover:border-slate-500">
             <a
               href={`/titel/${title.number}/kapitel/${chapter.number}/`}
-              class="text-xl underline"
+              class="block p-5"
             >
-              {chapter.name[locale]}
+              <span class="block font-mono text-sm text-slate-600">
+                {formatHeading(
+                  { number: chapter.number, type: 'chapter' },
+                  locale
+                )}
+              </span>
+              <span class="mt-1 block text-lg font-semibold">
+                {chapter.name[locale]}
+              </span>
             </a>
           </li>
         ))}
