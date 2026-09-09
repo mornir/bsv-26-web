@@ -20,13 +20,21 @@ const units = await getUnits()
           return (
             <div class="border p-6 border-slate-300">
               <h2 class="text-xl font-bold mb-4 grid grid-cols-[1fr_3fr_1fr] font-serif">
-                <span>
+                <a
+                  href={`/titel/${unit.number}/`}
+                  class="transition-colors hover:text-slate-600 hover:underline"
+                >
                   {formatHeading(
                     { number: unit.number, type: 'title' },
                     locale
                   )}
-                </span>
-                <span class="justify-self-center">{unit.title}</span>
+                </a>
+                <a
+                  href={`/titel/${unit.number}/`}
+                  class="justify-self-center transition-colors hover:text-slate-600 hover:underline"
+                >
+                  {unit.title}
+                </a>
               </h2>
 
               <ol class="flex gap-3 flex-wrap mt-2">
