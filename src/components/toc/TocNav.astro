@@ -16,6 +16,20 @@ function titleURL(number: number) {
 function chapterURL(titleNumber: number, chapterNumber: number) {
   return getLocaleUrl(`/titel/${titleNumber}/kapitel/${chapterNumber}/`, locale)
 }
+
+console.log(Astro.url)
+
+function normalizedPath(pathname: string) {
+  return pathname.replace(/\/$/, '')
+}
+
+function isCurrentChapter(titleNumber: number, chapterNumber: number) {
+  return (
+    normalizedPath(
+      new URL(chapterURL(titleNumber, chapterNumber), Astro.url).pathname
+    ) === normalizedPath(Astro.url.pathname)
+  )
+}
 ---
 
 <aside class="sticky top-14">
@@ -26,12 +40,25 @@ function chapterURL(titleNumber: number, chapterNumber: number) {
           <TocAccordion
             name={title.name[locale]}
             href={titleURL(title.number)}
+            isOpen={title.chapters.some((chapter) =>
+              isCurrentChapter(title.number, chapter.number)
+            )}
             class="font-medium text-slate-600"
           >
             {title.chapters.map((chapter) => (
               <a
                 href={chapterURL(title.number, chapter.number)}
-                class="block pl-4  text-sm  text-slate-600 transition-colors hover:text-primary"
+                class:list={[
+                  'block pl-4 py-2 text-sm transition-colors hover:text-primary',
+                  isCurrentChapter(title.number, chapter.number)
+                    ? 'rounded-r-sm border-l-4 border-primary bg-blue-100 pl-3 font-semibold text-primary'
+                    : 'text-slate-600',
+                ]}
+                aria-current={
+                  isCurrentChapter(title.number, chapter.number)
+                    ? 'page'
+                    : undefined
+                }
               >
                 {chapter.name[locale]}
               </a>
