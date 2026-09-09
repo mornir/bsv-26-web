@@ -17,7 +17,7 @@ const { customTable, name, tableType, rows, desc, possibleRequirements } =
         possibleRequirements={
           tableType === 'fireReactionTable'
             ? ['RF3', 'RF2', 'RF1', '(cr)']
-            : possibleRequirements
+            : (possibleRequirements ?? [])
         }
       />
     )
