@@ -4,8 +4,6 @@ import { Info } from '@lucide/astro'
 
 const { desc, possibleRequirements, rows } = Astro.props
 
-const requirements = possibleRequirements || ['RF3', 'RF2', 'RF1', '(cr)']
-
 const assets = [
   {
     letter: 'P',
@@ -60,21 +58,23 @@ const assets = [
       }
       {
         desc && (
-          <th colspan={requirements.length}>
+          <th colspan={possibleRequirements.length}>
             <p class="text-center text-balance">{desc}</p>
           </th>
         )
       }
     </tr>
-    <tr>
-      {
-        requirements.map((req: string) => (
-          <th class="w-32">
-            <p class="text-center">{req}</p>
-          </th>
-        ))
-      }
-    </tr>
+    {
+      possibleRequirements.length && (
+        <tr>
+          {possibleRequirements.map((req: string) => (
+            <th class="w-32">
+              <p class="text-center">{req}</p>
+            </th>
+          ))}
+        </tr>
+      )
+    }
   </thead>
   <tbody>
     {
@@ -98,7 +98,7 @@ const assets = [
               </td>
             ))}
 
-          {requirements.map((posReq: string) => {
+          {possibleRequirements.map((posReq: string) => {
             const requirement = row.requirements?.find(
               (req: any) => req.name === posReq
             )
