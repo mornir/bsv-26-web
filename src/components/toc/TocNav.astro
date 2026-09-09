@@ -40,8 +40,8 @@ function isCurrentTitle(titleNumber: number, chapters: { number: number }[]) {
 }
 ---
 
-<aside class="sticky top-14">
-  <nav class="space-y-1 h-[calc(100vh-56px)] overflow-y-auto">
+<aside class="fixed left-4 top-20 bottom-0 w-[320px]">
+  <nav class="space-y-1 h-full overflow-y-auto">
     {
       toc.map((title) =>
         title.chapters.length > 0 ? (
