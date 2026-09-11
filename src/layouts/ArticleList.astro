@@ -25,12 +25,6 @@ const { title, tabTitel = title, titleContext, chapterContext } = Astro.props
     <main
       class="col-start-2 max-w-3xl justify-self-center"
       data-pagefind-body
-      x-data="{
-        activeSection: null,
-        setActiveSection(section) {
-          this.activeSection = section
-        },
-      }"
     >
       <ArticleContext title={titleContext} chapter={chapterContext} />
       <h1 class="text-center font-semibold font-serif text-3xl mt-8 mb-6">

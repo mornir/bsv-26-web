@@ -20,11 +20,10 @@ const sectionLabel = section
 
 {
   section ? (
-    <div
-      x-intersect:enter={`setActiveSection(${JSON.stringify(sectionLabel)})`}
-    >
+    <div>
+      {/* The heading remains visible until the next section heading replaces it. */}
       <h2
-        class="font-semibold text-center scroll-mt-24 text-xl mt-12"
+        class="sticky top-24 z-10 mt-12 border-y border-slate-200 bg-white/95 py-3 text-center text-xl font-semibold backdrop-blur scroll-mt-24"
         id={`abs-${section.number}`}
       >
         {sectionLabel}
