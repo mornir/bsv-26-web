@@ -30,7 +30,11 @@ const heading = formatHeading({ number: title.number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
 ---
 
-<ArticleList title={pageTitle} tabTitel={heading}>
+<ArticleList
+  title={pageTitle}
+  tabTitel={heading}
+  titleContext={{ heading, name: title.name[locale] ?? title.name.de }}
+>
   <OnThisPage slot="on-this-page" articles={articles} title="In diesem Titel" />
 
   {

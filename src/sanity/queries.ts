@@ -30,7 +30,7 @@ export async function getChapters() {
   *[_type == "chapter"] | order(number asc) {
   number,
   name,
-  title-> { "slug": slug.current },
+  title-> { number, name, "slug": slug.current },
   "sections": *[_type == "section" && references(^._id)] | order(number asc) { number, name, "articles": *[_type == "article" && references(^._id)] | order(number asc) ${articleProjection} },
   "articles": *[_type == 'article' && references(^._id)] | order(number asc) ${articleProjection}
 }

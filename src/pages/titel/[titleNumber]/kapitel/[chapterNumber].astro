@@ -10,7 +10,7 @@ const locale = getLocale(Astro.url) as LangKeys
 
 export async function getStaticPaths() {
   const chapters = await getChapters()
-  return chapters.map((chapter) => ({
+  return chapters.map((chapter: any) => ({
     params: {
       titleNumber: chapter.title.slug,
       chapterNumber: chapter.number.toString(),
@@ -22,20 +22,41 @@ export async function getStaticPaths() {
         number: chapter.number,
         name: chapter.name,
       },
+      title: chapter.title,
     },
   }))
 }
 
-const { articles, chapter, sections } = Astro.props
+const { articles, chapter, sections, title } = Astro.props as {
+  articles: any[]
+  sections: any[]
+  chapter: { number: number; name: Record<LangKeys, string> }
+  title: { number: number; name: Record<LangKeys, string> }
+}
 
 const heading = formatHeading(
   { number: chapter.number, type: 'chapter' },
   locale
 )
-const pageTitle = `${heading}: ${chapter?.name[locale]}`
+const titleHeading = formatHeading(
+  { number: title.number, type: 'title' },
+  locale
+)
+const pageTitle = `${heading}: ${chapter.name[locale] ?? chapter.name.de}`
 ---
 
-<ArticleList title={pageTitle} tabTitel={heading}>
+<ArticleList
+  title={pageTitle}
+  tabTitel={heading}
+  titleContext={{
+    heading: titleHeading,
+    name: title.name[locale] ?? title.name.de,
+  }}
+  chapterContext={{
+    heading,
+    name: chapter.name[locale] ?? chapter.name.de,
+  }}
+>
   <OnThisPage
     slot="on-this-page"
     articles={articles}

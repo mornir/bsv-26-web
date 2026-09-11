@@ -7,25 +7,27 @@ interface Props {
   locale: LangKeys
   section?: {
     number: number | string
-    name: {
-      de: string
-    }
+    name: Partial<Record<LangKeys, string>>
   }
   articleHeadingLevel?: 'h2' | 'h3'
 }
 
 const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
+const sectionLabel = section
+  ? `${formatHeading({ number: section.number, type: 'section' }, locale)}: ${section.name[locale] ?? section.name.de}`
+  : ''
 ---
 
 {
   section ? (
-    <div>
+    <div
+      x-intersect:enter={`setActiveSection(${JSON.stringify(sectionLabel)})`}
+    >
       <h2
         class="font-semibold text-center scroll-mt-24 text-xl mt-12"
         id={`abs-${section.number}`}
       >
-        {formatHeading({ number: section.number, type: 'section' }, locale)}:{' '}
-        {section.name.de}
+        {sectionLabel}
       </h2>
 
       <div class="space-y-8 mt-8" data-pagefind-ignore>
