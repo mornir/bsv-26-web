@@ -5,6 +5,7 @@ import { formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 import OnThisPage from '@/components/OnThisPage.astro'
 import ArticleSection from '@/components/ArticleSection.astro'
+import ArticleContext from '@/components/ArticleContext.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -30,12 +31,13 @@ const heading = formatHeading({ number: title.number, type: 'title' }, locale)
 const pageTitle = `${heading}: ${title?.name[locale]}`
 ---
 
-<ArticleList
-  title={pageTitle}
-  tabTitel={heading}
-  titleContext={{ heading, name: title.name[locale] ?? title.name.de }}
->
+<ArticleList title={pageTitle} tabTitel={heading}>
   <OnThisPage slot="on-this-page" articles={articles} title="In diesem Titel" />
+
+  <ArticleContext
+    slot="context"
+    title={{ heading, name: title.name[locale] ?? title.name.de }}
+  />
 
   {
     sections.length === 0 ? (

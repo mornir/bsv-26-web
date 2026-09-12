@@ -5,6 +5,7 @@ import { getLocale } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
 import OnThisPage from '@/components/OnThisPage.astro'
 import ArticleSection from '@/components/ArticleSection.astro'
+import ArticleContext from '@/components/ArticleContext.astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 
@@ -29,7 +30,7 @@ export async function getStaticPaths() {
 
 const { articles, chapter, sections, title } = Astro.props
 
-const heading = formatHeading(
+const chapterHeading = formatHeading(
   { number: chapter.number, type: 'chapter' },
   locale
 )
@@ -37,25 +38,28 @@ const titleHeading = formatHeading(
   { number: title.number, type: 'title' },
   locale
 )
-const pageTitle = `${heading}: ${chapter.name[locale] ?? chapter.name.de}`
+
+const chapterName = chapter.name[locale] ?? chapter.name.de
+const pageTitle = `${chapterHeading}: ${chapterName}`
 ---
 
-<ArticleList
-  title={pageTitle}
-  tabTitel={heading}
-  titleContext={{
-    heading: titleHeading,
-    name: title.name[locale] ?? title.name.de,
-  }}
-  chapterContext={{
-    heading,
-    name: chapter.name[locale] ?? chapter.name.de,
-  }}
->
+<ArticleList title={pageTitle} tabTitel={chapterName}>
   <OnThisPage
     slot="on-this-page"
     articles={articles}
     title="In diesem Kapitel"
+  />
+
+  <ArticleContext
+    slot="context"
+    title={{
+      heading: titleHeading,
+      name: title.name[locale] ?? title.name.de,
+    }}
+    chapter={{
+      heading: chapterHeading,
+      name: chapterName,
+    }}
   />
 
   {
