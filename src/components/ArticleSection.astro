@@ -13,21 +13,20 @@ interface Props {
 }
 
 const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
-const sectionLabel = section
-  ? `${formatHeading({ number: section.number, type: 'section' }, locale)}: ${section.name[locale] ?? section.name.de}`
-  : ''
 ---
 
 {
   section ? (
     <div>
-      {/* The heading remains visible until the next section heading replaces it. */}
-      <h2
-        class="sticky top-24 z-10 mt-12 border-y border-slate-200 bg-white/95 py-3 text-center text-xl font-semibold backdrop-blur scroll-mt-24"
-        id={`abs-${section.number}`}
-      >
-        {sectionLabel}
-      </h2>
+      <div class="section-heading sticky top-22 z-20 mt-12">
+        <h2
+          class="section-heading__label border-y border-slate-200 bg-white/95 py-3 text-center text-xl font-semibold backdrop-blur scroll-mt-24"
+          id={`abs-${section.number}`}
+        >
+          {formatHeading({ number: section.number, type: 'section' }, locale)}:{' '}
+          {section.name.de}
+        </h2>
+      </div>
 
       <div class="space-y-8 mt-8" data-pagefind-ignore>
         {articles.map((article) => (
@@ -55,3 +54,25 @@ const sectionLabel = section
     </div>
   )
 }
+
+<style>
+  .section-heading {
+    container-type: scroll-state;
+  }
+
+  .section-heading__label {
+    transition:
+      font-size 150ms ease,
+      line-height 150ms ease,
+      padding 150ms ease;
+  }
+
+  /* Compact the section label only while its sticky container is pinned. */
+  @container scroll-state(stuck: top) {
+    .section-heading__label {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      padding-block: 0.375rem;
+    }
+  }
+</style>
