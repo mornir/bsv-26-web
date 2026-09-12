@@ -85,7 +85,7 @@ export async function getTocNav() {
   const getTocNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
   number,
   name,
-  "chapters": *[_type == "chapter" && references(^._id)] { name, number }
+  "chapters": *[_type == "chapter" && references(^._id)] | order(number asc) { name, number }
 }`)
 
   return client.fetch(getTocNavQuery)
