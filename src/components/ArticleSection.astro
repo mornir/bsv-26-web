@@ -18,9 +18,9 @@ const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
 {
   section ? (
     <div>
-      <div class="section-heading sticky top-22 z-20 mt-12">
+      <div class="section-heading sticky top-22 z-20 mt-6">
         <h2
-          class="section-heading__label border-y border-slate-200 bg-white/95 py-3 text-center text-xl font-semibold backdrop-blur scroll-mt-24"
+          class="section-heading__label w-full border-y border-slate-200 bg-white/95 py-3 text-center text-xl font-semibold backdrop-blur scroll-mt-24"
           id={`abs-${section.number}`}
         >
           {formatHeading({ number: section.number, type: 'section' }, locale)}:{' '}
@@ -61,10 +61,15 @@ const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
   }
 
   .section-heading__label {
+    border-top: 1px solid rgb(148 163 184 / 0.7);
+    border-bottom: 1px solid rgb(148 163 184 / 0.7);
+    background: rgb(255 255 255 / 0.96);
+    box-shadow: 0 8px 18px -16px rgba(15, 23, 42, 0.5);
     transition:
       font-size 150ms ease,
       line-height 150ms ease,
-      padding 150ms ease;
+      padding 150ms ease,
+      box-shadow 150ms ease;
   }
 
   /* Compact the section label only while its sticky container is pinned. */
@@ -73,6 +78,7 @@ const { articles, locale, section, articleHeadingLevel = 'h2' } = Astro.props
       font-size: 0.875rem;
       line-height: 1.25rem;
       padding-block: 0.375rem;
+      box-shadow: 0 4px 10px -10px rgba(15, 23, 42, 0.45);
     }
   }
 </style>
