@@ -34,7 +34,7 @@ const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
       class:list={[
-        'flex w-full items-center justify-between px-4 py-2 text-left text-slate-600 transition-colors hover:bg-blue-100',
+        'flex w-full items-center pl-3 justify-between py-2 text-left text-slate-600 transition-colors hover:bg-blue-100',
         isActive && 'border-l-2 border-primary/60 bg-blue-50 pl-3 text-primary',
       ]}
       aria-current={isActive ? 'page' : undefined}
@@ -48,7 +48,7 @@ const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
   </h3>
 
   <div x-show="expanded" x-collapse>
-    <div class="ml-2 pl-2 space-y-2 border-l-2 border-blue-200">
+    <div class="ml-2 space-y-2 border-l-2 border-blue-200">
       <slot />
     </div>
   </div>

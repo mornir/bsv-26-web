@@ -73,7 +73,7 @@ function isCurrentTitle(titleNumber: number, chapters: { number: number }[]) {
           <a
             href={titleURL(title.number)}
             class:list={[
-              'block px-4 py-2 font-medium text-slate-600 transition-colors hover:underline',
+              'block py-2 pl-3 font-medium text-slate-600 transition-colors hover:underline',
               isCurrentTitle(title.number, title.chapters) &&
                 'border-l-2 border-primary/60 bg-blue-50 pl-3 text-primary',
             ]}
