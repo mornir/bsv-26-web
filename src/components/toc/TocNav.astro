@@ -4,6 +4,8 @@ import TocAccordion from '@/components/toc/TocAccordion.astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
 
+console.count('API CALL')
+
 //TODO: like for "On this page", find a way to not make an additionnal API call
 const toc = await getTocNav()
 
@@ -36,7 +38,7 @@ function isCurrentTitle(titleNumber: number, chapters: { number: number }[]) {
 }
 ---
 
-<aside class="sticky top-24 h-fit">
+<aside class="sticky top-24 h-fit hidden sm:block">
   <nav
     class="space-y-1 max-h-[calc(100dvh-6rem)] overflow-y-auto scrollbar-gutter-stable"
   >

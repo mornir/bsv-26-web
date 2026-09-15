@@ -14,7 +14,7 @@ interface Props {
 const { articles = [], title = 'Auf dieser Seite' } = Astro.props
 ---
 
-<aside class="sticky top-24 h-fit">
+<aside class="hidden sm:block sticky top-24 h-fit">
   <div class="max-h-[calc(100dvh-6rem)] overflow-y-auto">
     <h4 class="text-lg font-semibold mb-2">{title}</h4>
     <nav class="flex flex-col gap-y-3 pb-4">
