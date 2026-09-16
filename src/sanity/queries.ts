@@ -11,6 +11,11 @@ const getTocNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
 
 let tocNavPromise: Promise<GetTocNavQueryResult> | undefined
 
+export async function getTocNav() {
+  tocNavPromise ??= client.fetch(getTocNavQuery)
+  return tocNavPromise
+}
+
 // TODO: Add Anhänge
 export async function getUnits() {
   const getUnitsQuery = defineQuery(`
@@ -68,14 +73,12 @@ export async function getUsersGroups() {
   return client.fetch(getUsersGroupsQuery)
 }
 
-// TODO: remove
+// Only use during developmnt
 export async function getArticle(slug: string) {
   const getArticleQuery = defineQuery(`
-
     *[_type == "article" && defined(slug.current) && slug.current == $slug][0]
     ${articleProjection}
     `)
-
   return client.fetch(getArticleQuery, { slug })
 }
 
@@ -88,11 +91,6 @@ export async function getNav() {
 } `)
 
   return client.fetch(getNavQuery)
-}
-
-export async function getTocNav() {
-  tocNavPromise ??= client.fetch(getTocNavQuery)
-  return tocNavPromise
 }
 
 // TODO: replace with nested GROQ Query
