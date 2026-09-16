@@ -8,8 +8,6 @@ const locale = getLocale(Astro.url) as LangKeys
   data-article-base-url={getLocaleUrl('/art/', locale)}
   @submit="if ($el.checkValidity()) { $event.preventDefault(); window.location.href = `${$el.dataset.articleBaseUrl}${number}/` }"
 >
-  <label for="article-number">Artikel</label>
-
   <input
     id="article-number"
     type="text"
@@ -20,8 +18,6 @@ const locale = getLocale(Astro.url) as LangKeys
     @invalid="$event.target.setCustomValidity($event.target.validity.valueMissing ? 'Bitte geben Sie eine Artikelnummer ein.' : 'Bitte geben Sie eine Artikelnummer von 1 bis 725.')"
     @input="$event.target.setCustomValidity('')"
     required
-    class="border"
+    class="pl-9 pr-7 py-1.5 bg-white border border-slate-200 rounded-sm text-xs focus:ring-1 focus:ring-primary w-32 tracking-wide"
   />
-
-  <button type="submit">Öffnen</button>
 </form>
