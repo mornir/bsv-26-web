@@ -3,10 +3,6 @@ import { getTocNav } from '@/sanity/queries'
 import TocAccordion from '@/components/toc/TocAccordion.astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
-
-console.count('API CALL')
-
-//TODO: like for "On this page", find a way to not make an additionnal API call
 const toc = await getTocNav()
 
 function titleURL(number: number) {

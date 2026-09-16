@@ -1,6 +1,15 @@
 import { defineQuery } from 'groq'
 import { parsePortableText, articleProjection } from './fragments'
 import client from './client'
+import type { GetTocNavQueryResult } from '@/types/sanity.types'
+
+const getTocNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
+  number,
+  name,
+  "chapters": *[_type == "chapter" && references(^._id)] | order(number asc) { name, number }
+}`)
+
+let tocNavPromise: Promise<GetTocNavQueryResult> | undefined
 
 // TODO: Add Anhänge
 export async function getUnits() {
@@ -71,24 +80,19 @@ export async function getArticle(slug: string) {
 }
 
 export async function getNav() {
-  const getNavQuery = defineQuery(`*[_type == "title"] {
+  const getNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
   name, number,
   "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},
   "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }} | order(number asc),
   "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}
-} | order(number asc)`)
+} `)
 
   return client.fetch(getNavQuery)
 }
 
 export async function getTocNav() {
-  const getTocNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
-  number,
-  name,
-  "chapters": *[_type == "chapter" && references(^._id)] | order(number asc) { name, number }
-}`)
-
-  return client.fetch(getTocNavQuery)
+  tocNavPromise ??= client.fetch(getTocNavQuery)
+  return tocNavPromise
 }
 
 // TODO: replace with nested GROQ Query
