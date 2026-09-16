@@ -19,12 +19,14 @@ export default defineConfig({
       name: 'Public Sans',
       cssVariable: '--font-public-sans',
       weights: [400, 500, 600, 700],
+      fallbacks: ['Arial', 'sans-serif'],
     },
     {
       provider: fontProviders.fontsource(),
       name: 'Newsreader',
       cssVariable: '--font-newsreader',
       weights: [400, 500, 600, 700],
+      fallbacks: ['Georgia', 'serif'],
     },
   ],
   integrations: [
