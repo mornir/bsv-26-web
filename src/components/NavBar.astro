@@ -3,6 +3,7 @@ import { locales } from '@/i18n/ui'
 import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import { useTranslations } from '@/i18n/utils'
 import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
+import ArticleJump from './ArticleJump.astro'
 
 import Link from './Link.astro'
 
@@ -66,6 +67,7 @@ const mainNav = [
         </nav>
       </div>
       <div>
+        <ArticleJump />
         <PagefindConfig />
         <pagefind-modal-trigger compact></pagefind-modal-trigger>
         <pagefind-modal></pagefind-modal>

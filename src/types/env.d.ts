@@ -1,7 +1,8 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 /// <reference types="@sanity/astro/module" />
-/// <reference types="@types/alpinejs" />
+/// <reference types="alpinejs" />
+
 interface Window {
-  Alpine: import('alpinejs').Alpine;
+  Alpine: import('alpinejs').Alpine
 }
