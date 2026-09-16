@@ -46,6 +46,12 @@ const mainNav = [
     </nav>
 
     <div class="flex items-center gap-x-6 justify-self-end">
+      <div>
+        <ArticleJump />
+        <PagefindConfig />
+        <pagefind-modal-trigger compact></pagefind-modal-trigger>
+        <pagefind-modal></pagefind-modal>
+      </div>
       <div class="flex items-center gap-4">
         <nav class="flex gap-4 font-headline text-xs font-bold">
           {
@@ -65,12 +71,6 @@ const mainNav = [
             ))
           }
         </nav>
-      </div>
-      <div>
-        <ArticleJump />
-        <PagefindConfig />
-        <pagefind-modal-trigger compact></pagefind-modal-trigger>
-        <pagefind-modal></pagefind-modal>
       </div>
     </div>
   </div>
