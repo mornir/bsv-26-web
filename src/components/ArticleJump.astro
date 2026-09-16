@@ -1,11 +1,12 @@
 ---
-import { getLocale } from 'astro-i18n-aut'
+import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
 ---
 
 <form
   x-data="jumpToArticle"
-  @submit="if ($el.checkValidity()) { $event.preventDefault();  window.location.href = `/art/${number}/`}"
+  data-article-base-url={getLocaleUrl('/art/', locale)}
+  @submit="if ($el.checkValidity()) { $event.preventDefault(); window.location.href = `${$el.dataset.articleBaseUrl}${number}/` }"
 >
   <label for="article-number">Artikel</label>
 
