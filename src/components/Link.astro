@@ -12,10 +12,8 @@ const path = slug === '/' || slug === '' ? '/' : `/${slug}/`
 
 <a
   href={getLocaleUrl(path, locale)}
-  class={`font-medium transition-colors duration-200 hover:text-primary ${
-    pathname === path
-      ? 'text-primary font-semibold border-b-2 border-primary pb-0.5'
-      : 'text-slate-700 hover:underline'
+  class={`font-semibold underline-offset-8 text-primary hover:underline decoration-2 ${
+    pathname === path && 'font-semibold underline'
   }`}
 >
   {text}
