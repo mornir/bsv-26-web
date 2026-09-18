@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: {
+    heading: string
+    name: string
+  }
+  chapter?: {
+    heading: string
+    name: string
+  }
+}
+
+const { title, chapter } = Astro.props
+---
+
+<div
+  class="sticky top-14.5 z-30 mb-6 w-full border-y border-slate-200/70 bg-white/80 px-4 py-2 text-xxs font-medium uppercase tracking-widest text-slate-500 backdrop-blur-md"
+>
+  <nav class="flex items-center justify-center gap-2">
+    <span class="font-semibold text-primary">
+      {title.heading}: {title.name}
+    </span>
+    {
+      chapter && (
+        <>
+          <span class="text-slate-400" aria-hidden="true">
+            /
+          </span>
+          <span class="text-slate-600">
+            {chapter.heading}: {chapter.name}
+          </span>
+        </>
+      )
+    }
+  </nav>
+</div>

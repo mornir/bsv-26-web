@@ -1,3 +1,4 @@
+// TODO: Replace with nested GROQ query
 import type { GetIndexQueryResult } from '@/types/sanity.types'
 
 export function buildToc({
