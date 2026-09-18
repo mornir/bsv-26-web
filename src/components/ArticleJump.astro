@@ -1,13 +1,23 @@
 ---
+import { CornerDownRight } from '@lucide/astro'
 import { getLocale, getLocaleUrl } from 'astro-i18n-aut'
 const locale = getLocale(Astro.url) as LangKeys
 ---
 
 <form
-  x-data="jumpToArticle"
+  class="relative hidden sm:flex items-center"
+  x-data="{ number: null}"
   data-article-base-url={getLocaleUrl('/art/', locale)}
   @submit="if ($el.checkValidity()) { $event.preventDefault(); window.location.href = `${$el.dataset.articleBaseUrl}${number}/` }"
 >
+  <div
+    class="absolute left-2.5 top-1/2 -translate-y-1/2 flex items-center gap-0.5 pointer-events-none"
+  >
+    <span class="text-xs font-semibold text-outline tracking-wide"
+      >Art. Nr.</span
+    >
+  </div>
+
   <input
     id="article-number"
     type="text"
@@ -18,6 +28,11 @@ const locale = getLocale(Astro.url) as LangKeys
     @invalid="$event.target.setCustomValidity($event.target.validity.valueMissing ? 'Bitte geben Sie eine Artikelnummer ein.' : 'Bitte geben Sie eine Artikelnummer von 1 bis 725.')"
     @input="$event.target.setCustomValidity('')"
     required
-    class="pl-9 pr-7 py-1.5 bg-white border border-slate-200 rounded-sm text-xs focus:ring-1 focus:ring-primary w-32 tracking-wide"
+    class="pl-14 pr-7 py-1.5 bg-white border border-slate-200 rounded-sm text-xs font-bold focus:ring-1 focus:ring-primary w-30 tracking-wide text-primary"
+    title="Direkt zu Artikel springen"
+  />
+
+  <CornerDownRight
+    class="absolute right-2 top-1/2 -translate-y-1/2 text-outline size-4 pointer-events-none"
   />
 </form>
