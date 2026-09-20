@@ -26,8 +26,13 @@ const locale = getLocale(Astro.url) as LangKeys
       required
       class="w-10 min-w-0 grow p-0 text-primary outline-none focus:ring-0"
       title="Direkt zu Artikel springen"
+      enterkeyhint="go"
     />
-
-    <CornerDownRight aria-hidden="true" class="size-4 shrink-0 text-outline" />
+    <button type="submit" class="py-2">
+      <CornerDownRight
+        aria-hidden="true"
+        class="size-4 shrink-0 text-outline"
+      />
+    </button>
   </label>
 </form>
