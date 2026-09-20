@@ -11,7 +11,7 @@ const locale = getLocale(Astro.url) as LangKeys
   @submit="if ($el.checkValidity()) { $event.preventDefault(); window.location.href = `${$el.dataset.articleBaseUrl}${number}/` }"
 >
   <label
-    class="inline-flex h-9 items-center gap-2 rounded-sm border border-slate-200 bg-white px-3 text-xs font-semibold tracking-wide text-outline transition-colors focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/30"
+    class="inline-flex h-9 items-center gap-1 rounded-sm border border-slate-200 bg-white px-3 text-xs font-semibold tracking-wide text-outline transition-colors focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/30"
   >
     Art. Nr.
     <input
@@ -24,7 +24,7 @@ const locale = getLocale(Astro.url) as LangKeys
       @invalid="$event.target.setCustomValidity($event.target.validity.valueMissing ? 'Bitte geben Sie eine Artikelnummer ein.' : 'Bitte geben Sie eine Artikelnummer von 1 bis 725.')"
       @input="$event.target.setCustomValidity('')"
       required
-      class="w-10 min-w-0 grow p-0 font-bold text-primary outline-none focus:ring-0"
+      class="w-10 min-w-0 grow p-0 text-primary outline-none focus:ring-0"
       title="Direkt zu Artikel springen"
     />
 
