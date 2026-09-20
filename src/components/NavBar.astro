@@ -46,7 +46,7 @@ const mainNav = [
     </nav>
 
     <div class="flex items-center gap-x-6 justify-self-end">
-      <div class="flex gap-x-4 items-center">
+      <div class="flex gap-x-4">
         <div class="w-27 h-9">
           <PagefindConfig />
           <pagefind-modal-trigger compact></pagefind-modal-trigger>
@@ -54,26 +54,25 @@ const mainNav = [
         </div>
         <ArticleJump />
       </div>
-      <div class="flex items-center gap-4">
-        <nav class="flex gap-4 font-headline text-xs font-bold">
-          {
-            Object.entries(locales).map(([lang]) => (
-              <a
-                class:list={[
-                  { 'text-primary border-b-2 border-primary': locale === lang },
-                  {
-                    'text-outline hover:text-primary transition-colors':
-                      locale !== lang,
-                  },
-                ]}
-                href={getLocaleUrl(Astro.url, lang)}
-              >
-                {lang.toUpperCase()}
-              </a>
-            ))
-          }
-        </nav>
-      </div>
+
+      <nav class="flex gap-4 font-headline text-xs font-bold">
+        {
+          Object.entries(locales).map(([lang]) => (
+            <a
+              class:list={[
+                { 'text-primary border-b-2 border-primary': locale === lang },
+                {
+                  'text-outline hover:text-primary transition-colors':
+                    locale !== lang,
+                },
+              ]}
+              href={getLocaleUrl(Astro.url, lang)}
+            >
+              {lang.toUpperCase()}
+            </a>
+          ))
+        }
+      </nav>
     </div>
   </div>
 </header>
