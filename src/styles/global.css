@@ -54,6 +54,7 @@
   }
 }
 
+/* https://pagefind.app/docs/css-variables/ */
 body {
   --pf-border: var(--color-slate-200);
   --pf-border-radius: 0.25rem;
