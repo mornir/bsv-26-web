@@ -4,19 +4,12 @@ import { ChevronDown, ChevronRight } from '@lucide/astro'
 interface Props {
   number?: number
   name: string | undefined
-  href?: string
   isOpen?: boolean
   isActive?: boolean
   class?: string
 }
 
-const {
-  name,
-  href,
-  isOpen = false,
-  isActive = false,
-  class: className,
-} = Astro.props
+const { name, isOpen = false, isActive = false, class: className } = Astro.props
 ---
 
 <div

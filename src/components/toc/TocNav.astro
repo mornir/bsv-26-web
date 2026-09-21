@@ -43,7 +43,6 @@ function isCurrentTitle(titleNumber: number, chapters: { number: number }[]) {
         title.chapters.length > 0 ? (
           <TocAccordion
             name={title.name[locale]}
-            href={titleURL(title.number)}
             isOpen={isCurrentTitle(title.number, title.chapters)}
             isActive={isCurrentTitle(title.number, title.chapters)}
             class="font-medium text-slate-600"
