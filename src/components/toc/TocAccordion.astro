@@ -1,40 +1,38 @@
 ---
-import { ChevronDown, ChevronRight } from '@lucide/astro'
+import { ChevronRight } from '@lucide/astro'
 
 interface Props {
-  number?: number
   name: string | undefined
   isOpen?: boolean
+  isActive?: boolean
   class?: string
 }
 
-const { name, isOpen = false, class: className } = Astro.props
-
-//TODO: find a better way
-const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
+const { name, isOpen = false, isActive = false, class: className } = Astro.props
 ---
 
-<div
-  x-data={`{ expanded: ${isOpen} }`}
-  role="region"
-  aria-labelledby={headingId}
->
-  <h3>
-    <button
-      type="button"
-      id={headingId}
-      x-on:click="expanded = !expanded"
-      :aria-expanded="expanded"
-      class="flex w-full items-center justify-between px-4 py-2 text-left text-slate-600 transition-colors hover:bg-blue-100"
-    >
-      <span class={className}>{name}</span>
-      <ChevronDown x-show="expanded" class="size-4 flex-none" />
-      <ChevronRight x-show="!expanded" class="size-4 flex-none" />
-    </button>
-  </h3>
+<div x-data={`{ expanded: ${isOpen} }`} x-id="['toc-panel']">
+  <button
+    type="button"
+    :aria-controls="$id('toc-panel')"
+    x-on:click="expanded = !expanded"
+    :aria-expanded="expanded"
+    class:list={[
+      'flex w-full items-center pl-3 justify-between py-2 text-left text-slate-600 transition-colors hover:bg-blue-100',
+      isActive && 'border-l-2 border-primary/60 bg-blue-50 pl-3 text-primary',
+    ]}
+  >
+    <span class:list={[className, isActive && 'text-primary']}>
+      {name}
+    </span>
+    <ChevronRight
+      class="size-4 flex-none transition-transform duration-200"
+      :class="expanded ? 'rotate-90' : 'rotate-0'"
+    />
+  </button>
 
-  <div x-show="expanded" x-collapse>
-    <div class="ml-2 pl-2 space-y-2 border-l-2 border-blue-200">
+  <div :id="$id('toc-panel')" x-show="expanded" x-collapse>
+    <div class="ml-2 space-y-2 border-l-2 border-blue-200">
       <slot />
     </div>
   </div>

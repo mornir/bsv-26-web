@@ -1,6 +1,20 @@
 import { defineQuery } from 'groq'
 import { parsePortableText, articleProjection } from './fragments'
 import client from './client'
+import type { GetTocNavQueryResult } from '@/types/sanity.types'
+
+const getTocNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
+  number,
+  name,
+  "chapters": *[_type == "chapter" && references(^._id)] | order(number asc) { name, number }
+}`)
+
+let tocNavPromise: Promise<GetTocNavQueryResult> | undefined
+
+export async function getTocNav() {
+  tocNavPromise ??= client.fetch(getTocNavQuery)
+  return tocNavPromise
+}
 
 // TODO: Add Anhänge
 export async function getUnits() {
@@ -30,7 +44,7 @@ export async function getChapters() {
   *[_type == "chapter"] | order(number asc) {
   number,
   name,
-  title-> { "slug": slug.current },
+  title-> { number, name, "slug": slug.current },
   "sections": *[_type == "section" && references(^._id)] | order(number asc) { number, name, "articles": *[_type == "article" && references(^._id)] | order(number asc) ${articleProjection} },
   "articles": *[_type == 'article' && references(^._id)] | order(number asc) ${articleProjection}
 }
@@ -59,28 +73,27 @@ export async function getUsersGroups() {
   return client.fetch(getUsersGroupsQuery)
 }
 
-// TODO: remove
+// Only use during developmnt
 export async function getArticle(slug: string) {
   const getArticleQuery = defineQuery(`
-
     *[_type == "article" && defined(slug.current) && slug.current == $slug][0]
     ${articleProjection}
     `)
-
   return client.fetch(getArticleQuery, { slug })
 }
 
 export async function getNav() {
-  const getNavQuery = defineQuery(`*[_type == "title"] {
+  const getNavQuery = defineQuery(`*[_type == "title"] | order(number asc) {
   name, number,
   "articles":   *[_type=='article' && references(^._id)]{name, number, chapter->, section->},
   "chapters": *[_type=='chapter' && references(^._id)]{ name, number, "sections": *[_type=='section' && references(^._id)]{ name }} | order(number asc),
   "sections": *[_type=='section' && references(^._id) && !defined(^.chapters)]{name, number}
-} | order(number asc)`)
+} `)
 
   return client.fetch(getNavQuery)
 }
 
+// TODO: replace with nested GROQ Query
 export async function getIndex() {
   const getIndexQuery = defineQuery(`{
   "articles": *[_type == "article"]{name, number, "slug": slug.current, "titleNum": title->number, "chapterNum": chapter->number, "sectionNum": section->number} | order(number asc),

@@ -3,6 +3,7 @@ import { locales } from '@/i18n/ui'
 import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import { useTranslations } from '@/i18n/utils'
 import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
+import ArticleJump from './ArticleJump.astro'
 
 import Link from './Link.astro'
 
@@ -45,31 +46,33 @@ const mainNav = [
     </nav>
 
     <div class="flex items-center gap-x-6 justify-self-end">
-      <div class="flex items-center gap-4">
-        <nav class="flex gap-4 font-headline text-xs font-bold">
-          {
-            Object.entries(locales).map(([lang]) => (
-              <a
-                class:list={[
-                  { 'text-primary border-b-2 border-primary': locale === lang },
-                  {
-                    'text-outline hover:text-primary transition-colors':
-                      locale !== lang,
-                  },
-                ]}
-                href={getLocaleUrl(Astro.url, lang)}
-              >
-                {lang.toUpperCase()}
-              </a>
-            ))
-          }
-        </nav>
+      <div class="flex gap-x-4">
+        <div class="w-27 h-9">
+          <PagefindConfig />
+          <pagefind-modal-trigger compact></pagefind-modal-trigger>
+          <pagefind-modal></pagefind-modal>
+        </div>
+        <ArticleJump />
       </div>
-      <div>
-        <PagefindConfig />
-        <pagefind-modal-trigger compact></pagefind-modal-trigger>
-        <pagefind-modal></pagefind-modal>
-      </div>
+
+      <nav class="flex gap-4 font-headline text-xs font-bold">
+        {
+          Object.entries(locales).map(([lang]) => (
+            <a
+              class:list={[
+                { 'text-primary border-b-2 border-primary': locale === lang },
+                {
+                  'text-outline hover:text-primary transition-colors':
+                    locale !== lang,
+                },
+              ]}
+              href={getLocaleUrl(Astro.url, lang)}
+            >
+              {lang.toUpperCase()}
+            </a>
+          ))
+        }
+      </nav>
     </div>
   </div>
 </header>

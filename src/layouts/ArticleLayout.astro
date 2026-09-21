@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import TocNav from '@/components/toc/TocNav.astro'
 
 interface Props {
   title: string
@@ -9,8 +10,9 @@ const { title } = Astro.props
 ---
 
 <Layout title={title}>
-  <div class="grid grid-cols-[320px_1fr_320px]">
-    <main class="col-start-2">
+  <div class="grid grid-cols-[20rem_1fr_20rem]">
+    <TocNav />
+    <main>
       <slot />
     </main>
     <slot name="metadata-panel" />
