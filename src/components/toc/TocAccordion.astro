@@ -17,20 +17,18 @@ const {
   isActive = false,
   class: className,
 } = Astro.props
-
-//TODO: find a better way
-const headingId = `toc-accordion-${Math.random().toString(36).slice(2, 9)}`
 ---
 
 <div
   x-data={`{ expanded: ${isOpen} }`}
+  x-id="['toc-accordion']"
   role="region"
-  aria-labelledby={headingId}
+  :aria-labelledby="$id('toc-accordion')"
 >
   <h3>
     <button
       type="button"
-      id={headingId}
+      :id="$id('toc-accordion')"
       x-on:click="expanded = !expanded"
       :aria-expanded="expanded"
       class:list={[
