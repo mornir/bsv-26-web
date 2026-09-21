@@ -1,5 +1,5 @@
 ---
-import { ChevronDown } from '@lucide/astro'
+import { ChevronRight } from '@lucide/astro'
 
 interface Props {
   number: number
@@ -21,10 +21,10 @@ const { number } = Astro.props
         >Erläuterung zu Art. {number}</span
       >
 
-      <ChevronDown
+      <ChevronRight
         x-show="true"
-        class="h-5 w-5 transition-transform duration-200"
-        :class="expanded ? 'rotate-180' : 'rotate-0'"
+        class="size-5 transition-transform duration-200"
+        :class="expanded ? 'rotate-90' : 'rotate-0'"
       />
     </button>
   </h3>
