@@ -1,5 +1,6 @@
 ---
 import PageIndex from '@/layouts/PageIndex.astro'
+import Layout from '@/layouts/Layout.astro'
 
 import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
@@ -12,72 +13,102 @@ const t = useTranslations(locale)
 const units = await getUnits()
 ---
 
-<PageIndex tabTitel="Startseite" title={t('home.title')}>
-  <div class="grid justify-center gap-y-8">
-    {
-      units.map((unit) => {
-        if (unit.chapters.length > 0) {
+<Layout title="Übersicht">
+  <main class="pt-12 pb-32 bg-slate-50">
+    <div class="grid grid-cols-3 gap-8 justify-center p-8 max-w-7xl mx-auto">
+      {
+        units.map((unit) => {
+          if (unit.chapters.length > 0) {
+            return (
+              <div
+                class:list={[
+                  'border p-6 border-slate-300',
+                  {
+                    'col-span-3': [3, 4, 5, 8].includes(unit.number),
+                    'col-span-2': [7, 9].includes(unit.number),
+                  },
+                ]}
+              >
+                <h2 class="text-xl font-bold mb-4 grid grid-cols-[1fr_3fr_1fr]">
+                  <a
+                    href={`/titel/${unit.number}/`}
+                    class="transition-colors hover:text-slate-600 hover:underline justify-self-start"
+                  >
+                    {formatHeading(
+                      { number: unit.number, type: 'title' },
+                      locale
+                    )}
+                  </a>
+                  <a
+                    href={`/titel/${unit.number}/`}
+                    class="justify-self-center transition-colors hover:text-slate-600 hover:underline"
+                  >
+                    {unit.title}
+                  </a>
+                </h2>
+
+                <ol class="grid gap-3 grid-cols-3 mt-2">
+                  {unit.chapters.map((chapter) => (
+                    <li>
+                      <a
+                        href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
+                        class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block font-semibold h-full"
+                      >
+                        <span class="block text-xs font-mono text-slate-500 group-hover:text-blue-700">
+                          {formatHeading(
+                            { number: chapter.number, type: 'chapter' },
+                            locale
+                          )}
+                        </span>
+                        <span class="mt-1 block text-sm font-semibold text-balance">
+                          {chapter.name[locale]}
+                        </span>
+
+                        <div class="mt-3 text-xxs font-mono text-slate-400 pt-2 border-t border-slate-100">
+                          Art. 301 – 312
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )
+          }
           return (
-            <div class="border p-6 border-slate-300">
-              <h2 class="text-xl font-bold mb-4 grid grid-cols-[1fr_3fr_1fr] font-serif">
-                <a
-                  href={`/titel/${unit.number}/`}
-                  class="transition-colors hover:text-slate-600 hover:underline justify-self-start"
-                >
+            <a
+              class:list={[
+                'cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500',
+                {
+                  'col-span-2': [2].includes(unit.number),
+                },
+              ]}
+              href={`/titel/${unit.number}/`}
+            >
+              <h2 class="text-xl font-bold ">
+                <span>
                   {formatHeading(
                     { number: unit.number, type: 'title' },
                     locale
                   )}
-                </a>
-                <a
-                  href={`/titel/${unit.number}/`}
-                  class="justify-self-center transition-colors hover:text-slate-600 hover:underline"
-                >
-                  {unit.title}
-                </a>
+                </span>
+
+                <span class="justify-self-center">{unit.title}</span>
               </h2>
-
-              <ol class="flex gap-3 flex-wrap mt-2">
-                {unit.chapters.map((chapter) => (
-                  <li>
-                    <a
-                      href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                      class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500 block font-semibold"
-                    >
-                      {chapter.name.de}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            </a>
           )
-        }
-        return (
-          <a
-            class="cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500"
-            href={`/titel/${unit.number}/`}
-          >
-            <h2 class="text-xl font-bold grid grid-cols-[1fr_2fr_1fr] font-serif">
-              <span>
-                {formatHeading({ number: unit.number, type: 'title' }, locale)}
-              </span>
+        })
+      }
+    </div>
 
-              <span class="justify-self-center">{unit.title}</span>
-            </h2>
-          </a>
-        )
-      })
-    }
-  </div>
-
-  <div class="mt-12">
-    <h2 class="font-semibold">Weitere Links</h2>
-    <ul class="space-y-2 mt-4">
-      <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
-      <li><a href="/titel/" class="underline">Titel-Übersicht</a></li>
-      <li><a href="#" class="underline">Model Code</a></li>
-      <li><a href="#" class="underline">Abbildungen</a></li>
-      <li><a href="#" class="underline">Ingress</a></li>
-    </ul>
-  </div>
-</PageIndex>
+    <div class="mt-12">
+      <h2 class="font-semibold">Weitere Links</h2>
+      <ul class="space-y-2 mt-4">
+        <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
+        <li><a href="/titel/" class="underline">Titel-Übersicht</a></li>
+        <li><a href="#" class="underline">Model Code</a></li>
+        <li><a href="#" class="underline">Abbildungen</a></li>
+        <li><a href="#" class="underline">Ingress</a></li>
+      </ul>
+    </div>
+  </main>
+</Layout>
