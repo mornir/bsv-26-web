@@ -64,8 +64,8 @@ const units = await getUnits()
                               locale
                             )}
                           </span>
-                          <span class="rounded-full px-2 py-0.5 text-xxs font-semibold uppercase tracking-widest text-slate-500">
-                            Art. 301 – 312
+                          <span class="rounded-full text-xxs font-semibold uppercase tracking-widest text-slate-500">
+                            Art. {chapter.startArt} – {chapter.endArt}
                           </span>
                         </div>
                         <h3 class="mt-2 text-sm font-semibold text-balance">
@@ -96,7 +96,7 @@ const units = await getUnits()
                   )}
                 </span>
                 <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
-                  Art. 301 – 312
+                  Art. {unit.startArt} – {unit.endArt}
                 </span>
               </div>
               <h2 class="text-xl font-bold mt-4">{unit.title}</h2>
