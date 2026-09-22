@@ -13,9 +13,26 @@ const units = await getUnits()
 ---
 
 <Layout title="Übersicht">
-  <main class="pt-12 pb-32 bg-slate-50">
+  <main class="pb-32 bg-slate-50">
+    <section class="c-gradient h-[60vh] pt-28">
+      <div class="max-w-7xl mx-auto px-8">
+        <h1 class="text-5xl font-bold text-white">
+          Schweizerische Brandschutzvorschriften
+        </h1>
+
+        <p class="text-slate-50 text-xl mt-6 max-w-3xl">
+          Die schweizweit gültigen Brandschutzvorschriften der VKF stellen die
+          gesetzliche Grundlage für die Ausführung des Brandschutzes in Gebäuden
+          dar.
+        </p>
+        <p class="text-slate-50 text-xl mt-4 max-w-3xl">
+          Sie wurden durch das Interkantonale Organ Technische Handelshemmnisse
+          IOTH als verbindlich erklärt und in Kraft gesetzt.
+        </p>
+      </div>
+    </section>
     <section
-      class="grid grid-cols-3 gap-6 justify-center p-8 max-w-7xl mx-auto"
+      class="grid grid-cols-3 gap-6 justify-center max-w-7xl p-8 mx-auto"
     >
       {
         units.map((unit) => {
@@ -119,3 +136,18 @@ const units = await getUnits()
     </section>
   </main>
 </Layout>
+
+<style>
+  .c-gradient {
+    background:
+      url('/vkf-short.svg') 97% 90% / auto 10% no-repeat,
+      url('/flame.png') right bottom / auto 90% no-repeat,
+      linear-gradient(
+        to bottom,
+        #050647 0%,
+        #3e0d45 30%,
+        #69143b 60%,
+        #801735 100%
+      );
+  }
+</style>
