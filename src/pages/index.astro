@@ -40,7 +40,7 @@ const units = await getUnits()
                   </span>
                   <div>
                     <h2 class="text-xl font-bold">{unit.title}</h2>
-                    <p class="text-outline">{unit.description}</p>
+                    <p class="text-slate-500">{unit.description}</p>
                   </div>
                 </div>
 
@@ -51,16 +51,16 @@ const units = await getUnits()
                     <li>
                       <a
                         href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                        class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block font-semibold h-full rounded-sm"
+                        class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block h-full rounded-sm font-semibold"
                       >
                         <div class="flex justify-between">
-                          <span class="text-xs uppercase font-mono text-slate-500 ">
+                          <span class="text-xs uppercase font-mono text-slate-500">
                             {formatHeading(
                               { number: chapter.number, type: 'chapter' },
                               locale
                             )}
                           </span>
-                          <span class="text-xs font-semibold font-mono text-slate-400">
+                          <span class="text-xs font-mono text-slate-400">
                             Art. 301 – 312
                           </span>
                         </div>
@@ -84,19 +84,19 @@ const units = await getUnits()
               ]}
               href={`/titel/${unit.number}/`}
             >
-              <div class="flex justify-between">
+              <div class="flex justify-between items-baseline">
                 <span class=" rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
                   {formatHeading(
                     { number: unit.number, type: 'title' },
                     locale
                   )}
                 </span>
-                <span class="text-xs font-semibold font-mono text-slate-400">
+                <span class="text-xs font-mono text-slate-400">
                   Art. 301 – 312
                 </span>
               </div>
               <h2 class="text-xl font-bold mt-4">{unit.title}</h2>
-              <p class="mt-2 text-outline">{unit?.description}</p>
+              <p class="mt-2 text-slate-500">{unit?.description}</p>
             </a>
           )
         })
