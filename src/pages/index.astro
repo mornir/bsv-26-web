@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import { ChevronRight } from '@lucide/astro'
 
 import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
@@ -10,11 +11,14 @@ const locale = getLocale(Astro.url) as LangKeys
 const t = useTranslations(locale)
 
 const units = await getUnits()
+
+const appliedCantons = 18
+const totalCantons = 26
 ---
 
 <Layout title="Übersicht">
   <main class="pb-32 bg-slate-50">
-    <section class="c-gradient h-[60vh] pt-28">
+    <section class="c-gradient relative min-h-[60vh] pt-18">
       <div class="max-w-7xl mx-auto px-8">
         <h1 class="text-5xl font-bold text-white">
           Schweizerische Brandschutzvorschriften
@@ -29,6 +33,32 @@ const units = await getUnits()
           Sie wurden durch das Interkantonale Organ Technische Handelshemmnisse
           IOTH als verbindlich erklärt und in Kraft gesetzt.
         </p>
+
+        <aside
+          class="mt-6 w-full max-w-fit rounded-md border border-white/30 bg-slate-950/30 py-5 px-7 text-white backdrop-blur-sm"
+          aria-label="Stand des Vollzugs"
+        >
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200"
+            >
+              Stand des Vollzugs
+            </p>
+            <p class="mt-2 text-3xl font-bold">
+              {appliedCantons}{' '}
+              <span class="text-lg font-normal text-slate-300">
+                / {totalCantons} Kantone
+              </span>
+            </p>
+          </div>
+
+          <a
+            href="/vollzug/"
+            class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+          >
+            Mehr zum Vollzug
+          </a>
+        </aside>
       </div>
     </section>
     <section
