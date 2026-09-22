@@ -4,6 +4,7 @@ import { getLocaleUrl, getLocale } from 'astro-i18n-aut'
 import { useTranslations } from '@/i18n/utils'
 import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
 import ArticleJump from './ArticleJump.astro'
+import Logo from './vkf-black.svg'
 
 import Link from './Link.astro'
 
@@ -29,17 +30,21 @@ const mainNav = [
 ---
 
 <header class="border-b border-slate-200 bg-white sticky top-0 z-30">
-  <div class="grid grid-cols-3 gap-y-4 px-8 py-2 items-center">
-    <div class="flex items-center gap-2">
-      <a href={`/`} class="text-xl font-bold font-serif tracking-wider">
-        {t('nav.brand')}
-      </a>
+  <div class="grid grid-cols-3 gap-y-4 px-6 py-2 items-center">
+    <!--   <div class="flex items-center gap-2"> -->
+    <a
+      href={`/`}
+      class="flex items-center gap-2 text-xl font-bold tracking-wider"
+    >
+      <Logo class="h-7 w-auto" />
+      {t('nav.brand')}
+    </a>
 
-      <span
+    <!--       <span
         class="px-1.5 py-0.5 bg-slate-100 text-slate-600 text-xxs font-semibold rounded-sm tracking-wide leading-none"
         >BETA</span
-      >
-    </div>
+      > 
+    </div>-->
 
     <nav class="flex gap-8 text-sm justify-self-center">
       {mainNav.map((item) => <Link text={item.name} slug={item.path} />)}
