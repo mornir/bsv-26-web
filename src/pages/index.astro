@@ -15,7 +15,9 @@ const units = await getUnits()
 
 <Layout title="Übersicht">
   <main class="pt-12 pb-32 bg-slate-50">
-    <div class="grid grid-cols-3 gap-8 justify-center p-8 max-w-7xl mx-auto">
+    <section
+      class="grid grid-cols-3 gap-6 justify-center p-8 max-w-7xl mx-auto"
+    >
       {
         units.map((unit) => {
           if (unit.chapters.length > 0) {
@@ -84,26 +86,26 @@ const units = await getUnits()
               ]}
               href={`/titel/${unit.number}/`}
             >
-              <h2 class="text-xl font-bold ">
+              <div class="flex justify-between">
                 <span>
                   {formatHeading(
                     { number: unit.number, type: 'title' },
                     locale
                   )}
                 </span>
-
-                <span class="justify-self-center">{unit.title}</span>
-                <div class="mt-3 text-xxs font-mono text-slate-400 pt-2 border-t border-slate-100">
+                <span class="text-xs font-semibold font-mono text-slate-400 ">
                   Art. 301 – 312
-                </div>
-              </h2>
+                </span>
+              </div>
+              <h2 class="text-xl font-bold mt-2">{unit.title}</h2>
+              <p class="mt-2 text-outline">{unit?.description}</p>
             </a>
           )
         })
       }
-    </div>
+    </section>
 
-    <div class="mt-12">
+    <section class="mt-12">
       <h2 class="font-semibold">Weitere Links</h2>
       <ul class="space-y-2 mt-4">
         <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
@@ -112,6 +114,6 @@ const units = await getUnits()
         <li><a href="#" class="underline">Abbildungen</a></li>
         <li><a href="#" class="underline">Ingress</a></li>
       </ul>
-    </div>
+    </section>
   </main>
 </Layout>

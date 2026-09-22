@@ -21,6 +21,7 @@ export async function getUnits() {
   const getUnitsQuery = defineQuery(`
   *[_type == 'title'] | order(number asc) {
   number,
+  "description": description.de,
   "title": name.de,
   "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number }
 }`)
