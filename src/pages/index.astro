@@ -44,7 +44,9 @@ const units = await getUnits()
                   </div>
                 </div>
 
-                <ol class="grid gap-3 grid-cols-3 mt-2">
+                <ol
+                  class={`grid gap-3 mt-2 ${[7].includes(unit.number) ? 'grid-cols-2' : 'grid-cols-3'}`}
+                >
                   {unit.chapters.map((chapter) => (
                     <li>
                       <a
