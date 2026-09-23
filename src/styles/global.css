@@ -3,12 +3,13 @@
 
 @theme {
   --color-primary: var(--color-slate-800);
-  --color-table: #dabbcb;
-  --color-table-light: #ecdde5;
-  --color-surface: #f4faff;
+
   --color-law: #0a3747;
   --color-outline: #5a8092;
-  --color-on-surface: #0a3747;
+
+  --color-table: #dabbcb;
+  --color-table-light: #ecdde5;
+
   --color-rf1: #0066ff;
   --color-rf2: #f18700;
   --color-rf3: #ffce44;

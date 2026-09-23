@@ -46,10 +46,10 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
         >
           <!-- Header -->
           <div
-            class="sticky top-0 flex items-start justify-between border-b border-gray-200 bg-white px-6 py-4"
+            class="sticky top-0 flex items-start justify-between border-b border-slate-300 bg-white px-6 py-4"
           >
             <h2>
-              <span class="mb-1 block font-mono text-sm text-gray-500">
+              <span class="mb-1 block font-mono text-sm text-outline">
                 Abbildung {number}
               </span>
               <span class="block font-serif text-xl">{name}</span>
@@ -58,7 +58,7 @@ const url = urlFor(img.asset).quality(90).auto('format').url()
             <button
               type="button"
               @click="open = false"
-              class="p-2 transition-colors hover:bg-gray-100"
+              class="p-2 transition-colors hover:bg-slate-200"
             >
               <X class="h-6 w-6" aria-label="Close" />
             </button>
