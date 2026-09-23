@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { ChevronRight } from '@lucide/astro'
+import Infographic from '@/components/Infographic.astro'
 
 import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
@@ -14,6 +14,25 @@ const units = await getUnits()
 
 const appliedCantons = 18
 const totalCantons = 26
+const totalInquiries = 24
+
+const infographics = [
+  {
+    number: 725,
+    name: 'Artikel',
+    link: { name: 'Zum Artikelverzeichnis', href: '/art/' },
+  },
+  {
+    number: totalInquiries,
+    name: 'Anfragen',
+    link: { name: 'Zu den Anfragen', href: '/anfragen/' },
+  },
+  {
+    number: 7,
+    name: 'Regelwerke Dritter',
+    link: { name: 'Zur Liste', href: '/anfragen/' },
+  },
+]
 ---
 
 <Layout title="Übersicht">
@@ -34,124 +53,133 @@ const totalCantons = 26
           IOTH als verbindlich erklärt und in Kraft gesetzt.
         </p>
 
-        <aside
-          class="mt-6 w-full max-w-fit rounded-md border border-white/30 bg-slate-950/30 py-5 px-7 text-white backdrop-blur-sm"
-          aria-label="Stand des Vollzugs"
-        >
-          <div>
-            <p
-              class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200"
-            >
-              Stand des Vollzugs
-            </p>
-            <p class="mt-2 text-3xl font-bold">
-              {appliedCantons}{' '}
-              <span class="text-lg font-normal text-slate-300">
-                / {totalCantons} Kantone
-              </span>
-            </p>
-          </div>
+        <div class="mt-8 flex flex-col gap-4 md:flex-row">
+          {infographics.map((infographic) => <Infographic {...infographic} />)}
 
-          <a
-            href="/vollzug/"
-            class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+          <aside
+            class="w-full rounded-md border border-white/30 bg-slate-950/30 py-5 px-7 text-white backdrop-blur-sm md:flex-1"
+            aria-label="Stand des Vollzugs"
           >
-            Mehr zum Vollzug
-          </a>
-        </aside>
+            <div>
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200"
+              >
+                Stand des Vollzugs
+              </p>
+              <p class="mt-2 text-3xl font-bold">
+                {appliedCantons}{' '}
+                <span class="text-lg font-normal text-slate-300">
+                  / {totalCantons} Kantone
+                </span>
+              </p>
+            </div>
+
+            <a
+              href="/vollzug/"
+              class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+            >
+              Mehr zum Vollzug
+            </a>
+          </aside>
+        </div>
       </div>
     </section>
-    <section
-      class="grid grid-cols-3 gap-6 justify-center max-w-7xl p-8 mx-auto"
-    >
-      {
-        units.map((unit) => {
-          if (unit.chapters.length > 0) {
+    <section class="max-w-7xl p-8 mx-auto mt-8">
+      <div class="border-b border-slate-300 pb-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary tracking-tight">
+          Die 10 Titel der BSV
+        </h2>
+      </div>
+      <div class="grid grid-cols-3 gap-6 justify-center mt-8">
+        {
+          units.map((unit) => {
+            if (unit.chapters.length > 0) {
+              return (
+                <div
+                  class:list={[
+                    'border p-6 border-slate-300 rounded-md bg-white',
+                    {
+                      'col-span-3': [3, 4, 5, 8].includes(unit.number),
+                      'col-span-2': [7, 9].includes(unit.number),
+                    },
+                  ]}
+                >
+                  <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-x-4 mb-4 ">
+                      <span class="rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
+                        {formatHeading(
+                          { number: unit.number, type: 'title' },
+                          locale
+                        )}
+                      </span>
+                      <div>
+                        <h2 class="text-xl font-bold">{unit.title}</h2>
+                        <p class="text-slate-500">{unit.description}</p>
+                      </div>
+                    </div>
+                    <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
+                      {unit.chapters.length} Kapitel
+                    </span>
+                  </div>
+
+                  <ol
+                    class={`grid gap-3 mt-2 ${[7].includes(unit.number) ? 'grid-cols-2' : 'grid-cols-3'}`}
+                  >
+                    {unit.chapters.map((chapter) => (
+                      <li>
+                        <a
+                          href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
+                          class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block h-full rounded-sm font-semibold"
+                        >
+                          <div class="flex justify-between items-center">
+                            <span class="text-xs uppercase font-mono text-slate-500">
+                              {formatHeading(
+                                { number: chapter.number, type: 'chapter' },
+                                locale
+                              )}
+                            </span>
+                            <span class="rounded-full text-xxs font-semibold uppercase tracking-widest text-slate-500">
+                              Art. {chapter.startArt} – {chapter.endArt}
+                            </span>
+                          </div>
+                          <h3 class="mt-2 text-sm font-semibold text-balance">
+                            {chapter.name[locale]}
+                          </h3>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )
+            }
             return (
-              <div
+              <a
                 class:list={[
-                  'border p-6 border-slate-300 rounded-md bg-white',
+                  'cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500 rounded-md',
                   {
-                    'col-span-3': [3, 4, 5, 8].includes(unit.number),
-                    'col-span-2': [7, 9].includes(unit.number),
+                    'col-span-2': [2].includes(unit.number),
                   },
                 ]}
+                href={`/titel/${unit.number}/`}
               >
-                <div class="flex justify-between items-start">
-                  <div class="flex items-center gap-x-4 mb-4 ">
-                    <span class="rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
-                      {formatHeading(
-                        { number: unit.number, type: 'title' },
-                        locale
-                      )}
-                    </span>
-                    <div>
-                      <h2 class="text-xl font-bold">{unit.title}</h2>
-                      <p class="text-slate-500">{unit.description}</p>
-                    </div>
-                  </div>
+                <div class="flex justify-between items-baseline">
+                  <span class=" rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
+                    {formatHeading(
+                      { number: unit.number, type: 'title' },
+                      locale
+                    )}
+                  </span>
                   <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
-                    {unit.chapters.length} Kapitel
+                    Art. {unit.startArt} – {unit.endArt}
                   </span>
                 </div>
-
-                <ol
-                  class={`grid gap-3 mt-2 ${[7].includes(unit.number) ? 'grid-cols-2' : 'grid-cols-3'}`}
-                >
-                  {unit.chapters.map((chapter) => (
-                    <li>
-                      <a
-                        href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                        class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block h-full rounded-sm font-semibold"
-                      >
-                        <div class="flex justify-between items-center">
-                          <span class="text-xs uppercase font-mono text-slate-500">
-                            {formatHeading(
-                              { number: chapter.number, type: 'chapter' },
-                              locale
-                            )}
-                          </span>
-                          <span class="rounded-full text-xxs font-semibold uppercase tracking-widest text-slate-500">
-                            Art. {chapter.startArt} – {chapter.endArt}
-                          </span>
-                        </div>
-                        <h3 class="mt-2 text-sm font-semibold text-balance">
-                          {chapter.name[locale]}
-                        </h3>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+                <h2 class="text-xl font-bold mt-4">{unit.title}</h2>
+                <p class="mt-2 text-slate-500">{unit?.description}</p>
+              </a>
             )
-          }
-          return (
-            <a
-              class:list={[
-                'cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500 rounded-md',
-                {
-                  'col-span-2': [2].includes(unit.number),
-                },
-              ]}
-              href={`/titel/${unit.number}/`}
-            >
-              <div class="flex justify-between items-baseline">
-                <span class=" rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
-                  {formatHeading(
-                    { number: unit.number, type: 'title' },
-                    locale
-                  )}
-                </span>
-                <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
-                  Art. {unit.startArt} – {unit.endArt}
-                </span>
-              </div>
-              <h2 class="text-xl font-bold mt-4">{unit.title}</h2>
-              <p class="mt-2 text-slate-500">{unit?.description}</p>
-            </a>
-          )
-        })
-      }
+          })
+        }
+      </div>
     </section>
 
     <section class="mt-12">

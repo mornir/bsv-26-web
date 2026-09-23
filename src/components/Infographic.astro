@@ -1,0 +1,25 @@
+---
+interface Props {
+  number: number
+  name: string
+  link: { name: string; href: string }
+}
+
+const { number, name, link } = Astro.props
+---
+
+<aside
+  class="w-full rounded-md border border-white/30 bg-slate-950/30 py-5 px-7 text-white backdrop-blur-sm md:flex-1"
+  aria-label="Anzahl Artikel"
+>
+  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
+    {name}
+  </p>
+  <p class="mt-2 text-3xl font-bold">{number}</p>
+  <a
+    href={link.href}
+    class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+  >
+    {link.name}
+  </a>
+</aside>
