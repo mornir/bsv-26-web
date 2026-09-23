@@ -1,5 +1,6 @@
 ---
-import PageIndex from '@/layouts/PageIndex.astro'
+import Layout from '@/layouts/Layout.astro'
+import Infographic from '@/components/Infographic.astro'
 
 import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
@@ -10,74 +11,201 @@ const locale = getLocale(Astro.url) as LangKeys
 const t = useTranslations(locale)
 
 const units = await getUnits()
+
+const appliedCantons = 18
+const totalCantons = 26
+const totalInquiries = 24
+
+const infographics = [
+  {
+    number: 725,
+    name: 'Artikel',
+    link: { name: 'Zum Artikelverzeichnis', href: '/art/' },
+  },
+  {
+    number: totalInquiries,
+    name: 'Anfragen',
+    link: { name: 'Zu den Anfragen', href: '/anfragen/' },
+  },
+  {
+    number: 7,
+    name: 'Regelwerke Dritter',
+    link: { name: 'Zur Liste', href: '/anfragen/' },
+  },
+]
 ---
 
-<PageIndex tabTitel="Startseite" title={t('home.title')}>
-  <div class="grid justify-center gap-y-8">
-    {
-      units.map((unit) => {
-        if (unit.chapters.length > 0) {
-          return (
-            <div class="border p-6 border-slate-300">
-              <h2 class="text-xl font-bold mb-4 grid grid-cols-[1fr_3fr_1fr] font-serif">
-                <a
-                  href={`/titel/${unit.number}/`}
-                  class="transition-colors hover:text-slate-600 hover:underline justify-self-start"
-                >
-                  {formatHeading(
-                    { number: unit.number, type: 'title' },
-                    locale
-                  )}
-                </a>
-                <a
-                  href={`/titel/${unit.number}/`}
-                  class="justify-self-center transition-colors hover:text-slate-600 hover:underline"
-                >
-                  {unit.title}
-                </a>
-              </h2>
+<Layout title="Übersicht">
+  <main class="pb-32 bg-slate-50">
+    <section class="c-gradient relative min-h-[60vh] pt-18">
+      <div class="max-w-7xl mx-auto px-8">
+        <h1 class="text-5xl font-bold text-white">
+          Schweizerische Brandschutzvorschriften
+        </h1>
 
-              <ol class="flex gap-3 flex-wrap mt-2">
-                {unit.chapters.map((chapter) => (
-                  <li>
-                    <a
-                      href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                      class="cursor-pointer border border-slate-300 bg-white px-4 py-2 transition-colors hover:border-slate-500 block font-semibold"
-                    >
-                      {chapter.name.de}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )
-        }
-        return (
-          <a
-            class="cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500"
-            href={`/titel/${unit.number}/`}
+        <p class="text-slate-50 text-xl mt-6 max-w-3xl">
+          Die schweizweit gültigen Brandschutzvorschriften der VKF stellen die
+          gesetzliche Grundlage für die Ausführung des Brandschutzes in Gebäuden
+          dar.
+        </p>
+        <p class="text-slate-50 text-xl mt-4 max-w-3xl">
+          Sie wurden durch das Interkantonale Organ Technische Handelshemmnisse
+          IOTH als verbindlich erklärt und in Kraft gesetzt.
+        </p>
+
+        <div class="mt-8 flex flex-col gap-4 md:flex-row">
+          {infographics.map((infographic) => <Infographic {...infographic} />)}
+
+          <aside
+            class="w-full rounded-md border border-white/30 bg-slate-950/30 py-5 px-7 text-white backdrop-blur-sm md:flex-1"
+            aria-label="Stand des Vollzugs"
           >
-            <h2 class="text-xl font-bold grid grid-cols-[1fr_2fr_1fr] font-serif">
-              <span>
-                {formatHeading({ number: unit.number, type: 'title' }, locale)}
-              </span>
+            <div>
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200"
+              >
+                Stand des Vollzugs
+              </p>
+              <p class="mt-2 text-3xl font-bold">
+                {appliedCantons}{' '}
+                <span class="text-lg font-normal text-slate-300">
+                  / {totalCantons} Kantone
+                </span>
+              </p>
+            </div>
 
-              <span class="justify-self-center">{unit.title}</span>
-            </h2>
-          </a>
-        )
-      })
-    }
-  </div>
+            <a
+              href="/vollzug/"
+              class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
+            >
+              Mehr zum Vollzug
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <section class="max-w-7xl p-8 mx-auto mt-8">
+      <div class="border-b border-slate-300 pb-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary tracking-tight">
+          Die 10 Titel der BSV
+        </h2>
+      </div>
+      <div class="grid grid-cols-3 gap-6 justify-center mt-8">
+        {
+          units.map((unit) => {
+            if (unit.chapters.length > 0) {
+              return (
+                <div
+                  class:list={[
+                    'border p-6 border-slate-300 rounded-md bg-white',
+                    {
+                      'col-span-3': [3, 4, 5, 8].includes(unit.number),
+                      'col-span-2': [7, 9].includes(unit.number),
+                    },
+                  ]}
+                >
+                  <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-x-4 mb-4 ">
+                      <span class="rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
+                        {formatHeading(
+                          { number: unit.number, type: 'title' },
+                          locale
+                        )}
+                      </span>
+                      <div>
+                        <h2 class="text-xl font-bold">{unit.title}</h2>
+                        <p class="text-slate-500">{unit.description}</p>
+                      </div>
+                    </div>
+                    <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
+                      {unit.chapters.length} Kapitel
+                    </span>
+                  </div>
 
-  <div class="mt-12">
-    <h2 class="font-semibold">Weitere Links</h2>
-    <ul class="space-y-2 mt-4">
-      <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
-      <li><a href="/titel/" class="underline">Titel-Übersicht</a></li>
-      <li><a href="#" class="underline">Model Code</a></li>
-      <li><a href="#" class="underline">Abbildungen</a></li>
-      <li><a href="#" class="underline">Ingress</a></li>
-    </ul>
-  </div>
-</PageIndex>
+                  <ol
+                    class={`grid gap-3 mt-2 ${[7].includes(unit.number) ? 'grid-cols-2' : 'grid-cols-3'}`}
+                  >
+                    {unit.chapters.map((chapter) => (
+                      <li>
+                        <a
+                          href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
+                          class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block h-full rounded-sm font-semibold"
+                        >
+                          <div class="flex justify-between items-center">
+                            <span class="text-xs uppercase font-mono text-slate-500">
+                              {formatHeading(
+                                { number: chapter.number, type: 'chapter' },
+                                locale
+                              )}
+                            </span>
+                            <span class="rounded-full text-xxs font-semibold uppercase tracking-widest text-slate-500">
+                              Art. {chapter.startArt} – {chapter.endArt}
+                            </span>
+                          </div>
+                          <h3 class="mt-2 text-sm font-semibold text-balance">
+                            {chapter.name[locale]}
+                          </h3>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )
+            }
+            return (
+              <a
+                class:list={[
+                  'cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500 rounded-md',
+                  {
+                    'col-span-2': [2].includes(unit.number),
+                  },
+                ]}
+                href={`/titel/${unit.number}/`}
+              >
+                <div class="flex justify-between items-baseline">
+                  <span class=" rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
+                    {formatHeading(
+                      { number: unit.number, type: 'title' },
+                      locale
+                    )}
+                  </span>
+                  <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
+                    Art. {unit.startArt} – {unit.endArt}
+                  </span>
+                </div>
+                <h2 class="text-xl font-bold mt-4">{unit.title}</h2>
+                <p class="mt-2 text-slate-500">{unit?.description}</p>
+              </a>
+            )
+          })
+        }
+      </div>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="font-semibold">Weitere Links</h2>
+      <ul class="space-y-2 mt-4">
+        <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
+        <li><a href="/titel/" class="underline">Titel-Übersicht</a></li>
+        <li><a href="#" class="underline">Model Code</a></li>
+        <li><a href="#" class="underline">Abbildungen</a></li>
+        <li><a href="#" class="underline">Ingress</a></li>
+      </ul>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .c-gradient {
+    background:
+      url('/vkf-short.svg') 97% 90% / auto 10% no-repeat,
+      url('/flame.png') right bottom / auto 90% no-repeat,
+      linear-gradient(
+        to bottom,
+        #050647 0%,
+        #3e0d45 30%,
+        #69143b 60%,
+        #801735 100%
+      );
+  }
+</style>

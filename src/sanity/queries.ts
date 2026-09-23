@@ -21,8 +21,13 @@ export async function getUnits() {
   const getUnitsQuery = defineQuery(`
   *[_type == 'title'] | order(number asc) {
   number,
+  "description": description.de,
   "title": name.de,
-  "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number }
+  "startArt": *[_type == "article" && references(^._id)] | order(number asc)[0].number,
+  "endArt": *[_type == "article" && references(^._id)] | order(number desc)[0].number,
+  "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number,
+  "startArt": *[_type == "article" && references(^._id)] | order(number asc)[0].number,
+  "endArt": *[_type == "article" && references(^._id)] | order(number desc)[0].number, }
 }`)
   return client.fetch(getUnitsQuery)
 }
