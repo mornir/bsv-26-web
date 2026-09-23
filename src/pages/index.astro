@@ -90,11 +90,12 @@ const infographics = [
       </div>
     </section>
     <section class="max-w-7xl p-8 mx-auto mt-8">
-      <div class="border-b border-slate-300 pb-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary tracking-tight">
-          Die 10 Titel der Brandschutzvorschriften (BSV)
-        </h2>
-      </div>
+      <h2
+        class="text-3xl md:text-4xl font-bold text-primary tracking-tight border-b border-slate-300 pb-4"
+      >
+        Die 10 Titel der Brandschutzvorschriften (BSV)
+      </h2>
+
       <div class="grid grid-cols-3 gap-6 justify-center mt-8">
         {
           units.map((unit) => {
@@ -119,9 +120,9 @@ const infographics = [
                         )}
                       </span>
                       <div>
-                        <h2 class="text-xl font-bold text-white">
+                        <h3 class="text-xl font-bold text-white">
                           {unit.title}
-                        </h2>
+                        </h3>
                         <p class="text-slate-50">{unit.description}</p>
                       </div>
                     </div>
@@ -153,9 +154,9 @@ const infographics = [
                               Art. {chapter.startArt} – {chapter.endArt}
                             </span>
                           </div>
-                          <h3 class="mt-2 text-sm font-semibold text-balance text-white">
+                          <h4 class="mt-2 text-sm font-semibold text-balance text-white">
                             {chapter.name[locale]}
-                          </h3>
+                          </h4>
                         </a>
                       </li>
                     ))}
@@ -185,7 +186,7 @@ const infographics = [
                     Art. {unit.startArt} – {unit.endArt}
                   </span>
                 </div>
-                <h2 class="text-xl font-bold mt-4 text-white">{unit.title}</h2>
+                <h3 class="text-xl font-bold mt-4 text-white">{unit.title}</h3>
                 <p class="mt-2 text-slate-50">{unit?.description}</p>
               </a>
             )
@@ -194,11 +195,13 @@ const infographics = [
       </div>
     </section>
 
-    <section class="mt-12">
-      <h2 class="font-semibold">Weitere Links</h2>
+    <section class="max-w-7xl mx-auto px-8 mt-12">
+      <h2
+        class="text-2xl md:text-3xl font-bold text-primary tracking-tight border-b border-slate-300 pb-4"
+      >
+        Anhänge und weitere Dokumente
+      </h2>
       <ul class="space-y-2 mt-4">
-        <li><a href="/art/" class="underline">Artikelverzeichnis</a></li>
-        <li><a href="/titel/" class="underline">Titel-Übersicht</a></li>
         <li><a href="#" class="underline">Model Code</a></li>
         <li><a href="#" class="underline">Abbildungen</a></li>
         <li><a href="#" class="underline">Ingress</a></li>
