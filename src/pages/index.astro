@@ -16,6 +16,11 @@ const appliedCantons = 18
 const totalCantons = 26
 const totalInquiries = 24
 
+const getChapterOverlayOpacity = (lightness: number | null) => {
+  const normalizedLightness = lightness ?? 0.5
+  return Math.min(0.3, Math.max(0.12, 0.3 - normalizedLightness * 0.28))
+}
+
 const infographics = [
   {
     number: 725,
@@ -96,7 +101,7 @@ const infographics = [
             if (unit.chapters.length > 0) {
               return (
                 <div
-                  style={{ backgroundColor: unit.color }}
+                  style={{ backgroundColor: unit.color.hex }}
                   class:list={[
                     'border p-6 border-slate-300 rounded-md bg-neutral',
                     {
@@ -132,7 +137,10 @@ const infographics = [
                       <li>
                         <a
                           href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                          class="cursor-pointer border  p-4 transition-colors block h-full rounded-sm font-semibold bg-white/15 backdrop-blur-sm  "
+                          class="cursor-pointer border border-white/10 p-4 transition-colors block h-full rounded-sm font-semibold backdrop-blur-sm"
+                          style={{
+                            backgroundColor: `rgb(255 255 255 / ${getChapterOverlayOpacity(unit.color.lightness)})`,
+                          }}
                         >
                           <div class="flex justify-between items-center text-slate-50">
                             <span class="text-xs uppercase font-mono ">
@@ -157,7 +165,7 @@ const infographics = [
             }
             return (
               <a
-                style={{ backgroundColor: unit.color }}
+                style={{ backgroundColor: unit.color.hex }}
                 class:list={[
                   'cursor-pointer border border-slate-300  px-6 py-4 transition-colors hover:border-slate-500 rounded-md',
                   {
