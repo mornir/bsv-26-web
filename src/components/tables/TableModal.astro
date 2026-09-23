@@ -13,11 +13,11 @@ const { name = '' } = Astro.props
     <button
       x-show="showButton"
       @click="open = true"
-      class="flex items-center gap-1.5 text-outline hover:text-primary transition-colors px-3 py-2 rounded border border-outline/20 hover:border-primary/30 bg-white cursor-pointer"
+      class="flex items-center gap-1.5 text-white hover:bg-accent transition-colors px-3 py-2 rounded cursor-pointer bg-neutral"
       title="Tabelle vergrössern"
     >
       <Maximize class="h-4 w-4" />
-      <span class="uppercase font-bold font-sans text-xxs"> Vollbild</span>
+      <span class="uppercase font-bold font-sans text-xxs">Vollbild</span>
     </button>
   </div>
 

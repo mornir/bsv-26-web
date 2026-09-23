@@ -87,7 +87,7 @@ const infographics = [
     <section class="max-w-7xl p-8 mx-auto mt-8">
       <div class="border-b border-slate-300 pb-4">
         <h2 class="text-3xl md:text-4xl font-bold text-primary tracking-tight">
-          Die 10 Titel der BSV
+          Die 10 Titel der Brandschutzvorschriften (BSV)
         </h2>
       </div>
       <div class="grid grid-cols-3 gap-6 justify-center mt-8">
@@ -97,7 +97,7 @@ const infographics = [
               return (
                 <div
                   class:list={[
-                    'border p-6 border-slate-300 rounded-md bg-white',
+                    'border p-6 border-slate-300 rounded-md bg-white has-[:hover]:bg-neutral',
                     {
                       'col-span-3': [3, 4, 5, 8].includes(unit.number),
                       'col-span-2': [7, 9].includes(unit.number),
@@ -106,7 +106,7 @@ const infographics = [
                 >
                   <div class="flex justify-between items-start">
                     <div class="flex items-center gap-x-4 mb-4 ">
-                      <span class="rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
+                      <span class="rounded-sm  bg-neutral px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white">
                         {formatHeading(
                           { number: unit.number, type: 'title' },
                           locale
@@ -129,16 +129,16 @@ const infographics = [
                       <li>
                         <a
                           href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                          class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-slate-500 block h-full rounded-sm font-semibold"
+                          class="cursor-pointer border border-slate-300 bg-white p-4 transition-colors hover:border-accent block h-full rounded-sm font-semibold hover:bg-accent hover:text-white group "
                         >
-                          <div class="flex justify-between items-center">
-                            <span class="text-xs uppercase font-mono text-slate-500">
+                          <div class="flex justify-between items-center text-slate-500 group-hover:text-slate-50">
+                            <span class="text-xs uppercase font-mono ">
                               {formatHeading(
                                 { number: chapter.number, type: 'chapter' },
                                 locale
                               )}
                             </span>
-                            <span class="rounded-full text-xxs font-semibold uppercase tracking-widest text-slate-500">
+                            <span class="rounded-full text-xxs font-semibold uppercase tracking-widest">
                               Art. {chapter.startArt} – {chapter.endArt}
                             </span>
                           </div>
@@ -155,7 +155,7 @@ const infographics = [
             return (
               <a
                 class:list={[
-                  'cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500 rounded-md',
+                  'cursor-pointer border border-slate-300 bg-white px-6 py-4 transition-colors hover:border-slate-500 rounded-md group hover:bg-accent',
                   {
                     'col-span-2': [2].includes(unit.number),
                   },
@@ -163,7 +163,7 @@ const infographics = [
                 href={`/titel/${unit.number}/`}
               >
                 <div class="flex justify-between items-baseline">
-                  <span class=" rounded-sm border border-sky-200 bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-sky-700">
+                  <span class="rounded-sm  bg-neutral  px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-white">
                     {formatHeading(
                       { number: unit.number, type: 'title' },
                       locale
@@ -173,8 +173,12 @@ const infographics = [
                     Art. {unit.startArt} – {unit.endArt}
                   </span>
                 </div>
-                <h2 class="text-xl font-bold mt-4">{unit.title}</h2>
-                <p class="mt-2 text-slate-500">{unit?.description}</p>
+                <h2 class="text-xl font-bold mt-4 group-hover:text-white">
+                  {unit.title}
+                </h2>
+                <p class="mt-2 text-slate-500 group-hover:text-slate-50">
+                  {unit?.description}
+                </p>
               </a>
             )
           })

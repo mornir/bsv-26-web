@@ -35,7 +35,7 @@ export async function getUnits() {
 export async function getTitles() {
   const getTitlesQuery = defineQuery(`
   *[_type == "title"] | order(number asc)
-  {..., desc {${parsePortableText}},
+  {...,
     "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number },
     "sections": *[_type == "section" && references(^._id) && !defined(chapter)] | order(number asc) { number, name, "articles": *[_type == "article" && references(^._id)] | order(number asc) ${articleProjection} },
     "articles": *[_type == 'article' && references(^._id) && !defined(chapter)] | order(number asc)

@@ -15,6 +15,9 @@
   --color-rf3: #ffce44;
 
   --text-xxs: 0.625rem;
+
+  --color-neutral: #050647;
+  --color-accent: #801735;
 }
 
 @theme inline {
