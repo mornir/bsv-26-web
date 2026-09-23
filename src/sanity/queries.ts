@@ -23,6 +23,7 @@ export async function getUnits() {
   number,
   "description": description.de,
   "title": name.de,
+  "color": color.hex,
   "startArt": *[_type == "article" && references(^._id)] | order(number asc)[0].number,
   "endArt": *[_type == "article" && references(^._id)] | order(number desc)[0].number,
   "chapters": *[_type=='chapter' && references(^._id)] | order(number asc) { name, number,
