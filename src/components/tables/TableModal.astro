@@ -80,32 +80,3 @@ const { name = '' } = Astro.props
     </div>
   </template>
 </div>
-
-<!-- <script>
-//TODO: check if ResizeObserver is needed; if not, remove this code
-document.addEventListener('alpine:init', () => {
-    Alpine.data('tableModal', () => ({
-      open: false,
-      showButton: true,
-
-      init() {
-        this.$nextTick(() => {
-          this.checkOverflow()
-
-          const container = this.$refs.scrollContainer
-          if (!container) return
-
-          const observer = new ResizeObserver(() => this.checkOverflow())
-          observer.observe(container)
-        })
-      },
-
-      checkOverflow() {
-        const container = this.$refs.scrollContainer
-        if (!container) return
-
-        this.showButton = container.scrollWidth > container.clientWidth
-      },
-    }))
-  })
-</script> -->
