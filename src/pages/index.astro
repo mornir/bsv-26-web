@@ -1,19 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Infographic from '@/components/Infographic.astro'
-
 import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 import { getUnits } from '@/sanity/queries'
 
 const locale = getLocale(Astro.url) as LangKeys
-
 const t = useTranslations(locale)
 
 const units = await getUnits()
 
-const appliedCantons = 18
-const totalCantons = 26
 const totalInquiries = 24
 
 const getChapterOverlayOpacity = (lightness: number | null) => {
@@ -60,32 +56,6 @@ const infographics = [
 
         <div class="mt-8 flex flex-col gap-4 md:flex-row">
           {infographics.map((infographic) => <Infographic {...infographic} />)}
-
-          <aside
-            class="w-full rounded-md border border-white/30 bg-slate-950/30 py-5 px-7 text-white backdrop-blur-sm md:flex-1"
-            aria-label="Stand des Vollzugs"
-          >
-            <div>
-              <p
-                class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200"
-              >
-                Stand des Vollzugs
-              </p>
-              <p class="mt-2 text-3xl font-bold">
-                {appliedCantons}{' '}
-                <span class="text-lg font-normal text-slate-300">
-                  / {totalCantons} Kantone
-                </span>
-              </p>
-            </div>
-
-            <a
-              href="/vollzug/"
-              class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white"
-            >
-              Mehr zum Vollzug
-            </a>
-          </aside>
         </div>
       </div>
     </section>
