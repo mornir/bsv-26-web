@@ -4,6 +4,7 @@ import Infographic from '@/components/Infographic.astro'
 import { useTranslations, formatHeading } from '@/i18n/utils'
 import { getLocale } from 'astro-i18n-aut'
 import { getUnits } from '@/sanity/queries'
+import { Scale, MessagesSquare, BookCheck } from '@lucide/astro'
 
 const locale = getLocale(Astro.url) as LangKeys
 const t = useTranslations(locale)
@@ -22,16 +23,19 @@ const infographics = [
     number: 725,
     name: 'verbindliche\n Artikel',
     link: { name: 'Zum Artikelverzeichnis', href: '/art/' },
+    icon: Scale,
   },
   {
     number: totalInquiries,
     name: 'beantwortete\n Anfragen',
     link: { name: 'Zu den Anfragen', href: '/anfragen/' },
+    icon: MessagesSquare,
   },
   {
     number: 11,
     name: 'anerkannte\n Regelwerke Dritter',
     link: { name: 'Zur Liste', href: '/anfragen/' },
+    icon: BookCheck,
   },
 ]
 ---
