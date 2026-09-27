@@ -87,7 +87,7 @@ const infographics = [
                 >
                   <div class="flex justify-between items-start">
                     <div class="flex items-center gap-x-4 mb-4 ">
-                      <span class="rounded-sm  bg-neutral px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white">
+                      <span class="rounded-sm bg-neutral px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white">
                         {formatHeading(
                           { number: unit.number, type: 'title' },
                           locale
@@ -100,7 +100,7 @@ const infographics = [
                         <p class="text-slate-50">{unit.description}</p>
                       </div>
                     </div>
-                    <span class="rounded-full border  border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest">
+                    <span class="rounded-full border border-white/20 bg-white/5 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-white">
                       {unit.chapters.length} Kapitel
                     </span>
                   </div>
@@ -112,10 +112,7 @@ const infographics = [
                       <li>
                         <a
                           href={`/titel/${unit.number}/kapitel/${chapter.number}/`}
-                          class="cursor-pointer border border-white/10 p-4 transition-colors block h-full rounded-sm font-semibold backdrop-blur-sm"
-                          style={{
-                            backgroundColor: `rgb(255 255 255 / ${getChapterOverlayOpacity(unit.color.lightness)})`,
-                          }}
+                          class="cursor-pointer border border-white/20 bg-white/5 p-4 transition-colors block h-full rounded-sm font-semibold backdrop-blur-sm"
                         >
                           <div class="flex justify-between items-center text-slate-50">
                             <span class="text-xs uppercase font-mono ">
@@ -156,7 +153,7 @@ const infographics = [
                       locale
                     )}
                   </span>
-                  <span class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest text-slate-600">
+                  <span class="rounded-full border border-white/20 text-white px-2.5 py-1 text-xxs font-semibold uppercase tracking-widest bg-white/5">
                     Art. {unit.startArt} – {unit.endArt}
                   </span>
                 </div>
