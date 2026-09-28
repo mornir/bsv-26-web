@@ -4,6 +4,7 @@ import RichText from '@/components/portable-text/RichText.astro'
 import ArticlePrevNext from '@/components/ArticlePrevNext.astro'
 import MetadataPanel from '@/components/MetadataPanel.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import ArticlePrevNextTop from '@/components/ArticlePrevNextTop.astro'
 import { getArticles, getArticle } from '@/sanity/queries'
 import { getLocale } from 'astro-i18n-aut'
 import { formatHeading } from '@/i18n/utils'
@@ -78,7 +79,10 @@ const hierarchy = [
 
 <ArticleLayout title={'Art. ' + art.number}>
   <div class="max-w-3xl mx-auto p-12">
-    <Breadcrumbs articleNumber={art.number} crumbs={hierarchy} />
+    <div class="flex justify-between items-center mb-8">
+      <Breadcrumbs articleNumber={art.number} crumbs={hierarchy} />
+      <ArticlePrevNextTop {previousArticle} {nextArticle} />
+    </div>
     <article class="mt-4 font-serif text-law">
       <header class="mb-6">
         <h1>
