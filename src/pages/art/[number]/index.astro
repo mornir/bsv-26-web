@@ -77,12 +77,6 @@ const hierarchy = [
 ---
 
 <ArticleLayout title={'Art. ' + art.number}>
-  <MetadataPanel
-    slot="metadata-panel"
-    hierarchy={hierarchy}
-    articleNumber={art.number}
-  />
-
   <div class="max-w-3xl mx-auto p-12">
     <Breadcrumbs articleNumber={art.number} crumbs={hierarchy} />
     <article class="mt-4 font-serif text-law">
@@ -118,6 +112,12 @@ const hierarchy = [
       <ArticlePrevNext {previousArticle} {nextArticle} />
     </article>
   </div>
+
+  <MetadataPanel
+    slot="metadata-panel"
+    hierarchy={hierarchy}
+    articleNumber={art.number}
+  />
 </ArticleLayout>
 <!-- 
 <script is:inline>
