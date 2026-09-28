@@ -27,7 +27,7 @@ const t = useTranslations(locale)
         title={`${t('nav.prev')}: Art. ${previousArticle.number} ${previousArticle.name[locale]}`}
       >
         <ArrowLeft class="size-4 group-hover:-translate-x-0.5 transition-transform" />
-        <span>Art. {previousArticle.number}</span>
+        <span class="tabular-nums">Art. {previousArticle.number}</span>
       </a>
     )
   }
@@ -38,7 +38,7 @@ const t = useTranslations(locale)
         href={getLocaleUrl(`/art/${nextArticle.number}`, locale)}
         title={`${t('nav.next')}: Art. ${nextArticle.number} ${nextArticle.name[locale]}`}
       >
-        <span>Art. {nextArticle.number}</span>
+        <span class="tabular-nums">Art. {nextArticle.number}</span>
         <ArrowRight class="size-4 group-hover:translate-x-0.5 transition-transform" />
       </a>
     )
