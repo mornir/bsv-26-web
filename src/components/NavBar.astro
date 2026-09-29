@@ -5,7 +5,7 @@ import { useTranslations } from '@/i18n/utils'
 import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro'
 import ArticleJump from './ArticleJump.astro'
 import Logo from './vkf-black.svg'
-import { MessageCircle } from '@lucide/astro'
+import { MessagesSquare } from '@lucide/astro'
 
 import Link from './Link.astro'
 
@@ -45,15 +45,6 @@ const mainNav = [
     </nav>
 
     <div class="flex items-center gap-x-6 justify-self-end">
-      <div class="flex gap-x-4">
-        <div class="w-27 h-9">
-          <PagefindConfig />
-          <pagefind-modal-trigger compact></pagefind-modal-trigger>
-          <pagefind-modal></pagefind-modal>
-        </div>
-        <ArticleJump />
-      </div>
-
       <nav class="flex gap-4 font-headline text-xs font-bold">
         {
           Object.entries(locales).map(([lang]) => (
@@ -72,16 +63,25 @@ const mainNav = [
           ))
         }
       </nav>
+      <div class="flex gap-x-4">
+        <div class="w-27 h-9">
+          <PagefindConfig />
+          <pagefind-modal-trigger compact></pagefind-modal-trigger>
+          <pagefind-modal></pagefind-modal>
+        </div>
+        <ArticleJump />
+      </div>
+
       <button
         type="button"
         @click="chatOpen = !chatOpen"
         aria-label="Chat öffnen"
         aria-controls="sidebar-chat"
         :aria-expanded="chatOpen"
-        class="flex items-center gap-2 text-sm font-medium text-primary hover:text-outline transition-colors"
+        class="flex items-center gap-1 text-white hover:bg-accent transition-colors px-3 h-9 rounded cursor-pointer bg-neutral text-sm"
       >
-        <MessageCircle size={18} aria-hidden="true" />
-        <span>Chat</span>
+        <MessagesSquare class="size-4" />
+        <span>KI&nbsp;fragen</span>
       </button>
     </div>
   </div>
