@@ -10,7 +10,7 @@ import { X } from '@lucide/astro'
   aria-labelledby="sidebar-chat-title"
   class="chat-layout-sidebar sticky top-0 h-screen min-w-0 overflow-hidden border-l border-slate-200 bg-whit"
 >
-  <section class="flex h-full min-w-0 flex-col">
+  <div class="flex h-full min-w-0 flex-col">
     <header
       class="flex items-center justify-between border-b border-slate-200 px-5 py-2"
     >
@@ -27,5 +27,12 @@ import { X } from '@lucide/astro'
         <X size={20} aria-hidden="true" />
       </button>
     </header>
-  </section>
+
+    <div class="min-h-0 flex-1">
+      <iframe
+        src="https://bsv-trainer.vercel.app/iframe"
+        title="BSV Trainer"
+        class="h-full w-full border-0"></iframe>
+    </div>
+  </div>
 </aside>
