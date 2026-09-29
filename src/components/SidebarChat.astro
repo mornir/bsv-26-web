@@ -5,7 +5,6 @@ import { X } from '@lucide/astro'
 <aside
   :inert="!chatOpen"
   :aria-hidden="!chatOpen"
-  x-bind:style="chatOpen ? 'width: min(24rem, 90vw)' : 'width: 0'"
   id="sidebar-chat"
   aria-labelledby="sidebar-chat-title"
   class="chat-layout-sidebar sticky top-0 h-screen min-w-0 overflow-hidden border-l border-slate-200 bg-whit"
