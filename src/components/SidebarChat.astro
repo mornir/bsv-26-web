@@ -1,0 +1,31 @@
+---
+import { X } from '@lucide/astro'
+---
+
+<aside
+  :inert="!chatOpen"
+  :aria-hidden="!chatOpen"
+  x-bind:style="chatOpen ? 'width: min(24rem, 90vw)' : 'width: 0'"
+  id="sidebar-chat"
+  aria-labelledby="sidebar-chat-title"
+  class="chat-layout-sidebar sticky top-0 h-screen min-w-0 overflow-hidden border-l border-slate-200 bg-whit"
+>
+  <section class="flex h-full min-w-0 flex-col">
+    <header
+      class="flex items-center justify-between border-b border-slate-200 px-5 py-2"
+    >
+      <h2 id="sidebar-chat-title" class="font-headline text-lg font-semibold">
+        Chat
+      </h2>
+
+      <button
+        type="button"
+        @click="chatOpen = false"
+        aria-label="Chat schließen"
+        class="rounded-sm p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-primary"
+      >
+        <X size={20} aria-hidden="true" />
+      </button>
+    </header>
+  </section>
+</aside>

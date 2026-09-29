@@ -4,6 +4,7 @@ import '@/styles/global.css'
 import NavBar from '@/components/NavBar.astro'
 import Footer from '@/components/Footer.astro'
 import { Font } from 'astro:assets'
+import SidebarChat from '@/components/SidebarChat.astro'
 
 import { getLocale } from 'astro-i18n-aut'
 import { locales } from '@/i18n/ui'
@@ -29,9 +30,39 @@ const { title } = Astro.props
     <Font cssVariable="--font-newsreader" />
     <title>{title} – BSV</title>
   </head>
-  <body class="text-primary grid grid-rows-[auto_1fr_auto] min-h-screen">
-    <NavBar />
-    <slot />
-    <Footer />
+  <body
+    x-data="{ chatOpen: false }"
+    @keydown.escape.window="chatOpen = false"
+    class="text-primary min-h-screen"
+  >
+    <div class="w-full overflow-x-clip">
+      <div
+        class="chat-layout-track min-h-screen w-max flex"
+        x-bind:style="chatOpen ? 'transform: translateX(max(-24rem, -90vw))' : 'transform: translateX(0)'"
+      >
+        <div class="chat-layout-main grid min-w-0 grid-rows-[auto_1fr_auto]">
+          <NavBar />
+          <slot />
+          <Footer />
+        </div>
+        <SidebarChat />
+      </div>
+    </div>
   </body>
 </html>
+
+<style>
+  .chat-layout-track {
+    transition: transform 300ms ease-in-out;
+  }
+
+  .chat-layout-main {
+    flex: 0 0 100vw;
+  }
+
+  .chat-layout-sidebar {
+    width: 0;
+    flex: 0 0 auto;
+    transition: width 300ms ease-in-out;
+  }
+</style>
