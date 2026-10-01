@@ -27,6 +27,7 @@ const locale = getLocale(Astro.url) as LangKeys
       class="w-10 min-w-0 grow p-0 text-primary outline-none focus:ring-0"
       title="Artikelnummer von 1 bis 725"
       enterkeyhint="go"
+      @keydown.shift.enter.prevent="if ($el.form.reportValidity()) { window.location.href = `${$el.form.dataset.articleBaseUrl}${number}/vergleich/`}"
     />
     <button type="submit" class="py-2">
       <CornerDownRight
