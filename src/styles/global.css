@@ -37,6 +37,15 @@
     z-index: 10;
   }
 
+  /* disable stick disable sticky feature for Firefox because border color box-flex-group: 
+  https://bugzilla.mozilla.org/show_bug.cgi?id=1450584
+  */
+  @supports (-moz-appearance: none) {
+    .law-table thead {
+      position: static;
+    }
+  }
+
   .law-table thead tr:first-child {
     @apply bg-table;
   }
