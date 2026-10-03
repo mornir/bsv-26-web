@@ -39,7 +39,7 @@ const { title } = Astro.props
       class="chat-layout-track min-h-screen w-full"
       :class="{ 'chat-layout-open': chatOpen }"
     >
-      <div class="grid min-w-0 grid-rows-[auto_1fr_auto]">
+      <div class="grid grid-rows-[auto_1fr_auto] min-w-0">
         <NavBar />
         <slot />
         <Footer />
